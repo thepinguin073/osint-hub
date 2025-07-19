@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSINT Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🕵️ OSINT Hub</h1>
+  <div class="filter-dropdown-container" style="text-align:center; margin: 20px 0; z-index: 10000;">
+    <select id="categoryFilter">
+      <option value="usernames">Usernames</option>
+      <option value="usefulsoftware">Useful Software</option>
+      <option value="urls">URLs</option>
+      <option value="transportation">Transportation</option>
+      <option value="socialmedia">Social Media</option>
+      <option value="searchengines">Search Engines</option>
+      <option value="phones">Phone Numbers</option>
+      <option value="names">Names</option>
+      <option value="military">Military</option>
+      <option value="ip">IP Addresses</option>
+      <option value="images">Images</option>
+      <option value="geolocation">Geolocation & Maps</option>
+      <option value="email">Email Addresses</option>
+      <option value="domains">Domains</option>
+      <option value="lookup">Data Lookup</option>
+      <option value="crypto">Cryptocurrencies</option>
+      <option value="companies">Companies</option>
+      <option value="darknet">Darknet-oriented tool</option>
+      <option value="frameworks">Others OSINT frameworks</option>
+    </select>
+  </div>
+
+  <main>
+    <section data-category="usernames">
+      <h2>🏷 Usernames</h2>
+      <i>Searching for information using a pseudonym</i>
+      <ul>
+        <li><a href="https://whatsmyname.app/" target="_blank">WhatsMyName</a></li>
+        <li><a href="https://namecheckup.com/" target="_blank">NameCheckup</a></li>
+        <li><a href="https://usersearch.org/" target="_blank">UserSearch</a></li>
+        <li><a href="https://checkusernames.com/" target="_blank">CheckUsernames</a></li>
+        <li><a href="https://www.namecheckr.com/" target="_blank">Namecheckr</a></li>
+        <li><a href="https://fr.linkedin.com/" target="_blank">LinkedIn FR (FR)</a></li>
+        <li><a href="https://www.rtl.be/info/" target="_blank">RTL User ID (BE)</a></li>
+      </ul>
+    </section>
+
+    <section data-category="usefulsoftware">
+      <h2>🔧 Useful Software</h2>
+      <i>Useful software tools for OSINT</i>
+      <ul>
+        <li><a href="https://github.com/smicallef/spiderfoot" target="_blank">Spiderfoot</a></li>
+        <li><a href="https://github.com/lanmaster53/recon-ng" target="_blank">Recon-ng</a></li>
+        <li><a href="https://github.com/laramies/theHarvester" target="_blank">theHarvester</a></li>
+        <li><a href="https://www.maltego.com/" target="_blank">Maltego</a></li>
+        <li><a href="https://1trace.space/" target="_blank">1trace</a></li>
+        <li><a href="https://github.com/megadose/holehe" target="_blank">Holehe</a></li>
+        <li><a href="https://osint.link/" target="_blank">OSINT.link</a></li>
+        <li><a href="https://tools.tracelabs.org/" target="_blank">Trace Labs Tools</a></li>
+        <li><a href="https://start.me/p/DPYpmz/the-intel-techniques-online-osint-tools" target="_blank">IntelTechniques Tools</a></li>
+        <li><a href="https://github.com/jivoi/awesome-osint" target="_blank">Awesome OSINT (GitHub)</a></li>
+        <li><a href="https://www.service-public.fr/" target="_blank">France Service Public</a></li>
+        <li><a href="https://www.belgium.be/fr" target="_blank">Belgium.be</a></li>
+        <li><a href="https://justice.belgium.be/fr/service_public_federal_justice/organisation/moniteur_belge" target="_blank">Le Moniteur (BE)</a></li>        
+      </ul>
+    </section>
+
+    <section data-category="urls">
+      <h2>🔗 URLs</h2>
+      <i>Parsing, transforming or extracting from URLs</i>
+      <ul>
+        <li><a href="https://urlscan.io/" target="_blank">urlscan.io</a></li>
+        <li><a href="https://unshorten.it/" target="_blank">Unshorten.it</a></li>
+        <li><a href="https://checkphish.ai/" target="_blank">Checkphish</a></li>
+        <li><a href="https://www.virustotal.com/" target="_blank">VirusTotal</a></li>
+        <li><a href="https://www.talosintelligence.com/" target="_blank">CISCO TALOS Intel</a></li>
+        <li><a href="https://www.phishtool.com/" target="_blank">PhishTool</a></li>
+        <li><a href="https://metadefender.opswat.com/" target="_blank">Opswat Metadefender</a></li>
+        <li><a href="https://www.cert.be/fr" target="_blank">CERT (BE)</a></li>
+      </ul>
+    </section>
+
+    <section data-category="transportation">
+      <h2>🚂 Transportation</h2>
+      <i>Tracking of vehicles, plates or routes</i>
+      <ul>
+        <li><a href="https://flightaware.com/" target="_blank">FlightAware</a></li>
+        <li><a href="https://www.flightradar24.com/" target="_blank">FlightRadar24</a></li>
+        <li><a href="https://marinetraffic.com/" target="_blank">MarineTraffic</a></li>
+        <li><a href="https://raildar.fr/" target="_blank">Raildar (FR)</a></li>
+        <li><a href="https://www.belgiantrain.be/fr/travel-info/prepare-for-your-journey/leaflets/global-map-train-belgium" target="_blank">SNCB (BE)</a></li>
+        <li><a href="https://data.delijn.be/" target="_blank">De Lijn API (BE)</a></li>
+        <li><a href="https://openrailwaymap.org/" target="_blank">Open railway map</a></li>
+        <li><a href="https://www.map.signalbox.io/" target="_blank">UK Train Map</a></li>
+        <li><a href="https://treinenradar.nl/" target="_blank">NL Train Map</a></li>
+        <li><a href="https://www.opentraintimes.com/" target="_blank">UK Open Train Times</a></li>
+      </ul>
+    </section>
+
+    <section data-category="socialmedia">
+      <h2>👥 Social Media</h2>
+      <i>Investigation of social profiles and activities</i>
+      <ul>
+        <li><a href="https://social-searcher.com/" target="_blank">Social Searcher</a></li>
+        <li><a href="https://intelx.io/tools?tab=social" target="_blank">IntelligenceX Social</a></li>
+        <li><a href="https://github.com/soxoj/maigret" target="_blank">Maigret</a></li>
+        <li><a href="https://www.facebook.com/directory/people/" target="_blank">Facebook Directory</a></li>
+        <li><a href="https://www.sowsearch.info/" target="_blank">SOW Social</a></li>
+        <li><a href="https://reseauxsociaux.fr/" target="_blank">ReseauxSociaux.fr</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="searchengines">
+      <h2 class="text-xl font-bold mb-2">Search engines</h2>
+      <i>Specialized search engines for OSINT</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://www.google.com" target="_blank">Google</a></li>
+        <li><a href="https://www.exploit-db.com/google-hacking-database" target="_blank">Google Dorking Cheatsheet</a></li>
+        <li><a href="https://github.com/SalehLardhi/google-dorks-toolkit" target="_blank">Google Dorking automated tool</a></li>
+        <li><a href="https://dorksearch.com/" target="_blank">DorkSearch</a></li>
+        <li><a href="https://www.bing.com" target="_blank">Bing</a></li>
+        <li><a href="https://www.duckduckgo.com" target="_blank">DuckDuckGo</a></li>
+        <li><a href="https://yandex.com" target="_blank">Yandex</a></li>
+        <li><a href="https://www.qwant.com" target="_blank">Qwant (EU)</a></li>
+        <li><a href="https://www.exalead.com/search/" target="_blank">Exalead (FR)</a></li>
+        <li><a href="https://www.startpage.com" target="_blank">Startpage</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="phones">
+      <h2 class="text-xl font-bold mb-2">Search by phone number</h2>
+      <i>Search and validate phone numbers</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://www.truecaller.com/" target="_blank">Truecaller</a></li>
+        <li><a href="https://www.numverify.com/" target="_blank">NumVerify</a></li>
+        <li><a href="https://www.whocalled.us/" target="_blank">WhoCalled.us</a></li>
+        <li><a href="https://www.pagesjaunes.fr/" target="_blank">Pages Jaunes (FR)</a></li>
+        <li><a href="https://www.infobel.com/en/belgium" target="_blank">Infobel BE</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="names">
+      <h2 class="text-xl font-bold mb-2">Search by name</h2>
+      <i>Cross-referencing and tracing from first names or last names</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://www.familysearch.org/" target="_blank">FamilySearch</a></li>
+        <li><a href="https://www.geneanet.org/" target="_blank">Geneanet (FR)</a></li>
+        <li><a href="https://www.nationalarchives.gov.uk/" target="_blank">National Archives UK</a></li>
+        <li><a href="https://www.filae.com/" target="_blank">Filae (FR)</a></li>
+        <li><a href="https://www.arch.be/index.php" target="_blank">Archives nationales (BE)</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="military">
+      <h2 class="text-xl font-bold mb-2">Military information</h2>
+      <i>Sources, data or leaks related to the military environment</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://www.globalsecurity.org/" target="_blank">GlobalSecurity.org</a></li>
+        <li><a href="https://www.sipri.org/" target="_blank">SIPRI (International)</a></li>
+        <li><a href="https://www.defense.gouv.fr/" target="_blank">Ministère des Armées (FR)</a></li>
+        <li><a href="https://www.mil.be/fr" target="_blank">Défense (BE)</a></li>
+        <li><a href="https://www.army.mil/" target="_blank">US Army Official</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="ip">
+      <h2 class="text-xl font-bold mb-2">IP addresses</h2>
+      <i>Enrichment or tracking from an IP address</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://www.abuseipdb.com/" target="_blank">AbuseIPDB</a></li>
+        <li><a href="https://ipinfo.io/" target="_blank">IPinfo</a></li>
+        <li><a href="https://bgp.he.net/" target="_blank">BGP.he.net</a></li>
+        <li><a href="https://www.cert.be/" target="_blank">CERT.be (BE)</a></li>
+        <li><a href="https://www.afnic.fr/" target="_blank">AFNIC (FR)</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="images">
+      <h2 class="text-xl font-bold mb-2">Image search</h2>
+      <i>Reverse search or photo/image analysis</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://tineye.com/" target="_blank">TinEye</a></li>
+        <li><a href="https://images.google.com/" target="_blank">Google Images</a></li>
+        <li><a href="https://yandex.com/images/" target="_blank">Yandex Images</a></li>
+        <li><a href="https://www.pixsy.com/" target="_blank">Pixsy (recherche droit d'auteur)</a></li>
+        <li><a href="https://profileimageintel.com/" target="_blank">ProfileImageIntel</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="geolocation">
+      <h2 class="text-xl font-bold mb-2">Geolocation & maps</h2>
+      <i>Location tools, GPS, maps and coordinates</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a></li>
+        <li><a href="https://www.geoportail.gouv.fr/" target="_blank">Géoportail (FR)</a></li>
+        <li><a href="https://geopunt.be/" target="_blank">Geopunt (BE)</a></li>
+        <li><a href="https://www.google.com/maps" target="_blank">Google Maps</a></li>
+        <li><a href="https://www.waze.com/" target="_blank">Waze</a></li>
+        <li><a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a></li>
+        <li><a href="https://map.malfrats.industries/" target="_blank">Malfrats Map</a></li>
+        <li><a href="https://geoportail.gouv.fr/" target="_blank">Geoportail (FR)</a></li>
+        <li><a href="https://geopunt.be/" target="_blank">Geopunt (BE)</a></li>
+        <li><a href="https://www.cadastre.gouv.fr/" target="_blank">Cadastre FR</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="email">
+      <h2 class="text-xl font-bold mb-2">Recherche d'adresses e-mail</h2>
+      <i>Verification or tracing of email addresses</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://hunter.io/" target="_blank">Hunter.io</a></li>
+        <li><a href="https://mailtester.com/" target="_blank">MailTester</a></li>
+        <li><a href="https://emailrep.io/" target="_blank">EmailRep.io</a></li>
+        <li><a href="https://www.pipl.com/" target="_blank">Pipl</a></li>
+        <li><a href="https://www.stopforumspam.com/" target="_blank">StopForumSpam</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="domains">
+      <h2 class="text-xl font-bold mb-2">Domaines</h2>
+      <i>Domain resolution, whois, history or reputation</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://whois.domaintools.com/" target="_blank">DomainTools WHOIS</a></li>
+        <li><a href="https://www.nic.fr/" target="_blank">AFNIC WHOIS (France)</a></li>
+        <li><a href="https://www.dnsstuff.com/" target="_blank">DNSstuff</a></li>
+        <li><a href="https://www.dnslytics.com/" target="_blank">DNSlytics</a></li>
+        <li><a href="https://www.dnschecker.org/" target="_blank">DNS Checker</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="lookup">
+      <h2 class="text-xl font-bold mb-2">Data Lookup</h2>
+      <i>Access to open databases or leaks</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://intelx.io/" target="_blank">IntelX Search</a></li>
+        <li><a href="https://www.spyse.com/" target="_blank">Spyse (OSINT Cyber Data)</a></li>
+        <li><a href="https://www.shodan.io/" target="_blank">Shodan (IoT & Infrastructure)</a></li>
+        <li><a href="https://www.censys.io/" target="_blank">Censys (Internet-wide Scan Data)</a></li>
+        <li><a href="https://www.cert.be/fr" target="_blank">CERT Belgique</a></li>
+        <li><a href="https://www.ssi.gouv.fr/" target="_blank">ANSSI (France)</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="crypto">
+      <h2 class="text-xl font-bold mb-2">Cryptocurrencies</h2>
+      <i>Crypto transaction tracking and tracing</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://www.blockchain.com/explorer" target="_blank">Blockchain.com Explorer</a></li>
+        <li><a href="https://www.blockchair.com/" target="_blank">Blockchair (Multi-chain Explorer)</a></li>
+        <li><a href="https://bitquery.io/" target="_blank">Bitquery (Blockchain Analytics)</a></li>
+        <li><a href="https://www.chainalysis.com/" target="_blank">Chainalysis (Investigation Tools)</a></li>
+        <li><a href="https://www.nansen.ai/" target="_blank">Nansen.ai (On-chain Analytics)</a></li>
+        <li><a href="https://www.chain.link/" target="_blank">Chainlink (Oracles & Data Feeds)</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="companies">
+      <h2 class="text-xl font-bold mb-2">Entreprises</h2>
+      <i>Investigation of companies or commercial structures</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://www.opencorporates.com/" target="_blank">OpenCorporates</a></li>
+        <li><a href="https://www.societe.com/" target="_blank">Societe.com (France)</a></li>
+        <li><a href="https://kbopub.economie.fgov.be/kbopub/zoekwoordenform.html" target="_blank">BCE (Belgique)</a></li>
+        <li><a href="https://www.dnb.com/" target="_blank">Dun & Bradstreet</a></li>
+        <li><a href="https://www.bloomberg.com/professional/" target="_blank">Bloomberg Professional</a></li>
+        <li><a href="https://www.bvdinfo.com/" target="_blank">Bureau van Dijk</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="darknet">
+      <h2 class="text-xl font-bold mb-2">🧅 Darknet-oriented tool</h2>
+      <i>Darknet tool for automated hidden service exploration</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://ahmia.fi/" target="_blank">Ahmia</a></li>
+        <li><a href="https://github.com/projectdiscovery/katana" target="_blank">Katana</a></li>
+        <li><a href="https://github.com/josh0xA/darkdump" target="_blank">Darkdump</a></li>
+        <li><a href="https://github.com/s-rah/onionscan" target="_blank">OnionScan</a></li>
+        <li><a href="https://github.com/andreyglauzer/VigilantOnion" target="_blank">VigilantOnion</a></li>
+        <li><a href="https://github.com/apurvsinghgautam/dark-web-osint-tools" target="_blank">Dark web OSINT Tools</a></li>
+        <li><a href="https://github.com/DedSecInside/TorBot" target="_blank">TorBot</a></li>
+      </ul>
+    </section>
+
+    <section class="section-card" data-category="frameworks">
+      <h2 class="text-xl font-bold mb-2">🗂️ Others OSINT frameworks</h2>
+      <i>Access to global or organized OSINT portals</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework</a></li>
+        <li><a href="https://map.malfrats.industries/" target="_blank">Malfrats OSINT Map</a></li>
+        <li><a href="https://start.me/p/DPYpmz/the-intel-techniques-online-osint-tools" target="_blank">Intel Techniques OSINT Tools</a></li>
+        <li><a href="https://www.tracelabs.org/osint-tools" target="_blank">Trace Labs OSINT Tools</a></li>
+        <li><a href="https://start.me/p/b5Pzj7/osint" target="_blank">Start.me OSINT Links</a></li>
+        <li><a href="https://www.osintdojo.com/" target="_blank">OSINT Dojo</a></li>
+        <li><a href="https://github.com/UjsGit/Notes-on-OSINT" target="_blank">OSINT Notes</a></li>
+        <li><a href="https://github.com/DataSploit/datasploit" target="_blank">DataSploit</a></li>
+        <li><a href="https://www.trackawesomelist.com/jivoi/awesome-osint/" target="_blank">Awesome OSINT</a></li>
+      </ul>
+    </section>
+    <div id="img"><div>
+  </main>
+
+  <script>
+    const selectFilter = document.getElementById('categoryFilter');
+    const sections = document.querySelectorAll('section');
+
+    selectFilter.addEventListener('change', () => {
+      const filter = selectFilter.value;
+      sections.forEach(section => {
+        if (filter === 'all' || section.getAttribute('data-category') === filter) {
+          section.classList.remove('hidden');
+        } else {
+          section.classList.add('hidden');
+        }
+      });
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+      const filter = selectFilter.value;
+      sections.forEach(section => {
+        if (filter === 'all' || section.getAttribute('data-category') === filter) {
+          section.classList.remove('hidden');
+        } else {
+          section.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
