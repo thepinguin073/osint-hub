@@ -6,20 +6,73 @@
       color: #ffffff;
       font-family: 'Fira Code', monospace;
       display: flex;
-      flex-direction: column; /* colonne */
+      flex-direction: column;
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
     }
 
+    .righteous-regular {
+      font-family: "Righteous", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    #warningModal {
+      position: fixed;
+      z-index: 10000;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(13, 12, 115, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .modal-content {
+      background-color: #111133;
+      border: 2px solid yellow;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      max-width: 650px;
+      box-shadow: 0 0 20px yellow;
+      margin-top: 160px;
+    }
+
+    strong {
+      font-weight: 800;
+      color: #FFD700;
+      text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
+    }
+
+
     h1 {
       z-index: 10000;
-      color: #ffe600;
+      color: #FFD700;
+      text-shadow:         
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #ffea00,
+        0 0 82px #ffea00,
+        0 0 92px #ffea00;
       text-align: center;
       padding: 20px 0;
-      text-shadow: 0 0 10px #ffe600;
+      margin-bottom: 0;
       flex-shrink: 0;
       opacity: 1;
+      font-size: 5rem;
+    }
+
+    #subtitle {
+      z-index: 10000;
+      text-align: center;
+      padding-top: 0;
+      margin: 0 0 2.5rem 0;
     }
 
     #categoryFilter {
@@ -35,17 +88,23 @@
     }
 
     .filter-dropdown-container {
-      position: sticky;
-      top: 0;
-      z-index: 10000;
+      opacity: 0.8;
+      position: fixed;
+      top: 3rem;
+      right: 3rem;
+      z-index: 10001 !important;
       text-align: center;
       padding: 10px 0;
       flex-shrink: 0;
     }
 
-    /* 4. Select stylé */
     .filter-dropdown-container select {
+      appearance: none;       
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      pointer-events: auto !important;
       background-color: #1b263b;
+      opacity: 0.8;
       color: white;
       border: none;
       padding: 10px 15px;
@@ -105,7 +164,12 @@
       background: #3E5359;
       background: linear-gradient(90deg, rgba(62, 83, 89, 0.85) 0%, rgba(62, 83, 89, 0.85) 100%);
       border-radius: 10px;
-      box-shadow: 0 0 10px #ffe600aa;
+      box-shadow:         
+        0 0 7px #fff,
+        0 0 10px #fff,
+        0 0 21px #fff,
+        0 0 42px #ffea00,
+        0 0 82px #ffea00;
       transform: translate(-50%, -50%);
       transition: opacity 0.3s ease;
     }
@@ -147,12 +211,6 @@
       background-color: #000000;
       transition: all 0.5s ease;
     }
-
-    .filter-dropdown-container {
-      z-index: 2000;
-    }
-
-
 
     .category-description {
       font-size: 0.95rem;

@@ -1,15 +1,37 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OSINT Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🕵️ OSINT Hub</h1>
-  <div class="filter-dropdown-container" style="text-align:center; margin: 20px 0; z-index: 10000;">
+  <div id="warningModal">
+    <div class="modal-content">
+      <h2>⚠️ Legal Disclaimer and Ethical Notice ⚠️</h2>
+      <p>
+Some links provided on this website point to tools or databases that may be <strong>considered sensitive, intrusive</strong>, or even <strong>illegal depending on your jurisdiction. </strong>These tools will be marked with this icon: ⚠️
+<br><br>
+Their usage could lead to legal implications if misused or if local laws prohibit certain forms of data gathering, access to hidden services, or investigation techniques. Always consult your local legislation before using any of these resources.
+<br><br>
+This project is a community effort, built on the outstanding work of dozens of open-source contributors, researchers, developers, and investigators who made their tools publicly available. We sincerely thank all of them for helping push the OSINT community forward.
+<br><br>
+<strong>Please remember: Stay legal, ethical, and respectful of others privacy at all times.</strong>
+<br><br>
+Enjoy exploring, responsibly. 🕵️‍♂️</p>
+      <p>Loading in <span id="countdown">10</span> seconds…</p>
+    </div>
+  </div>
+
+
+  <h1 class="righteous-regular">OSINT hub</h1>
+  <i id="subtitle">The best tool to gather data !</i>
+  <div class="filter-dropdown-container" style="text-align:center; margin: 20px 0;">
     <select id="categoryFilter">
       <option value="usernames">Usernames</option>
       <option value="usefulsoftware">Useful Software</option>
@@ -23,6 +45,7 @@
       <option value="ip">IP Addresses</option>
       <option value="images">Images</option>
       <option value="geolocation">Geolocation & Maps</option>
+      <option value="leak">Data Leak</option>
       <option value="email">Email Addresses</option>
       <option value="domains">Domains</option>
       <option value="lookup">Data Lookup</option>
@@ -130,6 +153,24 @@
       </ul>
     </section>
 
+    <section class="section-card" data-category="leak">
+      <h2 class="text-xl font-bold mb-2">Data Leak</h2>
+      <i>Public breaches, dumps, leaks, and compromised data</i>
+      <ul class="list-disc ml-6">
+        <li><a href="https://wikileaks.org/" target="_blank">Wikileaks ⚠️</a></li>
+        <li><a href="https://ddosecrets.com/" target="_blank">DDOSecrets ⚠️</a></li>
+        <li><a href="https://cryptome.org/" target="_blank">Cryptome ⚠️</a></li>
+        <li><a href="https://weakpass.com/" target="_blank">WeakPass</a></li>
+        <li><a href="https://github.com/danielmiessler/SecLists" target="_blank">SecList</a></li>
+        <li><a href="https://github.com/berzerk0/Probable-Wordlists" target="_blank">Probable Wordlists</a></li>
+        <li><a href="https://leak-lookup.com/" target="_blank">Leak Lookup ⚠️</a></li>
+        <li><a href="https://enlacehacktivista.org/" target="_blank">Enlace Hacktivista ⚠️</a></li>
+        <li><a href="https://leakcheck.io/" target="_blank">Leak Check ⚠️</a></li>
+        <li><a href="https://databreach.com" target="_blank">Data Breach Website ⚠️</a></li>
+        <li><a href="https://github.com/doormanBreach/FreeDatabreaches" target="_blank">FreeDatabreaches</a></li>
+      </ul>
+    </section>    
+
     <section class="section-card" data-category="phones">
       <h2 class="text-xl font-bold mb-2">Search by phone number</h2>
       <i>Search and validate phone numbers</i>
@@ -156,7 +197,7 @@
 
     <section class="section-card" data-category="military">
       <h2 class="text-xl font-bold mb-2">Military information</h2>
-      <i>Sources, data or leaks related to the military environment</i>
+      <i>Sources or data related to the military environment</i>
       <ul class="list-disc ml-6">
         <li><a href="https://www.globalsecurity.org/" target="_blank">GlobalSecurity.org</a></li>
         <li><a href="https://www.sipri.org/" target="_blank">SIPRI (International)</a></li>
@@ -175,6 +216,7 @@
         <li><a href="https://bgp.he.net/" target="_blank">BGP.he.net</a></li>
         <li><a href="https://www.cert.be/" target="_blank">CERT.be (BE)</a></li>
         <li><a href="https://www.afnic.fr/" target="_blank">AFNIC (FR)</a></li>
+        <li><a href="https://iplogger.org/" target="_blank">IP Logger ⚠️</a></li>
       </ul>
     </section>
 
@@ -213,10 +255,10 @@
       <ul class="list-disc ml-6">
         <li><a href="https://hunter.io/" target="_blank">Hunter.io</a></li>
         <li><a href="https://haveibeenpwned.com/" target="_blank">HIBP</a></li>
-        <li><a href="https://dehashed.com/" target="_blank">Dehashed</a></li>
+        <li><a href="https://dehashed.com/" target="_blank">Dehashed ⚠️</a></li>
         <li><a href="https://mailtester.com/" target="_blank">MailTester</a></li>
         <li><a href="https://emailrep.io/" target="_blank">EmailRep.io</a></li>
-        <li><a href="https://www.pipl.com/" target="_blank">Pipl</a></li>
+        <li><a href="https://www.pipl.com/" target="_blank">Pipl ⚠️</a></li>
         <li><a href="https://www.stopforumspam.com/" target="_blank">StopForumSpam</a></li>
       </ul>
     </section>
@@ -236,7 +278,7 @@
 
     <section class="section-card" data-category="lookup">
       <h2 class="text-xl font-bold mb-2">Data Lookup</h2>
-      <i>Access to open databases or leaks</i>
+      <i>Access to open databases</i>
       <ul class="list-disc ml-6">
         <li><a href="https://intelx.io/" target="_blank">IntelX Search</a></li>
         <li><a href="https://www.spyse.com/" target="_blank">Spyse (OSINT Cyber Data)</a></li>
@@ -275,15 +317,15 @@
 
     <section class="section-card" data-category="darknet">
       <h2 class="text-xl font-bold mb-2">🧅 Darknet-oriented tool</h2>
-      <i>Darknet tool for automated hidden service exploration</i>
+      <i>Darknet hidden service automation tool</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://ahmia.fi/" target="_blank">Ahmia</a></li>
-        <li><a href="https://github.com/projectdiscovery/katana" target="_blank">Katana</a></li>
-        <li><a href="https://github.com/josh0xA/darkdump" target="_blank">Darkdump</a></li>
-        <li><a href="https://github.com/s-rah/onionscan" target="_blank">OnionScan</a></li>
-        <li><a href="https://github.com/andreyglauzer/VigilantOnion" target="_blank">VigilantOnion</a></li>
-        <li><a href="https://github.com/apurvsinghgautam/dark-web-osint-tools" target="_blank">Dark web OSINT Tools</a></li>
-        <li><a href="https://github.com/DedSecInside/TorBot" target="_blank">TorBot</a></li>
+        <li><a href="https://ahmia.fi/" target="_blank">Ahmia ⚠️</a></li>
+        <li><a href="https://github.com/projectdiscovery/katana" target="_blank">Katana ⚠️</a></li>
+        <li><a href="https://github.com/josh0xA/darkdump" target="_blank">Darkdump ⚠️</a></li>
+        <li><a href="https://github.com/s-rah/onionscan" target="_blank">OnionScan ⚠️</a></li>
+        <li><a href="https://github.com/andreyglauzer/VigilantOnion" target="_blank">VigilantOnion ⚠️</a></li>
+        <li><a href="https://github.com/apurvsinghgautam/dark-web-osint-tools" target="_blank">Dark web OSINT Tools ⚠️</a></li>
+        <li><a href="https://github.com/DedSecInside/TorBot" target="_blank">TorBot ⚠️</a></li>
       </ul>
     </section>
 
@@ -306,8 +348,22 @@
   </main>
 
   <script>
+    let countdown = 10;
+    const countdownEl = document.getElementById('countdown');
+    const modal = document.getElementById('warningModal');
+
     const selectFilter = document.getElementById('categoryFilter');
     const sections = document.querySelectorAll('section');
+
+    const timer = setInterval(() => {
+      countdown--;
+      countdownEl.textContent = countdown;
+      if (countdown === 0) {
+        clearInterval(timer);
+        modal.style.display = 'none';
+        modal.style.zIndex = '-10';
+      }
+    }, 1000);
 
     selectFilter.addEventListener('change', () => {
       const filter = selectFilter.value;
