@@ -101,3 +101,26 @@ btn.addEventListener("click", async () => {
   }
 });
 
+
+//No smartphone display
+const width = window.innerWidth;
+const height = window.innerHeight;
+const html = document.querySelector("html");
+
+window.addEventListener("load", () => {
+  if (width <= 720 && height <= 600) {
+    html.innerHTML = `
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+          <h1 class="righteous-regular">OSINT hub</h1>
+          <h1 style="font-size: 2.5rem;">Please use this tool on a laptop...</h1>
+          <div id="img"><div>
+        </body>
+      </html>
+    `;
+  }
+});

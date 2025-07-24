@@ -90,12 +90,14 @@
     .filter-dropdown-container {
       opacity: 1;
       position: fixed;
-      top: 3rem;
+      top: 1rem;
       right: 3rem;
       z-index: 10001 !important;
       text-align: center;
       padding: 10px 0;
       flex-shrink: 0;
+      text-align:center;
+      margin: 20px 0;
     }
 
     .filter-dropdown-container select {
@@ -241,8 +243,8 @@
       min-width: 280px;
       height: auto;
       display: flex;
-      justify-content: center; /* centre horizontal */
-      align-items: center;     /* centre vertical */
+      justify-content: center;
+      align-items: center;
       position: relative;
       margin: 20px auto;
     }
