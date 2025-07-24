@@ -16,7 +16,8 @@ It is designed for OSINT practitioners looking for a simple, comprehensive, and 
 - Clean and simple interface with dynamic category filtering  
 - Collection of tools and databases tailored to French, Belgian, and broader European contexts  
 - Covers multiple OSINT domains: usernames, search engines, transportation, military, cryptocurrencies, data leaks, and more  
-- 100% frontend solution: no server or backend setup required, just open the HTML file  
+- 100% frontend solution: no server or backend setup required, just open the HTML file
+- Built-in dead link checker: verify link status 
 
 ---
 
