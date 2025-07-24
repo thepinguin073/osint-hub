@@ -1,5 +1,5 @@
 //Warning display
-let countdown = 1;
+let countdown = 10;
 const countdownEl = document.getElementById('countdown');
 const modal = document.getElementById('warningModal');
 
