@@ -57,6 +57,11 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
     </select>
   </div>
 
+  <div id="linkChecker">
+    <button class="Btn">Verify Link</button>
+    <div id="displayLink"></div>
+  </div>
+
   <main>
     <section data-category="usernames">
       <h2>🏷 Usernames</h2>
@@ -349,44 +354,6 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
     <div id="img"><div>
   </main>
 
-  <script>
-    let countdown = 10;
-    const countdownEl = document.getElementById('countdown');
-    const modal = document.getElementById('warningModal');
-
-    const selectFilter = document.getElementById('categoryFilter');
-    const sections = document.querySelectorAll('section');
-
-    const timer = setInterval(() => {
-      countdown--;
-      countdownEl.textContent = countdown;
-      if (countdown === 0) {
-        clearInterval(timer);
-        modal.style.display = 'none';
-        modal.style.zIndex = '-10';
-      }
-    }, 1000);
-
-    selectFilter.addEventListener('change', () => {
-      const filter = selectFilter.value;
-      sections.forEach(section => {
-        if (filter === 'all' || section.getAttribute('data-category') === filter) {
-          section.classList.remove('hidden');
-        } else {
-          section.classList.add('hidden');
-        }
-      });
-    });
-    window.addEventListener('DOMContentLoaded', () => {
-      const filter = selectFilter.value;
-      sections.forEach(section => {
-        if (filter === 'all' || section.getAttribute('data-category') === filter) {
-          section.classList.remove('hidden');
-        } else {
-          section.classList.add('hidden');
-        }
-      });
-    });
-  </script>
+  <script src="./script.js"></script>
 </body>
 </html>
