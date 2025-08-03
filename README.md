@@ -23,8 +23,22 @@ It is designed for OSINT practitioners looking for a simple, comprehensive, and 
 
 ## Usage
 
-To start, simply open the `index.html` file in any modern browser (Chrome, Firefox, Edge, etc.).  
-No installation or additional configuration is needed.
+**Download the files:**
+
+  - Click the green <> Code button.
+
+  - Then click "Download ZIP".
+
+  - Once the .zip file is downloaded, right-click on it and select "Extract All..." (or use a tool like WinRAR or 7-Zip).
+
+**Open the web page:**
+
+  - Inside the extracted folder, double-click on the file index.html.
+
+  - This will open the OSINT hub directly in your browser (Chrome, Firefox, Edge, etc.).
+
+
+**No installation or technical knowledge is required. Everything works locally, without any server connection.**
 
 ---
 
