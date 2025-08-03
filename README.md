@@ -23,6 +23,9 @@ It is designed for OSINT practitioners looking for a simple, comprehensive, and 
 
 ## Usage
 
+**Go to the GitHub repository page:**
+  - https://github.com/ThePinguin073/osint-hub
+
 **Download the files:**
 
   - Click the green <> Code button.
