@@ -14,34 +14,47 @@ It is designed for OSINT practitioners looking for a simple, comprehensive, and 
 ## Features
 
 - Clean and simple interface with dynamic category filtering  
-- Collection of tools and databases tailored to French, Belgian, and broader European contexts  
-- Covers multiple OSINT domains: usernames, search engines, transportation, military, cryptocurrencies, data leaks, and more  
-- 100% frontend solution: no server or backend setup required, just open the HTML file
-- Built-in dead link checker: verify link status 
+- **Advanced multi-filters system** enabling simultaneous filtering by:  
+  - Free vs paid tools  
+  - Source provenance (e.g., GitHub, other repositories)  
+  - Geographic origin (country)  
+  - Flagged/verified status  
+  - Full-text search on tool names  
+- Real-time update of visible results count  
+- Intuitive toggles and dropdown selects combined for granular searches  
+- Efficient rendering optimized for hundreds of links without UI lag  
+- Built-in dead link checker to verify link availability  
+- Responsive design with fallback for smaller screens  
+- 100% frontend solution: no backend or server required  
 
 ---
 
 ## Usage
 
-**Go to the GitHub repository page:**
-  - https://github.com/ThePinguin073/osint-hub
+**Go to the GitHub repository page:**  
+- https://github.com/ThePinguin073/osint-hub
 
-**Download the files:**
+**Download the files:**  
+- Click the green <> Code button.  
+- Then click "Download ZIP".  
+- Extract the ZIP archive (e.g., right-click → Extract All).
 
-  - Click the green <> Code button.
+**Open the web page:**  
+- Inside the extracted folder, open `index.html` with your browser (Chrome, Firefox, Edge, etc.).  
 
-  - Then click "Download ZIP".
+**No installation or technical knowledge required. Everything works locally, offline, with no server connection.**
 
-  - Once the .zip file is downloaded, right-click on it and select "Extract All..." (or use a tool like WinRAR or 7-Zip).
+---
 
-**Open the web page:**
+## Changelog
 
-  - Inside the extracted folder, double-click on the file index.html.
-
-  - This will open the OSINT hub directly in your browser (Chrome, Firefox, Edge, etc.).
-
-
-**No installation or technical knowledge is required. Everything works locally, without any server connection.**
+### [Latest Update - 2025-08-06]
+- Major refactor of the filtering system:  
+  - Replaced single dropdown with a robust multi-filters engine  
+  - Added toggles for filtering free tools, GitHub sources, flagged tools, and country-based filtering  
+  - Improved UX with real-time search and combined filter criteria  
+  - Optimized rendering for smooth performance with large datasets  
+  - Enhanced results counter and reset filters functionality  
 
 ---
 
@@ -67,4 +80,3 @@ This project is licensed under the Apache 2.0 License.
 
 **Created by ThePinguin073**  
 Happy OSINT exploring, always legal and ethical.
-
