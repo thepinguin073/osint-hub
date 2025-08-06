@@ -1,5 +1,8 @@
 # OSINT hub
 
+This README is also available in [🇫🇷 French](./README_fr.md)
+
+
 **OSINT hub** is a web page aggregating a wide range of OSINT resources and tools, with a focus on France, Belgium, and Western Europe.
 
 ---
