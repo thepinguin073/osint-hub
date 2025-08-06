@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OSINT Hub</title>
+  <title>OSINT hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +23,267 @@
       position: relative;
       overflow-x: hidden;
     }
+
+/*DEBUT DE LA MISE A JOUR DU SELECTEUR*/
+
+    .filters-container {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 320px;
+      background: rgba(26, 26, 26, 0.95);
+      border: 1px solid #2c2c2c;
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(20px);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 234, 0, 0.1);
+    }
+
+    .filters-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #333;
+    }
+
+    .filters-icon {
+      width: 20px;
+      height: 20px;
+      color: #FFD700;
+      filter: drop-shadow(0 0 8px #FFD700);
+    }
+
+    .filters-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #FFD700;
+      text-shadow: 0 0 10px #FFD700;
+      margin: 0;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .filter-label {
+      font-size: 0.85rem;
+      color: #cccccc;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-label::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: linear-gradient(45deg, #00D4FF, #4FFBDF);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+    }
+
+    /* Style de base pour tous les sélecteurs */
+    .modern-select, .modern-input {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      border: 2px solid #333;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      color: white;
+      width: 100%;
+      box-sizing: border-box;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      outline: none;
+    }
+
+    /* Effet de focus unifié */
+    .modern-select:focus, .modern-input:focus {
+      border-color: #00D4FF;
+      box-shadow: 
+        0 0 0 3px rgba(0, 212, 255, 0.1),
+        0 0 20px rgba(0, 212, 255, 0.3),
+        inset 0 1px 3px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, #1e1e1e 0%, #333 100%);
+    }
+
+    /* Effet hover */
+    .modern-select:hover, .modern-input:hover {
+      border-color: #4FFBDF;
+      background: linear-gradient(135deg, #1e1e1e 0%, #333 100%);
+      transform: translateY(-1px);
+    }
+
+    /* Dropdown custom */
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper::after {
+      content: "⌄";
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00D4FF;
+      font-size: 1.2rem;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 4px #00D4FF);
+    }
+
+    .select-wrapper:hover::after {
+      color: #4FFBDF;
+      filter: drop-shadow(0 0 6px #4FFBDF);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .select-wrapper:focus-within::after {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    /* Options styling */
+    .modern-select option {
+      background: #1a1a1a;
+      color: white;
+      padding: 0.5rem;
+      border: none;
+    }
+
+    .modern-select option:hover {
+      background: #333;
+    }
+
+    /* Input de recherche avec icône */
+    .search-wrapper {
+      position: relative;
+    }
+
+    .search-wrapper::before {
+      content: "🔍";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      z-index: 1;
+      filter: grayscale(1) opacity(0.7);
+      transition: all 0.3s ease;
+    }
+
+    .search-wrapper:focus-within::before {
+      filter: grayscale(0) opacity(1);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .modern-input.search {
+      padding-left: 2.5rem;
+    }
+
+    .modern-input::placeholder {
+      color: #666;
+      font-style: italic;
+    }
+
+    /* Toggle switches */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 50px;
+      height: 24px;
+      background: #333;
+      border-radius: 24px;
+      border: 2px solid #444;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-switch.active {
+      background: linear-gradient(45deg, #00D4FF, #4FFBDF);
+      border-color: #00D4FF;
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+    }
+
+    .toggle-switch::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-switch.active::after {
+      transform: translateX(26px);
+      background: #000;
+    }
+
+    /* Counter badge */
+    .results-counter {
+      background: linear-gradient(45deg, #FF6B35, #FF8E53);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 1rem;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    /* Reset button */
+    .reset-btn {
+      background: linear-gradient(135deg, #333 0%, #555 100%);
+      border: 2px solid #666;
+      border-radius: 8px;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .reset-btn:hover {
+      background: linear-gradient(135deg, #555 0%, #777 100%);
+      border-color: #888;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+/*FIN DE LA MISE A JOUR DU SELECTEUR*/
 
     .righteous-regular {
       font-family: "Righteous", sans-serif;
@@ -167,7 +428,7 @@
     #linkChecker {
       position: absolute;
       bottom: 0rem;
-      right: 0rem;
+      left: 0rem;
       font-size: 1rem;
       color: white;
       min-width: 220px;
@@ -191,7 +452,7 @@
       outline: none;
       position: relative;
       top: 85%;
-      left: 60%;
+      left: 10%;
       overflow: hidden;
       font-weight: bold;
     }
@@ -240,10 +501,10 @@
       height: 100vh;
       z-index: 1;
       opacity: 0.7;
-      background-image: url(./Flux_Dev_A_wide_digitalthemed_banner_image_sized_1200_by_400_p_2.jpg);
+      background-image: url(./background.jpg);
       background-position: center center;
       background-repeat: no-repeat;
-      background-size: cover;
+      background-size: 120% auto;
       pointer-events: none;
     }
 
@@ -338,7 +599,7 @@
     width: 80px;
     height: 50px;
     position: absolute;
-    right: 2.5rem;
+    left: 20%;
     bottom: 0;
   }
 
@@ -479,32 +740,115 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
   </div>
 
 
-  <h1 class="righteous-regular">OSINT hub</h1>
-  <i id="subtitle">The best tool to gather data !</i>
-  <div class="filter-dropdown-container">
-    <select id="categoryFilter">
-      <option value="usernames">🏷 Usernames</option>
-      <option value="usefulsoftware">🔧 Useful Software</option>
-      <option value="urls">🔗 URLs</option>
-      <option value="transportation">🚂 Transportation</option>
-      <option value="socialmedia">👥 Social Media</option>
-      <option value="searchengines">🔎 Search Engines</option>
-      <option value="phones">📱 Phone Numbers</option>
-      <option value="names">🪪 Names</option>
-      <option value="military">🪖 Military</option>
-      <option value="ip">🌐 IP Addresses</option>
-      <option value="images">🖼️ Images</option>
-      <option value="geolocation">🧭 Geolocation & Maps</option>
-      <option value="leak">🧾 Data Leak</option>
-      <option value="email">✉️ Email Addresses</option>
-      <option value="domains">🕸️ Domains</option>
-      <option value="lookup">📡 Data Lookup</option>
-      <option value="crypto">₿ Cryptocurrencies</option>
-      <option value="companies">🏛️ Compagnies</option>
-      <option value="darknet">🧅 Darknet-oriented tool</option>
-      <option value="frameworks">🗂️ Others OSINT frameworks</option>
-    </select>
+  <!-- DEBUT DE LA MISE A JOUR DU SELECTEUR -->
+  <div class="filters-container">
+    <div class="filters-header">
+      <svg class="filters-icon" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd"></path>
+      </svg>
+      <h3 class="filters-title">Advanced Filters</h3>
+    </div>
+
+    <!-- Recherche textuelle -->
+    <div class="filter-group">
+      <label class="filter-label">Research</label>
+      <div class="search-wrapper">
+        <input id="searchInput" type="text" class="modern-input search" placeholder="Nom d'outil, description...">
+      </div>
+    </div>
+
+    <!-- Filtre catégorie (existant, version moderne) -->
+    <div class="filter-group">
+      <label class="filter-label">Category</label>
+      <div class="select-wrapper">
+        <select id="categoryFilter" class="modern-select">
+          <option value="all">🌟 All tools</option>
+          <option value="usernames">🏷 Usernames</option>
+          <option value="usefulsoftware">🔧 Useful Software</option>
+          <option value="urls">🔗 URLs</option>
+          <option value="transportation">🚂 Transportation</option>
+          <option value="socialmedia">👥 Social Media</option>
+          <option value="searchengines">🔎 Search Engines</option>
+          <option value="phones">📱 Phone Numbers</option>
+          <option value="names">🪪 Names</option>
+          <option value="military">🪖 Military</option>
+          <option value="ip">🌐 IP Addresses</option>
+          <option value="images">🖼️ Images</option>
+          <option value="geolocation">🧭 Geolocation & Maps</option>
+          <option value="leak">🧾 Data Leak</option>
+          <option value="email">✉️ Email Addresses</option>
+          <option value="domains">🕸️ Domains</option>
+          <option value="lookup">📡 Data Lookup</option>
+          <option value="crypto">₿ Cryptocurrencies</option>
+          <option value="companies">🏛️ Compagnies</option>
+          <option value="darknet">🧅 Darknet-oriented tool</option>
+          <option value="frameworks">🗂️ Others OSINT frameworks</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filtre source -->
+    <div class="filter-group">
+      <label class="filter-label">Source</label>
+      <div class="select-wrapper">
+        <select id="sourceFilter" class="modern-select">
+          <option value="">All sources</option>
+          <option value="github">🐙 GitHub Tools</option>
+          <option value="website">🕸️ Sites Web</option>
+          <option value="api">🔌 APIs</option>
+          <option value="software">💻 Softwares</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Filtre région -->
+    <div class="filter-group">
+      <label class="filter-label">Region</label>
+      <div class="multi-select-container">
+        <div class="select-wrapper">
+          <select id="countryFilter" class="modern-select">
+            <option value="">All regions</option>
+            <option value="france">🇫🇷 France</option>
+            <option value="belgium">🇧🇪 Belgium</option>
+            <option value="europe">🇪🇺 Europe</option>
+            <option value="international">🌍 International</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toggles pour les options -->
+    <div class="filter-group">
+      <label class="filter-label">Options</label>
+      
+      <div class="toggle-container">
+        <span>Flagged tools ⚠️</span>
+        <div class="toggle-switch" data-filter="flagged"></div>
+      </div>
+      
+      <div class="toggle-container">
+        <span>GitHub only</span>
+        <div class="toggle-switch active" data-filter="github"></div>
+      </div>
+      
+      <div class="toggle-container">
+        <span>Free tools</span>
+        <div class="toggle-switch active" data-filter="free"></div>
+      </div>
+    </div>
+
+    <!-- Compteur de résultats -->
+    <div class="results-counter">
+      📊 147 tools found
+    </div>
+
+    <!-- Reset button -->
+    <button class="reset-btn" onclick="resetFilters()">
+      🔄 Reset
+    </button>
   </div>
+<!-- FIN DE LA MISE A JOUR DU SELECTEUR -->
+
 
   <div id="linkChecker">
     <button class="Btn">Verify Link</button>
@@ -512,18 +856,27 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
   </div>
 
   <main>
+
+    <section data-category="all" class="hidden">
+      <h2>🌟 All OSINT tools</h2>
+      <i>Overview of all available tools, organized alphabetically  </i>
+      <ul id="allToolsList">
+        <!-- Cette liste sera générée dynamiquement -->
+      </ul>
+    </section>
+
     <section data-category="usernames">
       <h2>🏷 Usernames</h2>
       <i>Searching for information using a pseudonym</i>
       <ul>
-        <li><a href="https://whatsmyname.app/" target="_blank">WhatsMyName</a></li>
-        <li><a href="https://namecheckup.com/" target="_blank">NameCheckup</a></li>
-        <li><a href="https://usersearch.org/" target="_blank">UserSearch</a></li>
-        <li><a href="https://checkusernames.com/" target="_blank">CheckUsernames</a></li>
-        <li><a href="https://github.com/sherlock-project/sherlock" target="_blank">Sherlock</a></li>
-        <li><a href="https://www.namecheckr.com/" target="_blank">Namecheckr</a></li>
-        <li><a href="https://fr.linkedin.com/" target="_blank">LinkedIn FR (FR)</a></li>
-        <li><a href="https://www.rtl.be/info/" target="_blank">RTL User ID (BE)</a></li>
+        <li><a href="https://whatsmyname.app/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">WhatsMyName</a></li>
+        <li><a href="https://namecheckup.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">NameCheckup</a></li>
+        <li><a href="https://usersearch.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">UserSearch</a></li>
+        <li><a href="https://checkusernames.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">CheckUsernames</a></li>
+        <li><a href="https://github.com/sherlock-project/sherlock" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Sherlock</a></li>
+        <li><a href="https://www.namecheckr.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Namecheckr</a></li>
+        <li><a href="https://fr.linkedin.com/" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">LinkedIn</a></li>
+        <li><a href="https://www.rtl.be/info/" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">RTL User ID (BE)</a></li>
       </ul>
     </section>
 
@@ -531,19 +884,18 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2>🔧 Useful Software</h2>
       <i>Useful software tools for OSINT</i>
       <ul>
-        <li><a href="https://github.com/smicallef/spiderfoot" target="_blank">Spiderfoot</a></li>
-        <li><a href="https://github.com/lanmaster53/recon-ng" target="_blank">Recon-ng</a></li>
-        <li><a href="https://github.com/laramies/theHarvester" target="_blank">theHarvester</a></li>
-        <li><a href="https://github.com/alpkeskin/mosint" target="_blank">Mosint</a></li>
-        <li><a href="https://www.maltego.com/" target="_blank">Maltego</a></li>
-        <li><a href="https://1trace.space/" target="_blank">1trace</a></li>
-        <li><a href="https://github.com/megadose/holehe" target="_blank">Holehe</a></li>
-        <li><a href="https://osint.link/" target="_blank">OSINT.link</a></li>
-        <li><a href="https://tools.tracelabs.org/" target="_blank">Trace Labs Tools</a></li>
-        <li><a href="https://start.me/p/DPYpmz/the-intel-techniques-online-osint-tools" target="_blank">IntelTechniques Tools</a></li>
-        <li><a href="https://www.service-public.fr/" target="_blank">Service Public (FR)</a></li>
-        <li><a href="https://www.belgium.be/fr" target="_blank">Belgium.be</a></li>
-        <li><a href="https://justice.belgium.be/fr/service_public_federal_justice/organisation/moniteur_belge" target="_blank">Le Moniteur (BE)</a></li>        
+        <li><a href="https://github.com/smicallef/spiderfoot" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Spiderfoot</a></li>
+        <li><a href="https://github.com/lanmaster53/recon-ng" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Recon-ng</a></li>
+        <li><a href="https://github.com/laramies/theHarvester" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">theHarvester</a></li>
+        <li><a href="https://github.com/alpkeskin/mosint" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Mosint</a></li>
+        <li><a href="https://www.maltego.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="false">Maltego</a></li>
+        <li><a href="https://1trace.space/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="false">1trace</a></li>
+        <li><a href="https://github.com/megadose/holehe" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Holehe</a></li>
+        <li><a href="https://www.tracelabs.org/initiatives/osint-vm" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Trace Labs VM</a></li>
+        <li><a href="https://start.me/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Start.me</a></li>
+        <li><a href="https://www.service-public.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Service Public (FR)</a></li>
+        <li><a href="https://www.belgium.be/fr" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Belgium.be</a></li>
+        <li><a href="https://justice.belgium.be/fr/service_public_federal_justice/organisation/moniteur_belge" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Le Moniteur (BE)</a></li>        
       </ul>
     </section>
 
@@ -551,14 +903,14 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2>🔗 URLs</h2>
       <i>Parsing, transforming or extracting from URLs</i>
       <ul>
-        <li><a href="https://urlscan.io/" target="_blank">urlscan.io</a></li>
-        <li><a href="https://unshorten.it/" target="_blank">Unshorten.it</a></li>
-        <li><a href="https://checkphish.ai/" target="_blank">Checkphish</a></li>
-        <li><a href="https://www.virustotal.com/" target="_blank">VirusTotal</a></li>
-        <li><a href="https://www.talosintelligence.com/" target="_blank">CISCO TALOS Intel</a></li>
-        <li><a href="https://www.phishtool.com/" target="_blank">PhishTool</a></li>
-        <li><a href="https://metadefender.opswat.com/" target="_blank">Opswat Metadefender</a></li>
-        <li><a href="https://www.cert.be/fr" target="_blank">CERT (BE)</a></li>
+        <li><a href="https://urlscan.io/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">urlscan.io</a></li>
+        <li><a href="https://unshorten.it/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Unshorten.it</a></li>
+        <li><a href="https://checkphish.ai/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Checkphish</a></li>
+        <li><a href="https://www.virustotal.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">VirusTotal</a></li>
+        <li><a href="https://www.talosintelligence.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">CISCO TALOS Intel</a></li>
+        <li><a href="https://www.phishtool.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">PhishTool</a></li>
+        <li><a href="https://metadefender.opswat.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="false">Opswat Metadefender</a></li>
+        <li><a href="https://www.cert.be/fr" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">CERT (BE)</a></li>
       </ul>
     </section>
 
@@ -566,16 +918,16 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2>🚂 Transportation</h2>
       <i>Tracking of vehicles, plates or routes</i>
       <ul>
-        <li><a href="https://flightaware.com/" target="_blank">FlightAware</a></li>
-        <li><a href="https://www.flightradar24.com/" target="_blank">FlightRadar24</a></li>
-        <li><a href="https://marinetraffic.com/" target="_blank">MarineTraffic</a></li>
-        <li><a href="https://raildar.fr/" target="_blank">Raildar (FR)</a></li>
-        <li><a href="https://www.belgiantrain.be/fr/travel-info/prepare-for-your-journey/leaflets/global-map-train-belgium" target="_blank">SNCB (BE)</a></li>
-        <li><a href="https://data.delijn.be/" target="_blank">De Lijn API (BE)</a></li>
-        <li><a href="https://openrailwaymap.org/" target="_blank">Open railway map</a></li>
-        <li><a href="https://www.map.signalbox.io/" target="_blank">UK Train Map</a></li>
-        <li><a href="https://treinenradar.nl/" target="_blank">NL Train Map</a></li>
-        <li><a href="https://www.opentraintimes.com/" target="_blank">UK Open Train Times</a></li>
+        <li><a href="https://flightaware.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">FlightAware</a></li>
+        <li><a href="https://www.flightradar24.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">FlightRadar24</a></li>
+        <li><a href="https://marinetraffic.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">MarineTraffic</a></li>
+        <li><a href="https://raildar.fr/" target="_blank" data-source="website" data-country="france" data-flagged="false" data-free="true">Raildar (FR)</a></li>
+        <li><a href="https://www.belgiantrain.be/fr/travel-info/prepare-for-your-journey/leaflets/global-map-train-belgium" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">SNCB (BE)</a></li>
+        <li><a href="https://data.delijn.be/" target="_blank" data-source="api" data-country="belgium" data-flagged="false" data-free="true">De Lijn API (BE)</a></li>
+        <li><a href="https://openrailwaymap.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Open railway map</a></li>
+        <li><a href="https://www.map.signalbox.io/" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">UK Train Map</a></li>
+        <li><a href="https://treinenradar.nl/" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">NL Train Map</a></li>
+        <li><a href="https://www.opentraintimes.com/" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">UK Open Train Times</a></li>
       </ul>
     </section>
 
@@ -583,15 +935,15 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2>👥 Social Media</h2>
       <i>Investigation of social profiles and activities</i>
       <ul>
-        <li><a href="https://social-searcher.com/" target="_blank">Social Searcher</a></li>
-        <li><a href="https://github.com/soxoj/maigret" target="_blank">Maigret</a></li>
-        <li><a href="https://www.facebook.com/directory/people/" target="_blank">Facebook Directory</a></li>
-        <li><a href="https://www.sowsearch.info/" target="_blank">SOW Social</a></li>
-        <li><a href="https://reseauxsociaux.fr/" target="_blank">ReseauxSociaux.fr</a></li>
-        <li><a href="https://github.com/JackJuly/linkook" target="_blank">Linkook</a></li>
-        <li><a href="https://github.com/Datalux/Osintgram" target="_blank">Osintgram</a></li>
-        <li><a href="https://telegram.org/" target="_blank">Telegram</a></li>
-        <li><a href="https://github.com/paulpierre/informer" target="_blank">Informer - Telegram Mass Surveillance</a></li>
+        <li><a href="https://social-searcher.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Social Searcher</a></li>
+        <li><a href="https://github.com/soxoj/maigret" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Maigret</a></li>
+        <li><a href="https://www.facebook.com/directory/people/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Facebook Directory</a></li>
+        <li><a href="https://www.sowsearch.info/" target="_blank" data-source="website" data-country="france" data-flagged="false" data-free="true">SOW Social</a></li>
+        <li><a href="https://reseauxsociaux.fr/" target="_blank" data-source="website" data-country="france" data-flagged="false" data-free="true">ReseauxSociaux.fr</a></li>
+        <li><a href="https://github.com/JackJuly/linkook" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Linkook</a></li>
+        <li><a href="https://github.com/Datalux/Osintgram" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Osintgram</a></li>
+        <li><a href="https://telegram.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Telegram</a></li>
+        <li><a href="https://github.com/paulpierre/informer" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Informer - Telegram Mass Surveillance</a></li>
       </ul>
     </section>
 
@@ -599,37 +951,37 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🔎 Search engines</h2>
       <i>Specialized search engines for OSINT</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://www.google.com" target="_blank">Google</a></li>
-        <li><a href="https://www.exploit-db.com/google-hacking-database" target="_blank">Google Dorking Cheatsheet</a></li>
-        <li><a href="https://github.com/SalehLardhi/google-dorks-toolkit" target="_blank">Google Dorking automated tool</a></li>
-        <li><a href="https://dorksearch.com/" target="_blank">DorkSearch</a></li>
-        <li><a href="https://www.bing.com" target="_blank">Bing</a></li>
-        <li><a href="https://www.duckduckgo.com" target="_blank">DuckDuckGo</a></li>
-        <li><a href="https://yandex.com" target="_blank">Yandex</a></li>
-        <li><a href="https://www.qwant.com" target="_blank">Qwant (EU)</a></li>
-        <li><a href="https://www.exalead.com/search/" target="_blank">Exalead (FR)</a></li>
-        <li><a href="https://www.startpage.com" target="_blank">Startpage</a></li>
+        <li><a href="https://www.google.com" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Google</a></li>
+        <li><a href="https://www.exploit-db.com/google-hacking-database" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Google Dorking Cheatsheet</a></li>
+        <li><a href="https://github.com/SalehLardhi/google-dorks-toolkit" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Google Dorking automated tool</a></li>
+        <li><a href="https://dorksearch.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">DorkSearch</a></li>
+        <li><a href="https://www.bing.com" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Bing</a></li>
+        <li><a href="https://www.duckduckgo.com" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">DuckDuckGo</a></li>
+        <li><a href="https://yandex.com" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Yandex ⚠️</a></li>
+        <li><a href="https://www.qwant.com" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">Qwant (EU)</a></li>
+        <li><a href="https://dashdork.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Dashdork</a></li>
+        <li><a href="https://www.startpage.com" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Startpage</a></li>
       </ul>
     </section>
-
+ 
     <section class="section-card" data-category="leak">
       <h2 class="text-xl font-bold mb-2">🧾 Data Leak</h2>
       <i>Public breaches, dumps, leaks, and compromised data</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://wikileaks.org/" target="_blank">Wikileaks ⚠️</a></li>
-        <li><a href="https://ddosecrets.com/" target="_blank">DDOSecrets ⚠️</a></li>
-        <li><a href="https://cryptome.org/" target="_blank">Cryptome ⚠️</a></li>
-        <li><a href="https://weakpass.com/" target="_blank">WeakPass</a></li>
-        <li><a href="https://github.com/danielmiessler/SecLists" target="_blank">SecList</a></li>
-        <li><a href="https://github.com/berzerk0/Probable-Wordlists" target="_blank">Probable Wordlists</a></li>
-        <li><a href="https://discordleaks.unicornriot.ninja/" target="_blank">Discord leaks ⚠️</a></li>
-        <li><a href="https://leak-lookup.com/" target="_blank">Leak Lookup ⚠️</a></li>
-        <li><a href="https://offshoreleaks.icij.org/" target="_blank">Offshore Leaks ⚠️</a></li>
-        <li><a href="https://enlacehacktivista.org/" target="_blank">Enlace Hacktivista ⚠️</a></li>
-        <li><a href="https://leakcheck.io/" target="_blank">Leak Check ⚠️</a></li>
-        <li><a href="https://databreach.com" target="_blank">Data Breach Website ⚠️</a></li>
-        <li><a href="https://github.com/doormanBreach/FreeDatabreaches" target="_blank">FreeDatabreaches</a></li>
-        <li><a href="https://intelx.io/tools?tab=social" target="_blank">Intelligence X ⚠️</a></li>
+        <li><a href="https://wikileaks.org/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Wikileaks ⚠️</a></li>
+        <li><a href="https://ddosecrets.com/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">DDOSecrets ⚠️</a></li>
+        <li><a href="https://cryptome.org/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Cryptome ⚠️</a></li>
+        <li><a href="https://weakpass.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">WeakPass</a></li>
+        <li><a href="https://github.com/danielmiessler/SecLists" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">SecList</a></li>
+        <li><a href="https://github.com/berzerk0/Probable-Wordlists" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Probable Wordlists</a></li>
+        <li><a href="https://discordleaks.unicornriot.ninja/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Discord leaks ⚠️</a></li>
+        <li><a href="https://leak-lookup.com/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Leak Lookup ⚠️</a></li>
+        <li><a href="https://offshoreleaks.icij.org/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Offshore Leaks ⚠️</a></li>
+        <li><a href="https://enlacehacktivista.org/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Enlace Hacktivista ⚠️</a></li>
+        <li><a href="https://leakcheck.io/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Leak Check ⚠️</a></li>
+        <li><a href="https://databreach.com" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Data Breach Website ⚠️</a></li>
+        <li><a href="https://github.com/doormanBreach/FreeDatabreaches" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">FreeDatabreaches</a></li>
+        <li><a href="https://intelx.io/tools?tab=social" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Intelligence X ⚠️</a></li>
       </ul>
     </section>    
 
@@ -637,12 +989,12 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">📱 Search by phone number</h2>
       <i>Search and validate phone numbers</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://www.truecaller.com/" target="_blank">Truecaller</a></li>
-        <li><a href="https://www.numverify.com/" target="_blank">NumVerify</a></li>
-        <li><a href="https://www.whocalled.us/" target="_blank">WhoCalled.us</a></li>
-        <li><a href="https://www.pagesjaunes.fr/" target="_blank">Pages Jaunes (FR)</a></li>
-        <li><a href="https://www.infobel.com/en/belgium" target="_blank">Infobel (BE)</a></li>
-        <li><a href="https://www.pagesdor.be/" target="_blank">Les pages d'or (BE)</a></li>
+        <li><a href="https://www.truecaller.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Truecaller</a></li>
+        <li><a href="https://www.numverify.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">NumVerify</a></li>
+        <li><a href="https://www.whocalled.us/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">WhoCalled.us</a></li>
+        <li><a href="https://www.pagesjaunes.fr/" target="_blank" data-source="website" data-country="france" data-flagged="false" data-free="true">Pages Jaunes (FR)</a></li>
+        <li><a href="https://www.infobel.com/en/belgium" target="_blank" data-source="website" data-country="belgium" data-flagged="false" data-free="true">Infobel (BE)</a></li>
+        <li><a href="https://www.pagesdor.be/" target="_blank" data-source="website" data-country="belgium" data-flagged="false" data-free="true">Les pages d'or (BE)</a></li>
       </ul>
     </section>
 
@@ -650,11 +1002,11 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🪪 Search by name</h2>
       <i>Cross-referencing and tracing from first names or last names</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://www.familysearch.org/" target="_blank">FamilySearch</a></li>
-        <li><a href="https://www.geneanet.org/" target="_blank">Geneanet (FR)</a></li>
-        <li><a href="https://www.nationalarchives.gov.uk/" target="_blank">National Archives UK</a></li>
-        <li><a href="https://www.filae.com/" target="_blank">Filae (FR)</a></li>
-        <li><a href="https://www.arch.be/index.php" target="_blank">Archives nationales (BE)</a></li>
+        <li><a href="https://www.familysearch.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">FamilySearch</a></li>
+        <li><a href="https://www.geneanet.org/" target="_blank" data-source="website" data-country="france" data-flagged="false" data-free="true">Geneanet (FR)</a></li>
+        <li><a href="https://www.nationalarchives.gov.uk/" target="_blank" data-source="government" data-country="europe" data-flagged="false" data-free="true">National Archives UK</a></li>
+        <li><a href="https://www.filae.com/" target="_blank" data-source="website" data-country="france" data-flagged="false" data-free="true">Filae (FR)</a></li>
+        <li><a href="https://www.arch.be/index.php" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Archives nationales (BE)</a></li>
       </ul>
     </section>
 
@@ -662,11 +1014,11 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🪖 Military information</h2>
       <i>Sources or data related to the military environment</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://www.globalsecurity.org/" target="_blank">GlobalSecurity.org</a></li>
-        <li><a href="https://www.sipri.org/" target="_blank">SIPRI (International)</a></li>
-        <li><a href="https://www.defense.gouv.fr/" target="_blank">Ministère des Armées (FR)</a></li>
-        <li><a href="https://www.mil.be/fr" target="_blank">Défense (BE)</a></li>
-        <li><a href="https://www.army.mil/" target="_blank">US Army Official</a></li>
+        <li><a href="https://www.globalsecurity.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">GlobalSecurity.org</a></li>
+        <li><a href="https://www.sipri.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">SIPRI (International)</a></li>
+        <li><a href="https://www.defense.gouv.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Ministère des Armées (FR)</a></li>
+        <li><a href="https://www.mil.be/fr" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Défense (BE)</a></li>
+        <li><a href="https://www.army.mil/" target="_blank" data-source="government" data-country="international" data-flagged="false" data-free="true">US Army Official</a></li>
       </ul>
     </section>
 
@@ -674,12 +1026,12 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🌐 IP addresses</h2>
       <i>Tracking from an IP address</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://www.abuseipdb.com/" target="_blank">AbuseIPDB</a></li>
-        <li><a href="https://ipinfo.io/" target="_blank">IPinfo</a></li>
-        <li><a href="https://bgp.he.net/" target="_blank">BGP.he.net</a></li>
-        <li><a href="https://www.cert.be/" target="_blank">CERT.be (BE)</a></li>
-        <li><a href="https://www.afnic.fr/" target="_blank">AFNIC (FR)</a></li>
-        <li><a href="https://iplogger.org/" target="_blank">IP Logger ⚠️</a></li>
+        <li><a href="https://www.abuseipdb.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">AbuseIPDB</a></li>
+        <li><a href="https://ipinfo.io/" target="_blank" data-source="api" data-country="international" data-flagged="false" data-free="true">IPinfo</a></li>
+        <li><a href="https://bgp.he.net/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">BGP.he.net</a></li>
+        <li><a href="https://www.cert.be/" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">CERT.be (BE)</a></li>
+        <li><a href="https://www.afnic.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">AFNIC (FR)</a></li>
+        <li><a href="https://iplogger.org/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">IP Logger ⚠️</a></li>
       </ul>
     </section>
 
@@ -687,14 +1039,14 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🖼️ Image search</h2>
       <i>Reverse search or photo/image analysis</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://tineye.com/" target="_blank">TinEye</a></li>
-        <li><a href="https://images.google.com/" target="_blank">Google Images</a></li>
-        <li><a href="https://yandex.com/images/" target="_blank">Yandex Images</a></li>
-        <li><a href="https://www.pixsy.com/" target="_blank">Pixsy (copyright search)</a></li>
-        <li><a href="https://profileimageintel.com/" target="_blank">ProfileImageIntel</a></li>
-        <li><a href="https://www.fotoforensics.com/" target="_blank">Fotoforensics</a></li>
-        <li><a href="https://www.pic2map.com/" target="_blank">Pic2Map</a></li>
-        <li><a href="https://29a.ch/photo-forensics//#forensic-magnifier" target="_blank">Forensically</a></li>
+        <li><a href="https://tineye.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">TinEye</a></li>
+        <li><a href="https://images.google.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Google Images</a></li>
+        <li><a href="https://yandex.com/images/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Yandex Images</a></li>
+        <li><a href="https://www.pixsy.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Pixsy (copyright search)</a></li>
+        <li><a href="https://profileimageintel.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">ProfileImageIntel</a></li>
+        <li><a href="https://www.fotoforensics.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Fotoforensics</a></li>
+        <li><a href="https://www.pic2map.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Pic2Map</a></li>
+        <li><a href="https://29a.ch/photo-forensics//#forensic-magnifier" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Forensically</a></li>
       </ul>
     </section>
 
@@ -702,21 +1054,20 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🧭 Geolocation & maps</h2>
       <i>Location tools, GPS, maps and coordinates</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://geoportail.gouv.fr/" target="_blank">Geoportail (FR)</a></li>
-        <li><a href="https://www.cadastre.gouv.fr/" target="_blank">Cadastre (FR)</a></li>
-        <li><a href="https://geopunt.be/" target="_blank">Geopunt (BE)</a></li>
-        <li><a href="https://geoportail.wallonie.be" target="_blank">WalOnMap (BE)</a></li>
-        <li><a href="https://geopunt.be/" target="_blank">Geopunt (BE)</a></li>
-        <li><a href="https://www.minfin.fgov.be/ecad-web/" target="_blank">CADGIS (BE)</a></li>
-        <li><a href="https://www.google.com/maps" target="_blank">Google Maps</a></li>
-        <li><a href="https://www.waze.com/" target="_blank">Waze</a></li>
-        <li><a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a></li>
-        <li><a href="https://wikimapia.org/" target="_blank">Wikimapia</a></li>
-        <li><a href="https://www.koshegio.com/calculator-dbscan-clustering" target="_blank">Koshegio DBSCAN clustering Calculator</a></li>
-        <li><a href="https://datatab.net/statistics-calculator/cluster/dbscan-calculator" target="_blank">Datatab DBSCAN clustering Calculator</a></li>
-        <li><a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a></li>
-        <li><a href="https://geojson.io/" target="_blank">GeoJSON</a></li>
-        <li><a href="https://www.earthcam.com/" target="_blank">EarthCam ⚠️</a></li>
+        <li><a href="https://geoportail.gouv.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Geoportail (FR)</a></li>
+        <li><a href="https://www.cadastre.gouv.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Cadastre (FR)</a></li>
+        <li><a href="https://geopunt.be/" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Geopunt (BE)</a></li>
+        <li><a href="https://geoportail.wallonie.be" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">WalOnMap (BE)</a></li>
+        <li><a href="https://www.minfin.fgov.be/ecad-web/" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">CADGIS (BE)</a></li>
+        <li><a href="https://www.google.com/maps" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Google Maps</a></li>
+        <li><a href="https://www.waze.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Waze</a></li>
+        <li><a href="https://www.openstreetmap.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">OpenStreetMap</a></li>
+        <li><a href="https://wikimapia.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Wikimapia</a></li>
+        <li><a href="https://www.koshegio.com/calculator-dbscan-clustering" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Koshegio DBSCAN clustering Calculator</a></li>
+        <li><a href="https://datatab.net/statistics-calculator/cluster/dbscan-calculator" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Datatab DBSCAN clustering Calculator</a></li>
+        <li><a href="https://www.openstreetmap.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">OpenStreetMap</a></li>
+        <li><a href="https://geojson.io/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">GeoJSON</a></li>
+        <li><a href="https://www.earthcam.com/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">EarthCam ⚠️</a></li>
       </ul>
     </section>
 
@@ -724,14 +1075,14 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">✉️ email lookup</h2>
       <i>Verification or tracing of email addresses</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://hunter.io/" target="_blank">Hunter.io</a></li>
-        <li><a href="https://epieos.com/" target="_blank">Epieos</a></li>
-        <li><a href="https://haveibeenpwned.com/" target="_blank">HIBP</a></li>
-        <li><a href="https://dehashed.com/" target="_blank">Dehashed ⚠️</a></li>
-        <li><a href="https://mailtester.com/" target="_blank">MailTester</a></li>
-        <li><a href="https://emailrep.io/" target="_blank">EmailRep.io</a></li>
-        <li><a href="https://www.pipl.com/" target="_blank">Pipl ⚠️</a></li>
-        <li><a href="https://www.stopforumspam.com/" target="_blank">StopForumSpam</a></li>
+        <li><a href="https://hunter.io/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Hunter.io</a></li>
+        <li><a href="https://epieos.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Epieos</a></li>
+        <li><a href="https://haveibeenpwned.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">HIBP</a></li>
+        <li><a href="https://dehashed.com/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Dehashed ⚠️</a></li>
+        <li><a href="https://mailtester.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">MailTester</a></li>
+        <li><a href="https://emailrep.io/" target="_blank" data-source="api" data-country="international" data-flagged="false" data-free="true">EmailRep.io</a></li>
+        <li><a href="https://www.pipl.com/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Pipl ⚠️</a></li>
+        <li><a href="https://www.stopforumspam.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">StopForumSpam</a></li>
       </ul>
     </section>
 
@@ -739,12 +1090,12 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🕸️ Domains</h2>
       <i>Domain resolution, whois, history or reputation</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://whois.domaintools.com/" target="_blank">DomainTools WHOIS</a></li>
-        <li><a href="https://www.nic.fr/" target="_blank">AFNIC WHOIS (FR)</a></li>
-        <li><a href="https://www.dnsstuff.com/" target="_blank">DNSstuff</a></li>
-        <li><a href="https://www.dnslytics.com/" target="_blank">DNSlytics</a></li>
-        <li><a href="https://www.dnschecker.org/" target="_blank">DNS Checker</a></li>
-        <li><a href="https://dnsdumpster.com/" target="_blank">DNS Dumpster</a></li>
+        <li><a href="https://whois.domaintools.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">DomainTools WHOIS</a></li>
+        <li><a href="https://www.nic.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">AFNIC WHOIS (FR)</a></li>
+        <li><a href="https://www.dnsstuff.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">DNSstuff</a></li>
+        <li><a href="https://www.dnslytics.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">DNSlytics</a></li>
+        <li><a href="https://www.dnschecker.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">DNS Checker</a></li>
+        <li><a href="https://dnsdumpster.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">DNS Dumpster</a></li>
       </ul>
     </section>
 
@@ -752,15 +1103,15 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">📡 Data Lookup</h2>
       <i>Access to open databases</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://github.com/spyse-com" target="_blank">Spyse</a></li>
-        <li><a href="https://www.shodan.io/" target="_blank">Shodan (IoT & Infrastructure)</a></li>
-        <li><a href="https://github.com/jakejarvis/awesome-shodan-queries" target="_blank">Shodan Queries Cheatsheat</a></li>
-        <li><a href="https://www.censys.io/" target="_blank">Censys (Internet-wide Scan Data)</a></li>
-        <li><a href="https://www.cert.be/fr" target="_blank">CERT (BE)</a></li>
-        <li><a href="https://www.ssi.gouv.fr/" target="_blank">ANSSI (FR)</a></li>
-        <li><a href="https://wigle.net/" target="_blank">Wigle.net</a></li>
-        <li><a href="https://opendata.bosa.be/index.fr.html" target="_blank">Open Data (BE)</a></li>
-        <li><a href="https://www.data.gouv.fr/" target="_blank">Data Gouv (FR)</a></li>
+        <li><a href="https://github.com/spyse-com" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Spyse</a></li>
+        <li><a href="https://www.shodan.io/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Shodan (IoT & Infrastructure)</a></li>
+        <li><a href="https://github.com/jakejarvis/awesome-shodan-queries" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Shodan Queries Cheatsheat</a></li>
+        <li><a href="https://www.censys.io/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Censys (Internet-wide Scan Data)</a></li>
+        <li><a href="https://www.cert.be/fr" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">CERT (BE)</a></li>
+        <li><a href="https://www.ssi.gouv.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">ANSSI (FR)</a></li>
+        <li><a href="https://wigle.net/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Wigle.net</a></li>
+        <li><a href="https://opendata.bosa.be/index.fr.html" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Open Data (BE)</a></li>
+        <li><a href="https://www.data.gouv.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Data Gouv (FR)</a></li>
       </ul>
     </section>
 
@@ -768,12 +1119,12 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">₿ Cryptocurrencies</h2>
       <i>Crypto transaction tracking and tracing</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://www.blockchain.com/explorer" target="_blank">Blockchain.com Explorer</a></li>
-        <li><a href="https://www.blockchair.com/" target="_blank">Blockchair (Multi-chain Explorer)</a></li>
-        <li><a href="https://bitquery.io/" target="_blank">Bitquery (Blockchain Analytics)</a></li>
-        <li><a href="https://www.chainalysis.com/" target="_blank">Chainalysis (Investigation Tools)</a></li>
-        <li><a href="https://www.nansen.ai/" target="_blank">Nansen.ai (On-chain Analytics)</a></li>
-        <li><a href="https://www.chain.link/" target="_blank">Chainlink (Oracles & Data Feeds)</a></li>
+        <li><a href="https://www.blockchain.com/explorer" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Blockchain.com Explorer</a></li>
+        <li><a href="https://www.blockchair.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Blockchair (Multi-chain Explorer)</a></li>
+        <li><a href="https://bitquery.io/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Bitquery (Blockchain Analytics)</a></li>
+        <li><a href="https://www.chainalysis.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Chainalysis (Investigation Tools)</a></li>
+        <li><a href="https://www.nansen.ai/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Nansen.ai (On-chain Analytics)</a></li>
+        <li><a href="https://www.chain.link/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Chainlink (Oracles & Data Feeds)</a></li>
       </ul>
     </section>
 
@@ -781,16 +1132,16 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🏛️ Compagnies</h2>
       <i>Investigation of companies or commercial structures</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://www.opencorporates.com/" target="_blank">OpenCorporates</a></li>
-        <li><a href="https://www.societe.com/" target="_blank">Societe.com (FR)</a></li>
-        <li><a href="https://www.pappers.fr/" target="_blank">Pappers (FR)</a></li>
-        <li><a href="https://kbopub.economie.fgov.be/kbopub/zoekwoordenform.html" target="_blank">BCE (BE)</a></li>
-        <li><a href="https://www.companyweb.be/en" target="_blank">Compagnyweb (BE)</a></li>
-        <li><a href="https://firmeneintrag.creditreform.de/" target="_blank">Dutch Compagny Database (DE)</a></li>
-        <li><a href="https://www.dnb.com/" target="_blank">Dun & Bradstreet</a></li>
-        <li><a href="https://www.bloomberg.com/professional/" target="_blank">Bloomberg Professional</a></li>
-        <li><a href="https://statbel.fgov.be/fr" target="_blank">StatBel (BE)</a></li>
-        <li><a href="https://www.bvdinfo.com/" target="_blank">Bureau van Dijk</a></li>
+        <li><a href="https://www.opencorporates.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">OpenCorporates</a></li>
+        <li><a href="https://www.societe.com/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Societe.com (FR)</a></li>
+        <li><a href="https://www.pappers.fr/" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">Pappers (FR)</a></li>
+        <li><a href="https://kbopub.economie.fgov.be/kbopub/zoekwoordenform.html" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">BCE (BE)</a></li>
+        <li><a href="https://www.companyweb.be/en" target="_blank" data-source="website" data-country="belgium" data-flagged="false" data-free="true">Compagnyweb (BE)</a></li>
+        <li><a href="https://firmeneintrag.creditreform.de/" target="_blank" data-source="government" data-country="europe" data-flagged="false" data-free="true">Dutch Compagny Database (DE)</a></li>
+        <li><a href="https://www.dnb.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="false">Dun & Bradstreet</a></li>
+        <li><a href="https://www.bloomberg.com/professional/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="false">Bloomberg Professional</a></li>
+        <li><a href="https://statbel.fgov.be/fr" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">StatBel (BE)</a></li>
+        <li><a href="https://www.bvdinfo.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="false">Bureau van Dijk</a></li>
       </ul>
     </section>
 
@@ -798,13 +1149,13 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🧅 Darknet-oriented tool</h2>
       <i>Darknet hidden service automation tool</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://ahmia.fi/" target="_blank">Ahmia ⚠️</a></li>
-        <li><a href="https://github.com/projectdiscovery/katana" target="_blank">Katana ⚠️</a></li>
-        <li><a href="https://github.com/josh0xA/darkdump" target="_blank">Darkdump ⚠️</a></li>
-        <li><a href="https://github.com/s-rah/onionscan" target="_blank">OnionScan ⚠️</a></li>
-        <li><a href="https://github.com/andreyglauzer/VigilantOnion" target="_blank">VigilantOnion ⚠️</a></li>
-        <li><a href="https://github.com/apurvsinghgautam/dark-web-osint-tools" target="_blank">Dark web OSINT Tools ⚠️</a></li>
-        <li><a href="https://github.com/DedSecInside/TorBot" target="_blank">TorBot ⚠️</a></li>
+        <li><a href="https://ahmia.fi/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">Ahmia ⚠️</a></li>
+        <li><a href="https://github.com/projectdiscovery/katana" target="_blank" data-source="github" data-country="international" data-flagged="true" data-free="true">Katana ⚠️</a></li>
+        <li><a href="https://github.com/josh0xA/darkdump" target="_blank" data-source="github" data-country="international" data-flagged="true" data-free="true">Darkdump ⚠️</a></li>
+        <li><a href="https://github.com/s-rah/onionscan" target="_blank" data-source="github" data-country="international" data-flagged="true" data-free="true">OnionScan ⚠️</a></li>
+        <li><a href="https://github.com/andreyglauzer/VigilantOnion" target="_blank" data-source="github" data-country="international" data-flagged="true" data-free="true">VigilantOnion ⚠️</a></li>
+        <li><a href="https://github.com/apurvsinghgautam/dark-web-osint-tools" target="_blank" data-source="github" data-country="international" data-flagged="true" data-free="true">Dark web OSINT Tools ⚠️</a></li>
+        <li><a href="https://github.com/DedSecInside/TorBot" target="_blank" data-source="github" data-country="international" data-flagged="true" data-free="true">TorBot ⚠️</a></li>
       </ul>
     </section>
 
@@ -812,19 +1163,18 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2 class="text-xl font-bold mb-2">🗂️ Others OSINT frameworks</h2>
       <i>Access to global or organized OSINT portals</i>
       <ul class="list-disc ml-6">
-        <li><a href="https://osintframework.com/" target="_blank">OSINT Framework</a></li>
-        <li><a href="https://map.malfrats.industries/" target="_blank">Malfrats OSINT Map</a></li>
-        <li><a href="https://start.me/p/DPYpmz/the-intel-techniques-online-osint-tools" target="_blank">Intel Techniques OSINT Tools</a></li>
-        <li><a href="https://www.tracelabs.org/" target="_blank">Trace Labs OSINT Tools</a></li>
-        <li><a href="https://start.me/p/b5Pzj7/osint" target="_blank">Start.me OSINT Links</a></li>
-        <li><a href="https://www.osintdojo.com/" target="_blank">OSINT Dojo</a></li>
-        <li><a href="https://github.com/UjsGit/Notes-on-OSINT" target="_blank">OSINT Notes</a></li>
-        <li><a href="https://github.com/DataSploit/datasploit" target="_blank">DataSploit</a></li>
-        <li><a href="https://www.trackawesomelist.com/jivoi/awesome-osint/" target="_blank">Awesome OSINT</a></li>
-        <li><a href="https://github.com/jivoi/awesome-osint" target="_blank">Awesome OSINT (GitHub)</a></li>
-        <li><a href="https://bellingcat.gitbook.io/toolkit/" target="_blank">Bellingcat's Toolkit</a></li>
-        <li><a href="https://osint.rocks/" target="_blank">osint.rocks</a></li>
-        <li><a href="https://inteltechniques.com/tools/ " target="_blank">Intel Techniques Tools</a></li>
+        <li><a href="https://osintframework.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">OSINT Framework</a></li>
+        <li><a href="https://map.malfrats.industries/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Malfrats OSINT Map</a></li>
+        <li><a href="https://www.tracelabs.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Trace Labs OSINT Tools</a></li>
+        <li><a href="https://www.osintdojo.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">OSINT Dojo</a></li>
+        <li><a href="https://github.com/UjsGit/Notes-on-OSINT" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">OSINT Notes</a></li>
+        <li><a href="https://github.com/DataSploit/datasploit" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">DataSploit</a></li>
+        <li><a href="https://www.trackawesomelist.com/jivoi/awesome-osint/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Awesome OSINT</a></li>
+        <li><a href="https://github.com/jivoi/awesome-osint" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Awesome OSINT (GitHub)</a></li>
+        <li><a href="https://bellingcat.gitbook.io/toolkit/" target="_blank" data-source="github" data-country="international" data-flagged="false" data-free="true">Bellingcat's Toolkit</a></li>
+        <li><a href="https://osint.rocks/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">osint.rocks</a></li>
+        <li><a href="https://inteltechniques.com/tools/ " target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Intel Techniques Tools</a></li>
+        <li><a href="https://osint.link/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">OSINT.link</a></li>
       </ul>
     </section>
     <div id="img"><div>
@@ -832,7 +1182,7 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
 
   <script>
 //Warning display
-let countdown = 10;
+let countdown = 1;
 const countdownEl = document.getElementById('countdown');
 const modal = document.getElementById('warningModal');
 
@@ -845,32 +1195,6 @@ const timer = setInterval(() => {
     modal.style.zIndex = '-10';
   }
 }, 1000);
-
-
-//Category selector
-const selectFilter = document.getElementById('categoryFilter');
-const sections = document.querySelectorAll('section');
-
-selectFilter.addEventListener('change', () => {
-  const filter = selectFilter.value;
-  sections.forEach(section => {
-    if (filter === 'all' || section.getAttribute('data-category') === filter) {
-      section.classList.remove('hidden');
-    } else {
-      section.classList.add('hidden');
-    }
-  });
-});
-window.addEventListener('DOMContentLoaded', () => {
-  const filter = selectFilter.value;
-  sections.forEach(section => {
-    if (filter === 'all' || section.getAttribute('data-category') === filter) {
-      section.classList.remove('hidden');
-    } else {
-      section.classList.add('hidden');
-    }
-  });
-});
 
 
 //Link checker button
@@ -933,6 +1257,258 @@ btn.addEventListener("click", async () => {
     });
   }
 });
+
+
+function generateAllToolsList() {
+  const allSection = document.querySelector('[data-category="all"]');
+  if (!allSection) return;
+  
+  const allToolsList = allSection.querySelector('ul');
+  const allLinks = [];
+  
+  // Collecter tous les liens des autres sections
+  sections.forEach(section => {
+    const sectionCategory = section.getAttribute('data-category');
+    
+    // Skip la section "all" elle-même
+    if (sectionCategory === 'all') return;
+    
+    const categoryTitle = section.querySelector('h2').textContent;
+    const links = section.querySelectorAll('a[data-source]');
+    
+    links.forEach(link => {
+      // Cloner le lien avec tous ses attributs
+      const clonedLink = link.cloneNode(true);
+      allLinks.push({
+        element: clonedLink,
+        name: link.textContent.trim(),
+        category: categoryTitle,
+        // Copier tous les data-attributes
+        source: link.getAttribute('data-source'),
+        country: link.getAttribute('data-country'),
+        flagged: link.getAttribute('data-flagged'),
+        free: link.getAttribute('data-free')
+      });
+    });
+  });
+  
+  // Trier par ordre alphabétique
+  allLinks.sort((a, b) => a.name.localeCompare(b.name));
+  
+  // Vider et remplir la liste
+  allToolsList.innerHTML = '';
+  allLinks.forEach(tool => {
+    const li = document.createElement('li');
+    
+    // S'assurer que le lien cloné garde tous ses attributs
+    tool.element.setAttribute('data-source', tool.source);
+    tool.element.setAttribute('data-country', tool.country);
+    tool.element.setAttribute('data-flagged', tool.flagged);
+    tool.element.setAttribute('data-free', tool.free);
+    
+    li.innerHTML = `
+      ${tool.element.outerHTML}
+    `;
+    
+    allToolsList.appendChild(li);
+  });
+}
+
+
+// DEBUT DE LA MISE A JOUR DU SELECTEUR 
+// SYSTÈME DE FILTRAGE COMPLET
+
+// Sélection des éléments avec vérification d'existence
+const categoryFilter = document.querySelector('.filters-container .modern-select');
+const sourceFilter = document.querySelectorAll('.filters-container .modern-select')[1];
+const countryFilter = document.querySelectorAll('.filters-container .modern-select')[2];
+const searchInput = document.querySelector('.modern-input.search');
+const flaggedToggle = document.querySelector('.toggle-switch[data-filter="flagged"]');
+const freeToggle = document.querySelector('.toggle-switch[data-filter="free"]');
+const githubToggle = document.querySelector('.toggle-switch[data-filter="github"]');
+const resultsCounter = document.querySelector('.results-counter');
+
+const sections = document.querySelectorAll('section[data-category]');
+const allLinks = document.querySelectorAll('a[data-source]');
+
+function applyFilters() {
+  const categoryValue = categoryFilter?.value || '';
+  const sourceValue = sourceFilter?.value || '';
+  const countryValue = countryFilter?.value || '';
+  const searchValue = searchInput?.value.toLowerCase().trim() || '';
+  
+  const flaggedOnly = flaggedToggle?.classList.contains('active') || false;
+  const freeOnly = freeToggle?.classList.contains('active');
+  const githubOnly = !githubToggle?.classList.contains('active');
+  
+  let visibleCount = 0;
+
+  // NOUVEAU : Si "Tous les outils" est sélectionné
+  if (categoryValue === 'all') {
+    // Masquer toutes les sections normales
+    sections.forEach(section => {
+      if (section.getAttribute('data-category') !== 'all') {
+        section.classList.add('hidden');
+      }
+    });
+    
+    // Afficher la section "Tous les outils"
+    const allSection = document.querySelector('[data-category="all"]');
+    allSection.classList.remove('hidden');
+    
+    // Appliquer les filtres sur la méga-liste
+    const allLinks = allSection.querySelectorAll('a[data-source]');
+    allLinks.forEach(link => {
+      const linkSource = link.getAttribute('data-source') || '';
+      const linkCountry = link.getAttribute('data-country') || '';
+      const linkFlagged = link.getAttribute('data-flagged') === 'true';
+      const linkFree = link.getAttribute('data-free') === 'true';
+      const linkText = link.textContent.toLowerCase();
+      const linkParent = link.closest('li');
+
+      const matchesSource = !sourceValue || linkSource === sourceValue;
+      const matchesCountry = !countryValue || linkCountry === countryValue;
+      const matchesSearch = !searchValue || linkText.includes(searchValue);
+      const matchesFlagged = !flaggedOnly || linkFlagged;
+      const matchesFree = !freeOnly || linkFree;
+      const matchesGithub = githubOnly || linkSource === 'github';
+
+      const linkVisible = matchesSource && matchesCountry && matchesSearch && 
+                         matchesFlagged && matchesFree && matchesGithub;
+
+      if (linkVisible) {
+        if (linkParent) linkParent.style.display = 'list-item';
+        visibleCount++;
+      } else {
+        if (linkParent) linkParent.style.display = 'none';
+      }
+    });
+    
+  } else {
+    // EXISTANT : Logique normale pour les catégories spécifiques
+    // Masquer la section "Tous les outils"
+    const allSection = document.querySelector('[data-category="all"]');
+    if (allSection) allSection.classList.add('hidden');
+    
+    // Ton code existant reste identique
+    sections.forEach(section => {
+      const sectionCategory = section.getAttribute('data-category');
+      
+      // Skip la section "all" dans la boucle normale
+      if (sectionCategory === 'all') return;
+      
+      let sectionHasVisibleLinks = false;
+      const sectionMatchesCategory = !categoryValue || sectionCategory === categoryValue;
+
+      if (sectionMatchesCategory) {
+        const links = section.querySelectorAll('a[data-source]');
+        
+        links.forEach(link => {
+          const linkSource = link.getAttribute('data-source') || '';
+          const linkCountry = link.getAttribute('data-country') || '';
+          const linkFlagged = link.getAttribute('data-flagged') === 'true';
+          const linkFree = link.getAttribute('data-free') === 'true';
+          const linkText = link.textContent.toLowerCase();
+          const linkParent = link.closest('li');
+
+          const matchesSource = !sourceValue || linkSource === sourceValue;
+          const matchesCountry = !countryValue || linkCountry === countryValue;
+          const matchesSearch = !searchValue || linkText.includes(searchValue);
+          const matchesFlagged = !flaggedOnly || linkFlagged;
+          const matchesFree = freeOnly || linkFree;
+          const matchesGithub = githubOnly || linkSource === 'github';
+
+          const linkVisible = matchesSource && matchesCountry && matchesSearch && 
+                             matchesFlagged && matchesFree && matchesGithub;
+
+          if (linkVisible) {
+            if (linkParent) linkParent.style.display = 'list-item';
+            sectionHasVisibleLinks = true;
+            visibleCount++;
+          } else {
+            if (linkParent) linkParent.style.display = 'none';
+          }
+        });
+      }
+
+      if (sectionMatchesCategory && sectionHasVisibleLinks) {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.add('hidden');
+      }
+    });
+  }
+
+  if (resultsCounter) {
+    resultsCounter.textContent = `📊 ${visibleCount} tools found`;
+  }
+}
+
+// Fonction reset
+function resetFilters() {
+  console.log('Resetting filters...');
+  
+  // Reset des selects
+  document.querySelectorAll('.filters-container .modern-select').forEach(select => {
+    select.selectedIndex = 0;
+  });
+  
+  // Reset des inputs
+  document.querySelectorAll('.modern-input').forEach(input => input.value = '');
+  
+  document.querySelectorAll('.toggle-switch').forEach(toggle => {
+    const filterType = toggle.getAttribute('data-filter');
+    // GitHub et Free sont actifs par défaut, Flagged est inactif
+    if (filterType === 'github' || filterType === 'free') {
+      toggle.classList.add('active');
+    } else {
+      toggle.classList.remove('active');
+    }
+  });
+  
+  
+  // Réafficher tout
+  sections.forEach(section => section.classList.remove('hidden'));
+  document.querySelectorAll('section li').forEach(li => li.style.display = 'list-item');
+  
+  if (resultsCounter) {
+    resultsCounter.textContent = `📊 ${allLinks.length} outils trouvés`;
+  }
+  
+  applyFilters(); // Réappliquer les filtres après reset
+}
+
+function initFilters() {
+  searchInput?.addEventListener('input', applyFilters);
+
+  [categoryFilter, sourceFilter, countryFilter].forEach(select => {
+    select?.addEventListener('change', applyFilters);
+  });
+
+  document.querySelectorAll('.toggle-switch').forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      applyFilters();
+    });
+  });
+}
+
+
+// Initialisation au chargement
+document.addEventListener('DOMContentLoaded', () => {
+  generateAllToolsList();
+  applyFilters();
+  initFilters();
+});
+
+// Ajout d'un listener global pour le bouton reset
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('reset-btn')) {
+    resetFilters();
+  }
+});
+
+//FIN DE LA MISE A JOUR DU SELECTEUR
 
 
 //No smartphone display
