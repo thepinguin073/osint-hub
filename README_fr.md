@@ -12,6 +12,9 @@ Ce fichier est également disponible en [🇬🇧 anglais](./README.md)
 Cet outil organise des liens spécialisés par catégories telles que pseudonymes, réseaux sociaux, géolocalisation, darknet, entreprises, et bien d’autres.  
 Il est conçu pour les praticiens OSINT à la recherche d’une plateforme simple, complète, et entièrement en frontend.
 
+
+![Capture d'écran de OSINT hub ](screenshot.png "Capture d'écran")
+
 ---
 
 ## Fonctionnalités

@@ -12,6 +12,9 @@ This README is also available in [🇫🇷 French](./README_fr.md)
 This tool organizes specialized links by categories such as usernames, social media, geolocation, darknet, companies, and more.  
 It is designed for OSINT practitioners looking for a simple, comprehensive, and fully frontend platform.
 
+
+![Screenshot of OSINT hub ](screenshot.png "Screenshot")
+
 ---
 
 ## Features
