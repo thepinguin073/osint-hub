@@ -93,7 +93,6 @@
       box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
     }
 
-    /* Style de base pour tous les sélecteurs */
     .modern-select, .modern-input {
       appearance: none;
       -webkit-appearance: none;
@@ -112,7 +111,6 @@
       outline: none;
     }
 
-    /* Effet de focus unifié */
     .modern-select:focus, .modern-input:focus {
       border-color: #00D4FF;
       box-shadow: 
@@ -122,14 +120,12 @@
       background: linear-gradient(135deg, #1e1e1e 0%, #333 100%);
     }
 
-    /* Effet hover */
     .modern-select:hover, .modern-input:hover {
       border-color: #4FFBDF;
       background: linear-gradient(135deg, #1e1e1e 0%, #333 100%);
       transform: translateY(-1px);
     }
 
-    /* Dropdown custom */
     .select-wrapper {
       position: relative;
     }
@@ -157,7 +153,6 @@
       transform: translateY(-50%) rotate(180deg);
     }
 
-    /* Options styling */
     .modern-select option {
       background: #1a1a1a;
       color: white;
@@ -169,7 +164,6 @@
       background: #333;
     }
 
-    /* Input de recherche avec icône */
     .search-wrapper {
       position: relative;
     }
@@ -200,7 +194,6 @@
       font-style: italic;
     }
 
-    /* Toggle switches */
     .toggle-container {
       display: flex;
       align-items: center;
@@ -243,7 +236,6 @@
       background: #000;
     }
 
-    /* Counter badge */
     .results-counter {
       background: linear-gradient(45deg, #FF6B35, #FF8E53);
       color: white;
@@ -262,7 +254,6 @@
       50% { transform: scale(1.02); }
     }
 
-    /* Reset button */
     .reset-btn {
       background: linear-gradient(135deg, #333 0%, #555 100%);
       border: 2px solid #666;
@@ -757,7 +748,6 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       </div>
     </div>
 
-    <!-- Filtre catégorie (existant, version moderne) -->
     <div class="filter-group">
       <label class="filter-label">Category</label>
       <div class="select-wrapper">
@@ -780,44 +770,69 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
           <option value="domains">🕸️ Domains</option>
           <option value="lookup">📡 Data Lookup</option>
           <option value="crypto">₿ Cryptocurrencies</option>
-          <option value="companies">🏛️ Compagnies</option>
+          <option value="companies">🏢 Compagnies</option>
           <option value="darknet">🧅 Darknet-oriented tool</option>
           <option value="frameworks">🗂️ Others OSINT frameworks</option>
         </select>
       </div>
     </div>
 
-    <!-- Filtre source -->
     <div class="filter-group">
       <label class="filter-label">Source</label>
       <div class="select-wrapper">
         <select id="sourceFilter" class="modern-select">
           <option value="">All sources</option>
-          <option value="github">🐙 GitHub Tools</option>
           <option value="website">🕸️ Sites Web</option>
           <option value="api">🔌 APIs</option>
-          <option value="software">💻 Softwares</option>
+          <option value="government">🏛 Government Resources</option>
         </select>
       </div>
     </div>
 
-    <!-- Filtre région -->
     <div class="filter-group">
       <label class="filter-label">Region</label>
       <div class="multi-select-container">
         <div class="select-wrapper">
           <select id="countryFilter" class="modern-select">
             <option value="">All regions</option>
-            <option value="france">🇫🇷 France</option>
-            <option value="belgium">🇧🇪 Belgium</option>
-            <option value="europe">🇪🇺 Europe</option>
             <option value="international">🌍 International</option>
+            <option value="europe">🇪🇺 Europe</option>
+            <option value="austria">🇦🇹 Austria</option>
+            <option value="belgium">🇧🇪 Belgium</option>
+            <option value="bulgaria">🇧🇬 Bulgaria</option>
+            <option value="croatia">🇭🇷 Croatia</option>
+            <option value="cyprus">🇨🇾 Cyprus</option>
+            <option value="czech-republic">🇨🇿 Czech Republic</option>
+            <option value="denmark">🇩🇰 Denmark</option>
+            <option value="estonia">🇪🇪 Estonia</option>
+            <option value="finland">🇫🇮 Finland</option>
+            <option value="france">🇫🇷 France</option>
+            <option value="germany">🇩🇪 Germany</option>
+            <option value="greece">🇬🇷 Greece</option>
+            <option value="hungary">🇭🇺 Hungary</option>
+            <option value="iceland">🇮🇸 Iceland</option>
+            <option value="ireland">🇮🇪 Ireland</option>
+            <option value="italy">🇮🇹 Italy</option>
+            <option value="latvia">🇱🇻 Latvia</option>
+            <option value="lithuania">🇱🇹 Lithuania</option>
+            <option value="luxembourg">🇱🇺 Luxembourg</option>
+            <option value="malta">🇲🇹 Malta</option>
+            <option value="netherlands">🇳🇱 Netherlands</option>
+            <option value="norway">🇳🇴 Norway</option>
+            <option value="poland">🇵🇱 Poland</option>
+            <option value="portugal">🇵🇹 Portugal</option>
+            <option value="romania">🇷🇴 Romania</option>
+            <option value="slovakia">🇸🇰 Slovakia</option>
+            <option value="slovenia">🇸🇮 Slovenia</option>
+            <option value="spain">🇪🇸 Spain</option>
+            <option value="sweden">🇸🇪 Sweden</option>
+            <option value="switzerland">🇨🇭 Switzerland</option>
+            <option value="uk">🇬🇧 United Kingdom</option>
           </select>
         </div>
       </div>
     </div>
 
-    <!-- Toggles pour les options -->
     <div class="filter-group">
       <label class="filter-label">Options</label>
       
@@ -837,7 +852,6 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       </div>
     </div>
 
-    <!-- Compteur de résultats -->
     <div class="results-counter">
       📊 147 tools found
     </div>
@@ -861,7 +875,6 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <h2>🌟 All OSINT tools</h2>
       <i>Overview of all available tools, organized alphabetically  </i>
       <ul id="allToolsList">
-        <!-- Cette liste sera générée dynamiquement -->
       </ul>
     </section>
 
@@ -895,7 +908,11 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
         <li><a href="https://start.me/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Start.me</a></li>
         <li><a href="https://www.service-public.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Service Public (FR)</a></li>
         <li><a href="https://www.belgium.be/fr" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Belgium.be</a></li>
-        <li><a href="https://justice.belgium.be/fr/service_public_federal_justice/organisation/moniteur_belge" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Le Moniteur (BE)</a></li>        
+        <li><a href="https://justice.belgium.be/fr/service_public_federal_justice/organisation/moniteur_belge" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Le Moniteur (BE)</a></li>
+        <li><a href="https://github.com/etalab" target="_blank" data-source="github" data-country="france" data-flagged="false" data-free="true">Etalab (FR)</a></li>
+        <li><a href="https://github.com/bundesAPI" target="_blank" data-source="github" data-country="germany" data-flagged="false" data-free="true">Bundes API (DE)</a></li>
+        <li><a href="https://github.com/dataoverheid" target="_blank" data-source="github" data-country="netherlands" data-flagged="false" data-free="true">Data Over Heid (NL)</a></li>
+        <li><a href="https://github.com/belgif" target="_blank" data-source="github" data-country="belgium" data-flagged="false" data-free="true">BelgIF (BE)</a></li>
       </ul>
     </section>
 
@@ -925,9 +942,9 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
         <li><a href="https://www.belgiantrain.be/fr/travel-info/prepare-for-your-journey/leaflets/global-map-train-belgium" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">SNCB (BE)</a></li>
         <li><a href="https://data.delijn.be/" target="_blank" data-source="api" data-country="belgium" data-flagged="false" data-free="true">De Lijn API (BE)</a></li>
         <li><a href="https://openrailwaymap.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Open railway map</a></li>
-        <li><a href="https://www.map.signalbox.io/" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">UK Train Map</a></li>
-        <li><a href="https://treinenradar.nl/" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">NL Train Map</a></li>
-        <li><a href="https://www.opentraintimes.com/" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">UK Open Train Times</a></li>
+        <li><a href="https://www.map.signalbox.io/" target="_blank" data-source="website" data-country="uk" data-flagged="false" data-free="true">Train Map (UK)</a></li>
+        <li><a href="https://treinenradar.nl/" target="_blank" data-source="website" data-country="netherlands" data-flagged="false" data-free="true">Train Map (NL)</a></li>
+        <li><a href="https://www.opentraintimes.com/" target="_blank" data-source="website" data-country="uk" data-flagged="false" data-free="true">Open Train Times (UK)</a></li>
       </ul>
     </section>
 
@@ -1004,7 +1021,7 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <ul class="list-disc ml-6">
         <li><a href="https://www.familysearch.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">FamilySearch</a></li>
         <li><a href="https://www.geneanet.org/" target="_blank" data-source="website" data-country="france" data-flagged="false" data-free="true">Geneanet (FR)</a></li>
-        <li><a href="https://www.nationalarchives.gov.uk/" target="_blank" data-source="government" data-country="europe" data-flagged="false" data-free="true">National Archives UK</a></li>
+        <li><a href="https://www.nationalarchives.gov.uk/" target="_blank" data-source="government" data-country="uk" data-flagged="false" data-free="true">National Archives (UK)</a></li>
         <li><a href="https://www.filae.com/" target="_blank" data-source="website" data-country="france" data-flagged="false" data-free="true">Filae (FR)</a></li>
         <li><a href="https://www.arch.be/index.php" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Archives nationales (BE)</a></li>
       </ul>
@@ -1016,9 +1033,9 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
       <ul class="list-disc ml-6">
         <li><a href="https://www.globalsecurity.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">GlobalSecurity.org</a></li>
         <li><a href="https://www.sipri.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">SIPRI (International)</a></li>
-        <li><a href="https://www.defense.gouv.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Ministère des Armées (FR)</a></li>
-        <li><a href="https://www.mil.be/fr" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Défense (BE)</a></li>
-        <li><a href="https://www.army.mil/" target="_blank" data-source="government" data-country="international" data-flagged="false" data-free="true">US Army Official</a></li>
+        <li><a href="https://www.defense.gouv.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Ministry of the Armed Forces (FR)</a></li>
+        <li><a href="https://www.mil.be/fr" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">The Belgian defense website (BE)</a></li>
+        <li><a href="https://www.army.mil/" target="_blank" data-source="government" data-country="international" data-flagged="false" data-free="true">Army Official website (US)</a></li>
       </ul>
     </section>
 
@@ -1068,6 +1085,16 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
         <li><a href="https://www.openstreetmap.org/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">OpenStreetMap</a></li>
         <li><a href="https://geojson.io/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">GeoJSON</a></li>
         <li><a href="https://www.earthcam.com/" target="_blank" data-source="website" data-country="international" data-flagged="true" data-free="true">EarthCam ⚠️</a></li>
+        <li><a href="https://www.ordnancesurvey.co.uk/" target="_blank" data-source="government" data-country="uk" data-flagged="false" data-free="true">Ordnance Survey (UK)</a></li>
+        <li><a href="https://geo.api.gouv.fr/" target="_blank" data-source="api" data-country="uk" data-flagged="false" data-free="true">GEO API (FR)</a></li>
+        <li><a href="https://www.cadastre.gouv.fr/scpc/accueil.do" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Cadastre (FR)</a></li>
+        <li><a href="https://www.geoportal.de/" target="_blank" data-source="government" data-country="germany" data-flagged="false" data-free="true">Geoportal (DE)</a></li>
+        <li><a href="https://geodati.gov.it/geoportale/eng/" target="_blank" data-source="government" data-country="italy" data-flagged="false" data-free="true">Geo Data(IT)</a></li>
+        <li><a href="https://www.einforma.com/registros-propiedad" target="_blank" data-source="government" data-country="spain" data-flagged="false" data-free="true">Property Registries (ES)</a></li>
+        <li><a href="https://www.ign.es/web/ign/portal" target="_blank" data-source="government" data-country="spain" data-flagged="false" data-free="true">National Geographic Institute (ES)</a></li>
+        <li><a href="https://geoportal.lneg.pt/en/opendata/" target="_blank" data-source="government" data-country="portugal" data-flagged="false" data-free="true">GEO DATA (PT)</a></li>
+        <li><a href="https://www.pdok.nl/" target="_blank" data-source="government" data-country="netherlands" data-flagged="false" data-free="true">GEO DATA (NL)</a></li>
+        <li><a href="https://www.geo.be/home?l=en" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">GEO DATA (BE)</a></li>
       </ul>
     </section>
 
@@ -1112,6 +1139,20 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
         <li><a href="https://wigle.net/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">Wigle.net</a></li>
         <li><a href="https://opendata.bosa.be/index.fr.html" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Open Data (BE)</a></li>
         <li><a href="https://www.data.gouv.fr/" target="_blank" data-source="government" data-country="france" data-flagged="false" data-free="true">Data Gouv (FR)</a></li>
+        <li><a href="https://api.gouv.fr/" target="_blank" data-source="api" data-country="france" data-flagged="false" data-free="true">API Gouv (FR)</a></li>
+        <li><a href="https://www.ncsc.gov.uk/" target="_blank" data-source="government" data-country="uk" data-flagged="false" data-free="true">National Cyber Security Centre (UK)</a></li>
+        <li><a href="https://data.police.uk/" target="_blank" data-source="api" data-country="uk" data-flagged="false" data-free="true">data.police.uk (UK)</a></li>
+        <li><a href="https://www.data.gov.uk/" target="_blank" data-source="government" data-country="uk" data-flagged="false" data-free="true">data.gov.uk (UK)</a></li>
+        <li><a href="https://www.govdata.de/" target="_blank" data-source="government" data-country="germany" data-flagged="false" data-free="true">Gov Data (DE)</a></li>
+        <li><a href="https://www.bundesanzeiger.de/pub/de/start?0" target="_blank" data-source="website" data-country="germany" data-flagged="false" data-free="true">Federal Gazette (DE)</a></li>
+        <li><a href="https://www.dati.gov.it/" target="_blank" data-source="government" data-country="italy" data-flagged="false" data-free="true">Open Data (IT)</a></li>
+        <li><a href="https://www.agid.gov.it/it" target="_blank" data-source="government" data-country="italy" data-flagged="false" data-free="true">Italian digital agency (IT)</a></li>
+        <li><a href="https://datos.gob.es/en" target="_blank" data-source="government" data-country="spain" data-flagged="false" data-free="true">Open Data (ES)</a></li>
+        <li><a href="https://dados.gov.pt/en/" target="_blank" data-source="government" data-country="portugal" data-flagged="false" data-free="true">Open Data (PT)</a></li>
+        <li><a href="https://publicacoes.mj.pt/" target="_blank" data-source="government" data-country="portugal" data-flagged="false" data-free="true">Official Publication (PT)</a></li>
+        <li><a href="https://data.overheid.nl/" target="_blank" data-source="government" data-country="netherlands" data-flagged="false" data-free="true">Open Data (NL)</a></li>
+        <li><a href="https://data.gov.be/en" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Open Data (BE)</a></li>
+        <li><a href="https://www.ejustice.just.fgov.be/cgi/welcome.pl" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">Belgian Official Gazette (BE)</a></li>
       </ul>
     </section>
 
@@ -1129,7 +1170,7 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
     </section>
 
     <section class="section-card" data-category="companies">
-      <h2 class="text-xl font-bold mb-2">🏛️ Compagnies</h2>
+      <h2 class="text-xl font-bold mb-2">🏢 Compagnies</h2>
       <i>Investigation of companies or commercial structures</i>
       <ul class="list-disc ml-6">
         <li><a href="https://www.opencorporates.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="true">OpenCorporates</a></li>
@@ -1137,11 +1178,21 @@ Enjoy exploring, responsibly. 🕵️‍♂️</p>
         <li><a href="https://www.pappers.fr/" target="_blank" data-source="website" data-country="europe" data-flagged="false" data-free="true">Pappers (FR)</a></li>
         <li><a href="https://kbopub.economie.fgov.be/kbopub/zoekwoordenform.html" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">BCE (BE)</a></li>
         <li><a href="https://www.companyweb.be/en" target="_blank" data-source="website" data-country="belgium" data-flagged="false" data-free="true">Compagnyweb (BE)</a></li>
-        <li><a href="https://firmeneintrag.creditreform.de/" target="_blank" data-source="government" data-country="europe" data-flagged="false" data-free="true">Dutch Compagny Database (DE)</a></li>
+        <li><a href="https://firmeneintrag.creditreform.de/" target="_blank" data-source="government" data-country="germany" data-flagged="false" data-free="true">Compagny Database (DE)</a></li>
         <li><a href="https://www.dnb.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="false">Dun & Bradstreet</a></li>
         <li><a href="https://www.bloomberg.com/professional/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="false">Bloomberg Professional</a></li>
         <li><a href="https://statbel.fgov.be/fr" target="_blank" data-source="government" data-country="belgium" data-flagged="false" data-free="true">StatBel (BE)</a></li>
         <li><a href="https://www.bvdinfo.com/" target="_blank" data-source="website" data-country="international" data-flagged="false" data-free="false">Bureau van Dijk</a></li>
+        <li><a href="https://developer.company-information.service.gov.uk/" target="_blank" data-source="api" data-country="uk" data-flagged="false" data-free="true">Companies House API (UK)</a></li>
+        <li><a href="https://find-and-update.company-information.service.gov.uk" target="_blank" data-source="government" data-country="uk" data-flagged="false" data-free="true">Companies Information (UK)</a></li>
+        <li><a href="https://www.infogreffe.fr/" target="_blank" data-source="website" data-country="france" data-flagged="false" data-free="true">Infogreffe (FR)</a></li>
+        <li><a href="https://portail-api.insee.fr/" target="_blank" data-source="api" data-country="france" data-flagged="false" data-free="true">API Catalog (FR)</a></li>
+        <li><a href="https://www.unternehmensregister.de/de" target="_blank" data-source="website" data-country="germany" data-flagged="false" data-free="true">company register (DE)</a></li>
+        <li><a href="https://offeneregister.de/" target="_blank" data-source="website" data-country="germany" data-flagged="false" data-free="true">Open Registers (DE)</a></li>
+        <li><a href="https://www.registroimprese.it/" target="_blank" data-source="website" data-country="italy" data-flagged="false" data-free="true">Company Register (IT)</a></li>
+        <li><a href="https://www.registradores.org/" target="_blank" data-source="website" data-country="spain" data-flagged="false" data-free="false">Company Register (ES)</a></li>
+        <li><a href="https://openkvk.nl/" target="_blank" data-source="website" data-country="netherlands" data-flagged="false" data-free="true">Company Register (NL)</a></li>
+        <li><a href="https://www.kvk.nl/" target="_blank" data-source="website" data-country="netherlands" data-flagged="false" data-free="true">Chamber of Commerce (NL)</a></li>
       </ul>
     </section>
 
@@ -1266,18 +1317,15 @@ function generateAllToolsList() {
   const allToolsList = allSection.querySelector('ul');
   const allLinks = [];
   
-  // Collecter tous les liens des autres sections
   sections.forEach(section => {
     const sectionCategory = section.getAttribute('data-category');
     
-    // Skip la section "all" elle-même
     if (sectionCategory === 'all') return;
     
     const categoryTitle = section.querySelector('h2').textContent;
     const links = section.querySelectorAll('a[data-source]');
     
     links.forEach(link => {
-      // Cloner le lien avec tous ses attributs
       const clonedLink = link.cloneNode(true);
       allLinks.push({
         element: clonedLink,
@@ -1292,15 +1340,12 @@ function generateAllToolsList() {
     });
   });
   
-  // Trier par ordre alphabétique
   allLinks.sort((a, b) => a.name.localeCompare(b.name));
   
-  // Vider et remplir la liste
   allToolsList.innerHTML = '';
   allLinks.forEach(tool => {
     const li = document.createElement('li');
     
-    // S'assurer que le lien cloné garde tous ses attributs
     tool.element.setAttribute('data-source', tool.source);
     tool.element.setAttribute('data-country', tool.country);
     tool.element.setAttribute('data-flagged', tool.flagged);
@@ -1315,10 +1360,6 @@ function generateAllToolsList() {
 }
 
 
-// DEBUT DE LA MISE A JOUR DU SELECTEUR 
-// SYSTÈME DE FILTRAGE COMPLET
-
-// Sélection des éléments avec vérification d'existence
 const categoryFilter = document.querySelector('.filters-container .modern-select');
 const sourceFilter = document.querySelectorAll('.filters-container .modern-select')[1];
 const countryFilter = document.querySelectorAll('.filters-container .modern-select')[2];
@@ -1343,20 +1384,16 @@ function applyFilters() {
   
   let visibleCount = 0;
 
-  // NOUVEAU : Si "Tous les outils" est sélectionné
   if (categoryValue === 'all') {
-    // Masquer toutes les sections normales
     sections.forEach(section => {
       if (section.getAttribute('data-category') !== 'all') {
         section.classList.add('hidden');
       }
     });
     
-    // Afficher la section "Tous les outils"
     const allSection = document.querySelector('[data-category="all"]');
     allSection.classList.remove('hidden');
     
-    // Appliquer les filtres sur la méga-liste
     const allLinks = allSection.querySelectorAll('a[data-source]');
     allLinks.forEach(link => {
       const linkSource = link.getAttribute('data-source') || '';
@@ -1385,16 +1422,12 @@ function applyFilters() {
     });
     
   } else {
-    // EXISTANT : Logique normale pour les catégories spécifiques
-    // Masquer la section "Tous les outils"
     const allSection = document.querySelector('[data-category="all"]');
     if (allSection) allSection.classList.add('hidden');
     
-    // Ton code existant reste identique
     sections.forEach(section => {
       const sectionCategory = section.getAttribute('data-category');
       
-      // Skip la section "all" dans la boucle normale
       if (sectionCategory === 'all') return;
       
       let sectionHasVisibleLinks = false;
@@ -1444,21 +1477,17 @@ function applyFilters() {
   }
 }
 
-// Fonction reset
 function resetFilters() {
   console.log('Resetting filters...');
   
-  // Reset des selects
   document.querySelectorAll('.filters-container .modern-select').forEach(select => {
     select.selectedIndex = 0;
   });
   
-  // Reset des inputs
   document.querySelectorAll('.modern-input').forEach(input => input.value = '');
   
   document.querySelectorAll('.toggle-switch').forEach(toggle => {
     const filterType = toggle.getAttribute('data-filter');
-    // GitHub et Free sont actifs par défaut, Flagged est inactif
     if (filterType === 'github' || filterType === 'free') {
       toggle.classList.add('active');
     } else {
@@ -1467,7 +1496,6 @@ function resetFilters() {
   });
   
   
-  // Réafficher tout
   sections.forEach(section => section.classList.remove('hidden'));
   document.querySelectorAll('section li').forEach(li => li.style.display = 'list-item');
   
@@ -1475,7 +1503,7 @@ function resetFilters() {
     resultsCounter.textContent = `📊 ${allLinks.length} outils trouvés`;
   }
   
-  applyFilters(); // Réappliquer les filtres après reset
+  applyFilters();
 }
 
 function initFilters() {
@@ -1494,14 +1522,12 @@ function initFilters() {
 }
 
 
-// Initialisation au chargement
 document.addEventListener('DOMContentLoaded', () => {
   generateAllToolsList();
   applyFilters();
   initFilters();
 });
 
-// Ajout d'un listener global pour le bouton reset
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('reset-btn')) {
     resetFilters();
@@ -1511,7 +1537,6 @@ document.addEventListener('click', function(e) {
 //FIN DE LA MISE A JOUR DU SELECTEUR
 
 
-//No smartphone display
 const width = window.innerWidth;
 const height = window.innerHeight;
 const html = document.querySelector("html");
