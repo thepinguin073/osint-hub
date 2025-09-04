@@ -24,7 +24,37 @@
       overflow-x: hidden;
     }
 
-/*DEBUT DE LA MISE A JOUR DU SELECTEUR*/
+    #link {
+      font-style: italic;
+      color: #393D47;
+      text-decoration: none;
+      position: absolute;
+      left: 2rem;
+      top: 2rem;
+      z-index: 10000;
+      transition: text-decoration 0.3s ease;
+    }
+
+    #link a {
+      color: #393D47;
+      text-decoration: none;
+    }
+
+
+    #link a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background-color: currentColor;
+      transition: width 0.3s ease;
+    }
+
+    #link a:hover::after {
+      width: 100%;
+    }
 
     .filters-container {
       position: fixed;
@@ -273,8 +303,6 @@
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
-
-/*FIN DE LA MISE A JOUR DU SELECTEUR*/
 
     .righteous-regular {
       font-family: "Righteous", sans-serif;
@@ -713,6 +741,7 @@
   </style>
 </head>
 <body>
+  <div id="link">By <a href="https://cryptexhq.github.io/">Cryptex</a></div>
   <div id="warningModal">
     <div class="modal-content">
       <h2>⚠️ Legal Disclaimer and Ethical Notice ⚠️</h2>
