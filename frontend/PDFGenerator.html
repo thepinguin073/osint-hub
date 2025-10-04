@@ -1,0 +1,2797 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptex - Générateur de Rapports OSINT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --noir-profond: #0a0a0f;
+            --gris-fonce: #1a1a2e;
+            --gris-moyen: #2a2a3e;
+            --bleu-electrique: #00d4ff;
+            --bleu-cyber: #0099cc;
+            --vert-matrix: #00ff41;
+            --rouge-alerte: #ff3366;
+            --orange-warning: #ff9500;
+            --blanc-pur: #ffffff;
+            --gris-clair: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--noir-profond) 0%, var(--gris-fonce) 100%);
+            color: var(--blanc-pur);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            border-bottom: 2px solid var(--bleu-electrique);
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--bleu-electrique);
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.2rem;
+            color: var(--gris-clair);
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-panel, .preview-panel {
+            background: var(--gris-moyen);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .panel-title {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.5rem;
+            color: var(--bleu-electrique);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gris-clair);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--gris-fonce);
+            border-radius: 8px;
+            background: var(--gris-fonce);
+            color: var(--blanc-pur);
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--bleu-electrique);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .section-toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .section-toggle input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .section-toggle label {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--bleu-electrique);
+        }
+
+        .form-section {
+            background: var(--gris-fonce);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--bleu-electrique);
+        }
+
+        .form-section.hidden {
+            display: none;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--bleu-electrique), var(--bleu-cyber));
+            color: var(--noir-profond);
+        }
+
+        .btn-secondary {
+            background: var(--gris-fonce);
+            color: var(--blanc-pur);
+            border: 2px solid var(--bleu-electrique);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .actions {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Styles spécifiques pour les nouveaux formulaires */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .table-container {
+            background: var(--gris-fonce);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .table-title {
+            font-weight: 600;
+            color: var(--bleu-electrique);
+        }
+
+        .add-btn {
+            background: var(--vert-matrix);
+            color: var(--noir-profond);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .table-row {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: var(--gris-moyen);
+            border-radius: 6px;
+            align-items: center;
+        }
+
+        .social-row {
+            grid-template-columns: 1fr 1fr 1fr 1fr auto;
+        }
+
+        .website-row {
+            grid-template-columns: 1fr 1fr 1fr auto;
+        }
+
+        .delete-btn {
+            background: var(--rouge-alerte);
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+
+        .interest-category {
+            margin-bottom: 20px;
+        }
+
+        .interest-title {
+            font-weight: 600;
+            color: var(--bleu-electrique);
+            margin-bottom: 10px;
+        }
+
+        .interest-list {
+            background: var(--gris-fonce);
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .interest-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .interest-item input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .vulnerability-section {
+            margin-bottom: 20px;
+        }
+
+        .vulnerability-title {
+            font-weight: 600;
+            color: var(--orange-warning);
+            margin-bottom: 15px;
+            padding: 10px;
+            background: var(--gris-fonce);
+            border-radius: 6px;
+        }
+
+        .vulnerability-item {
+            background: var(--gris-fonce);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .vuln-header {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .criticite-select {
+            background: var(--gris-moyen);
+            border: 1px solid var(--gris-clair);
+        }
+
+        .attack-method {
+            background: rgba(220, 53, 69, 0.12);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+			border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        .recommendation-section {
+            margin-bottom: 20px;
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+		
+		#title-now {
+			color: #dc3545;
+		}
+		
+		#title-two-weeks {
+			color: #fd7e14;
+		}
+		
+		#title-monthly {
+			color: #28a745;
+		}
+
+        /* Styles pour la prévisualisation */
+        #report-preview {
+            background: white;
+            color: black;
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .report-content {
+            padding: 20px;
+        }
+
+        .report-header {
+            text-align: center;
+            border-bottom: 2px solid #0099cc;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .report-header h1 {
+            color: #0099cc;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .report-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-left: 4px solid #0099cc;
+            background: #f8f9fa;
+        }
+
+        .report-section h2 {
+            color: #0099cc;
+            margin-bottom: 15px;
+        }
+
+        .profile-table, .digital-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .profile-table th, .profile-table td,
+        .digital-table th, .digital-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .profile-table th, .digital-table th {
+            background-color: #0099cc;
+            color: white;
+        }
+
+        .interest-lists {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .interest-column h4 {
+            color: #0099cc;
+            margin-bottom: 10px;
+        }
+
+        .interest-column ul {
+            padding-left: 20px;
+        }
+
+        .vuln-item {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .vuln-criticite {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .criticite-faible { background: #d4edda; color: #155724; }
+        .criticite-moyenne { background: #fff3cd; color: #856404; }
+        .criticite-elevee { background: #f8d7da; color: #721c24; }
+        .criticite-critique { background: #f5c6cb; color: #491217; }
+
+        .recommendation-lists {
+            display: grid;
+            gap: 20px;
+        }
+
+        .recommendation-column h4 { 
+            margin-bottom: 10px;
+        }
+
+        .recommendation-column ul {
+            padding-left: 20px;
+        }
+
+		#now h4 {
+			color: #dc3545 !important;
+		}
+		
+		#two-weeks h4 {
+			color: #fd7e14 !important;
+		}
+		
+		#monthly h4 {
+			color: #28a745 !important;
+		}
+
+        .score-display {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #0099cc;
+        }
+
+        .score-comment {
+            font-size: 1.2rem;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        /* Styles pour les widgets Risque/Impact */
+        .risk-impact-widget {
+            background: linear-gradient(135deg, var(--gris-fonce), var(--gris-moyen));
+            border: 2px solid var(--bleu-electrique);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .risk-impact-header {
+            font-weight: 600;
+            color: var(--bleu-electrique);
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .risk-impact-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .risk-control, .impact-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .risk-control label, .impact-control label {
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            color: var(--gris-clair);
+        }
+
+        .risk-slider, .impact-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--gris-fonce);
+            outline: none;
+            margin-bottom: 5px;
+        }
+
+        .risk-slider::-webkit-slider-thumb, .impact-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bleu-electrique);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 212, 255, 0.3);
+        }
+
+        .risk-slider::-moz-range-thumb, .impact-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--bleu-electrique);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0, 212, 255, 0.3);
+        }
+
+        .risk-value, .impact-value {
+            font-weight: bold;
+            color: var(--bleu-electrique);
+            font-size: 1.1rem;
+        }
+
+        .section-score {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid var(--bleu-electrique);
+        }
+
+        .section-score-value {
+            font-weight: bold;
+            color: var(--bleu-electrique);
+            font-size: 1.2rem;
+        }
+
+        .risk-level-low { color: var(--vert-matrix); }
+        .risk-level-medium { color: var(--orange-warning); }
+        .risk-level-high { color: var(--rouge-alerte); }
+        .risk-level-critical { color: #ff0000; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CRYPTEX</h1>
+            <div class="subtitle">Générateur de Rapports OSINT Professionnels</div>
+        </div>
+
+        <div class="main-content">
+            <div class="form-panel">
+                <h2 class="panel-title">Configuration du Rapport</h2>
+                
+                <!-- Métadonnées du rapport -->
+                <h3 style="margin: 0 0 20px 0; color: var(--bleu-electrique); font-family: 'Exo 2', sans-serif;">Métadonnées</h3>
+                
+                <div class="form-group">
+                    <label>Nom du Client</label>
+                    <input type="text" id="clientName" placeholder="Nom complet du client">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email du Client</label>
+                        <input type="email" id="clientEmail" placeholder="client@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone du Client</label>
+                        <input type="tel" id="clientPhone" placeholder="+32 XXX XX XX XX">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date d'Analyse</label>
+                        <input type="date" id="analysisDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Durée d'Analyse (heures)</label>
+                        <input type="number" id="analysisDuration" placeholder="ex: 8" min="1" max="168">
+                    </div>
+                </div>
+
+                <!-- Sections modulaires -->
+                <h3 style="margin: 30px 0 20px 0; color: var(--bleu-electrique); font-family: 'Exo 2', sans-serif;">Sections du Rapport</h3>
+                
+                <!-- Profil Identifié -->
+                <div class="section-toggle">
+                    <input type="checkbox" id="toggle-profil" checked>
+                    <label for="toggle-profil">🆔 Profil Identifié</label>
+                </div>
+                <div id="section-profil" class="form-section">
+                    <!-- Évaluation Risque/Impact pour cette section -->
+                    <div class="risk-impact-widget" data-section="profil">
+                        <div class="risk-impact-header">📊 Évaluation Risque/Impact - Profil Identifié</div>
+                        <div class="risk-impact-controls">
+                            <div class="risk-control">
+                                <label>Risque (1-5)</label>
+                                <input type="range" min="1" max="5" value="3" class="risk-slider" data-section="profil">
+                                <span class="risk-value">3</span>
+                            </div>
+                            <div class="impact-control">
+                                <label>Impact (1-5)</label>
+                                <input type="range" min="1" max="5" value="3" class="impact-slider" data-section="profil">
+                                <span class="impact-value">3</span>
+                            </div>
+                            <div class="section-score">
+                                Score: <span class="section-score-value">9</span>
+                            </div>
+                        </div>
+                    </div>
+					
+                    <!--Profil Identifié-->
+                    <div class="profile-grid">
+                        <div class="form-group">
+                            <label>Nom complet</label>
+                            <input type="text" id="profile-nom" placeholder="Prénom Nom">
+                        </div>
+                        <div class="form-group">
+                            <label>Âge</label>
+                            <input type="number" id="profile-age" placeholder="ex: 35">
+                        </div>
+                        <div class="form-group">
+                            <label>Localisation</label>
+                            <input type="text" id="profile-localisation" placeholder="Ville, Pays">
+                        </div>
+                        <div class="form-group">
+                            <label>Profession</label>
+                            <input type="text" id="profile-profession" placeholder="Intitulé du poste">
+                        </div>
+                        <div class="form-group">
+                            <label>Formations</label>
+                            <input type="text" id="profile-formation" placeholder="Nom de l'école">
+                        </div>
+                        <div class="form-group">
+                            <label>Expériences professionnelles</label>
+                            <input type="text" id="profile-xp" placeholder="Intitulé de l'ex-poste">
+                        </div>
+                        <div class="form-group">
+                            <label>Téléphone</label>
+                            <input type="tel" id="profile-telephone" placeholder="+32 XXX XX XX XX">
+                        </div>
+                        <div class="form-group">
+                            <label>Email personnel</label>
+                            <input type="email" id="profile-email" placeholder="email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Liens familiaux</label>
+                            <input type="text" id="profile-famille" placeholder="Soeur, frère, etc. ">
+                        </div>			
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <input type="text" id="profile-notes" placeholder="À mentionner">
+                        </div>												
+                    </div>
+                </div>
+
+                <!-- Empreinte Numérique -->
+                <div class="section-toggle">
+                    <input type="checkbox" id="toggle-empreinte">
+                    <label for="toggle-empreinte">🎯 Empreinte Numérique</label>
+                </div>
+                <div id="section-empreinte" class="form-section hidden">
+                    <!-- Évaluation Risque/Impact pour cette section -->
+                    <div class="risk-impact-widget" data-section="empreinte">
+                        <div class="risk-impact-header">📊 Évaluation Risque/Impact - Empreinte Numérique</div>
+                        <div class="risk-impact-controls">
+                            <div class="risk-control">
+                                <label>Risque (1-5)</label>
+                                <input type="range" min="1" max="5" value="3" class="risk-slider" data-section="empreinte">
+                                <span class="risk-value">3</span>
+                            </div>
+                            <div class="impact-control">
+                                <label>Impact (1-5)</label>
+                                <input type="range" min="1" max="5" value="3" class="impact-slider" data-section="empreinte">
+                                <span class="impact-value">3</span>
+                            </div>
+                            <div class="section-score">
+                                Score: <span class="section-score-value">9</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Réseaux Sociaux -->
+                    <div class="table-container">
+                        <div class="table-header">
+                            <span class="table-title">Réseaux Sociaux Identifiés</span>
+                            <button type="button" class="add-btn" onclick="addSocialRow()">+ Ajouter</button>
+                        </div>
+                        <div id="social-rows">
+                            <!-- Les lignes seront ajoutées dynamiquement -->
+                        </div>
+                    </div>
+
+                    <!-- Sites Web -->
+                    <div class="table-container">
+                        <div class="table-header">
+                            <span class="table-title">Sites Web Identifiés</span>
+                            <button type="button" class="add-btn" onclick="addWebsiteRow()">+ Ajouter</button>
+                        </div>
+                        <div id="website-rows">
+                            <!-- Les lignes seront ajoutées dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Centres d'Intérêt -->
+                <div class="section-toggle">
+                    <input type="checkbox" id="toggle-interets">
+                    <label for="toggle-interets">📸 Centres d'Intérêt</label>
+                </div>
+                <div id="section-interets" class="form-section hidden">
+                    <!-- Évaluation Risque/Impact pour cette section -->
+                    <div class="risk-impact-widget" data-section="interets">
+                        <div class="risk-impact-header">📊 Évaluation Risque/Impact - Centres d'Intérêt</div>
+                        <div class="risk-impact-controls">
+                            <div class="risk-control">
+                                <label>Risque (1-5)</label>
+                                <input type="range" min="1" max="5" value="2" class="risk-slider" data-section="interets">
+                                <span class="risk-value">2</span>
+                            </div>
+                            <div class="impact-control">
+                                <label>Impact (1-5)</label>
+                                <input type="range" min="1" max="5" value="2" class="impact-slider" data-section="interets">
+                                <span class="impact-value">2</span>
+                            </div>
+                            <div class="section-score">
+                                Score: <span class="section-score-value">4</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interest-category">
+                        <div class="interest-title">Hobbies & Loisirs</div>
+                        <div class="interest-list" id="hobbies-list">
+                            <div class="interest-item">
+                                <input type="text" placeholder="Ajouter un hobby ou loisir">
+                                <button type="button" class="add-btn" onclick="addInterestItem('hobbies-list')">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="interest-category">
+                        <div class="interest-title">Expertises Techniques</div>
+                        <div class="interest-list" id="expertises-list">
+                            <div class="interest-item">
+                                <input type="text" placeholder="Ajouter une expertise technique">
+                                <button type="button" class="add-btn" onclick="addInterestItem('expertises-list')">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="interest-category">
+                        <div class="interest-title">Communautés & Groupes</div>
+                        <div class="interest-list" id="communautes-list">
+                            <div class="interest-item">
+                                <input type="text" placeholder="Ajouter une communauté ou groupe">
+                                <button type="button" class="add-btn" onclick="addInterestItem('communautes-list')">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analyse Comportementale -->
+                <div class="section-toggle">
+                    <input type="checkbox" id="toggle-comportement">
+                    <label for="toggle-comportement">🔍 Analyse Comportementale</label>
+                </div>
+                <div id="section-comportement" class="form-section hidden">
+                    <!-- Évaluation Risque/Impact pour cette section -->
+                    <div class="risk-impact-widget" data-section="comportement">
+                        <div class="risk-impact-header">📊 Évaluation Risque/Impact - Analyse Comportementale</div>
+                        <div class="risk-impact-controls">
+                            <div class="risk-control">
+                                <label>Risque (1-5)</label>
+                                <input type="range" min="1" max="5" value="4" class="risk-slider" data-section="comportement">
+                                <span class="risk-value">4</span>
+                            </div>
+                            <div class="impact-control">
+                                <label>Impact (1-5)</label>
+                                <input type="range" min="1" max="5" value="4" class="impact-slider" data-section="comportement">
+                                <span class="impact-value">4</span>
+                            </div>
+                            <div class="section-score">
+                                Score: <span class="section-score-value">16</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Analyse Psychométrique</label>
+                        <textarea id="psychometrique" placeholder="Traits de personnalité identifiés, profil psychologique..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Analyse Stylométrique</label>
+                        <textarea id="stylometrique" placeholder="Style d'écriture, vocabulaire, tics de langage..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Patterns Comportementaux</label>
+                        <textarea id="patterns" placeholder="Habitudes, horaires d'activité, comportements récurrents..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Vulnérabilités -->
+                <div class="section-toggle">
+                    <input type="checkbox" id="toggle-vulnerabilites">
+                    <label for="toggle-vulnerabilites">🔴 Vulnérabilités</label>
+                </div>
+                <div id="section-vulnerabilites" class="form-section hidden">
+                    <!-- Évaluation Risque/Impact pour cette section -->
+                    <div class="risk-impact-widget" data-section="vulnerabilites">
+                        <div class="risk-impact-header">📊 Évaluation Risque/Impact - Vulnérabilités</div>
+                        <div class="risk-impact-controls">
+                            <div class="risk-control">
+                                <label>Risque (1-5)</label>
+                                <input type="range" min="1" max="5" value="5" class="risk-slider" data-section="vulnerabilites">
+                                <span class="risk-value">5</span>
+                            </div>
+                            <div class="impact-control">
+                                <label>Impact (1-5)</label>
+                                <input type="range" min="1" max="5" value="5" class="impact-slider" data-section="vulnerabilites">
+                                <span class="impact-value">5</span>
+                            </div>
+                            <div class="section-score">
+                                Score: <span class="section-score-value">25</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vulnerability-section">
+                        <div class="vulnerability-title">Vulnérabilités Techniques</div>
+                        <div id="tech-vulnerabilities">
+                            <button type="button" class="add-btn" onclick="addVulnerability('tech')">+ Ajouter une vulnérabilité technique</button>
+                        </div>
+                    </div>
+
+                    <div class="vulnerability-section">
+                        <div class="vulnerability-title">Vulnérabilités Comportementales</div>
+                        <div id="behavioral-vulnerabilities">
+                            <button type="button" class="add-btn" onclick="addVulnerability('behavioral')">+ Ajouter une vulnérabilité comportementale</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Méthodes d'Attaque -->
+                <div class="section-toggle">
+                    <input type="checkbox" id="toggle-attaques">
+                    <label for="toggle-attaques">🎯 Méthodes d'Attaque</label>
+                </div>
+                <div id="section-attaques" class="form-section hidden">
+                    <!-- Évaluation Risque/Impact pour cette section -->
+                    <div class="risk-impact-widget" data-section="attaques">
+                        <div class="risk-impact-header">📊 Évaluation Risque/Impact - Méthodes d'Attaque</div>
+                        <div class="risk-impact-controls">
+                            <div class="risk-control">
+                                <label>Risque (1-5)</label>
+                                <input type="range" min="1" max="5" value="4" class="risk-slider" data-section="attaques">
+                                <span class="risk-value">4</span>
+                            </div>
+                            <div class="impact-control">
+                                <label>Impact (1-5)</label>
+                                <input type="range" min="1" max="5" value="4" class="impact-slider" data-section="attaques">
+                                <span class="impact-value">4</span>
+                            </div>
+                            <div class="section-score">
+                                Score: <span class="section-score-value">16</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="attack-methods">
+                        <button type="button" class="add-btn" onclick="addAttackMethod()">+ Ajouter une méthode d'attaque</button>
+                    </div>
+                </div>
+
+                <!-- Recommandations -->
+                <div class="section-toggle">
+                    <input type="checkbox" id="toggle-recommandations" checked>
+                    <label for="toggle-recommandations">🔧 Recommandations</label>
+                </div>
+                <div id="section-recommandations" class="form-section">
+                    <!-- Évaluation Risque/Impact pour cette section -->
+                    <div class="risk-impact-widget" data-section="recommandations">
+                        <div class="risk-impact-header">📊 Évaluation Risque/Impact - Recommandations</div>
+                        <div class="risk-impact-controls">
+                            <div class="risk-control">
+                                <label>Risque (1-5)</label>
+                                <input type="range" min="1" max="5" value="1" class="risk-slider" data-section="recommandations">
+                                <span class="risk-value">1</span>
+                            </div>
+                            <div class="impact-control">
+                                <label>Impact (1-5)</label>
+                                <input type="range" min="1" max="5" value="5" class="impact-slider" data-section="recommandations">
+                                <span class="impact-value">5</span>
+                            </div>
+                            <div class="section-score">
+                                Score: <span class="section-score-value">5</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-section">
+                        <div id="title-now" class="recommendation-title">Actions immédiates que je préconise</div>
+                        <div class="interest-list" id="immediate-actions">
+                            <div class="interest-item">
+                                <input type="text" placeholder="Ajouter une action immédiate">
+                                <button type="button" class="add-btn" onclick="addInterestItem('immediate-actions')">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-section">
+                        <div id="title-two-weeks" class="recommendation-title">Mesures à prendre dans les deux semaines</div>
+                        <div class="interest-list" id="two-weeks-actions">
+                            <div class="interest-item">
+                                <input type="text" placeholder="Ajouter une mesure à deux semaines">
+                                <button type="button" class="add-btn" onclick="addInterestItem('two-weeks-actions')">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-section">
+                        <div id="title-monthly" class="recommendation-title">Surveillance continue que je préconise</div>
+                        <div class="interest-list" id="continuous-monitoring">
+                            <div class="interest-item">
+                                <input type="text" placeholder="Ajouter une surveillance continue">
+                                <button type="button" class="add-btn" onclick="addInterestItem('continuous-monitoring')">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scoring automatique -->
+                <h3 style="margin: 30px 0 20px 0; color: var(--bleu-electrique); font-family: 'Exo 2', sans-serif;">Évaluation des Risques</h3>
+                
+                <div style="background: rgba(0, 212, 255, 0.1); padding: 20px; border-radius: 10px;">
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--bleu-electrique);">
+                            <span id="calculated-score">0.0</span>
+                        </div>
+                        <div style="font-size: 1rem; margin-top: 5px;" id="risk-level-text">Évaluation en cours...</div>
+                    </div>
+                    
+                    <div style="font-size: 0.9rem; opacity: 0.8; text-align: center;">
+                        <strong>Calcul automatique basé sur les sections activées</strong><br>
+                        Formule: Score = (∑ Risque × Impact) / Nombre de sections × 10
+                    </div>
+                    
+                    <div id="score-breakdown" style="margin-top: 15px; font-size: 0.8rem; opacity: 0.7;">
+                        <!-- Détail du calcul sera affiché ici -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-panel">
+                <h2 class="panel-title">Aperçu du Rapport</h2>
+                <div id="report-preview">
+                    <div class="report-content">
+                        <div class="report-header">
+                            <h1>CRYPTEX</h1>
+                            <div style="font-size: 1.3rem; margin: 10px 0;">RAPPORT D'ANALYSE OSINT</div>
+                            <div style="font-size: 1rem; opacity: 0.9;">Digital Profiling & Intelligence Analysis</div>
+                        </div>
+                        
+                        <div class="report-metadata">
+                            <h3 style="color: #0099cc; margin-bottom: 15px;">📋 Métadonnées du Rapport</h3>
+                            <div id="preview-metadata">
+                                <p><strong>Client:</strong> <span id="preview-client">Non renseigné</span></p>
+                                <p><strong>Email:</strong> <span id="preview-email">Non renseigné</span></p>
+                                <p><strong>Téléphone:</strong> <span id="preview-phone">Non renseigné</span></p>
+                                <p><strong>Date d'analyse:</strong> <span id="preview-date">Non renseignée</span></p>
+                                <p><strong>Durée d'analyse:</strong> <span id="preview-duration">Non renseignée</span></p>
+                            </div>
+                        </div>
+                        
+                        <div id="preview-sections">
+                            <!-- Les sections seront générées dynamiquement -->
+                        </div>
+                        
+                        <div class="score-display">
+                            <div class="score-number" id="preview-score">0/10</div>
+                            <div class="score-comment" id="preview-score-comment">Évaluation en cours...</div>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                                Rapport établi dans le cadre d'une analyse de sécurité professionnelle CRYPTEX
+                            </div>
+                        </div>
+                        
+                        <div class="report-footer">
+                            <div class="footer-section confidentiality">
+                                <h3>🔒 <strong>Confidentiel – Analyse d'Empreinte Numérique</strong></h3>
+                                <p>Ce document est strictement confidentiel. Il est destiné uniquement à la personne ou à l'entreprise concernée. Toute diffusion non autorisée est interdite.</p>
+                            </div>
+                            <br>
+                            <div class="footer-section data-rights">
+                                <h3>📌 <strong>Et si vous n'arrivez pas à faire supprimer vos données ?</strong></h3>
+                                <p>Commencez par essayer de supprimer vos données directement sur le site concerné. Si cela ne fonctionne pas, contactez le <strong>Délégué à la Protection des Données</strong> (DPO) de ce site. L'adresse e-mail du DPO est généralement : <strong>dpo@nomdusite.com</strong></p>
+                                
+                                <p><strong>En dernier recours, vous pouvez contacter :</strong></p><br>
+                                <ul class="contact-list">
+                                    <li><strong>La CNIL (France)</strong> : www.cnil.fr</li>
+                                    <li><strong>L'Autorité de protection des données (Belgique)</strong> : www.autoriteprotectiondonnees.be</li>
+                                </ul>
+                                <br>
+                                <p class="support-message"><i>Nous sommes là pour vous aider si besoin. Vous n'êtes pas seul·e dans ces démarches.</i></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="previewReport()">🔍 Actualiser l'Aperçu</button>
+            <button class="btn btn-primary" onclick="generatePDF()">📄 Générer le PDF</button>
+            <button class="btn btn-secondary" onclick="saveTemplate()">💾 Sauvegarder le Modèle</button>
+            <button class="btn btn-secondary" onclick="loadTemplate()">📂 Charger un Modèle</button>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales pour les compteurs
+        let socialRowCount = 0;
+        let websiteRowCount = 0;
+        let vulnTechCount = 0;
+        let vulnBehavioralCount = 0;
+        let attackMethodCount = 0;
+
+        // Gestion des toggles de sections
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggles = document.querySelectorAll('.section-toggle input[type="checkbox"]');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    const sectionId = this.id.replace('toggle-', 'section-');
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        section.classList.toggle('hidden', !this.checked);
+                    }
+                });
+            });
+
+            // Initialiser la date d'aujourd'hui
+            document.getElementById('analysisDate').value = new Date().toISOString().split('T')[0];
+			initializeRiskImpactSliders();
+        });
+
+        // Fonctions pour les réseaux sociaux
+        function addSocialRow() {
+            socialRowCount++;
+            const container = document.getElementById('social-rows');
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'table-row social-row';
+            rowDiv.id = `social-row-${socialRowCount}`;
+            rowDiv.innerHTML = `
+                <input type="text" placeholder="Réseau social" name="social-platform-${socialRowCount}">
+                <input type="text" placeholder="Nom d'utilisateur" name="social-username-${socialRowCount}">
+                <select name="social-privacy-${socialRowCount}">
+                    <option value="publique">Publique</option>
+                    <option value="semi-publique">Semi-publique</option>
+                    <option value="privé">Privé</option>
+                </select>
+                <select name="social-risk-${socialRowCount}">
+                    <option value="faible">Faible</option>
+                    <option value="moyen">Moyen</option>
+                    <option value="élevé">Élevé</option>
+                    <option value="critique">Critique</option>
+                </select>
+                <button type="button" class="delete-btn" onclick="removeSocialRow(${socialRowCount})">×</button>
+            `;
+            container.appendChild(rowDiv);
+        }
+
+        function removeSocialRow(id) {
+            const row = document.getElementById(`social-row-${id}`);
+            if (row) row.remove();
+        }
+
+        // Fonctions pour les sites web
+        function addWebsiteRow() {
+            websiteRowCount++;
+            const container = document.getElementById('website-rows');
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'table-row website-row';
+            rowDiv.id = `website-row-${websiteRowCount}`;
+            rowDiv.innerHTML = `
+                <input type="url" placeholder="URL du site" name="website-url-${websiteRowCount}">
+                <input type="text" placeholder="Type de site" name="website-type-${websiteRowCount}">
+                <select name="website-risk-${websiteRowCount}">
+                    <option value="faible">Faible</option>
+                    <option value="moyen">Moyen</option>
+                    <option value="élevé">Élevé</option>
+                    <option value="critique">Critique</option>
+                </select>
+                <button type="button" class="delete-btn" onclick="removeWebsiteRow(${websiteRowCount})">×</button>
+            `;
+            container.appendChild(rowDiv);
+        }
+
+        function removeWebsiteRow(id) {
+            const row = document.getElementById(`website-row-${id}`);
+            if (row) row.remove();
+        }
+
+        // Fonctions pour les centres d'intérêt
+        function addInterestItem(listId) {
+            const container = document.getElementById(listId);
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'interest-item';
+            itemDiv.innerHTML = `
+                <input type="text" placeholder="Nouvel élément">
+                <button type="button" class="delete-btn" onclick="removeInterestItem(this)">×</button>
+            `;
+            container.appendChild(itemDiv);
+        }
+
+        function removeInterestItem(button) {
+            button.parentElement.remove();
+        }
+
+        // Fonctions pour les vulnérabilités
+        function addVulnerability(type) {
+            const count = type === 'tech' ? ++vulnTechCount : ++vulnBehavioralCount;
+            const container = document.getElementById(`${type === 'tech' ? 'tech' : 'behavioral'}-vulnerabilities`);
+            const vulnDiv = document.createElement('div');
+            vulnDiv.className = 'vulnerability-item';
+            vulnDiv.id = `${type}-vuln-${count}`;
+            vulnDiv.innerHTML = `
+                <div class="vuln-header">
+                    <input type="text" placeholder="Titre de la vulnérabilité" name="${type}-vuln-title-${count}">
+                    <select class="criticite-select" name="${type}-vuln-criticite-${count}">
+                        <option value="faible">Faible</option>
+                        <option value="moyenne">Moyenne</option>
+                        <option value="elevee">Élevée</option>
+                        <option value="critique">Critique</option>
+                    </select>
+                    <button type="button" class="delete-btn" onclick="removeVulnerability('${type}', ${count})">×</button>
+                </div>
+                <textarea placeholder="Description détaillée de la vulnérabilité..." name="${type}-vuln-desc-${count}"></textarea>
+            `;
+            container.appendChild(vulnDiv);
+        }
+
+        function removeVulnerability(type, id) {
+            const vuln = document.getElementById(`${type}-vuln-${id}`);
+            if (vuln) vuln.remove();
+        }
+
+        // Fonctions pour les méthodes d'attaque
+        function addAttackMethod() {
+            attackMethodCount++;
+            const container = document.getElementById('attack-methods');
+            const methodDiv = document.createElement('div');
+            methodDiv.className = 'attack-method';
+            methodDiv.id = `attack-method-${attackMethodCount}`;
+            methodDiv.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <input type="text" placeholder="Nom de la méthode d'attaque" name="attack-title-${attackMethodCount}" style="flex: 1; margin-right: 10px;">
+                    <button type="button" class="delete-btn" onclick="removeAttackMethod(${attackMethodCount})">×</button>
+                </div>
+                <textarea placeholder="Description de la méthode et de son application potentielle..." name="attack-desc-${attackMethodCount}"></textarea>
+            `;
+            container.appendChild(methodDiv);
+        }
+
+        function removeAttackMethod(id) {
+            const method = document.getElementById(`attack-method-${id}`);
+            if (method) method.remove();
+        }
+
+        // Fonction de calcul du score automatique basé sur les sections activées
+        function calculateScore() {
+            let totalScore = 0;
+            let activeSections = 0;
+            const breakdown = [];
+            
+            // Parcourir toutes les sections avec des widgets risque/impact
+            const widgets = document.querySelectorAll('.risk-impact-widget');
+            
+            widgets.forEach(widget => {
+                const section = widget.dataset.section;
+                const toggle = document.getElementById(`toggle-${section}`);
+                
+                // Vérifier si la section est activée
+                if (toggle && toggle.checked) {
+                    const riskSlider = widget.querySelector('.risk-slider');
+                    const impactSlider = widget.querySelector('.impact-slider');
+                    
+                    if (riskSlider && impactSlider) {
+                        const risk = parseFloat(riskSlider.value);
+                        const impact = parseFloat(impactSlider.value);
+                        const sectionScore = risk * impact;
+                        
+                        totalScore += sectionScore;
+                        activeSections++;
+                        
+                        // Mise à jour de l'affichage du score de section
+                        const sectionScoreElement = widget.querySelector('.section-score-value');
+                        if (sectionScoreElement) {
+                            sectionScoreElement.textContent = sectionScore;
+                        }
+                        
+                        // Pour le détail du calcul
+                        const sectionNames = {
+                            'profil': 'Profil Identifié',
+                            'empreinte': 'Empreinte Numérique',
+                            'interets': 'Centres d\'Intérêt',
+                            'comportement': 'Analyse Comportementale',
+                            'vulnerabilites': 'Vulnérabilités',
+                            'attaques': 'Méthodes d\'Attaque',
+                            'recommandations': 'Recommandations'
+                        };
+                        
+                        breakdown.push({
+                            name: sectionNames[section] || section,
+                            risk: risk,
+                            impact: impact,
+                            score: sectionScore
+                        });
+                    }
+                }
+            });
+            
+            // Calcul du score final sur 10
+            const finalScore = activeSections > 0 ? (totalScore / (activeSections * 25)) * 10 : 0;
+            const clampedScore = Math.min(10, Math.max(0, finalScore));
+            
+            // Mise à jour de l'affichage du détail
+            updateScoreBreakdown(breakdown, clampedScore, activeSections);
+            
+            return clampedScore.toFixed(1);
+        }
+
+        // Fonction pour mettre à jour le détail du calcul
+        function updateScoreBreakdown(breakdown, finalScore, activeSections) {
+            const breakdownElement = document.getElementById('score-breakdown');
+            if (!breakdownElement) return;
+            
+            let html = '<strong>Détail du calcul:</strong><br>';
+            let totalRawScore = 0;
+            
+            breakdown.forEach(item => {
+                html += `• ${item.name}: ${item.risk} × ${item.impact} = ${item.score}<br>`;
+                totalRawScore += item.score;
+            });
+            
+            if (breakdown.length > 0) {
+                html += `<br><strong>Total brut:</strong> ${totalRawScore}<br>`;
+                html += `<strong>Sections actives:</strong> ${activeSections}<br>`;
+                html += `<strong>Score normalisé:</strong> (${totalRawScore} ÷ ${activeSections * 25}) × 10 = <strong>${finalScore.toFixed(1)}/10</strong>`;
+            } else {
+                html = 'Aucune section activée pour le calcul du score.';
+            }
+            
+            breakdownElement.innerHTML = html;
+            
+            // Mise à jour du niveau de risque
+            updateRiskLevel(finalScore);
+        }
+
+        // Fonction pour mettre à jour le niveau de risque
+        function updateRiskLevel(score) {
+            const riskTextElement = document.getElementById('risk-level-text');
+            if (!riskTextElement) return;
+            
+            let riskText = '';
+            let riskClass = '';
+            
+            if (score <= 2) {
+                riskText = 'Risque Faible - Empreinte discrète';
+                riskClass = 'risk-level-low';
+            } else if (score <= 4) {
+                riskText = 'Risque Modéré - Vigilance recommandée';
+                riskClass = 'risk-level-low';
+            } else if (score <= 6) {
+                riskText = 'Risque Élevé - Actions correctives nécessaires';
+                riskClass = 'risk-level-medium';
+            } else if (score <= 8) {
+                riskText = 'Risque Important - Intervention urgente';
+                riskClass = 'risk-level-high';
+            } else {
+                riskText = 'Risque Critique - Mesures immédiates indispensables';
+                riskClass = 'risk-level-critical';
+            }
+            
+            riskTextElement.textContent = riskText;
+            riskTextElement.className = riskClass;
+        }
+
+        // Initialisation des événements pour les sliders
+        function initializeRiskImpactSliders() {
+            // Événements pour les sliders de risque
+            document.addEventListener('input', function(e) {
+                if (e.target.classList.contains('risk-slider')) {
+                    const value = e.target.value;
+                    const valueDisplay = e.target.parentElement.querySelector('.risk-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = value;
+                    }
+                    
+                    // Recalculer le score
+                    const score = calculateScore();
+                    document.getElementById('calculated-score').textContent = score;
+                }
+                
+                if (e.target.classList.contains('impact-slider')) {
+                    const value = e.target.value;
+                    const valueDisplay = e.target.parentElement.querySelector('.impact-value');
+                    if (valueDisplay) {
+                        valueDisplay.textContent = value;
+                    }
+                    
+                    // Recalculer le score
+                    const score = calculateScore();
+                    document.getElementById('calculated-score').textContent = score;
+                }
+            });
+        }
+
+        // Fonction pour générer un commentaire basé sur le score
+        function commentaireOSINT(score) {
+            if (score <= 2) return "Empreinte numérique discrète - Risque faible";
+            if (score <= 4) return "Présence numérique modérée - Vigilance recommandée";
+            if (score <= 6) return "Exposition significative - Actions correctives nécessaires";
+            if (score <= 8) return "Vulnérabilités importantes - Intervention urgente";
+            return "Exposition critique - Mesures immédiates indispensables";
+        }
+
+        // Fonction principale de prévisualisation améliorée
+        function previewReport() {
+            // Métadonnées
+            const clientName = document.getElementById('clientName').value || 'Non renseigné';
+            const clientEmail = document.getElementById('clientEmail').value || 'Non renseigné';
+            const clientPhone = document.getElementById('clientPhone').value || 'Non renseigné';
+            const analysisDate = document.getElementById('analysisDate').value || 'Non renseignée';
+            const analysisDuration = document.getElementById('analysisDuration').value || 'Non renseignée';
+            
+            document.getElementById('preview-client').textContent = clientName;
+            document.getElementById('preview-email').textContent = clientEmail;
+            document.getElementById('preview-phone').textContent = clientPhone;
+            document.getElementById('preview-date').textContent = analysisDate ? new Date().toLocaleDateString('fr-FR') : 'Non renseignée';analysisDate
+            document.getElementById('preview-duration').textContent = analysisDuration?.toString().trim() ? `${analysisDuration.trim()} h` : '0';
+            
+            const sectionsContainer = document.getElementById('preview-sections');
+            sectionsContainer.innerHTML = '';
+            
+            // Génération des sections
+            generateProfileSection(sectionsContainer);
+            generateDigitalFootprintSection(sectionsContainer);
+            generateInterestsSection(sectionsContainer);
+            generateBehavioralSection(sectionsContainer);
+            generateVulnerabilitiesSection(sectionsContainer);
+            generateAttackMethodsSection(sectionsContainer);
+            generateRecommendationsSection(sectionsContainer);
+            
+            // Score final
+            const score = calculateScore();
+            const scoreComment = commentaireOSINT(Math.round(score));
+            
+            document.getElementById('preview-score').textContent = score + '/10';
+            document.getElementById('preview-score-comment').textContent = scoreComment;
+            document.getElementById('calculated-score').textContent = score + '/10';
+        }
+
+        function generateProfileSection(container) {
+            const toggle = document.getElementById('toggle-profil');
+            if (!toggle || !toggle.checked) return;
+
+            const nom = document.getElementById('profile-nom').value;
+            const age = document.getElementById('profile-age').value;
+            const localisation = document.getElementById('profile-localisation').value;
+            const profession = document.getElementById('profile-profession').value;
+            const telephone = document.getElementById('profile-telephone').value;
+            const email = document.getElementById('profile-email').value;
+			const formation = document.getElementById('profile-formation').value;
+			const famille = document.getElementById('profile-famille').value;
+			const xp = document.getElementById('profile-xp').value;
+			const notes = document.getElementById('profile-notes').value;
+
+            if (!nom && !age && !localisation && !profession && !telephone && !email && !formation && !famille && !xp && !notes) return;
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'report-section';
+            sectionDiv.innerHTML = `
+                <h2>🆔 PROFIL IDENTIFIÉ</h2>
+                <table class="profile-table">
+                    <tr><th>Nom complet</th><td>${nom || 'Non renseigné'}</td></tr>
+                    <tr><th>Âge</th><td>${age || 'Non renseigné'}</td></tr>
+                    <tr><th>Localisation</th><td>${localisation || 'Non renseignée'}</td></tr>
+                    <tr><th>Profession</th><td>${profession || 'Non renseignée'}</td></tr>
+                    <tr><th>Téléphone</th><td>${telephone || 'Non renseigné'}</td></tr>
+                    <tr><th>Email personnel</th><td>${email || 'Non renseigné'}</td></tr>
+					<tr><th>Liens familiaux</th><td>${famille || 'Non renseignés'}</td></tr>
+					<tr><th>Expériences professionnelles</th><td>${xp || 'Non renseignées'}</td></tr>
+					<tr><th>Formations</th><td>${formation || 'Non renseignées'}</td></tr>
+					<tr><th>Notes</th><td>${notes || 'Non renseignées'}</td></tr>
+                </table>
+            `;
+            container.appendChild(sectionDiv);
+        }
+
+        function generateDigitalFootprintSection(container) {
+            const toggle = document.getElementById('toggle-empreinte');
+            if (!toggle || !toggle.checked) return;
+
+            const socialRows = document.querySelectorAll('#social-rows .table-row');
+            const websiteRows = document.querySelectorAll('#website-rows .table-row');
+
+            if (socialRows.length === 0 && websiteRows.length === 0) return;
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'report-section';
+            let content = '<h2>🎯 EMPREINTE NUMÉRIQUE</h2>';
+
+            // Réseaux sociaux
+            if (socialRows.length > 0) {
+                content += `
+                    <h3>Réseaux Sociaux Identifiés</h3>
+                    <table class="digital-table">
+                        <tr><th>Réseau Social</th><th>Nom d'utilisateur</th><th>Visibilité</th><th>Risque</th></tr>
+                `;
+                socialRows.forEach(row => {
+                    const inputs = row.querySelectorAll('input, select');
+                    content += `<tr>
+                        <td>${inputs[0].value || 'N/A'}</td>
+                        <td>${inputs[1].value || 'N/A'}</td>
+                        <td>${inputs[2].value || 'N/A'}</td>
+                        <td><span class="criticite-${inputs[3].value}">${inputs[3].value || 'N/A'}</span></td>
+                    </tr>`;
+                });
+                content += '</table>';
+            }
+
+            // Sites web
+            if (websiteRows.length > 0) {
+                content += `
+                    <h3>Sites Web Identifiés</h3>
+                    <table class="digital-table">
+                        <tr><th>URL</th><th>Type de site</th><th>Risque</th></tr>
+                `;
+                websiteRows.forEach(row => {
+                    const inputs = row.querySelectorAll('input, select');
+                    content += `<tr>
+                        <td>${inputs[0].value || 'N/A'}</td>
+                        <td>${inputs[1].value || 'N/A'}</td>
+                        <td><span class="criticite-${inputs[2].value}">${inputs[2].value || 'N/A'}</span></td>
+                    </tr>`;
+                });
+                content += '</table>';
+            }
+
+            sectionDiv.innerHTML = content;
+            container.appendChild(sectionDiv);
+        }
+
+        function generateInterestsSection(container) {
+            const toggle = document.getElementById('toggle-interets');
+            if (!toggle || !toggle.checked) return;
+
+            const hobbies = getInterestItems('hobbies-list');
+            const expertises = getInterestItems('expertises-list');
+            const communautes = getInterestItems('communautes-list');
+
+            if (hobbies.length === 0 && expertises.length === 0 && communautes.length === 0) return;
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'report-section';
+            sectionDiv.innerHTML = `
+                <h2>📸 CENTRES D'INTÉRÊT</h2>
+                <div class="interest-lists">
+                    <div class="interest-column">
+                        <h4>Hobbies & Loisirs</h4>
+                        <ul>${hobbies.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                    <div class="interest-column">
+                        <h4>Expertises Techniques</h4>
+                        <ul>${expertises.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                    <div class="interest-column">
+                        <h4>Communautés & Groupes</h4>
+                        <ul>${communautes.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                </div>
+            `;
+            container.appendChild(sectionDiv);
+        }
+
+        function getInterestItems(listId) {
+            const items = [];
+            const inputs = document.querySelectorAll(`#${listId} input[type="text"]`);
+            inputs.forEach(input => {
+                if (input.value.trim()) {
+                    items.push(input.value.trim());
+                }
+            });
+            return items;
+        }
+
+        function generateBehavioralSection(container) {
+            const toggle = document.getElementById('toggle-comportement');
+            if (!toggle || !toggle.checked) return;
+
+            const psychometrique = document.getElementById('psychometrique').value;
+            const stylometrique = document.getElementById('stylometrique').value;
+            const patterns = document.getElementById('patterns').value;
+
+            if (!psychometrique && !stylometrique && !patterns) return;
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'report-section';
+            let content = '<h2>🔍 ANALYSE COMPORTEMENTALE</h2>';
+
+            if (psychometrique) {
+                content += `<h4>Analyse Psychométrique</h4><p>${psychometrique.replace(/\n/g, '<br>')}</p>`;
+            }
+            if (stylometrique) {
+                content += `<h4>Analyse Stylométrique</h4><p>${stylometrique.replace(/\n/g, '<br>')}</p>`;
+            }
+            if (patterns) {
+                content += `<h4>Patterns Comportementaux</h4><p>${patterns.replace(/\n/g, '<br>')}</p>`;
+            }
+
+            sectionDiv.innerHTML = content;
+            container.appendChild(sectionDiv);
+        }
+
+        function generateVulnerabilitiesSection(container) {
+            const toggle = document.getElementById('toggle-vulnerabilites');
+            if (!toggle || !toggle.checked) return;
+
+            const techVulns = getVulnerabilities('tech');
+            const behavioralVulns = getVulnerabilities('behavioral');
+
+            if (techVulns.length === 0 && behavioralVulns.length === 0) return;
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'report-section';
+			let content = `
+				<h2 class="vuln-item">🔴 VULNÉRABILITÉS</h2>
+				<div style="page-break-before: always;"></div>
+				<h2 class="vuln-item">🔴 VULNÉRABILITÉS</h2>
+			`;
+
+
+            if (techVulns.length > 0) {
+                content += '<h3 class="vuln-item">Vulnérabilités Techniques</h3>';
+                techVulns.forEach(vuln => {
+                    content += `
+                        <div class="vuln-item">
+                            <h4>${vuln.title} <span class="vuln-criticite criticite-${vuln.criticite}">${vuln.criticite}</span></h4>
+                            <p>${vuln.description}</p>
+                        </div>
+                    `;
+                });
+            }
+
+            if (behavioralVulns.length > 0) {
+                content += '<h3 class="vuln-item">Vulnérabilités Comportementales</h3>';
+                behavioralVulns.forEach(vuln => {
+                    content += `
+                        <div class="vuln-item">
+                            <h4>${vuln.title} <span class="vuln-criticite criticite-${vuln.criticite}">${vuln.criticite}</span></h4>
+                            <p>${vuln.description}</p>
+                        </div>
+                    `;
+                });
+            }
+
+            sectionDiv.innerHTML = content;
+            container.appendChild(sectionDiv);
+        }
+
+        function getVulnerabilities(type) {
+            const vulns = [];
+            const container = document.getElementById(`${type === 'tech' ? 'tech' : 'behavioral'}-vulnerabilities`);
+            const vulnItems = container.querySelectorAll('.vulnerability-item');
+            
+            vulnItems.forEach(item => {
+                const titleInput = item.querySelector('input[type="text"]');
+                const criticiteSelect = item.querySelector('select');
+                const descTextarea = item.querySelector('textarea');
+                
+                if (titleInput && titleInput.value.trim()) {
+                    vulns.push({
+                        title: titleInput.value.trim(),
+                        criticite: criticiteSelect ? criticiteSelect.value : 'faible',
+                        description: descTextarea ? descTextarea.value.replace(/\n/g, '<br>') : ''
+                    });
+                }
+            });
+            
+            return vulns;
+        }
+
+        function generateAttackMethodsSection(container) {
+            const toggle = document.getElementById('toggle-attaques');
+            if (!toggle || !toggle.checked) return;
+
+            const methods = getAttackMethods();
+            if (methods.length === 0) return;
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'report-section';
+			let content = `
+				<h3 class="attack-method">🎯 MÉTHODES D'ATTAQUE</h3>
+				<div style="page-break-before: always;"></div>
+				<h3 class="attack-method">🎯 MÉTHODES D'ATTAQUE</h3>
+			`;
+
+
+            methods.forEach(method => {
+                content += `
+                    <div class="attack-method">
+                        <h4>${method.title}</h4>
+                        <p>${method.description}</p>
+                    </div>
+                `;
+            });
+
+            sectionDiv.innerHTML = content;
+            container.appendChild(sectionDiv);
+        }
+
+        function getAttackMethods() {
+            const methods = [];
+            const methodItems = document.querySelectorAll('.attack-method');
+            
+            methodItems.forEach(item => {
+                const titleInput = item.querySelector('input[type="text"]');
+                const descTextarea = item.querySelector('textarea');
+                
+                if (titleInput && titleInput.value.trim()) {
+                    methods.push({
+                        title: titleInput.value.trim(),
+                        description: descTextarea ? descTextarea.value.replace(/\n/g, '<br>') : ''
+                    });
+                }
+            });
+            
+            return methods;
+        }
+
+        function generateRecommendationsSection(container) {
+            const toggle = document.getElementById('toggle-recommandations');
+            if (!toggle || !toggle.checked) return;
+
+            const immediate = getInterestItems('immediate-actions');
+            const twoWeeks = getInterestItems('two-weeks-actions');
+            const continuous = getInterestItems('continuous-monitoring');
+
+            if (immediate.length === 0 && twoWeeks.length === 0 && continuous.length === 0) return;
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'report-section';
+            sectionDiv.innerHTML = `
+                <h2>🔧 RECOMMANDATIONS</h2>
+                <div class="recommendation-lists">
+                    <div id="now" class="recommendation-column">
+                        <h4>Actions immédiates que je préconise</h4>
+                        <ul>${immediate.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                    <div id="two-weeks" class="recommendation-column">
+                        <h4>Mesures à prendre dans les deux semaines</h4>
+                        <ul>${twoWeeks.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                    <div id="monthly" class="recommendation-column">
+                        <h4 >Surveillance continue que je préconise</h4>
+                        <ul>${continuous.map(item => `<li>${item}</li>`).join('')}</ul>
+                    </div>
+                </div>
+            `;
+            container.appendChild(sectionDiv);
+        }
+
+		// ==========================================
+		// FONCTIONS DE GESTION DES TEMPLATES JSON
+		// ==========================================
+
+		// Version actuelle du format de template (pour migration)
+		const TEMPLATE_VERSION = "1.0";
+
+		/**
+		 * Fonction de sauvegarde de template au format JSON
+		 */
+		function saveTemplate() {
+			try {
+				// Demander le nom du template à l'utilisateur
+				const templateName = prompt("Nom du template à sauvegarder:", "Mon_Template_OSINT");
+				if (!templateName) return;
+
+				// Collecter les métadonnées
+				const metadata = {
+					clientName: document.getElementById('clientName')?.value || "",
+					clientEmail: document.getElementById('clientEmail')?.value || "",
+					clientPhone: document.getElementById('clientPhone')?.value || "",
+					analysisDate: document.getElementById('analysisDate')?.value || "",
+					analysisDuration: document.getElementById('analysisDuration')?.value || ""
+				};
+
+				// Collecter les données de toutes les sections
+				const sections = {};
+
+				// Section Profil
+				const profilToggle = document.getElementById('toggle-profil');
+				if (profilToggle) {
+					const profilWidget = document.querySelector('[data-section="profil"]');
+					sections.profil = {
+						enabled: profilToggle.checked,
+						risk: profilWidget?.querySelector('.risk-slider')?.value || 3,
+						impact: profilWidget?.querySelector('.impact-slider')?.value || 3,
+						data: {
+							nom: document.getElementById('profile-nom')?.value || "",
+							age: document.getElementById('profile-age')?.value || "",
+							localisation: document.getElementById('profile-localisation')?.value || "",
+							profession: document.getElementById('profile-profession')?.value || "",
+							formation: document.getElementById('profile-formation')?.value || "",
+							xp: document.getElementById('profile-xp')?.value || "",
+							telephone: document.getElementById('profile-telephone')?.value || "",
+							email: document.getElementById('profile-email')?.value || "",
+							famille: document.getElementById('profile-famille')?.value || "",
+							notes: document.getElementById('profile-notes')?.value || ""
+						}
+					};
+				}
+
+				// Section Empreinte Numérique
+				const empreinteToggle = document.getElementById('toggle-empreinte');
+				if (empreinteToggle) {
+					const empreinteWidget = document.querySelector('[data-section="empreinte"]');
+					sections.empreinte = {
+						enabled: empreinteToggle.checked,
+						risk: empreinteWidget?.querySelector('.risk-slider')?.value || 3,
+						impact: empreinteWidget?.querySelector('.impact-slider')?.value || 3,
+						socialRows: collectSocialRows(),
+						websiteRows: collectWebsiteRows()
+					};
+				}
+
+				// Section Centres d'Intérêt
+				const interetsToggle = document.getElementById('toggle-interets');
+				if (interetsToggle) {
+					const interetsWidget = document.querySelector('[data-section="interets"]');
+					sections.interets = {
+						enabled: interetsToggle.checked,
+						risk: interetsWidget?.querySelector('.risk-slider')?.value || 2,
+						impact: interetsWidget?.querySelector('.impact-slider')?.value || 2,
+						hobbies: collectInterestItems('hobbies-list'),
+						expertises: collectInterestItems('expertises-list'),
+						communautes: collectInterestItems('communautes-list')
+					};
+				}
+
+				// Section Analyse Comportementale
+				const comportementToggle = document.getElementById('toggle-comportement');
+				if (comportementToggle) {
+					const comportementWidget = document.querySelector('[data-section="comportement"]');
+					sections.comportement = {
+						enabled: comportementToggle.checked,
+						risk: comportementWidget?.querySelector('.risk-slider')?.value || 4,
+						impact: comportementWidget?.querySelector('.impact-slider')?.value || 4,
+						data: {
+							psychometrique: document.getElementById('psychometrique')?.value || "",
+							stylometrique: document.getElementById('stylometrique')?.value || "",
+							patterns: document.getElementById('patterns')?.value || ""
+						}
+					};
+				}
+
+				// Section Vulnérabilités
+				const vulnerabilitesToggle = document.getElementById('toggle-vulnerabilites');
+				if (vulnerabilitesToggle) {
+					const vulnerabilitesWidget = document.querySelector('[data-section="vulnerabilites"]');
+					sections.vulnerabilites = {
+						enabled: vulnerabilitesToggle.checked,
+						risk: vulnerabilitesWidget?.querySelector('.risk-slider')?.value || 5,
+						impact: vulnerabilitesWidget?.querySelector('.impact-slider')?.value || 5,
+						techVulnerabilities: collectVulnerabilities('tech'),
+						behavioralVulnerabilities: collectVulnerabilities('behavioral')
+					};
+				}
+
+				// Section Méthodes d'Attaque
+				const attaquesToggle = document.getElementById('toggle-attaques');
+				if (attaquesToggle) {
+					const attaquesWidget = document.querySelector('[data-section="attaques"]');
+					sections.attaques = {
+						enabled: attaquesToggle.checked,
+						risk: attaquesWidget?.querySelector('.risk-slider')?.value || 4,
+						impact: attaquesWidget?.querySelector('.impact-slider')?.value || 4,
+						methods: collectAttackMethods()
+					};
+				}
+
+				// Section Recommandations
+				const recommandationsToggle = document.getElementById('toggle-recommandations');
+				if (recommandationsToggle) {
+					const recommandationsWidget = document.querySelector('[data-section="recommandations"]');
+					sections.recommandations = {
+						enabled: recommandationsToggle.checked,
+						risk: recommandationsWidget?.querySelector('.risk-slider')?.value || 1,
+						impact: recommandationsWidget?.querySelector('.impact-slider')?.value || 5,
+						immediateActions: collectInterestItems('immediate-actions'),
+						twoWeeksActions: collectInterestItems('two-weeks-actions'),
+						continuousMonitoring: collectInterestItems('continuous-monitoring')
+					};
+				}
+
+				// Créer l'objet template complet
+				const template = {
+					templateName: templateName,
+					version: TEMPLATE_VERSION,
+					createdAt: new Date().toISOString(),
+					metadata: metadata,
+					sections: sections
+				};
+
+				// Convertir en JSON et télécharger
+				const jsonString = JSON.stringify(template, null, 2);
+				const blob = new Blob([jsonString], { type: 'application/json' });
+				const url = URL.createObjectURL(blob);
+				
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = `${templateName.replace(/[^a-zA-Z0-9]/g, '_')}_template.json`;
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+				URL.revokeObjectURL(url);
+
+				alert(`Template "${templateName}" sauvegardé avec succès !`);
+
+			} catch (error) {
+				console.error('Erreur lors de la sauvegarde du template:', error);
+				alert('Erreur lors de la sauvegarde du template. Vérifiez la console pour plus de détails.');
+			}
+		}
+
+		/**
+		 * Fonction de chargement de template depuis un fichier JSON
+		 */
+		function loadTemplate() {
+			try {
+				// Créer un input file pour sélectionner le fichier
+				const input = document.createElement('input');
+				input.type = 'file';
+				input.accept = '.json';
+				
+				input.onchange = function(event) {
+					const file = event.target.files[0];
+					if (!file) return;
+
+					const reader = new FileReader();
+					reader.onload = function(e) {
+						try {
+							const template = JSON.parse(e.target.result);
+							
+							// Valider et migrer le template si nécessaire
+							const validatedTemplate = validateAndMigrateTemplate(template);
+							
+							if (!validatedTemplate) {
+								alert('Format de template invalide ou non supporté.');
+								return;
+							}
+
+							// Charger le template validé
+							applyTemplate(validatedTemplate);
+							
+							alert(`Template "${validatedTemplate.templateName}" chargé avec succès !`);
+
+						} catch (parseError) {
+							console.error('Erreur lors du parsing JSON:', parseError);
+							alert('Fichier JSON invalide. Vérifiez le format du template.');
+						}
+					};
+					
+					reader.readAsText(file);
+				};
+				
+				input.click();
+
+			} catch (error) {
+				console.error('Erreur lors du chargement du template:', error);
+				alert('Erreur lors du chargement du template.');
+			}
+		}
+
+		/**
+		 * Validation et migration de template pour compatibilité
+		 */
+		function validateAndMigrateTemplate(template) {
+			try {
+				// Vérifications de base
+				if (!template || typeof template !== 'object') {
+					return null;
+				}
+
+				// Migration depuis des versions antérieures si nécessaire
+				let migratedTemplate = { ...template };
+
+				// Si pas de version, considérer comme version 1.0
+				if (!migratedTemplate.version) {
+					migratedTemplate.version = "1.0";
+				}
+
+				// Migrations futures peuvent être ajoutées ici
+				switch (migratedTemplate.version) {
+					case "1.0":
+						// Déjà à jour
+						break;
+					// case "1.1":
+					//     // Migration vers version supérieure
+					//     break;
+					default:
+						console.warn(`Version de template non reconnue: ${migratedTemplate.version}`);
+						break;
+				}
+
+				// Vérifier la structure minimale
+				if (!migratedTemplate.sections || typeof migratedTemplate.sections !== 'object') {
+					migratedTemplate.sections = {};
+				}
+
+				if (!migratedTemplate.metadata || typeof migratedTemplate.metadata !== 'object') {
+					migratedTemplate.metadata = {};
+				}
+
+				return migratedTemplate;
+
+			} catch (error) {
+				console.error('Erreur lors de la validation/migration:', error);
+				return null;
+			}
+		}
+
+		/**
+		 * Application du template chargé dans l'interface
+		 */
+		function applyTemplate(template) {
+			try {
+				// Appliquer les métadonnées
+				if (template.metadata) {
+					const metadata = template.metadata;
+					setInputValue('clientName', metadata.clientName);
+					setInputValue('clientEmail', metadata.clientEmail);
+					setInputValue('clientPhone', metadata.clientPhone);
+					setInputValue('analysisDate', metadata.analysisDate);
+					setInputValue('analysisDuration', metadata.analysisDuration);
+				}
+
+				// Appliquer chaque section
+				Object.keys(template.sections).forEach(sectionKey => {
+					const sectionData = template.sections[sectionKey];
+					
+					switch (sectionKey) {
+						case 'profil':
+							applyProfilSection(sectionData);
+							break;
+						case 'empreinte':
+							applyEmpreinteSection(sectionData);
+							break;
+						case 'interets':
+							applyInteretsSection(sectionData);
+							break;
+						case 'comportement':
+							applyComportementSection(sectionData);
+							break;
+						case 'vulnerabilites':
+							applyVulnerabilitesSection(sectionData);
+							break;
+						case 'attaques':
+							applyAttaquesSection(sectionData);
+							break;
+						case 'recommandations':
+							applyRecommandationsSection(sectionData);
+							break;
+					}
+				});
+
+				// Recalculer le score après chargement
+				setTimeout(() => {
+					const score = calculateScore();
+					document.getElementById('calculated-score').textContent = score;
+					previewReport();
+				}, 100);
+
+			} catch (error) {
+				console.error('Erreur lors de l\'application du template:', error);
+				alert('Erreur lors de l\'application du template.');
+			}
+		}
+
+		// ==========================================
+		// FONCTIONS UTILITAIRES DE COLLECTE
+		// ==========================================
+
+		function collectSocialRows() {
+			const rows = [];
+			const socialRows = document.querySelectorAll('#social-rows .table-row');
+			
+			socialRows.forEach(row => {
+				const inputs = row.querySelectorAll('input, select');
+				if (inputs.length >= 4 && inputs[0].value.trim()) {
+					rows.push({
+						platform: inputs[0].value,
+						username: inputs[1].value,
+						privacy: inputs[2].value,
+						risk: inputs[3].value
+					});
+				}
+			});
+			
+			return rows;
+		}
+
+		function collectWebsiteRows() {
+			const rows = [];
+			const websiteRows = document.querySelectorAll('#website-rows .table-row');
+			
+			websiteRows.forEach(row => {
+				const inputs = row.querySelectorAll('input, select');
+				if (inputs.length >= 3 && inputs[0].value.trim()) {
+					rows.push({
+						url: inputs[0].value,
+						type: inputs[1].value,
+						risk: inputs[2].value
+					});
+				}
+			});
+			
+			return rows;
+		}
+
+		function collectInterestItems(listId) {
+			const items = [];
+			const inputs = document.querySelectorAll(`#${listId} input[type="text"]`);
+			
+			inputs.forEach(input => {
+				if (input.value.trim()) {
+					items.push(input.value.trim());
+				}
+			});
+			
+			return items;
+		}
+
+		function collectVulnerabilities(type) {
+			const vulns = [];
+			const container = document.getElementById(`${type === 'tech' ? 'tech' : 'behavioral'}-vulnerabilities`);
+			const vulnItems = container?.querySelectorAll('.vulnerability-item') || [];
+			
+			vulnItems.forEach(item => {
+				const titleInput = item.querySelector('input[type="text"]');
+				const criticiteSelect = item.querySelector('select');
+				const descTextarea = item.querySelector('textarea');
+				
+				if (titleInput && titleInput.value.trim()) {
+					vulns.push({
+						title: titleInput.value.trim(),
+						criticite: criticiteSelect ? criticiteSelect.value : 'faible',
+						description: descTextarea ? descTextarea.value : ''
+					});
+				}
+			});
+			
+			return vulns;
+		}
+
+		function collectAttackMethods() {
+			const methods = [];
+			const methodItems = document.querySelectorAll('.attack-method');
+			
+			methodItems.forEach(item => {
+				const titleInput = item.querySelector('input[type="text"]');
+				const descTextarea = item.querySelector('textarea');
+				
+				if (titleInput && titleInput.value.trim()) {
+					methods.push({
+						title: titleInput.value.trim(),
+						description: descTextarea ? descTextarea.value : ''
+					});
+				}
+			});
+			
+			return methods;
+		}
+
+		// ==========================================
+		// FONCTIONS UTILITAIRES D'APPLICATION
+		// ==========================================
+
+		function setInputValue(id, value) {
+			const element = document.getElementById(id);
+			if (element && value !== undefined && value !== null) {
+				element.value = value;
+			}
+		}
+
+		function setToggleAndRiskImpact(sectionKey, sectionData) {
+			// Activer/désactiver la section
+			const toggle = document.getElementById(`toggle-${sectionKey}`);
+			if (toggle) {
+				toggle.checked = sectionData.enabled || false;
+				
+				// Déclencher l'événement pour afficher/masquer la section
+				const event = new Event('change');
+				toggle.dispatchEvent(event);
+			}
+			
+			// Appliquer les valeurs de risque et impact
+			const widget = document.querySelector(`[data-section="${sectionKey}"]`);
+			if (widget && sectionData.enabled) {
+				const riskSlider = widget.querySelector('.risk-slider');
+				const impactSlider = widget.querySelector('.impact-slider');
+				const riskValue = widget.querySelector('.risk-value');
+				const impactValue = widget.querySelector('.impact-value');
+				
+				if (riskSlider && sectionData.risk !== undefined) {
+					riskSlider.value = sectionData.risk;
+					if (riskValue) riskValue.textContent = sectionData.risk;
+				}
+				
+				if (impactSlider && sectionData.impact !== undefined) {
+					impactSlider.value = sectionData.impact;
+					if (impactValue) impactValue.textContent = sectionData.impact;
+				}
+			}
+		}
+
+		function applyProfilSection(sectionData) {
+			setToggleAndRiskImpact('profil', sectionData);
+			
+			if (sectionData.data) {
+				const data = sectionData.data;
+				setInputValue('profile-nom', data.nom);
+				setInputValue('profile-age', data.age);
+				setInputValue('profile-localisation', data.localisation);
+				setInputValue('profile-profession', data.profession);
+				setInputValue('profile-formation', data.formation);
+				setInputValue('profile-xp', data.xp);
+				setInputValue('profile-telephone', data.telephone);
+				setInputValue('profile-email', data.email);
+				setInputValue('profile-famille', data.famille);
+				setInputValue('profile-notes', data.notes);
+			}
+		}
+
+		function applyEmpreinteSection(sectionData) {
+			setToggleAndRiskImpact('empreinte', sectionData);
+			
+			if (sectionData.enabled) {
+				// Nettoyer les lignes existantes
+				document.getElementById('social-rows').innerHTML = '';
+				document.getElementById('website-rows').innerHTML = '';
+				
+				// Ajouter les réseaux sociaux
+				if (sectionData.socialRows) {
+					sectionData.socialRows.forEach(row => {
+						addSocialRow();
+						const lastRow = document.querySelector('#social-rows .table-row:last-child');
+						if (lastRow) {
+							const inputs = lastRow.querySelectorAll('input, select');
+							if (inputs[0]) inputs[0].value = row.platform || '';
+							if (inputs[1]) inputs[1].value = row.username || '';
+							if (inputs[2]) inputs[2].value = row.privacy || 'publique';
+							if (inputs[3]) inputs[3].value = row.risk || 'faible';
+						}
+					});
+				}
+				
+				// Ajouter les sites web
+				if (sectionData.websiteRows) {
+					sectionData.websiteRows.forEach(row => {
+						addWebsiteRow();
+						const lastRow = document.querySelector('#website-rows .table-row:last-child');
+						if (lastRow) {
+							const inputs = lastRow.querySelectorAll('input, select');
+							if (inputs[0]) inputs[0].value = row.url || '';
+							if (inputs[1]) inputs[1].value = row.type || '';
+							if (inputs[2]) inputs[2].value = row.risk || 'faible';
+						}
+					});
+				}
+			}
+		}
+
+		function applyInteretsSection(sectionData) {
+			setToggleAndRiskImpact('interets', sectionData);
+			
+			if (sectionData.enabled) {
+				applyInterestList('hobbies-list', sectionData.hobbies);
+				applyInterestList('expertises-list', sectionData.expertises);
+				applyInterestList('communautes-list', sectionData.communautes);
+			}
+		}
+
+		function applyComportementSection(sectionData) {
+			setToggleAndRiskImpact('comportement', sectionData);
+			
+			if (sectionData.data) {
+				const data = sectionData.data;
+				setInputValue('psychometrique', data.psychometrique);
+				setInputValue('stylometrique', data.stylometrique);
+				setInputValue('patterns', data.patterns);
+			}
+		}
+
+		function applyVulnerabilitesSection(sectionData) {
+			setToggleAndRiskImpact('vulnerabilites', sectionData);
+			
+			if (sectionData.enabled) {
+				// Nettoyer les vulnérabilités existantes
+				const techContainer = document.getElementById('tech-vulnerabilities');
+				const behavioralContainer = document.getElementById('behavioral-vulnerabilities');
+				
+				if (techContainer) {
+					techContainer.innerHTML = '<button type="button" class="add-btn" onclick="addVulnerability(\'tech\')">+ Ajouter une vulnérabilité technique</button>';
+				}
+				if (behavioralContainer) {
+					behavioralContainer.innerHTML = '<button type="button" class="add-btn" onclick="addVulnerability(\'behavioral\')">+ Ajouter une vulnérabilité comportementale</button>';
+				}
+				
+				// Ajouter les vulnérabilités techniques
+				if (sectionData.techVulnerabilities) {
+					sectionData.techVulnerabilities.forEach(vuln => {
+						addVulnerability('tech');
+						const lastVuln = document.querySelector('#tech-vulnerabilities .vulnerability-item:last-child');
+						if (lastVuln) {
+							const titleInput = lastVuln.querySelector('input[type="text"]');
+							const criticiteSelect = lastVuln.querySelector('select');
+							const descTextarea = lastVuln.querySelector('textarea');
+							
+							if (titleInput) titleInput.value = vuln.title || '';
+							if (criticiteSelect) criticiteSelect.value = vuln.criticite || 'faible';
+							if (descTextarea) descTextarea.value = vuln.description || '';
+						}
+					});
+				}
+        
+        // Ajouter les vulnérabilités comportementales
+        if (sectionData.behavioralVulnerabilities) {
+            sectionData.behavioralVulnerabilities.forEach(vuln => {
+                addVulnerability('behavioral');
+                const lastVuln = document.querySelector('#behavioral-vulnerabilities .vulnerability-item:last-child');
+                if (lastVuln) {
+                    const titleInput = lastVuln.querySelector('input[type="text"]');
+                    const criticiteSelect = lastVuln.querySelector('select');
+                    const descTextarea = lastVuln.querySelector('textarea');
+                    
+                    if (titleInput) titleInput.value = vuln.title || '';
+                    if (criticiteSelect) criticiteSelect.value = vuln.criticite || 'faible';
+                    if (descTextarea) descTextarea.value = vuln.description || '';
+                }
+            });
+        }
+    }
+}
+
+function applyAttaquesSection(sectionData) {
+    setToggleAndRiskImpact('attaques', sectionData);
+    
+    if (sectionData.enabled) {
+        // Nettoyer les méthodes existantes
+        const container = document.getElementById('attack-methods');
+        if (container) {
+            container.innerHTML = '<button type="button" class="add-btn" onclick="addAttackMethod()">+ Ajouter une méthode d\'attaque</button>';
+        }
+        
+        // Ajouter les méthodes d'attaque
+        if (sectionData.methods) {
+            sectionData.methods.forEach(method => {
+                addAttackMethod();
+                const lastMethod = document.querySelector('.attack-method:last-child');
+                if (lastMethod) {
+                    const titleInput = lastMethod.querySelector('input[type="text"]');
+                    const descTextarea = lastMethod.querySelector('textarea');
+                    
+                    if (titleInput) titleInput.value = method.title || '';
+                    if (descTextarea) descTextarea.value = method.description || '';
+                }
+            });
+        }
+    }
+}
+
+function applyRecommandationsSection(sectionData) {
+    setToggleAndRiskImpact('recommandations', sectionData);
+    
+    if (sectionData.enabled) {
+        applyInterestList('immediate-actions', sectionData.immediateActions);
+        applyInterestList('two-weeks-actions', sectionData.twoWeeksActions);
+        applyInterestList('continuous-monitoring', sectionData.continuousMonitoring);
+    }
+}
+
+function applyInterestList(listId, items) {
+    const container = document.getElementById(listId);
+    if (!container || !items) return;
+    
+    // Nettoyer la liste (garder seulement le premier élément vide)
+    container.innerHTML = `
+        <div class="interest-item">
+            <input type="text" placeholder="Nouvel élément">
+            <button type="button" class="add-btn" onclick="addInterestItem('${listId}')">+</button>
+        </div>
+    `;
+    
+    // Ajouter chaque élément
+    items.forEach(item => {
+        if (item.trim()) {
+            addInterestItem(listId);
+            const lastInput = container.querySelector('.interest-item:last-child input[type="text"]');
+            if (lastInput) {
+                lastInput.value = item.trim();
+            }
+        }
+    });
+}
+
+		//===================================//
+		// START OF GENERATING PDF FUNCTION  //
+		//                                   //
+		//===================================//
+
+		async function generatePDF() {
+			// Mise à jour de la prévisualisation avant génération
+			previewReport();
+			
+			const { jsPDF } = window.jspdf;
+			const pdf = new jsPDF('p', 'mm', 'a4');
+			
+			// Configuration des marges et dimensions
+			const pageWidth = pdf.internal.pageSize.getWidth();
+			const pageHeight = pdf.internal.pageSize.getHeight();
+			const margin = 15;
+			const contentWidth = pageWidth - (margin * 2);
+			const contentHeight = pageHeight - (margin * 2);
+			
+			try {
+				// Obtenir le contenu du rapport
+				const reportContent = document.querySelector('#report-preview .report-content');
+				
+				// Créer une version temporaire pour la génération PDF
+				const tempContainer = document.createElement('div');
+				tempContainer.style.cssText = `
+					position: absolute;
+					left: -9999px;
+					top: 0;
+					width: ${contentWidth * 3.78}px;
+					background: white;
+					color: black;
+					font-family: Arial, sans-serif;
+					font-size: 12px;
+					line-height: 1.4;
+					padding: 20px;
+				`;
+				
+				// Cloner le contenu
+				tempContainer.innerHTML = reportContent.innerHTML;
+				document.body.appendChild(tempContainer);
+				
+				// Appliquer des styles spécifiques pour le PDF
+				const pdfStyles = document.createElement('style');
+				pdfStyles.textContent = `
+					.report-section {
+						margin-bottom: 15px !important;
+						padding: 15px !important;
+						border-left: 4px solid #0099cc !important;
+						background: #f8f9fa !important;
+					}
+					
+					.report-section h2 {
+						color: #0099cc !important;
+						margin-bottom: 15px !important;
+						font-size: 16px !important;
+						font-weight: bold !important;
+						page-break-after: avoid !important;
+					}
+					
+					.report-header {
+						text-align: center !important;
+						border-bottom: 2px solid #0099cc !important;
+						padding-bottom: 20px !important;
+						margin-bottom: 20px !important;
+						page-break-after: avoid !important;
+					}
+					
+					.report-metadata {
+						margin-bottom: 15px !important;
+						page-break-inside: avoid !important;
+					}
+					
+					.profile-table, .digital-table {
+						width: 100% !important;
+						border-collapse: collapse !important;
+						margin-bottom: 15px !important;
+						font-size: 11px !important;
+					}
+					
+					.profile-table th, .profile-table td,
+					.digital-table th, .digital-table td {
+						border: 1px solid #ddd !important;
+						padding: 6px !important;
+						text-align: left !important;
+					}
+					
+					.profile-table th, .digital-table th {
+						background-color: #0099cc !important;
+						color: white !important;
+						font-weight: bold !important;
+					}
+					
+					.interest-lists {
+						display: block !important;
+					}
+					
+					.interest-column {
+						margin-bottom: 10px !important;
+					}
+					
+					.interest-column h4 {
+						color: #0099cc !important;
+						margin-bottom: 8px !important;
+						font-size: 13px !important;
+					}
+					
+					.vuln-item {
+						background: #fff3cd !important;
+						border: 1px solid #ffeaa7 !important;
+						border-radius: 4px !important;
+						padding: 8px !important;
+						margin-bottom: 8px !important;
+						page-break-inside: avoid !important;
+					}
+					
+					.attack-method {
+						background: rgba(220, 53, 69, 0.12) !important;
+						border: 1px solid rgba(220, 53, 69, 0.3) !important;
+						border-radius: 4px !important;
+						padding: 8px !important;
+						margin-bottom: 8px !important;
+						page-break-inside: avoid !important;
+					}
+					
+					.recommendation-lists {
+						display: block !important;
+					}
+					
+					.recommendation-column {
+						margin-bottom: 10px !important;
+					}
+					
+					.recommendation-column h4 {
+						margin-bottom: 8px !important;
+						font-size: 13px !important;
+					}
+					
+					.score-display {
+						text-align: center !important;
+						padding: 20px !important;
+						background: linear-gradient(135deg, #e3f2fd, #bbdefb) !important;
+						border-radius: 8px !important;
+						margin: 15px 0 !important;
+						page-break-inside: avoid !important;
+					}
+					
+					.score-number {
+						font-size: 32px !important;
+						font-weight: bold !important;
+						color: #0099cc !important;
+					}
+					
+					.report-footer {
+						margin-top: 20px !important;
+					}
+					
+					.footer-section {
+						margin-bottom: 15px !important;
+						padding: 12px !important;
+						background: #f8f9fa !important;
+						border-radius: 6px !important;
+						page-break-inside: avoid !important;
+					}
+					
+					ul {
+						margin: 6px 0 !important;
+						padding-left: 18px !important;
+					}
+					
+					li {
+						margin-bottom: 3px !important;
+					}
+					
+					p {
+						margin: 6px 0 !important;
+					}
+					
+					h3 {
+						color: #0099cc !important;
+						font-size: 14px !important;
+						margin: 12px 0 8px 0 !important;
+					}
+					
+					h4 {
+						font-size: 12px !important;
+						margin: 8px 0 5px 0 !important;
+					}
+					
+					/* Classes pour identifier les éléments */
+					.splittable {
+						break-inside: auto !important;
+					}
+					
+					.groupable {
+						break-after: avoid !important;
+					}
+					
+					h2, h3, h4 {
+						page-break-inside: avoid !important;
+						break-inside: avoid !important;
+					}
+				`;
+				document.head.appendChild(pdfStyles);
+				
+				// Attendre que les styles soient appliqués
+				await new Promise(resolve => setTimeout(resolve, 100));
+				
+				// Variables pour la pagination intelligente
+				let currentY = margin;
+				let isFirstPage = true;
+				const MIN_SECTION_HEIGHT = 50; // Hauteur minimale pour considérer qu'une section peut être groupée
+				const MAX_SECTION_HEIGHT = contentHeight * 0.8; // Hauteur max avant division obligatoire
+				
+				// Fonction pour estimer la hauteur d'un élément
+				async function getElementHeight(element) {
+					const canvas = await html2canvas(element, {
+						scale: 1,
+						useCORS: true,
+						allowTaint: true,
+						backgroundColor: '#ffffff',
+						width: element.offsetWidth,
+						height: element.offsetHeight
+					});
+					return (canvas.height * contentWidth) / canvas.width;
+				}
+				
+				// Fonction pour vérifier si un élément peut tenir sur la page actuelle
+				function canFitOnCurrentPage(elementHeight) {
+					const availableHeight = pageHeight - currentY - margin;
+					return elementHeight <= availableHeight;
+				}
+				
+				// Fonction pour diviser une section en sous-éléments
+				function getSplittableElements(section) {
+					// Chercher les éléments divisibles dans l'ordre de priorité
+					const splittableSelectors = [
+						'.vuln-item',
+						'.attack-method',
+						'h2',
+						'h3',
+						'h4',
+						'.recommendation-column',
+						'.interest-column',
+						'tr', // Lignes de tableau
+						'li', // Éléments de liste
+						'p'   // Paragraphes
+					];
+					
+					for (const selector of splittableSelectors) {
+						const elements = section.querySelectorAll(selector);
+						if (elements.length > 1) {
+							return Array.from(elements);
+						}
+					}
+					
+					return [section]; // Si pas divisible, retourner l'élément entier
+				}
+				
+				// Fonction pour traiter un groupe d'éléments petits
+				async function processSmallElementsGroup(elements, pdf) {
+					const groupContainer = document.createElement('div');
+					groupContainer.style.cssText = tempContainer.style.cssText;
+					
+					elements.forEach(el => {
+						groupContainer.appendChild(el.cloneNode(true));
+					});
+					
+					document.body.appendChild(groupContainer);
+					
+					try {
+						const canvas = await html2canvas(groupContainer, {
+							scale: 2,
+							useCORS: true,
+							allowTaint: true,
+							backgroundColor: '#ffffff',
+							width: groupContainer.offsetWidth,
+							height: groupContainer.offsetHeight
+						});
+						
+						const imgData = canvas.toDataURL('image/png');
+						const imgWidth = contentWidth;
+						const imgHeight = (canvas.height * imgWidth) / canvas.width;
+						
+						// Vérifier si on a besoin d'une nouvelle page
+						if (!canFitOnCurrentPage(imgHeight)) {
+							pdf.addPage();
+							currentY = margin;
+						}
+						
+						pdf.addImage(imgData, 'PNG', margin, currentY, imgWidth, imgHeight);
+						currentY += imgHeight + 3; // Espacement réduit pour les groupes
+						
+					} finally {
+						document.body.removeChild(groupContainer);
+					}
+				}
+				
+				// Fonction pour traiter un élément individuel
+				async function processIndividualElement(element, pdf, spacing = 5) {
+					try {
+						const canvas = await html2canvas(element, {
+							scale: 2,
+							useCORS: true,
+							allowTaint: true,
+							backgroundColor: '#ffffff',
+							width: element.offsetWidth,
+							height: element.offsetHeight
+						});
+						
+						const imgData = canvas.toDataURL('image/png');
+						const imgWidth = contentWidth;
+						const imgHeight = (canvas.height * imgWidth) / canvas.width;
+						
+						// Vérifier si on a besoin d'une nouvelle page
+						if (!isFirstPage && !canFitOnCurrentPage(imgHeight)) {
+							pdf.addPage();
+							currentY = margin;
+						}
+						
+						pdf.addImage(imgData, 'PNG', margin, currentY, imgWidth, imgHeight);
+						currentY += imgHeight + spacing;
+						
+						isFirstPage = false;
+						
+					} catch (error) {
+						console.warn('Erreur lors du traitement de l\'élément:', error);
+					}
+				}
+				
+				// Obtenir tous les éléments de niveau supérieur
+				const allElements = tempContainer.querySelectorAll('.report-header, .report-metadata, .report-section, .score-display, .report-footer');
+				
+				let smallElementsBuffer = []; // Buffer pour grouper les petits éléments
+				
+				for (let i = 0; i < allElements.length; i++) {
+					const element = allElements[i];
+					
+					try {
+						const estimatedHeight = await getElementHeight(element);
+						
+						// Si l'élément est très grand, le diviser
+						if (estimatedHeight > MAX_SECTION_HEIGHT) {
+							// Traiter d'abord les petits éléments en buffer
+							if (smallElementsBuffer.length > 0) {
+								await processSmallElementsGroup(smallElementsBuffer, pdf);
+								smallElementsBuffer = [];
+							}
+							
+							// Diviser l'élément grand
+							const splittableElements = getSplittableElements(element);
+							
+							if (splittableElements.length > 1) {
+								// Traiter le titre de la section séparément
+								const sectionTitle = element.querySelector('h2, h3, .vulnerability-title');
+								if (sectionTitle) {
+									const titleContainer = document.createElement('div');
+									titleContainer.className = element.className;
+									titleContainer.style.cssText = element.style.cssText;
+									titleContainer.appendChild(sectionTitle.cloneNode(true));
+									titleContainer.style.marginBottom = '5px';
+									
+									await processIndividualElement(titleContainer, pdf, 2);
+								}
+								
+								// Traiter chaque sous-élément
+								for (const subElement of splittableElements) {
+									if (subElement !== sectionTitle) {
+										await processIndividualElement(subElement, pdf, 3);
+									}
+								}
+							} else {
+								// Si pas divisible, traiter tel quel (sera coupé par html2canvas)
+								await processIndividualElement(element, pdf);
+							}
+						}
+						// Si l'élément est petit, l'ajouter au buffer
+						else if (estimatedHeight < MIN_SECTION_HEIGHT && element.className !== 'report-header' && element.className !== 'score-display') {
+							smallElementsBuffer.push(element);
+							
+							// Si le buffer est plein ou si c'est le dernier élément, traiter le groupe
+							if (smallElementsBuffer.length >= 3 || i === allElements.length - 1) {
+								await processSmallElementsGroup(smallElementsBuffer, pdf);
+								smallElementsBuffer = [];
+							}
+						}
+						// Élément de taille normale
+						else {
+							// Traiter d'abord les petits éléments en buffer
+							if (smallElementsBuffer.length > 0) {
+								await processSmallElementsGroup(smallElementsBuffer, pdf);
+								smallElementsBuffer = [];
+							}
+							
+							// Traiter l'élément normalement
+							await processIndividualElement(element, pdf);
+						}
+						
+					} catch (error) {
+						console.warn('Erreur lors du traitement de la section:', error);
+						continue;
+					}
+				}
+				
+				// Traiter les derniers éléments du buffer si nécessaire
+				if (smallElementsBuffer.length > 0) {
+					await processSmallElementsGroup(smallElementsBuffer, pdf);
+				}
+				
+				// Nettoyer
+				document.head.removeChild(pdfStyles);
+				document.body.removeChild(tempContainer);
+				
+				// Nom du fichier basé sur le nom du client et la date
+				const clientName = document.getElementById('clientName').value || 'Client';
+				const date = new Date().toISOString().split('T')[0];
+				const filename = `CRYPTEX_Rapport_OSINT_${clientName.replace(/[^a-zA-Z0-9]/g, '_')}_${date}.pdf`;
+				
+				// Sauvegarder le PDF
+				pdf.save(filename);
+				
+				// Message de succès
+				alert('PDF généré avec succès !');
+				
+			} catch (error) {
+				console.error('Erreur lors de la génération du PDF:', error);
+				alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+			}
+		}
+		
+		//=================================//
+		// END OF GENERATING PDF FUNCTION  //
+		//                                 //
+		//=================================//
+
+        // Mise à jour automatique du score
+        document.addEventListener('input', function(e) {
+            if (e.target.id === 'elements-count' || e.target.id === 'risks-values' || e.target.id === 'impacts-values') {
+                const score = calculateScore();
+                document.getElementById('calculated-score').textContent = score + '/10';
+            }
+        });
+
+        // Prévisualisation automatique lors des changements
+        document.addEventListener('input', function() {
+            setTimeout(previewReport, 100);
+        });
+
+        // Initialisation
+        previewReport();
+    </script>
+</body>
+</html>

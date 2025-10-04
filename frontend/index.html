@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSINT hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0D0C73;
+      color: #ffffff;
+      font-family: 'Fira Code', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+      background-size: 100% 100%, 100% 100%, 100% 100%;
+      background-attachment: fixed;
+    }
+
+    /* Menu principal - Desktop */
+    .menu {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 280px;
+      height: 100vh;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(25px) saturate(1.2);
+      -webkit-backdrop-filter: blur(25px) saturate(1.2);
+      border-right: 2px solid transparent;
+      border-image: linear-gradient(180deg, 
+        rgba(79, 251, 223, 0.8), 
+        rgba(0, 212, 255, 0.6), 
+        rgba(255, 215, 0, 0.6), 
+        rgba(79, 251, 223, 0.8)) 1;
+      z-index: 10000;
+      transform: translateX(0);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 
+        4px 0 30px rgba(0, 0, 0, 0.4),
+        0 0 60px rgba(79, 251, 223, 0.1),
+        inset -1px 0 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .menu::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(
+        circle at 20% 30%,
+        rgba(79, 251, 223, 0.08) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(0, 212, 255, 0.05) 0%,
+        transparent 60%
+      ),
+      linear-gradient(180deg,
+        rgba(255, 255, 255, 0.02) 0%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.1) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Toggle button - Mobile only */
+    .menu-toggle {
+      position: fixed;
+      left: 20px;
+      top: 20px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+      border: 2px solid #4FFBDF;
+      border-radius: 12px;
+      cursor: pointer;
+      z-index: 10001;
+      display: none; /* Caché par défaut sur desktop */
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(79, 251, 223, 0.2);
+    }
+
+    .menu-toggle:hover {
+      background: linear-gradient(135deg, #333 0%, #555 100%);
+      border-color: #00D4FF;
+      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .menu-toggle.active {
+      background: linear-gradient(135deg, #4FFBDF 0%, #00D4FF 100%);
+      color: #000;
+    }
+
+    .hamburger {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      transform: rotate(0deg);
+      transition: 0.3s ease-in-out;
+    }
+
+    .hamburger span {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background: currentColor;
+      border-radius: 2px;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: 0.25s ease-in-out;
+    }
+
+    .hamburger span:nth-child(1) { top: 4px; }
+    .hamburger span:nth-child(2) { top: 9px; }
+    .hamburger span:nth-child(3) { top: 14px; }
+
+    .menu-toggle.active .hamburger span:nth-child(1) {
+      top: 9px;
+      transform: rotate(135deg);
+    }
+
+    .menu-toggle.active .hamburger span:nth-child(2) {
+      opacity: 0;
+      left: -20px;
+    }
+
+    .menu-toggle.active .hamburger span:nth-child(3) {
+      top: 9px;
+      transform: rotate(-135deg);
+    }
+
+    /* Header du menu */
+    .menu-header {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(79, 251, 223, 0.15);
+      background: linear-gradient(135deg, 
+        rgba(79, 251, 223, 0.03) 0%, 
+        rgba(0, 212, 255, 0.02) 50%,
+        transparent 100%);
+      backdrop-filter: blur(5px);
+    }
+
+    .menu-logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #FFD700;
+      text-shadow: 0 0 10px #FFD700;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .menu-subtitle {
+      font-size: 0.8rem;
+      color: #aaa;
+      text-transform: uppercase;
+      font-style: italic;
+      letter-spacing: 2px;
+    }
+
+    /* Container des liens */
+    .menu-nav {
+      padding: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: calc(100vh - 200px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #4FFBDF rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-nav::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .menu-nav::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-nav::-webkit-scrollbar-thumb {
+      background: #4FFBDF;
+      border-radius: 2px;
+    }
+
+    /* Items du menu */
+    .menu-item {
+      position: relative;
+      margin: 0 1rem;
+    }
+
+    .menu-link {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 400;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+    }
+
+    .menu-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent,
+        rgba(79, 251, 223, 0.1) 50%,
+        transparent);
+      transition: left 0.5s ease;
+      z-index: 0;
+    }
+
+    .menu-link:hover::before {
+      left: 100%;
+    }
+
+    .menu-link:hover {
+      background: linear-gradient(135deg, 
+        rgba(79, 251, 223, 0.15) 0%,
+        rgba(0, 212, 255, 0.08) 100%);
+      border-color: rgba(79, 251, 223, 0.4);
+      transform: translateX(8px);
+      box-shadow: 
+        0 4px 20px rgba(79, 251, 223, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+    }
+
+    .menu-link.active {
+      background: linear-gradient(135deg, 
+        rgba(79, 251, 223, 0.2) 0%,
+        rgba(0, 212, 255, 0.12) 100%);
+      border-color: rgba(79, 251, 223, 0.6);
+      color: #4FFBDF;
+      font-weight: 500;
+      backdrop-filter: blur(15px);
+      box-shadow: 
+        0 0 20px rgba(79, 251, 223, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    /* Icons */
+    .menu-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      transition: all 0.3s ease;
+    }
+
+    .menu-link:hover .menu-icon svg {
+      stroke: #4FFBDF;
+      filter: drop-shadow(0 0 8px #4FFBDF);
+      transform: scale(1.1);
+    }
+
+    .menu-link.active .menu-icon svg {
+      stroke: #4FFBDF;
+      filter: drop-shadow(0 0 8px #4FFBDF);
+    }
+
+    /* Text span pour z-index */
+    .menu-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Status indicators avec les couleurs des filtres */
+    .menu-status {
+      margin-left: auto;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-active {
+      background: linear-gradient(45deg, #4FFBDF, #00cc99);
+      color: #0A1628;
+      box-shadow: 0 2px 8px rgba(79, 251, 223, 0.3);
+    }
+
+    .status-dev {
+      background: linear-gradient(45deg, #FF6B35, #ff8c42);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+    }
+
+    .status-coming {
+      background: linear-gradient(45deg, #666, #999);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(102, 102, 102, 0.3);
+    }
+
+    /* Overlay pour fermer le menu */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 9999;
+      backdrop-filter: blur(2px);
+      display: none; /* Caché sur desktop */
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Footer du menu */
+    .menu-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.4) 100%);
+      border-top: 1px solid rgba(79, 251, 223, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .menu-footer-text {
+      font-size: 0.7rem;
+      color: #666;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* Animation d'entrée des items */
+    .menu-item {
+      transform: translateX(0);
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+
+    #content-container {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Legal Warning Toast */
+    .legal-warning-toast {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      max-width: 600px;
+      width: calc(100% - 2rem);
+      margin: 0 1rem 1rem 1rem;
+      background: rgba(26, 26, 26, 0.98);
+      backdrop-filter: blur(30px) saturate(1.3);
+      -webkit-backdrop-filter: blur(30px) saturate(1.3);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 2px solid rgba(255, 215, 0, 0.6);
+      box-shadow: 
+        0 -10px 40px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(255, 215, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      z-index: 20000;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .legal-warning-toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .legal-warning-toast.hide {
+      transform: translateX(-50%) translateY(120%);
+    }
+
+    .legal-warning-toast::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg,
+        rgba(255, 215, 0, 0.08) 0%,
+        rgba(255, 215, 0, 0.05) 50%,
+        transparent 100%
+      );
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .legal-warning-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .legal-warning-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFD700;
+    }
+
+    .legal-warning-icon svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+      }
+      50% { 
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+      }
+    }
+
+    .legal-warning-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #FFD700;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+      letter-spacing: 0.5px;
+      flex: 1;
+    }
+
+    .legal-warning-content {
+      color: #e0e0e0;
+      line-height: 1.6;
+      font-size: 0.85rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .legal-warning-content strong {
+      color: #FFD700;
+      font-weight: 600;
+    }
+
+    .legal-warning-highlight {
+      background: linear-gradient(135deg, 
+        rgba(255, 215, 0, 0.12), 
+        rgba(255, 215, 0, 0.08));
+      border-left: 3px solid #FF6B35;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      box-shadow: inset 0 1px 2px rgba(255, 215, 0, 0.15);
+    }
+
+    .legal-warning-btn {
+      width: 100%;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #4FFBDF 0%, #00cc99 100%);
+      color: #0A1628;
+      box-shadow: 0 4px 20px rgba(79, 251, 223, 0.3);
+      border: 2px solid rgba(79, 251, 223, 0.5);
+    }
+
+    .legal-warning-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+
+    .legal-warning-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .legal-warning-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(79, 251, 223, 0.5);
+      background: linear-gradient(135deg, #5ffce5 0%, #00d9a6 100%);
+    }
+
+    .legal-warning-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    #main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .warning-p {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 768px) {
+      .legal-warning-toast {
+        width: calc(100% - 1rem);
+        margin: 0 0.5rem 0.5rem 0.5rem;
+        padding: 1.2rem;
+      }
+
+      .legal-warning-title {
+        font-size: 1rem;
+      }
+
+      .legal-warning-content {
+        font-size: 0.8rem;
+      }
+
+      .legal-warning-highlight {
+        font-size: 0.75rem;
+        padding: 0.6rem 0.8rem;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex; /* Afficher le toggle sur mobile */
+      }
+
+      .menu-overlay {
+        display: block; /* Afficher l'overlay sur mobile */
+      }
+
+      .menu {
+        transform: translateX(-100%); /* Cacher le menu sur mobile */
+      }
+
+      .menu.open {
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .menu {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Toggle Button (Mobile uniquement) -->
+  <div class="menu-toggle" id="menuToggle">
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <!-- Menu Overlay (Mobile uniquement) -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- Menu Principal -->
+  <nav class="menu" id="menu">
+    <!-- SVG Icons définitions -->
+    <svg style="display: none;">
+      <defs>
+        <symbol id="home-icon" viewBox="0 0 24 24">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9,22 9,12 15,12 15,22"/>
+        </symbol>
+        <symbol id="shield-icon" viewBox="0 0 24 24">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </symbol>
+        <symbol id="file-text-icon" viewBox="0 0 24 24">
+          <path d="M14,2 L6,2 C4.9,2 4,2.9 4,4 L4,20 C4,21.1 4.9,22 6,22 L18,22 C19.1,22 20,21.1 20,20 L20,8 L14,2 Z"/>
+          <polyline points="14,2 14,8 20,8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10,9 9,9 8,9"/>
+        </symbol>
+        <symbol id="map-icon" viewBox="0 0 24 24">
+          <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+          <line x1="8" y1="2" x2="8" y2="18"/>
+          <line x1="16" y1="6" x2="16" y2="22"/>
+        </symbol>
+        <symbol id="key-icon" viewBox="0 0 24 24">
+          <circle cx="8" cy="8" r="6"/>
+          <path d="m13 13 5 5"/>
+          <path d="m17 17 1.5-1.5"/>
+          <path d="m19.5 15.5 1-1"/>
+        </symbol>
+        <symbol id="database-icon" viewBox="0 0 24 24">
+          <ellipse cx="12" cy="5" rx="9" ry="3"/>
+          <path d="m3 5v14c0 3 4 6 9 6s9-3 9-6V5"/>
+          <path d="m3 12c0 3 4 6 9 6s9-3 9-6"/>
+        </symbol>
+        <symbol id="bar-chart-icon" viewBox="0 0 24 24">
+          <line x1="12" x2="12" y1="20" y2="10"/>
+          <line x1="18" x2="18" y1="20" y2="4"/>
+          <line x1="6" x2="6" y1="20" y2="16"/>
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="menu-header">
+      <div class="menu-logo">OSINT-Hub</div>
+      <div class="menu-subtitle">Discover, Analyze, Act</div>
+    </div>
+
+    <div class="menu-nav">
+      <div class="menu-item">
+        <div class="menu-link active" data-page="osint-hub">
+          <div class="menu-icon">
+            <svg><use href="#home-icon"></use></svg>
+          </div>
+          <span class="menu-text">OSINT Hub</span>
+          <div class="menu-status status-active">Live</div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-link" data-page="offsec-hub">
+          <div class="menu-icon">
+            <svg><use href="#shield-icon"></use></svg>
+          </div>
+          <span class="menu-text">Offsec Hub</span>
+          <div class="menu-status status-dev">Dev</div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-link" data-page="reports-generator">
+          <div class="menu-icon">
+            <svg><use href="#file-text-icon"></use></svg>
+          </div>
+          <span class="menu-text">Reports Generator</span>
+          <div class="menu-status status-coming">Soon</div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-link" data-page="omf-tool">
+          <div class="menu-icon">
+            <svg><use href="#map-icon"></use></svg>
+          </div>
+          <span class="menu-text">OMF Tool</span>
+          <div class="menu-status status-coming">Soon</div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-link" data-page="analytics">
+          <div class="menu-icon">
+            <svg><use href="#bar-chart-icon"></use></svg>
+          </div>
+          <span class="menu-text">Analytics</span>
+          <div class="menu-status status-coming">Soon</div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <a href="https://cryptexhq.github.io/" class="menu-link" target="_blank">
+          <div class="menu-icon">
+            <svg><use href="#key-icon"></use></svg>
+          </div>
+          <span class="menu-text">Cryptex</span>
+          <div class="menu-status status-active">Live</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="menu-footer">
+      <div class="menu-footer-text">
+        OSINT-Hub<br>
+        v0.2.0 - 2025
+      </div>
+    </div>
+  </nav>
+
+  <!-- Zone de contenu principal -->
+  <div id="main-content">
+    <div id="content-container">
+    </div>
+  </div>
+
+  <!-- Legal Warning Toast -->
+  <div class="legal-warning-toast" id="legalWarning">
+    <div class="legal-warning-header">
+      <div class="legal-warning-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18C1.64537 18.3024 1.55296 18.6453 1.55199 18.9945C1.55101 19.3437 1.64151 19.6871 1.81445 19.9905C1.98738 20.2939 2.23675 20.5467 2.53773 20.7239C2.83871 20.901 3.18082 20.9962 3.53 21H20.47C20.8192 20.9962 21.1613 20.901 21.4623 20.7239C21.7633 20.5467 22.0126 20.2939 22.1856 19.9905C22.3585 19.6871 22.449 19.3437 22.448 18.9945C22.447 18.6453 22.3546 18.3024 22.18 18L13.71 3.86C13.5317 3.56611 13.2807 3.32312 12.9812 3.15448C12.6817 2.98585 12.3437 2.89725 12 2.89725C11.6563 2.89725 11.3183 2.98585 11.0188 3.15448C10.7193 3.32312 10.4683 3.56611 10.29 3.86Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="legal-warning-title">Legal Warning</div>
+    </div>
+    <div class="legal-warning-content">
+      <p class="warning-p">This tool includes OSINT features and offensive techniques that can be dangerous or illegal in some countries. You are fully responsible for how you use them. Follow the law and do not do anything without clear permission.</p>
+      <div class="legal-warning-highlight">
+        OSINT tools judged dangerous are shown in <strong>red</strong> with the symbol <strong>⚠️</strong>. <strong>All</strong> tools in the <strong>offsec‑hub</strong> section are considered dangerous.
+      </div>
+    </div>
+    <button class="legal-warning-btn" onclick="acceptLegalWarning()">
+      <span>OK, I Understand</span>
+    </button>
+  </div>
+
+
+  <script>
+//===========================================================+
+//      fetch partial page
+//===========================================================+
+
+
+    function initOSINTHub() {
+        new OSINTHub();
+    }
+
+
+    const mainContent = document.getElementById('content-container');
+
+    async function loadPageContent(page) {
+
+      const contentCreated = ['osint-hub', 'offsec-hub'];
+
+      const mainContent = document.getElementById('content-container');
+      
+      mainContent.innerHTML = '';
+      
+      const iframe = document.createElement('iframe');
+      iframe.id = `iframe-${page}`;
+      iframe.style.cssText = `
+        width: 100%;
+        height: 100vh;
+        border: none;
+        display: block;
+      `;
+      
+      mainContent.appendChild(iframe);
+      
+      if (!contentCreated.includes(page)) {
+        iframe.src = `/soon`;
+      } else {
+        iframe.src = `/${page}`;
+      }
+      
+      iframe.onload = () => {
+        console.log(`Page ${page} chargée dans l'iframe`);
+      };
+      
+      iframe.onerror = () => {
+        console.error(`Erreur lors du chargement de la page ${page}`);
+        mainContent.innerHTML = '<p>Erreur de chargement de la page</p>';
+      };
+    }
+
+//===========================================================+
+//      Default page handler
+//===========================================================+
+
+
+function getDefaultPage() {
+    if (window.location.hash) {
+        return window.location.hash.substring(1);
+    }
+    return "osint-hub";
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const defaultPage = getDefaultPage();
+
+    const activeLink = document.querySelector(`.menu-link[data-page="${defaultPage}"]`);
+    if (activeLink) activeLink.classList.add('active');
+
+    loadPageContent(defaultPage);
+});
+
+//===========================================================+
+//      Style for button and load partial page
+//===========================================================+
+
+
+    const menuLinks = document.querySelectorAll('.menu-link[data-page]');
+    
+    menuLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        menuLinks.forEach(l => l.classList.remove('active'));
+        
+        this.classList.add('active');
+        
+        if (window.innerWidth <= 768) {
+          toggleMenu();
+        }
+        
+        const page = this.getAttribute('data-page');
+        loadPageContent(page);
+      });
+    });
+
+//===========================================================+
+//      Warning Handler
+//===========================================================+
+
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.getElementById('legalWarning').classList.add('show');
+      }, 500);
+    });
+
+    function acceptLegalWarning() {
+      const toast = document.getElementById('legalWarning');
+      toast.classList.remove('show');
+      toast.classList.add('hide');
+    }
+
+  </script>
+
+</body>
+</html>

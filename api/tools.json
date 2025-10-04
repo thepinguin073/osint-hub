@@ -1,0 +1,3282 @@
+{
+  "osint_tools": {
+    "usernames": {
+      "title": "🏷 Usernames",
+      "description": "Searching for information using a pseudonym",
+      "tools": [
+        {
+          "name": "WhatsMyName",
+          "url": "https://whatsmyname.app/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "NameCheckup",
+          "url": "https://namecheckup.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "UserSearch",
+          "url": "https://usersearch.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "CheckUsernames",
+          "url": "https://checkusernames.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Sherlock",
+          "url": "https://github.com/sherlock-project/sherlock",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Namecheckr",
+          "url": "https://www.namecheckr.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "LinkedIn",
+          "url": "https://fr.linkedin.com/",
+          "source": "website",
+          "country": "europe",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "RTL User ID",
+          "url": "https://www.rtl.be/info/",
+          "source": "government",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "OK.ru",
+          "url": "https://ok.ru",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Pikabu.ru",
+          "url": "https://pikabu.ru",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Yaplakal.com",
+          "url": "https://yaplakal.com",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        }
+      ]
+    },
+    "usefulsoftware": {
+      "title": "🔧 Useful Software",
+      "description": "Useful software tools for OSINT",
+      "tools": [
+        {
+          "name": "Spiderfoot",
+          "url": "https://github.com/smicallef/spiderfoot",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Recon-ng",
+          "url": "https://github.com/lanmaster53/recon-ng",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "theHarvester",
+          "url": "https://github.com/laramies/theHarvester",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Mosint",
+          "url": "https://github.com/alpkeskin/mosint",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Maltego",
+          "url": "https://www.maltego.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": false
+        },
+        {
+          "name": "1trace",
+          "url": "https://1trace.space/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": false
+        },
+        {
+          "name": "Holehe",
+          "url": "https://github.com/megadose/holehe",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Trace Labs VM",
+          "url": "https://www.tracelabs.org/initiatives/osint-vm",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Start.me",
+          "url": "https://start.me/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Service Public",
+          "url": "https://www.service-public.fr/",
+          "source": "government",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Belgium.be",
+          "url": "https://www.belgium.be/fr",
+          "source": "government",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Le Moniteur",
+          "url": "https://justice.belgium.be/fr/service_public_federal_justice/organisation/moniteur_belge",
+          "source": "government",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Etalab",
+          "url": "https://github.com/etalab",
+          "source": "github",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Bundes API",
+          "url": "https://github.com/bundesAPI",
+          "source": "github",
+          "country": "germany",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Data Over Heid",
+          "url": "https://github.com/dataoverheid",
+          "source": "github",
+          "country": "netherlands",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "BelgIF",
+          "url": "https://github.com/belgif",
+          "source": "github",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Opendata-Swiss",
+          "url": "https://github.com/opendata-swiss",
+          "source": "github",
+          "country": "switzerland",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "DIGGSweden",
+          "url": "https://github.com/DIGGSweden",
+          "source": "github",
+          "country": "sweden",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Informasjonsforvaltning",
+          "url": "https://github.com/Informasjonsforvaltning",
+          "source": "github",
+          "country": "norway",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Finnish Digital Agency",
+          "url": "https://github.com/vrk-kpa",
+          "source": "github",
+          "country": "finland",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Air Alert Ukraine",
+          "url": "https://alerts.in.ua",
+          "source": "website",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "eVorog",
+          "url": "https://evorog.mil.gov.ua",
+          "source": "website",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Diia",
+          "url": "https://diia.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Ukraine Now",
+          "url": "https://ukraine-now.org",
+          "source": "website",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "VK Mobile",
+          "url": "https://vk.com/mobile",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Mail.ru Group Apps",
+          "url": "https://apps.mail.ru",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "2GIS Mobile",
+          "url": "https://2gis.ru/mobile",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        }
+      ]
+    },
+    "urls": {
+      "title": "🔗 URLs",
+      "description": "Parsing, transforming or extracting from URLs",
+      "tools": [
+        {
+          "name": "urlscan.io",
+          "url": "https://urlscan.io/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Unshorten.it",
+          "url": "https://unshorten.it/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Checkphish",
+          "url": "https://checkphish.ai/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "VirusTotal",
+          "url": "https://www.virustotal.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "CISCO TALOS Intel",
+          "url": "https://www.talosintelligence.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "PhishTool",
+          "url": "https://www.phishtool.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Opswat Metadefender",
+          "url": "https://metadefender.opswat.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": false
+        },
+        {
+          "name": "CERT",
+          "url": "https://www.cert.be/fr",
+          "source": "government",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        }
+      ]
+    },
+    "transportation": {
+      "title": "🚂 Transportation",
+      "description": "Tracking of vehicles, plates or routes",
+      "tools": [
+        {
+          "name": "FlightAware",
+          "url": "https://flightaware.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "FlightRadar24",
+          "url": "https://www.flightradar24.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "MarineTraffic",
+          "url": "https://marinetraffic.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Raildar",
+          "url": "https://raildar.fr/",
+          "source": "website",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "SNCB",
+          "url": "https://www.belgiantrain.be/fr/travel-info/prepare-for-your-journey/leaflets/global-map-train-belgium",
+          "source": "government",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "De Lijn API",
+          "url": "https://data.delijn.be/",
+          "source": "api",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Open railway map",
+          "url": "https://openrailwaymap.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Train Map",
+          "url": "https://www.map.signalbox.io/",
+          "source": "website",
+          "country": "uk",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Train Map",
+          "url": "https://treinenradar.nl/",
+          "source": "website",
+          "country": "netherlands",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Open Train Times",
+          "url": "https://www.opentraintimes.com/",
+          "source": "website",
+          "country": "uk",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "DRP.gov.ua",
+          "url": "https://drp.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Vin.gov.ua",
+          "url": "https://vin.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "UA-Transport.com",
+          "url": "https://ua-transport.com",
+          "source": "website",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Ukraine Railways",
+          "url": "https://uz.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Parking.com.ua",
+          "url": "https://parking.com.ua",
+          "source": "website",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Gibdd.ru",
+          "url": "https://gibdd.ru",
+          "source": "government",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Vin.ru",
+          "url": "https://vin.ru",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Auto.ru Database",
+          "url": "https://auto.ru",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "RZD.ru",
+          "url": "https://rzd.ru",
+          "source": "government",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Aeroflot.com",
+          "url": "https://aeroflot.com",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Russian-transport.com",
+          "url": "https://russian-transport.com",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        }
+      ]
+    },
+    "socialmedia": {
+      "title": "👥 Social Media",
+      "description": "Investigation of social profiles and activities",
+      "tools": [
+        {
+          "name": "Social Searcher",
+          "url": "https://social-searcher.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Maigret",
+          "url": "https://github.com/soxoj/maigret",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Facebook Directory",
+          "url": "https://www.facebook.com/directory/people/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "SOW Social",
+          "url": "https://www.sowsearch.info/",
+          "source": "website",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "ReseauxSociaux.fr",
+          "url": "https://reseauxsociaux.fr/",
+          "source": "website",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Linkook",
+          "url": "https://github.com/JackJuly/linkook",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Osintgram",
+          "url": "https://github.com/Datalux/Osintgram",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Telegram",
+          "url": "https://telegram.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Informer | Telegram Mass Surveillance",
+          "url": "https://github.com/paulpierre/informer",
+          "source": "github",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Ukrainet.com",
+          "url": "https://ukrainet.com",
+          "source": "website",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Myrotvorets.center",
+          "url": "https://myrotvorets.center",
+          "source": "website",
+          "country": "ukraine",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "UA-Football Forum Search",
+          "url": "https://ua-football.com/forum",
+          "source": "website",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Pravda.com.ua Comments",
+          "url": "https://pravda.com.ua",
+          "source": "website",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Mail.ru People",
+          "url": "https://my.mail.ru",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Livejournal.com Russia",
+          "url": "https://livejournal.com",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Diary.ru",
+          "url": "https://diary.ru",
+          "source": "website",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        }
+      ]
+    },
+    "searchengines": {
+      "title": "🔎 Search engines",
+      "description": "Specialized search engines for OSINT",
+      "tools": [
+        {
+          "name": "Google",
+          "url": "https://www.google.com",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Google Dorking Cheatsheet",
+          "url": "https://www.exploit-db.com/google-hacking-database",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Google Dorking automated tool",
+          "url": "https://github.com/SalehLardhi/google-dorks-toolkit",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "DorkSearch",
+          "url": "https://dorksearch.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Bing",
+          "url": "https://www.bing.com",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "DuckDuckGo",
+          "url": "https://www.duckduckgo.com",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Yandex",
+          "url": "https://yandex.com",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Qwant",
+          "url": "https://www.qwant.com",
+          "source": "website",
+          "country": "europe",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Dashdork",
+          "url": "https://dashdork.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Startpage",
+          "url": "https://www.startpage.com",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        }
+      ]
+    },
+    "leak": {
+      "title": "🧾 Data Leak",
+      "description": "Public breaches, dumps, leaks, and compromised data",
+      "tools": [
+        {
+          "name": "Wikileaks",
+          "url": "https://wikileaks.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "DDOSecrets",
+          "url": "https://ddosecrets.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Cryptome",
+          "url": "https://cryptome.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "WeakPass",
+          "url": "https://weakpass.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "SecList",
+          "url": "https://github.com/danielmiessler/SecLists",
+          "source": "github",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Probable Wordlists",
+          "url": "https://github.com/berzerk0/Probable-Wordlists",
+          "source": "github",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Discord leaks",
+          "url": "https://discordleaks.unicornriot.ninja/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Leak Lookup",
+          "url": "https://leak-lookup.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Offshore Leaks",
+          "url": "https://offshoreleaks.icij.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Enlace Hacktivista",
+          "url": "https://enlacehacktivista.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Leak Check",
+          "url": "https://leakcheck.io/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Data Breach Website",
+          "url": "https://databreach.com",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "FreeDatabreaches",
+          "url": "https://github.com/doormanBreach/FreeDatabreaches",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Intelligence X",
+          "url": "https://intelx.io/tools?tab=social",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "OathNet.org",
+          "url": "https://oathnet.org",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Ukraine 5am Coalition",
+          "url": "https://5am.in.ua",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "War Crime Archive",
+          "url": "https://warcrimes.gov.ua",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Tribunal for Putin",
+          "url": "https://tribunal-putin.org",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Ukraine Witness",
+          "url": "https://ukraine-witness.org",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Russian War Crimes",
+          "url": "https://russianwarcrimes.org",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        }
+      ]
+    },
+    "phones": {
+      "title": "📱 Search by phone number",
+      "description": "Search and validate phone numbers",
+      "tools": [
+        {
+          "name": "Truecaller",
+          "url": "https://www.truecaller.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "NumVerify",
+          "url": "https://www.numverify.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "WhoCalled.us",
+          "url": "https://www.whocalled.us/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Pages Jaunes",
+          "url": "https://www.pagesjaunes.fr/",
+          "source": "website",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Infobel",
+          "url": "https://www.infobel.com/en/belgium",
+          "source": "website",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Les pages d'or",
+          "url": "https://www.pagesdor.be/",
+          "source": "website",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "SpotThem",
+          "url": "https://spotthem.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": false
+        }
+      ]
+    },
+    "names": {
+      "title": "🪪 Search by name",
+      "description": "Cross-referencing and tracing from first names or last names",
+      "tools": [
+        {
+          "name": "FamilySearch",
+          "url": "https://www.familysearch.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Geneanet",
+          "url": "https://www.geneanet.org/",
+          "source": "website",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "National Archives",
+          "url": "https://www.nationalarchives.gov.uk/",
+          "source": "government",
+          "country": "uk",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Filae",
+          "url": "https://www.filae.com/",
+          "source": "website",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Archives nationales",
+          "url": "https://www.arch.be/index.php",
+          "source": "government",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        }
+      ]
+    },
+    "military": {
+      "title": "🪖 Military information",
+      "description": "Sources or data related to the military environment",
+      "tools": [
+        {
+          "name": "GlobalSecurity.org",
+          "url": "https://www.globalsecurity.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "SIPRI",
+          "url": "https://www.sipri.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Ministry of the Armed Forces",
+          "url": "https://www.defense.gouv.fr/",
+          "source": "government",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "The Belgian defense website",
+          "url": "https://www.mil.be/fr",
+          "source": "government",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Army Official website",
+          "url": "https://www.army.mil/",
+          "source": "government",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "President.gov.ua",
+          "url": "https://president.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Mil.gov.ua",
+          "url": "https://mil.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "SBU.gov.ua",
+          "url": "https://sbu.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "MVS.gov.ua",
+          "url": "https://mvs.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Dpsu.gov.ua",
+          "url": "https://dpsu.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Rada.gov.ua",
+          "url": "https://rada.gov.ua",
+          "source": "government",
+          "country": "ukraine",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Kremlin.ru",
+          "url": "https://kremlin.ru",
+          "source": "government",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Gov.ru",
+          "url": "https://gov.ru",
+          "source": "government",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Mil.ru",
+          "url": "https://mil.ru",
+          "source": "government",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "MVD.ru",
+          "url": "https://mvd.ru",
+          "source": "government",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "FSB.ru",
+          "url": "https://fsb.ru",
+          "source": "government",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Duma.gov.ru",
+          "url": "https://duma.gov.ru",
+          "source": "government",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Genproc.gov.ru",
+          "url": "https://genproc.gov.ru",
+          "source": "government",
+          "country": "russia",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "ISW Maps",
+          "url": "https://understandingwar.org",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "War Mapper",
+          "url": "https://war.mapper.fr",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Ukraine War Map",
+          "url": "https://militaryland.net",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Oryx Blog",
+          "url": "https://oryxspioenkop.com",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Ukraine Weapons Tracker",
+          "url": "https://ukraine-weapons-tracker.com",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        },
+        {
+          "name": "Conflict Observatory",
+          "url": "https://conflictobservatory.org",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        }
+      ]
+    },
+    "ip": {
+      "title": "🌐 IP addresses",
+      "description": "Tracking from an IP address",
+      "tools": [
+        {
+          "name": "AbuseIPDB",
+          "url": "https://www.abuseipdb.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "IPinfo",
+          "url": "https://ipinfo.io/",
+          "source": "api",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "BGP.he.net",
+          "url": "https://bgp.he.net/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "CERT.be",
+          "url": "https://www.cert.be/",
+          "source": "government",
+          "country": "belgium",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "AFNIC",
+          "url": "https://www.afnic.fr/",
+          "source": "government",
+          "country": "france",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "IP Logger",
+          "url": "https://iplogger.org/",
+          "source": "website",
+          "country": "international",
+          "flagged": true,
+          "free": true
+        }
+      ]
+    },
+    "images": {
+      "title": "🖼️ Image search",
+      "description": "Reverse search or photo/image analysis",
+      "tools": [
+        {
+          "name": "TinEye",
+          "url": "https://tineye.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Google Images",
+          "url": "https://images.google.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Pixsy",
+          "url": "https://www.pixsy.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "ProfileImageIntel",
+          "url": "https://profileimageintel.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Fotoforensics",
+          "url": "https://www.fotoforensics.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Pic2Map",
+          "url": "https://www.pic2map.com/",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
+          "name": "Forensically",
+          "url": "https://29a.ch/photo-forensics//#forensic-magnifier",
+          "source": "website",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        }
+      ]
+    },
+    "geolocation": {
+          "title": "🧭 Geolocation & maps",
+          "description": "Location tools, GPS, maps and coordinates",
+          "tools": [
+            {
+              "name": "Geoportail",
+              "url": "https://geoportail.gouv.fr/",
+              "source": "government",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Cadastre",
+              "url": "https://www.cadastre.gouv.fr/",
+              "source": "government",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Geopunt",
+              "url": "https://geopunt.be/",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "WalOnMap",
+              "url": "https://geoportail.wallonie.be",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "CADGIS",
+              "url": "https://www.minfin.fgov.be/ecad-web/",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Google Maps",
+              "url": "https://www.google.com/maps",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Waze",
+              "url": "https://www.waze.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "OpenStreetMap",
+              "url": "https://www.openstreetmap.org/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Wikimapia",
+              "url": "https://wikimapia.org/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Koshegio DBSCAN",
+              "url": "https://www.koshegio.com/calculator-dbscan-clustering",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Datatab DBSCAN",
+              "url": "https://datatab.net/statistics-calculator/cluster/dbscan-calculator",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GeoJSON",
+              "url": "https://geojson.io/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "EarthCam",
+              "url": "https://www.earthcam.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Ordnance Survey",
+              "url": "https://www.ordnancesurvey.co.uk/",
+              "source": "government",
+              "country": "uk",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO API",
+              "url": "https://geo.api.gouv.fr/",
+              "source": "api",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Geoportal",
+              "url": "https://www.geoportal.de/",
+              "source": "government",
+              "country": "germany",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Geo Data",
+              "url": "https://geodati.gov.it/geoportale/eng/",
+              "source": "government",
+              "country": "italy",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Property Registries",
+              "url": "https://www.einforma.com/registros-propiedad",
+              "source": "government",
+              "country": "spain",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "National Geographic Institute",
+              "url": "https://www.ign.es/web/ign/portal",
+              "source": "government",
+              "country": "spain",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://geoportal.lneg.pt/en/opendata/",
+              "source": "government",
+              "country": "portugal",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.pdok.nl/",
+              "source": "government",
+              "country": "netherlands",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.geo.be/home?l=en",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.geo.admin.ch/fr",
+              "source": "government",
+              "country": "switzerland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA API",
+              "url": "https://api3.geo.admin.ch/",
+              "source": "api",
+              "country": "switzerland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.geoland.at/",
+              "source": "government",
+              "country": "austria",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://map.geoportail.lu/",
+              "source": "government",
+              "country": "luxembourg",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://geodata-info.dk/",
+              "source": "government",
+              "country": "denmark",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.lantmateriet.se/",
+              "source": "government",
+              "country": "sweden",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.geonorge.no/",
+              "source": "government",
+              "country": "norway",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.maanmittauslaitos.fi/",
+              "source": "government",
+              "country": "finland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.geohive.ie/",
+              "source": "government",
+              "country": "ireland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.natt.is/en",
+              "source": "government",
+              "country": "iceland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://www.geoportal.gov.pl/",
+              "source": "government",
+              "country": "poland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://geoportal.gov.cz/web/guest/home",
+              "source": "government",
+              "country": "czech-republic",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://geohub.gov.mt/",
+              "source": "government",
+              "country": "malta",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "GEO DATA",
+              "url": "https://geoportaal.maaamet.ee/eng/",
+              "source": "government",
+              "country": "estonia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "European GEO DATA",
+              "url": "https://inspire-geoportal.ec.europa.eu/srv/eng/catalog.search#/home",
+              "source": "government",
+              "country": "europe",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Wikimapia Ukraine",
+              "url": "https://wikimapia.org/#lat=49&lon=32&z=6",
+              "source": "website",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "OpenStreetMap Ukraine",
+              "url": "https://openstreetmap.org/#map=6/49.027/31.465",
+              "source": "website",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Ukraine Geocoder",
+              "url": "https://geocoder.com.ua",
+              "source": "website",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Panoramio Ukraine Archive",
+              "url": "https://panoramio.com",
+              "source": "website",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Ukraine Places Database",
+              "url": "https://ukraine-places.gov.ua",
+              "source": "government",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Lviv.travel Map",
+              "url": "https://lviv.travel/map",
+              "source": "website",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "2GIS Russia",
+              "url": "https://2gis.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Maps.mail.ru",
+              "url": "https://maps.mail.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Geonames.ru",
+              "url": "https://geonames.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Russian-cities.info",
+              "url": "https://russian-cities.info",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Wikimapia Russia",
+              "url": "https://wikimapia.org/#lat=60&lon=100&z=4",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            }
+          ]
+        },
+        "email": {
+          "title": "✉️ email lookup",
+          "description": "Verification or tracing of email addresses",
+          "tools": [
+            {
+              "name": "Hunter.io",
+              "url": "https://hunter.io/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Epieos",
+              "url": "https://epieos.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "HIBP",
+              "url": "https://haveibeenpwned.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Dehashed",
+              "url": "https://dehashed.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "MailTester",
+              "url": "https://mailtester.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "EmailRep.io",
+              "url": "https://emailrep.io/",
+              "source": "api",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Pipl",
+              "url": "https://www.pipl.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "StopForumSpam",
+              "url": "https://www.stopforumspam.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "SpotThem",
+              "url": "https://spotthem.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": false
+            }
+          ]
+        },
+        "domains": {
+          "title": "🕸️ Domains",
+          "description": "Domain resolution, whois, history or reputation",
+          "tools": [
+            {
+              "name": "DomainTools WHOIS",
+              "url": "https://whois.domaintools.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "AFNIC WHOIS",
+              "url": "https://www.nic.fr/",
+              "source": "government",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "DNSstuff",
+              "url": "https://www.dnsstuff.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "DNSlytics",
+              "url": "https://www.dnslytics.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "DNS Checker",
+              "url": "https://www.dnschecker.org/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "DNS Dumpster",
+              "url": "https://dnsdumpster.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            }
+          ]
+        },
+        "lookup": {
+          "title": "📡 Data Lookup",
+          "description": "Access to open databases",
+          "tools": [
+            {
+              "name": "Spyse",
+              "url": "https://github.com/spyse-com",
+              "source": "github",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Shodan",
+              "url": "https://www.shodan.io/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Shodan Queries Cheatsheat",
+              "url": "https://github.com/jakejarvis/awesome-shodan-queries",
+              "source": "github",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Censys",
+              "url": "https://www.censys.io/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "CERT",
+              "url": "https://www.cert.be/fr",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "ANSSI",
+              "url": "https://www.ssi.gouv.fr/",
+              "source": "government",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Wigle.net",
+              "url": "https://wigle.net/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.gov.be/en",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Data Gouv",
+              "url": "https://www.data.gouv.fr/",
+              "source": "government",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "API Gouv",
+              "url": "https://api.gouv.fr/",
+              "source": "api",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "National Cyber Security Centre",
+              "url": "https://www.ncsc.gov.uk/",
+              "source": "government",
+              "country": "uk",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "data.police.uk",
+              "url": "https://data.police.uk/",
+              "source": "api",
+              "country": "uk",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "data.gov.uk",
+              "url": "https://www.data.gov.uk/",
+              "source": "government",
+              "country": "uk",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Gov Data",
+              "url": "https://www.govdata.de/",
+              "source": "government",
+              "country": "germany",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Federal Gazette",
+              "url": "https://www.bundesanzeiger.de/pub/de/start?0",
+              "source": "website",
+              "country": "germany",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://www.dati.gov.it/",
+              "source": "government",
+              "country": "italy",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Italian digital agency",
+              "url": "https://www.agid.gov.it/it",
+              "source": "government",
+              "country": "italy",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://datos.gob.es/en",
+              "source": "government",
+              "country": "spain",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://dados.gov.pt/en/",
+              "source": "government",
+              "country": "portugal",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Official Publication",
+              "url": "https://publicacoes.mj.pt/",
+              "source": "government",
+              "country": "portugal",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.overheid.nl/",
+              "source": "government",
+              "country": "netherlands",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Belgian Official Gazette",
+              "url": "https://www.ejustice.just.fgov.be/cgi/welcome.pl",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://opendata.swiss/fr",
+              "source": "government",
+              "country": "switzerland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "StatBel",
+              "url": "https://statbel.fgov.be/fr",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "ODWB",
+              "url": "https://www.odwb.be/pages/home/",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Federal Statistical Office",
+              "url": "https://www.bfs.admin.ch/bfs/fr/home.html",
+              "source": "government",
+              "country": "switzerland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://www.data.gv.at/",
+              "source": "government",
+              "country": "austria",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Austrian Statistics",
+              "url": "https://www.statistik.at/en",
+              "source": "government",
+              "country": "austria",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.public.lu/fr/",
+              "source": "government",
+              "country": "luxembourg",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Luxembourg Statistics",
+              "url": "https://statistiques.public.lu/fr.html",
+              "source": "government",
+              "country": "luxembourg",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Danish statistics",
+              "url": "https://www.statistikbanken.dk/",
+              "source": "government",
+              "country": "denmark",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://www.opendata.dk/",
+              "source": "government",
+              "country": "denmark",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://www.dataportal.se/",
+              "source": "government",
+              "country": "sweden",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Swedish statistics",
+              "url": "https://www.scb.se/",
+              "source": "government",
+              "country": "sweden",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.norge.no/nb",
+              "source": "government",
+              "country": "norway",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Norwegian Statistics",
+              "url": "https://www.ssb.no/",
+              "source": "government",
+              "country": "norway",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://www.avoindata.fi/fi",
+              "source": "government",
+              "country": "finland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Finnish statistics",
+              "url": "https://stat.fi/fi",
+              "source": "government",
+              "country": "finland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.gov.ie/",
+              "source": "government",
+              "country": "ireland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Irish statistics",
+              "url": "https://www.cso.ie/en/index.html",
+              "source": "government",
+              "country": "ireland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Icelandic statistics",
+              "url": "https://statice.is/",
+              "source": "government",
+              "country": "iceland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://island.is/en/o/digital-iceland/open-data/open-data",
+              "source": "government",
+              "country": "iceland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Polish statistics",
+              "url": "https://stat.gov.pl/en/",
+              "source": "government",
+              "country": "poland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://dane.gov.pl/en",
+              "source": "government",
+              "country": "poland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.gov.cz/english/",
+              "source": "government",
+              "country": "czech-republic",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Czech Statistics",
+              "url": "https://csu.gov.cz/home",
+              "source": "government",
+              "country": "czech-republic",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://opendata.hu/",
+              "source": "government",
+              "country": "hungary",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Hungarian Statistics",
+              "url": "https://www.ksh.hu/?lang=en",
+              "source": "government",
+              "country": "hungary",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.slovensko.sk/",
+              "source": "government",
+              "country": "slovakia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Slovak Statistics",
+              "url": "https://slovak.statistics.sk/",
+              "source": "government",
+              "country": "slovakia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://podatki.gov.si/",
+              "source": "government",
+              "country": "slovenia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Slovenian statistics",
+              "url": "https://www.stat.si/StatWeb/en",
+              "source": "government",
+              "country": "slovenia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Croatian statistics",
+              "url": "https://dzs.gov.hr/en",
+              "source": "government",
+              "country": "croatia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.gov.hr/en/",
+              "source": "government",
+              "country": "croatia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.gov.ro/en/",
+              "source": "government",
+              "country": "romania",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Romanian Statistics",
+              "url": "https://insse.ro/cms/en",
+              "source": "government",
+              "country": "romania",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.egov.bg/",
+              "source": "government",
+              "country": "bulgaria",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Bulgarian Statistics",
+              "url": "https://www.nsi.bg/en",
+              "source": "government",
+              "country": "bulgaria",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Greek Statistics",
+              "url": "https://www.statistics.gr/en/home/",
+              "source": "government",
+              "country": "greece",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.gov.gr/",
+              "source": "government",
+              "country": "greece",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://www.data.gov.cy/en",
+              "source": "government",
+              "country": "cyprus",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://portal.data.gov.mt/",
+              "source": "government",
+              "country": "malta",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://andmed.eesti.ee/",
+              "source": "government",
+              "country": "estonia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.gov.lv/eng",
+              "source": "government",
+              "country": "latvia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Latvian Statistics",
+              "url": "https://www.csp.gov.lv/en",
+              "source": "government",
+              "country": "latvia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Data",
+              "url": "https://data.gov.lt/",
+              "source": "government",
+              "country": "lithuania",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Lithuanian Statistics",
+              "url": "https://vda.lrv.lt/en/",
+              "source": "government",
+              "country": "lithuania",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "European Statistics",
+              "url": "https://ec.europa.eu/eurostat/",
+              "source": "government",
+              "country": "europe",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "European CORDIS API",
+              "url": "https://cordis.europa.eu/",
+              "source": "api",
+              "country": "europe",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "The world factbook",
+              "url": "https://www.cia.gov/the-world-factbook/",
+              "source": "government",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "EU Sanctions Map",
+              "url": "https://sanctionsmap.eu",
+              "source": "government",
+              "country": "europe",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "OFAC Russia",
+              "url": "https://treasury.gov/ofac",
+              "source": "government",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "UK Sanctions List",
+              "url": "https://gov.uk/sanctions-list",
+              "source": "government",
+              "country": "uk",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Canada Russia Sanctions",
+              "url": "https://www.international.gc.ca/world-monde/international_relations-relations_internationales/sanctions/russia-russie.aspx",
+              "source": "government",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Swiss SECO Sanctions",
+              "url": "https://www.seco.admin.ch/sanctions",
+              "source": "government",
+              "country": "switzerland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Consolidated Sanctions",
+              "url": "https://consolidatedsanctions.com",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            }
+          ]
+        },
+        "crypto": {
+          "title": "₿ Cryptocurrencies",
+          "description": "Crypto transaction tracking and tracing",
+          "tools": [
+            {
+              "name": "Blockchain.com Explorer",
+              "url": "https://www.blockchain.com/explorer",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Blockchair",
+              "url": "https://www.blockchair.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Bitquery",
+              "url": "https://bitquery.io/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Chainalysis",
+              "url": "https://www.chainalysis.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Nansen.ai",
+              "url": "https://www.nansen.ai/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Chainlink",
+              "url": "https://www.chain.link/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Arkham Intelligence",
+              "url": "https://intel.arkm.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Etherscan",
+              "url": "https://etherscan.io/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            }
+          ]
+        },
+        "companies": {
+          "title": "🏢 Compagnies",
+          "description": "Investigation of companies or commercial structures",
+          "tools": [
+            {
+              "name": "OpenCorporates",
+              "url": "https://www.opencorporates.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Societe.com",
+              "url": "https://www.societe.com/",
+              "source": "government",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Pappers",
+              "url": "https://www.pappers.fr/",
+              "source": "website",
+              "country": "europe",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "BCE",
+              "url": "https://kbopub.economie.fgov.be/kbopub/zoekwoordenform.html",
+              "source": "government",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Compagnyweb",
+              "url": "https://www.companyweb.be/en",
+              "source": "website",
+              "country": "belgium",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Compagny Database",
+              "url": "https://firmeneintrag.creditreform.de/",
+              "source": "government",
+              "country": "germany",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Dun & Bradstreet",
+              "url": "https://www.dnb.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": false
+            },
+            {
+              "name": "Bloomberg Professional",
+              "url": "https://www.bloomberg.com/professional/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": false
+            },
+            {
+              "name": "Bureau van Dijk",
+              "url": "https://www.bvdinfo.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": false
+            },
+            {
+              "name": "Companies House API",
+              "url": "https://developer.company-information.service.gov.uk/",
+              "source": "api",
+              "country": "uk",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Companies Information",
+              "url": "https://find-and-update.company-information.service.gov.uk",
+              "source": "government",
+              "country": "uk",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Infogreffe",
+              "url": "https://www.infogreffe.fr/",
+              "source": "government",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "API Catalog",
+              "url": "https://portail-api.insee.fr/",
+              "source": "api",
+              "country": "france",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company register",
+              "url": "https://www.unternehmensregister.de/de",
+              "source": "government",
+              "country": "germany",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Open Registers",
+              "url": "https://offeneregister.de/",
+              "source": "government",
+              "country": "germany",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.registroimprese.it/",
+              "source": "government",
+              "country": "italy",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.registradores.org/",
+              "source": "government",
+              "country": "spain",
+              "flagged": false,
+              "free": false
+            },
+            {
+              "name": "Company Register",
+              "url": "https://openkvk.nl/",
+              "source": "website",
+              "country": "netherlands",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Chamber of Commerce",
+              "url": "https://www.kvk.nl/",
+              "source": "government",
+              "country": "netherlands",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.zefix.ch/en/search/entity/welcome",
+              "source": "government",
+              "country": "switzerland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.wirtschaft.at/",
+              "source": "government",
+              "country": "austria",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.lbr.lu/",
+              "source": "government",
+              "country": "luxembourg",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://datacvr.virk.dk/",
+              "source": "government",
+              "country": "denmark",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.brreg.no/",
+              "source": "government",
+              "country": "norway",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.ytj.fi/",
+              "source": "government",
+              "country": "finland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://cro.ie/",
+              "source": "government",
+              "country": "ireland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.skatturinn.is/english",
+              "source": "government",
+              "country": "iceland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://aplikacja.ceidg.gov.pl/CEIDG.STS/",
+              "source": "government",
+              "country": "poland",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://or.justice.cz/ias/ui/rejstrik",
+              "source": "government",
+              "country": "czech-republic",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.e-cegjegyzek.hu/",
+              "source": "government",
+              "country": "hungary",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.orsr.sk/Default.asp?lan=en",
+              "source": "government",
+              "country": "slovakia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.ajpes.si/?language=english",
+              "source": "government",
+              "country": "slovenia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://sudreg.pravosudje.hr",
+              "source": "government",
+              "country": "croatia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.onrc.ro/index.php/en/",
+              "source": "government",
+              "country": "romania",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://portal.registryagency.bg/en/",
+              "source": "government",
+              "country": "bulgaria",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.businessportal.gr/en/home-en/",
+              "source": "government",
+              "country": "greece",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://efiling.drcor.mcit.gov.cy/DrcorPublic/?cultureInfo=en-AU",
+              "source": "government",
+              "country": "cyprus",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://mbr.mt/",
+              "source": "government",
+              "country": "malta",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://ariregister.rik.ee/eng",
+              "source": "government",
+              "country": "estonia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.ur.gov.lv/en/",
+              "source": "government",
+              "country": "latvia",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Company Register",
+              "url": "https://www.registrucentras.lt/en",
+              "source": "government",
+              "country": "lithuania",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "European TED API",
+              "url": "https://ted.europa.eu/en/",
+              "source": "api",
+              "country": "europe",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "YouControl.com.ua",
+              "url": "https://youcontrol.com.ua",
+              "source": "website",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Opendatabot.ua",
+              "url": "https://opendatabot.ua",
+              "source": "website",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "SMIDA.gov.ua",
+              "url": "https://smida.gov.ua",
+              "source": "government",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Clarity-project.info",
+              "url": "https://clarity-project.info",
+              "source": "website",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Prozorro.gov.ua",
+              "url": "https://prozorro.gov.ua",
+              "source": "government",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Declarations.com.ua",
+              "url": "https://declarations.com.ua",
+              "source": "website",
+              "country": "ukraine",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Rusprofile.ru",
+              "url": "https://rusprofile.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "SPARK-Interfax.ru",
+              "url": "https://spark-interfax.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": false
+            },
+            {
+              "name": "Kartoteka.ru",
+              "url": "https://kartoteka.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Fedresurs.ru",
+              "url": "https://fedresurs.ru",
+              "source": "government",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Zakupki.gov.ru",
+              "url": "https://zakupki.gov.ru",
+              "source": "government",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "EGRUL Extract",
+              "url": "https://egrul.nalog.ru",
+              "source": "government",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            }
+          ]
+        },
+        "darknet": {
+          "title": "🧅 Darknet-oriented tool",
+          "description": "Darknet hidden service automation tool",
+          "tools": [
+            {
+              "name": "Ahmia",
+              "url": "https://ahmia.fi/",
+              "source": "website",
+              "country": "international",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Katana",
+              "url": "https://github.com/projectdiscovery/katana",
+              "source": "github",
+              "country": "international",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Darkdump",
+              "url": "https://github.com/josh0xA/darkdump",
+              "source": "github",
+              "country": "international",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "OnionScan",
+              "url": "https://github.com/s-rah/onionscan",
+              "source": "github",
+              "country": "international",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "VigilantOnion",
+              "url": "https://github.com/andreyglauzer/VigilantOnion",
+              "source": "github",
+              "country": "international",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Dark web OSINT Tools",
+              "url": "https://github.com/apurvsinghgautam/dark-web-osint-tools",
+              "source": "github",
+              "country": "international",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "TorBot",
+              "url": "https://github.com/DedSecInside/TorBot",
+              "source": "github",
+              "country": "international",
+              "flagged": true,
+              "free": true
+            }
+          ]
+        },
+        "news/media": {
+          "title": "📰 News & Media",
+          "description": "News sources and media outlets",
+          "tools": [
+            {
+              "name": "RT.com",
+              "url": "https://rt.com",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Sputniknews.com",
+              "url": "https://sputniknews.com",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "TASS.ru",
+              "url": "https://tass.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "RIA.ru",
+              "url": "https://ria.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Interfax.ru",
+              "url": "https://interfax.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "Kommersant.ru",
+              "url": "https://kommersant.ru",
+              "source": "website",
+              "country": "russia",
+              "flagged": true,
+              "free": true
+            },
+            {
+              "name": "StopFake.org",
+              "url": "https://stopfake.org",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Myth Detector",
+              "url": "https://mythdetector.ge",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "EU vs Disinfo",
+              "url": "https://euvsdisinfo.eu",
+              "source": "government",
+              "country": "europe",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Polygraph.info",
+              "url": "https://polygraph.info",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "InformNapalm",
+              "url": "https://informnapalm.org",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Euromaidan Press",
+              "url": "https://euromaidanpress.com",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            }
+          ]
+        },
+        "frameworks": {
+          "title": "🗂️ Others OSINT frameworks",
+          "description": "Access to global or organized OSINT portals",
+          "tools": [
+            {
+              "name": "OSINT Framework",
+              "url": "https://osintframework.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Malfrats OSINT Map",
+              "url": "https://map.malfrats.industries/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Trace Labs OSINT Tools",
+              "url": "https://www.tracelabs.org/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "OSINT Dojo",
+              "url": "https://www.osintdojo.com/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "OSINT Notes",
+              "url": "https://github.com/UjsGit/Notes-on-OSINT",
+              "source": "github",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "DataSploit",
+              "url": "https://github.com/DataSploit/datasploit",
+              "source": "github",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Awesome OSINT",
+              "url": "https://www.trackawesomelist.com/jivoi/awesome-osint/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Awesome OSINT",
+              "url": "https://github.com/jivoi/awesome-osint",
+              "source": "github",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Bellingcat's Toolkit",
+              "url": "https://bellingcat.gitbook.io/toolkit/",
+              "source": "github",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "osint.rocks",
+              "url": "https://osint.rocks/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "Intel Techniques Tools",
+              "url": "https://inteltechniques.com/tools/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            },
+            {
+              "name": "OSINT.link",
+              "url": "https://osint.link/",
+              "source": "website",
+              "country": "international",
+              "flagged": false,
+              "free": true
+            }
+          ]
+        }
+      }
+    }

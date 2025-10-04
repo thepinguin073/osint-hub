@@ -1,0 +1,156 @@
+<!Doctype HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>OSINT Hub</title>
+    <link rel="stylesheet" href="/static/osint-hub.css">
+    <script src="/static/osint-hub.js" defer></script>
+  </head>
+  <body>
+
+    <div class="loading">
+      <div class="loading-content">
+        <div class="loading-logo"></div>
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+
+    <div class="filters-container">
+      <div class="filters-header">
+        <svg class="filters-icon" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd"></path>
+        </svg>
+        <h3 class="filters-title">Filters</h3>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Research</label>
+        <div class="search-wrapper">
+          <input id="searchInput" type="text" class="modern-input search" placeholder="Tool's name, description ... ">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Category</label>
+        <div class="select-wrapper">
+          <select id="categoryFilter" class="modern-select">
+            <option value="all">🌟 All tools</option>
+            <option value="usernames">🏷 Usernames</option>
+            <option value="usefulsoftware">🔧 Useful Software</option>
+            <option value="urls">🔗 URLs</option>
+            <option value="transportation">🚂 Transportation</option>
+            <option value="socialmedia">👥 Social Media</option>
+            <option value="searchengines">🔎 Search Engines</option>
+            <option value="phones">📱 Phone Numbers</option>
+            <option value="names">🪪 Names</option>
+            <option value="military">🪖 Military</option>
+            <option value="ip">🌐 IP Addresses</option>
+            <option value="images">🖼️ Images</option>
+            <option value="geolocation">🧭 Geolocation & Maps</option>
+            <option value="leak">🧾 Data Leak</option>
+            <option value="email">✉️ Email Addresses</option>
+            <option value="domains">🕸️ Domains</option>
+            <option value="lookup">📡 Data Lookup</option>
+            <option value="crypto">₿ Cryptocurrencies</option>
+            <option value="companies">🏢 Compagnies</option>
+            <option value="darknet">🧅 Darknet-oriented tool</option>
+            <option value="news/media">📰 News & Media</option>
+            <option value="frameworks">🗂️ Others OSINT frameworks</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Source</label>
+        <div class="select-wrapper">
+          <select id="sourceFilter" class="modern-select">
+            <option value="">All sources</option>
+            <option value="website">🕸️ Web site</option>
+            <option value="api">🔌 APIs</option>
+            <option value="government">🏛 Government Resources</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Region</label>
+        <div class="multi-select-container">
+          <div class="select-wrapper">
+            <select id="countryFilter" class="modern-select">
+              <option value="">All regions</option>
+              <option value="international">🌍 International</option>
+              <option value="europe">🇪🇺 Europe</option>
+              <option value="austria">🇦🇹 Austria</option>
+              <option value="belgium">🇧🇪 Belgium</option>
+              <option value="bulgaria">🇧🇬 Bulgaria</option>
+              <option value="croatia">🇭🇷 Croatia</option>
+              <option value="cyprus">🇨🇾 Cyprus</option>
+              <option value="czech-republic">🇨🇿 Czech Republic</option>
+              <option value="denmark">🇩🇰 Denmark</option>
+              <option value="estonia">🇪🇪 Estonia</option>
+              <option value="finland">🇫🇮 Finland</option>
+              <option value="france">🇫🇷 France</option>
+              <option value="germany">🇩🇪 Germany</option>
+              <option value="greece">🇬🇷 Greece</option>
+              <option value="hungary">🇭🇺 Hungary</option>
+              <option value="iceland">🇮🇸 Iceland</option>
+              <option value="ireland">🇮🇪 Ireland</option>
+              <option value="italy">🇮🇹 Italy</option>
+              <option value="latvia">🇱🇻 Latvia</option>
+              <option value="lithuania">🇱🇹 Lithuania</option>
+              <option value="luxembourg">🇱🇺 Luxembourg</option>
+              <option value="malta">🇲🇹 Malta</option>
+              <option value="netherlands">🇳🇱 Netherlands</option>
+              <option value="norway">🇳🇴 Norway</option>
+              <option value="poland">🇵🇱 Poland</option>
+              <option value="portugal">🇵🇹 Portugal</option>
+              <option value="romania">🇷🇴 Romania</option>
+              <option value="slovakia">🇸🇰 Slovakia</option>
+              <option value="slovenia">🇸🇮 Slovenia</option>
+              <option value="spain">🇪🇸 Spain</option>
+              <option value="sweden">🇸🇪 Sweden</option>
+              <option value="switzerland">🇨🇭 Switzerland</option>
+              <option value="uk">🇬🇧 United Kingdom</option>
+              <option value="ukraine">🇺🇦 Ukraine</option>
+              <option value="russia">🇷🇺 Russia</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Options</label>
+        
+        <div class="toggle-container">
+          <span>Flagged tools ⚠️</span>
+          <div class="toggle-switch" data-filter="flagged"></div>
+        </div>
+        
+        <div class="toggle-container">
+          <span>GitHub only</span>
+          <div class="toggle-switch active" data-filter="github"></div>
+        </div>
+        
+        <div class="toggle-container">
+          <span>Free tools</span>
+          <div class="toggle-switch active" data-filter="free"></div>
+        </div>
+      </div>
+
+      <div class="results-counter">
+        📊 147 tools found
+      </div>
+
+      <!-- Reset button -->
+      <button class="reset-btn">
+        🔄 Reset
+      </button>
+    </div>
+
+    <main>
+    <!--Section goes here, from JS-->
+    </main>
+
+    <div id="img"><div>
+  </body>
+</html>
