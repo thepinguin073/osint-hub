@@ -10,7 +10,7 @@ Ce README est également disponible en [🇬🇧 Anglais](./README.md)
 
 OSINT-Hub fournit une interface centralisée pour les professionnels de la sécurité, chercheurs et passionnés afin de découvrir et accéder à des outils dans plusieurs domaines. La plateforme organise les ressources par catégories incluant la reconnaissance, l'ingénierie sociale, les tests d'applications web, la criminalistique numérique et plus encore, avec un accent sur les ressources d'Europe de l'Ouest tout en maintenant une couverture mondiale.
 
-![Capture d'écran d'OSINT-Hub](screenshot.png "Capture d'écran")
+![Capture d'écran d'OSINT-Hub](newscreenshot.png "Capture d'écran")
 
 ---
 
