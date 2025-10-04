@@ -50,6 +50,10 @@ def soon():
 def get_tools():
     return send_from_directory('api', 'tools.json', mimetype='application/json')
 
+@app.route('/api/offsec-tools')
+def get_offsec_tools():
+    return send_from_directory('api', 'offsec_tools.json', mimetype='application/json')
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory('frontend/static', 'favicon.ico')
@@ -61,4 +65,3 @@ def favicon():
 
 if __name__ == "__main__":
     app.run(port=port, debug=False)
-    print(f'* Running on http://127.0.0.1:{port}')

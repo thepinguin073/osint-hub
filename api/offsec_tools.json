@@ -1,0 +1,1701 @@
+{
+  "offensive_tools": {
+    "reconnaissance": {
+      "title": "🔍 Reconnaissance",
+      "description": "Information gathering and target profiling",
+      "tools": [
+        {
+          "name": "SpiderFoot",
+          "url": "https://github.com/smicallef/spiderfoot",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "theHarvester",
+          "url": "https://github.com/laramies/theHarvester",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "Recon-ng",
+          "url": "https://github.com/lanmaster53/recon-ng",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "OWASP Amass",
+          "url": "https://github.com/OWASP/Amass",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "Sublist3r",
+          "url": "https://github.com/aboul3la/Sublist3r",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "Sherlock",
+          "url": "https://github.com/sherlock-project/sherlock",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "Maigret",
+          "url": "https://github.com/soxoj/maigret",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "Holehe",
+          "url": "https://github.com/megadose/holehe",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "Google Dork List",
+          "url": "https://github.com/BullsEye0/google_dork_list",
+          "interface": "web",
+          "platform": "web",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "Findomain",
+          "url": "https://github.com/Findomain/Findomain",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "CyberChef",
+          "url": "https://gchq.github.io/CyberChef/",
+          "interface": "web",
+          "platform": "web",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "OSINT-hub",
+          "url": "https://github.com/thepinguin073/osint-hub",
+          "interface": "web",
+          "platform": "web",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "IntelX",
+          "url": "https://intelx.io/",
+          "interface": "web",
+          "platform": "web",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "DNSRecon",
+          "url": "https://github.com/darkoperator/dnsrecon",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "Fierce",
+          "url": "https://github.com/mschwager/fierce",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "WhatWeb",
+          "url": "https://github.com/urbanadventurer/WhatWeb",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "EyeWitness",
+          "url": "https://github.com/FortyNorthSecurity/EyeWitness",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        },
+        {
+          "name": "Aquatone",
+          "url": "https://github.com/michenriksen/aquatone",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reconnaissance"
+        }
+      ]
+    },
+    "scanning": {
+      "title": "📡 Scanning & Enumeration",
+      "description": "Network discovery and service enumeration",
+      "tools": [
+        {
+          "name": "Nmap",
+          "url": "https://nmap.org/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        },
+        {
+          "name": "RustScan",
+          "url": "https://github.com/RustScan/RustScan",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        },
+        {
+          "name": "Nuclei",
+          "url": "https://github.com/projectdiscovery/nuclei",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        },
+        {
+          "name": "Subfinder",
+          "url": "https://github.com/projectdiscovery/subfinder",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        },
+        {
+          "name": "HTTPx",
+          "url": "https://github.com/projectdiscovery/httpx",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        },
+        {
+          "name": "Naabu",
+          "url": "https://github.com/projectdiscovery/naabu",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        },
+        {
+          "name": "FFuF",
+          "url": "https://github.com/ffuf/ffuf",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        },
+        {
+          "name": "Wafw00f",
+          "url": "https://github.com/EnableSecurity/wafw00f",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        },
+        {
+          "name": "Katana",
+          "url": "https://github.com/projectdiscovery/katana",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        },
+        {
+          "name": "Masscan",
+          "url": "https://github.com/robertdavidgraham/masscan",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "scanning"
+        }
+      ]
+    },
+    "exploitation": {
+      "title": "💥 Exploitation",
+      "description": "Vulnerability exploitation and payload delivery",
+      "tools": [
+        {
+          "name": "Commix",
+          "url": "https://github.com/commixproject/commix",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "exploitation"
+        },
+        {
+          "name": "Impacket",
+          "url": "https://github.com/SecureAuthCorp/impacket",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "exploitation"
+        },
+        {
+          "name": "Bash Bunny Payloads",
+          "url": "https://github.com/hak5/bashbunny-payloads",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "exploitation"
+        },
+        {
+          "name": "BloodHound",
+          "url": "https://github.com/BloodHoundAD/BloodHound",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "exploitation"
+        },
+        {
+          "name": "PowerSploit",
+          "url": "https://github.com/PowerShellMafia/PowerSploit",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "exploitation"
+        },
+        {
+          "name": "Exploit DB",
+          "url": "https://www.exploit-db.com/",
+          "interface": "web",
+          "platform": "web",
+          "category": "exploitation"
+        },
+        {
+          "name": "CrackMapExec",
+          "url": "https://github.com/byt3bl33d3r/CrackMapExec",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "exploitation"
+        },
+        {
+          "name": "MSF Venom",
+          "url": "https://github.com/ben0/Msfvenom",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "exploitation"
+        },
+        {
+          "name": "Searchsploit",
+          "url": "https://github.com/offensive-security/exploitdb",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "exploitation"
+        },
+        {
+          "name": "pwntools",
+          "url": "https://github.com/Gallopsled/pwntools",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "exploitation"
+        }
+      ]
+    },
+    "post-exploitation": {
+      "title": "🕷️ Post-Exploitation",
+      "description": "Maintaining access and lateral movement",
+      "tools": [
+        {
+          "name": "Empire",
+          "url": "https://github.com/BC-SECURITY/Empire",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Covenant",
+          "url": "https://github.com/cobbr/Covenant",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Merlin",
+          "url": "https://github.com/Ne0nd0g/merlin",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Sliver",
+          "url": "https://github.com/BishopFox/sliver",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Seatbelt",
+          "url": "https://github.com/GhostPack/Seatbelt",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "LinPEAS/WinPEAS",
+          "url": "https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Rubeus",
+          "url": "https://github.com/GhostPack/Rubeus",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Mimikatz",
+          "url": "https://github.com/gentilkiwi/mimikatz",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Nishang",
+          "url": "https://github.com/samratashok/nishang",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "LaZagne",
+          "url": "https://github.com/AlessandroZ/LaZagne",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Cobalt Strike",
+          "url": "https://www.cobaltstrike.com/",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "PoshC2",
+          "url": "https://github.com/nettitude/PoshC2",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Pupy",
+          "url": "https://github.com/n1nj4sec/pupy",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "SILENTTRINITY",
+          "url": "https://github.com/byt3bl33d3r/SILENTTRINITY",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Koadic",
+          "url": "https://github.com/offsecginger/koadic",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "SharpSploit",
+          "url": "https://github.com/cobbr/SharpSploit",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "PSPY",
+          "url": "https://github.com/DominicBreuker/pspy",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "PEASS-ng",
+          "url": "https://github.com/carlospolop/PEASS-ng",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Evil-WinRM",
+          "url": "https://github.com/Hackplayers/evil-winrm",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "Chisel",
+          "url": "https://github.com/jpillora/chisel",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "ligolo-ng",
+          "url": "https://github.com/nicocha30/ligolo-ng",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "post-exploitation"
+        },
+        {
+          "name": "proxychains-ng",
+          "url": "https://github.com/rofl0r/proxychains-ng",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "post-exploitation"
+        }
+      ]
+    },
+    "web-application": {
+      "title": "🌐 Web Application",
+      "description": "Web application security testing and exploitation",
+      "tools": [
+        {
+          "name": "OWASP ZAP",
+          "url": "https://github.com/zaproxy/zaproxy",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "Burp Suite",
+          "url": "https://portswigger.net/burp",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "SQLmap",
+          "url": "https://github.com/sqlmapproject/sqlmap",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "Nikto",
+          "url": "https://github.com/sullo/nikto",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "WPScan",
+          "url": "https://github.com/wpscanteam/wpscan",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "DroopeScan",
+          "url": "https://github.com/droope/droopescan",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "Tplmap",
+          "url": "https://github.com/epinna/tplmap",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "Wfuzz",
+          "url": "https://github.com/xmendez/wfuzz",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "Dirsearch",
+          "url": "https://github.com/maurosoria/dirsearch",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "Dirb",
+          "url": "https://github.com/v0re/dirb",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "Gobuster",
+          "url": "https://github.com/OJ/gobuster",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "XSStrike",
+          "url": "https://github.com/s0md3v/XSStrike",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "NoSQLMap",
+          "url": "https://github.com/codingo/NoSQLMap",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "Arjun",
+          "url": "https://github.com/s0md3v/Arjun",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "mitmproxy",
+          "url": "https://mitmproxy.org/",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "web-application"
+        },
+        {
+          "name": "Proxify",
+          "url": "https://github.com/projectdiscovery/proxify",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "web-application"
+        }
+      ]
+    },
+    "wireless": {
+      "title": "📶 Wireless Security",
+      "description": "WiFi, Bluetooth and wireless network attacks",
+      "tools": [
+        {
+          "name": "Aircrack-ng Suite",
+          "url": "https://www.aircrack-ng.org/",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "wireless"
+        },
+        {
+          "name": "HCXDumpTool",
+          "url": "https://github.com/ZerBea/hcxdumptool",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "wireless"
+        },
+        {
+          "name": "Wifite2",
+          "url": "https://github.com/derv82/wifite2",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "wireless"
+        },
+        {
+          "name": "Airgeddon",
+          "url": "https://github.com/v1s1t0r1sh3r3/airgeddon",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "wireless"
+        },
+        {
+          "name": "Fluxion",
+          "url": "https://github.com/FluxionNetwork/fluxion",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "wireless"
+        },
+        {
+          "name": "WiFiPumpkin3",
+          "url": "https://github.com/P0cL4bs/wifipumpkin3",
+          "interface": "gui",
+          "platform": "linux",
+          "category": "wireless"
+        },
+        {
+          "name": "Hostapd-WPE",
+          "url": "https://github.com/sensepost/hostapd-wpe",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "wireless"
+        },
+        {
+          "name": "Kismet",
+          "url": "https://github.com/kismetwireless/kismet",
+          "interface": "gui",
+          "platform": "linux",
+          "category": "wireless"
+        },
+        {
+          "name": "Nexmon",
+          "url": "https://github.com/seemoo-lab/nexmon",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "wireless"
+        }
+      ]
+    },
+    "social-engineering": {
+      "title": "👥 Social Engineering",
+      "description": "Human-based attack vectors and manipulation techniques",
+      "tools": [
+        {
+          "name": "Social Engineer Toolkit",
+          "url": "https://github.com/trustedsec/social-engineer-toolkit",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "social-engineering"
+        },
+        {
+          "name": "Evilginx2",
+          "url": "https://github.com/kgretzky/evilginx2",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "social-engineering"
+        },
+        {
+          "name": "BlackEye",
+          "url": "https://github.com/An0nUD4Y/blackeye",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "social-engineering"
+        },
+        {
+          "name": "Zphisher",
+          "url": "https://github.com/htr-tech/zphisher",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "social-engineering"
+        },
+        {
+          "name": "SocialFish",
+          "url": "https://github.com/UndeadSec/SocialFish",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "social-engineering"
+        },
+        {
+          "name": "GoPhish",
+          "url": "https://github.com/gophish/gophish",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "social-engineering"
+        },
+        {
+          "name": "CredSniper",
+          "url": "https://github.com/ustayready/CredSniper",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "social-engineering"
+        },
+        {
+          "name": "CredNinja",
+          "url": "https://github.com/Raikia/CredNinja",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "social-engineering"
+        },
+        {
+          "name": "DataSploit",
+          "url": "https://github.com/DataSploit/datasploit",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "social-engineering"
+        },
+        {
+          "name": "King Phisher",
+          "url": "https://github.com/rsmusllp/king-phisher",
+          "interface": "gui",
+          "platform": "linux",
+          "category": "social-engineering"
+        }
+      ]
+    },
+    "password-attacks": {
+      "title": "🔐 Password Attacks",
+      "description": "Password cracking and credential attacks",
+      "tools": [
+        {
+          "name": "John the Ripper",
+          "url": "https://github.com/openwall/john",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "Hashcat",
+          "url": "https://hashcat.net/hashcat/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "THC-Hydra",
+          "url": "https://github.com/vanhauser-thc/thc-hydra",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "Crowbar",
+          "url": "https://github.com/galkan/crowbar",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "Patator",
+          "url": "https://github.com/lanjelot/patator",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "NPK",
+          "url": "https://github.com/Coalfire-Research/npk",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "MSOLSpray",
+          "url": "https://github.com/dafthack/MSOLSpray",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "password-attacks"
+        },
+        {
+          "name": "SprayingToolkit",
+          "url": "https://github.com/byt3bl33d3r/SprayingToolkit",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "Probable Wordlists",
+          "url": "https://github.com/berzerk0/Probable-Wordlists",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "SecLists",
+          "url": "https://github.com/danielmiessler/SecLists",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "CeWL",
+          "url": "https://github.com/digininja/CeWL",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "CUPP",
+          "url": "https://github.com/Mebus/cupp",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        },
+        {
+          "name": "Mentalist",
+          "url": "https://github.com/sc0tfree/mentalist",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "password-attacks"
+        }
+      ]
+    },
+    "forensics": {
+      "title": "🔬 Digital Forensics",
+      "description": "Digital evidence collection and analysis",
+      "tools": [
+        {
+          "name": "The Sleuth Kit",
+          "url": "https://www.sleuthkit.org/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Volatility",
+          "url": "https://github.com/volatilityfoundation/volatility",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Volatility 3",
+          "url": "https://github.com/volatilityfoundation/volatility3",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Autopsy",
+          "url": "https://github.com/sleuthkit/autopsy",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Hindsight",
+          "url": "https://github.com/obsidianforensics/hindsight",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Plaso",
+          "url": "https://github.com/log2timeline/plaso",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Mozilla MIG",
+          "url": "https://github.com/mozilla/mig",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Python-Registry",
+          "url": "https://github.com/williballenthin/python-registry",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "RegRipper",
+          "url": "https://github.com/keydet89/RegRipper3.0",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Rekall",
+          "url": "https://www.rekall-forensic.com/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Redline",
+          "url": "https://www.fireeye.com/services/freeware/redline.html",
+          "interface": "gui",
+          "platform": "windows",
+          "category": "forensics"
+        },
+        {
+          "name": "LiME",
+          "url": "https://github.com/504ensicsLabs/LiME",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "forensics"
+        },
+        {
+          "name": "AVML",
+          "url": "https://github.com/microsoft/avml",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "forensics"
+        },
+        {
+          "name": "FTK Imager",
+          "url": "https://accessdata.com/product-download/ftk-imager-version-4-5",
+          "interface": "gui",
+          "platform": "windows",
+          "category": "forensics"
+        },
+        {
+          "name": "Guymager",
+          "url": "http://guymager.sourceforge.net/",
+          "interface": "gui",
+          "platform": "linux",
+          "category": "forensics"
+        },
+        {
+          "name": "DC3DD",
+          "url": "https://sourceforge.net/projects/dc3dd/",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "forensics"
+        },
+        {
+          "name": "ewf-tools",
+          "url": "https://github.com/libyal/libewf",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "NetworkMiner",
+          "url": "https://www.netresec.com/?page=NetworkMiner",
+          "interface": "gui",
+          "platform": "windows",
+          "category": "forensics"
+        },
+        {
+          "name": "Xplico",
+          "url": "https://www.xplico.org/",
+          "interface": "gui",
+          "platform": "linux",
+          "category": "forensics"
+        },
+        {
+          "name": "Moloch (Arkime)",
+          "url": "https://arkime.com/",
+          "interface": "web",
+          "platform": "linux",
+          "category": "forensics"
+        },
+        {
+          "name": "Zeek",
+          "url": "https://zeek.org/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "Cuckoo Sandbox",
+          "url": "https://cuckoosandbox.org/",
+          "interface": "web",
+          "platform": "linux",
+          "category": "forensics"
+        },
+        {
+          "name": "REMnux",
+          "url": "https://remnux.org/",
+          "interface": "framework",
+          "platform": "linux",
+          "category": "forensics"
+        },
+        {
+          "name": "FLARE VM",
+          "url": "https://github.com/mandiant/flare-vm",
+          "interface": "framework",
+          "platform": "windows",
+          "category": "forensics"
+        },
+        {
+          "name": "Hybrid-Analysis",
+          "url": "https://www.hybrid-analysis.com/",
+          "interface": "web",
+          "platform": "web",
+          "category": "forensics"
+        },
+        {
+          "name": "log2timeline tools",
+          "url": "https://github.com/log2timeline",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "forensics"
+        },
+        {
+          "name": "KAPE",
+          "url": "https://kroll.com/en/services/cyber-risk/kape",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "forensics"
+        },
+        {
+          "name": "Timesketch",
+          "url": "https://timesketch.org/",
+          "interface": "web",
+          "platform": "linux",
+          "category": "forensics"
+        }
+      ]
+    },
+    "network-analysis": {
+      "title": "🌍 Network Analysis",
+      "description": "Network traffic analysis and monitoring",
+      "tools": [
+        {
+          "name": "Wireshark",
+          "url": "https://www.wireshark.org/",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "network-analysis"
+        },
+        {
+          "name": "TCPDump",
+          "url": "https://www.tcpdump.org/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "network-analysis"
+        },
+        {
+          "name": "ntopng",
+          "url": "https://github.com/ntop/ntopng",
+          "interface": "web",
+          "platform": "linux",
+          "category": "network-analysis"
+        },
+        {
+          "name": "ksniff",
+          "url": "https://github.com/eldadru/ksniff",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "network-analysis"
+        },
+        {
+          "name": "RouterSploit",
+          "url": "https://github.com/threat9/routersploit",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "network-analysis"
+        },
+        {
+          "name": "Bettercap",
+          "url": "https://github.com/bettercap/bettercap",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "network-analysis"
+        },
+        {
+          "name": "Ettercap",
+          "url": "https://github.com/Ettercap/ettercap",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "network-analysis"
+        },
+        {
+          "name": "Scapy",
+          "url": "https://github.com/secdev/scapy",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "network-analysis"
+        },
+        {
+          "name": "Net-Creds",
+          "url": "https://github.com/DanMcInerney/net-creds",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "network-analysis"
+        },
+        {
+          "name": "Responder",
+          "url": "https://github.com/lgandx/Responder",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "network-analysis"
+        }
+      ]
+    },
+    "mobile-security": {
+      "title": "📱 Mobile Security",
+      "description": "Mobile application and device security testing",
+      "tools": [
+        {
+          "name": "Mobile Security Framework",
+          "url": "https://github.com/MobSF/Mobile-Security-Framework-MobSF",
+          "interface": "web",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "Objection",
+          "url": "https://github.com/sensepost/objection",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "Frida",
+          "url": "https://frida.re/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "Dex2jar",
+          "url": "https://github.com/pxb1988/dex2jar",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "JADX",
+          "url": "https://github.com/skylot/jadx",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "Quark Engine",
+          "url": "https://github.com/quark-engine/quark-engine",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "AppMon",
+          "url": "https://github.com/dpnishant/appmon",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "Drozer",
+          "url": "https://github.com/mwrlabs/drozer",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "AndroGuard",
+          "url": "https://github.com/androguard/androguard",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "APKInspector",
+          "url": "https://github.com/honeynet/apkinspector",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        },
+        {
+          "name": "APKTool",
+          "url": "https://github.com/iBotPeaches/Apktool",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "mobile-security"
+        }
+      ]
+    },
+    "reverse-engineering": {
+      "title": "⚙️ Reverse Engineering",
+      "description": "Binary analysis and reverse engineering tools",
+      "tools": [
+        {
+          "name": "Ghidra",
+          "url": "https://ghidra-sre.org/",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Radare2",
+          "url": "https://github.com/radareorg/radare2",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Binary Ninja",
+          "url": "https://binary.ninja/",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "x64dbg",
+          "url": "https://github.com/x64dbg/x64dbg",
+          "interface": "gui",
+          "platform": "windows",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "GEF",
+          "url": "https://github.com/hugsy/gef",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "pwndbg",
+          "url": "https://github.com/pwndbg/pwndbg",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "PEDA",
+          "url": "https://github.com/longld/peda",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Binwalk",
+          "url": "https://github.com/ReFirmLabs/binwalk",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "CWE Checker",
+          "url": "https://github.com/program-analysis-team/cwe_checker",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "IDA Pro",
+          "url": "https://www.hex-rays.com/products/ida/",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "RetDec",
+          "url": "https://github.com/Vector35/retdec",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Rekall",
+          "url": "https://www.rekall-forensic.com/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "REMnux",
+          "url": "https://www.remnux.org/",
+          "interface": "framework",
+          "platform": "linux",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "WinDbg",
+          "url": "https://www.windbg.org/",
+          "interface": "gui",
+          "platform": "windows",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Fuzzilli",
+          "url": "https://github.com/googleprojectzero/fuzzilli",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Syzkaller",
+          "url": "https://github.com/google/syzkaller",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "AFL++",
+          "url": "https://aflplus.plus/",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Frida",
+          "url": "https://frida.re/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "API Monitor",
+          "url": "https://www.rohitab.com/apimonitor",
+          "interface": "gui",
+          "platform": "windows",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Capstone",
+          "url": "https://capstone-engine.org/",
+          "interface": "api",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Abuse.ch",
+          "url": "https://abuse.ch/",
+          "interface": "web",
+          "platform": "web",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "Cutter",
+          "url": "https://cutter.re/",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "ImHex",
+          "url": "https://github.com/WerWolv/ImHex",
+          "interface": "gui",
+          "platform": "cross-platform",
+          "category": "reverse-engineering"
+        },
+        {
+          "name": "PE-bear",
+          "url": "https://github.com/hasherezade/pe-bear",
+          "interface": "gui",
+          "platform": "windows",
+          "category": "reverse-engineering"
+        }
+      ]
+    },
+    "malware-development": {
+      "title": "🛡️ Malware Development Tools",
+      "description": "Tools for creating and analyzing malware",
+      "tools": [
+        {
+          "name": "Backdoor Factory",
+          "url": "https://github.com/stealth/backdoor-factory",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "QTC Malware",
+          "url": "https://github.com/qtc-de/qtc-malware",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "Malware Development Kit",
+          "url": "https://github.com/kevthehermit/malware",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "theZoo",
+          "url": "https://github.com/ytisf/theZoo",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "MalwareZoo",
+          "url": "https://github.com/abuisa/MalwareZoo",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "Egregor",
+          "url": "https://github.com/endgameinc/egregor",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "PyObfuscate",
+          "url": "https://github.com/endgameinc/pyobfuscate",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "EvilDevils",
+          "url": "https://github.com/evildevils/evildevils",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "CyberWarefare",
+          "url": "https://github.com/CyberWarefare/Overview",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "Malware Development",
+          "url": "https://github.com/keithmckay/malware-development",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "Malware Framework",
+          "url": "https://github.com/captain-hook/malware-framework",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        },
+        {
+          "name": "Stuxnet source code",
+          "url": "https://github.com/nukIeer/stuxnet",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "malware-development"
+        },
+        {
+          "name": "Cyberweapons",
+          "url": "https://github.com/deeptechlabs/cyberweapons",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "malware-development"
+        }
+      ]
+    },
+    "frameworks": {
+      "title": "🗂️ Frameworks",
+      "description": "Complete offensive security frameworks and distributions",
+      "tools": [
+        {
+          "name": "Kali Linux",
+          "url": "https://www.kali.org/",
+          "interface": "framework",
+          "platform": "linux",
+          "category": "frameworks"
+        },
+        {
+          "name": "Parrot Security OS",
+          "url": "https://parrotsec.org/",
+          "interface": "framework",
+          "platform": "linux",
+          "category": "frameworks"
+        },
+        {
+          "name": "BlackArch Linux",
+          "url": "https://www.blackarch.org/",
+          "interface": "framework",
+          "platform": "linux",
+          "category": "frameworks"
+        },
+        {
+          "name": "Metasploit Framework",
+          "url": "https://github.com/rapid7/metasploit-framework",
+          "interface": "framework",
+          "platform": "cross-platform",
+          "category": "frameworks"
+        },
+        {
+          "name": "PenTesters Framework",
+          "url": "https://github.com/trustedsec/ptf",
+          "interface": "framework",
+          "platform": "linux",
+          "category": "frameworks"
+        },
+        {
+          "name": "OWASP OWTF",
+          "url": "https://github.com/OWASP/owtf",
+          "interface": "framework",
+          "platform": "cross-platform",
+          "category": "frameworks"
+        },
+        {
+          "name": "Hacktricks",
+          "url": "https://book.hacktricks.wiki/en/index.html",
+          "interface": "web",
+          "platform": "web",
+          "category": "frameworks"
+        },
+        {
+          "name": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/",
+          "interface": "web",
+          "platform": "web",
+          "category": "frameworks"
+        },
+        {
+          "name": "MITRE Caldera",
+          "url": "https://github.com/mitre/caldera",
+          "interface": "framework",
+          "platform": "cross-platform",
+          "category": "frameworks"
+        },
+        {
+          "name": "Ghost Framework",
+          "url": "https://github.com/entynetproject/ghost",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "frameworks"
+        },
+        {
+          "name": "Dradis CE",
+          "url": "https://github.com/darkoperator/dradis-ce",
+          "interface": "web",
+          "platform": "cross-platform",
+          "category": "frameworks"
+        },
+        {
+          "name": "WebHackersWeapons",
+          "url": "https://github.com/hahwul/WebHackersWeapons",
+          "interface": "web",
+          "platform": "web",
+          "category": "frameworks"
+        },
+        {
+          "name": "Awesome Pentest",
+          "url": "https://github.com/enaqx/awesome-pentest",
+          "interface": "web",
+          "platform": "web",
+          "category": "frameworks"
+        },
+        {
+          "name": "Hack with Github",
+          "url": "https://github.com/hack-with-github",
+          "interface": "web",
+          "platform": "web",
+          "category": "frameworks"
+        },
+        {
+          "name": "Red Teaming Toolkit",
+          "url": "https://github.com/infosecn1nja/Red-Teaming-Toolkit",
+          "interface": "web",
+          "platform": "web",
+          "category": "frameworks"
+        },
+        {
+          "name": "MITMf",
+          "url": "https://github.com/byt3bl33d3r/MITMf",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "frameworks"
+        },
+        {
+          "name": "PayloadsAllTheThings",
+          "url": "https://github.com/swisskyrepo/PayloadsAllTheThings",
+          "interface": "web",
+          "platform": "web",
+          "category": "frameworks"
+        }
+      ]
+    },
+    "cloud-security": {
+      "title": "☁️ Cloud Security",
+      "description": "Cloud infrastructure security assessment and exploitation",
+      "tools": [
+        {
+          "name": "ScoutSuite",
+          "url": "https://github.com/nccgroup/ScoutSuite",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "cloud-security"
+        },
+        {
+          "name": "Prowler",
+          "url": "https://github.com/prowler-cloud/prowler",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "cloud-security"
+        },
+        {
+          "name": "Pacu",
+          "url": "https://github.com/RhinoSecurityLabs/pacu",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "cloud-security"
+        },
+        {
+          "name": "CloudFox",
+          "url": "https://github.com/BishopFox/cloudfox",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "cloud-security"
+        },
+        {
+          "name": "Cloudsploit",
+          "url": "https://github.com/aquasecurity/cloudsploit",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "cloud-security"
+        }
+      ]
+    },
+    "container-security": {
+      "title": "🐳 Container/Kubernetes Security",
+      "description": "Container and orchestration platform security testing",
+      "tools": [
+        {
+          "name": "Trivy",
+          "url": "https://github.com/aquasecurity/trivy",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "container-security"
+        },
+        {
+          "name": "Docker Bench Security",
+          "url": "https://github.com/docker/docker-bench-security",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "container-security"
+        },
+        {
+          "name": "kube-hunter",
+          "url": "https://github.com/aquasecurity/kube-hunter",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "container-security"
+        },
+        {
+          "name": "kubectl",
+          "url": "https://kubernetes.io/docs/tasks/tools/",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "container-security"
+        }
+      ]
+    },
+    "active-directory": {
+      "title": "🏢 Active Directory",
+      "description": "Active Directory specific attacks and enumeration",
+      "tools": [
+        {
+          "name": "Certipy",
+          "url": "https://github.com/ly4k/Certipy",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "active-directory"
+        },
+        {
+          "name": "Coercer",
+          "url": "https://github.com/p0dalirius/Coercer",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "active-directory"
+        },
+        {
+          "name": "PetitPotam",
+          "url": "https://github.com/topotam/PetitPotam",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "active-directory"
+        },
+        {
+          "name": "DonPAPI",
+          "url": "https://github.com/login-securite/DonPAPI",
+          "interface": "cli",
+          "platform": "cross-platform",
+          "category": "active-directory"
+        }
+      ]
+    },
+    "evasion/obfuscation": {
+      "title": "🎭 Evasion & Obfuscation",
+      "description": "Payload obfuscation and defense evasion techniques",
+      "tools": [
+        {
+          "name": "Veil",
+          "url": "https://github.com/Veil-Framework/Veil",
+          "interface": "cli",
+          "platform": "linux",
+          "category": "evasion-obfuscation"
+        },
+        {
+          "name": "Invoke-Obfuscation",
+          "url": "https://github.com/danielbohannon/Invoke-Obfuscation",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "evasion-obfuscation"
+        },
+        {
+          "name": "Shellter",
+          "url": "https://www.shellterproject.com/",
+          "interface": "cli",
+          "platform": "windows",
+          "category": "evasion-obfuscation"
+        }
+      ]
+    }
+  }
+}
