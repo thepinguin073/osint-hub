@@ -581,20 +581,35 @@
       flex-wrap: wrap;
       list-style: none;
       flex: 0 0 350px;
-      overflow: hidden;
       transition: all 0.2s ease;
     }
 
-    ul li:hover {
+    ul li a {
+      width: 100%;
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      display: block;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 0.5rem ;
+      padding-top: 1rem;
+      padding-left: 0.6rem;
+      min-height: 120px;
+      background: linear-gradient(145deg, #1e2837 0%, #374151 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    ul li a:hover {
       transform: translateY(-5px);
     }
 
-    ul li::after {
+    ul li a::after {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%; 
+      width: 100%;
       height: 100%;
       background: linear-gradient(
         90deg,
@@ -607,24 +622,10 @@
       pointer-events: none;
     }
 
-    ul li:hover::after {
+    ul li a:hover::after {
       transform: translateX(110%) skewX(20deg);
     }
 
-
-    ul li a {
-      width: 100%;
-      font-family: "Inter", sans-serif;
-      font-weight: 600;
-      display: block;
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 0.5rem;
-      padding-top: 1rem;
-      padding-left: 0.6rem;
-      min-height: 120px;
-      background: linear-gradient(145deg, #1e2837 0%, #374151 100%);
-    }
 
     .official-source {
       font-size: 0.8rem;
