@@ -89,6 +89,22 @@ Consultez la barre de navigation latérale pour voir quelles sections sont activ
    - Flask
    - flask-cors
 
+   Note : Si vous rencontrez des conflits de dépendances ou des problèmes d'installation, il est recommandé d'utiliser un environnement virtuel :
+
+   ```bash
+
+   # Créer l'environnement virtuel
+      python -m venv venv
+      
+      # L'activer
+      source venv/bin/activate   # Sur Linux/Mac 
+      venv\Scripts\activate      # Sur Windows
+      
+      # Puis installer les dépendances
+      pip install -r requirements.txt
+
+   ```
+
 3. **Lancer l'application** :
    ```bash
    python app.py

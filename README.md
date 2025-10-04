@@ -89,6 +89,22 @@ Check the navigation sidebar to see which sections are live, under development, 
    - Flask
    - flask-cors
 
+   Note: If you encounter dependency conflicts or installation issues, it's recommended to use a virtual environment:
+
+   ```bash
+
+   # Create virtual environment
+      python -m venv venv
+      
+      # Activate it
+      source venv/bin/activate   # On Linux/Mac
+      venv\Scripts\activate      # On Windows
+      
+      # Then install dependencies
+      pip install -r requirements.txt
+
+   ```
+
 3. **Run the application**:
    ```bash
    python app.py
