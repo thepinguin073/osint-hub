@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSINT Classic - Form Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0D0C73;
+      color: #ffffff;
+      font-family: 'Fira Code', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Header Bar */
+    .header-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(25px);
+      border-bottom: 2px solid rgba(79, 251, 223, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-left {
+      position: relative;
+      left: 17%;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(79, 251, 223, 0.3);
+      color: #4FFBDF;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-btn:hover {
+      background: rgba(79, 251, 223, 0.1);
+      border-color: #4FFBDF;
+      transform: translateX(-4px);
+    }
+
+    .header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .header-title h1 {
+      font-size: 1.3rem;
+      color: #4FFBDF;
+      font-weight: 700;
+    }
+
+    .header-title span {
+      font-size: 0.75rem;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .preview-btn {
+      background: rgba(255, 215, 0, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.5);
+      color: #FFD700;
+      padding: 0.7rem 1.5rem;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .preview-btn:hover {
+      background: rgba(255, 215, 0, 0.2);
+      border-color: #FFD700;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .generate-btn {
+      background: linear-gradient(135deg, #4FFBDF, #00cc99);
+      border: none;
+      color: #0A1628;
+      padding: 0.7rem 2rem;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .generate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(79, 251, 223, 0.4);
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 280px;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(25px);
+      border-right: 2px solid rgba(79, 251, 223, 0.2);
+      padding: 2rem 1rem;
+      margin-top: 70px;
+      overflow-y: auto;
+      height: calc(100vh - 70px);
+    }
+
+    .progress-container {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: rgba(79, 251, 223, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(79, 251, 223, 0.2);
+    }
+
+    .progress-label {
+      font-size: 0.75rem;
+      color: #aaa;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #4FFBDF, #00cc99);
+      width: 14%;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 10px rgba(79, 251, 223, 0.5);
+    }
+
+    .progress-text {
+      font-size: 0.8rem;
+      color: #4FFBDF;
+      font-weight: 600;
+    }
+
+    .nav-section {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-item {
+      padding: 0.9rem 1.2rem;
+      margin-bottom: 0.3rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.85rem;
+      position: relative;
+    }
+
+    .nav-item::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item.completed::before {
+      content: '✓';
+      background: #4FFBDF;
+      border-color: #4FFBDF;
+      color: #0A1628;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .nav-item.active {
+      background: rgba(79, 251, 223, 0.15);
+      border-left: 3px solid #4FFBDF;
+      padding-left: calc(1.2rem - 3px);
+    }
+
+    .nav-item.active::before {
+      background: #4FFBDF;
+      border-color: #4FFBDF;
+      box-shadow: 0 0 15px rgba(79, 251, 223, 0.5);
+    }
+
+    .nav-item:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      margin-top: 70px;
+      padding: 3rem;
+      overflow-y: auto;
+      height: calc(100vh - 70px);
+    }
+
+    .form-section {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .form-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(79, 251, 223, 0.2);
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: #4FFBDF;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.7rem;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .form-label-optional {
+      color: #666;
+      font-weight: 400;
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(79, 251, 223, 0.2);
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #4FFBDF;
+      box-shadow: 0 0 20px rgba(79, 251, 223, 0.2);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: #666;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    /* Data Entry Blocks */
+    .data-entry {
+      background: rgba(26, 26, 26, 0.6);
+      border: 2px solid rgba(79, 251, 223, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .data-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .data-number {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #4FFBDF;
+    }
+
+    .remove-data-btn {
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      color: #FF6B35;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .remove-data-btn:hover {
+      background: rgba(255, 107, 53, 0.2);
+      border-color: #FF6B35;
+    }
+
+    .add-data-btn {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(79, 251, 223, 0.1);
+      border: 2px dashed rgba(79, 251, 223, 0.4);
+      border-radius: 10px;
+      color: #4FFBDF;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .add-data-btn:hover {
+      background: rgba(79, 251, 223, 0.15);
+      border-color: #4FFBDF;
+      transform: translateY(-2px);
+    }
+
+    /* Navigation Buttons */
+    .form-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid rgba(79, 251, 223, 0.2);
+    }
+
+    .nav-btn {
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .prev-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .prev-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, #4FFBDF, #00cc99);
+      border: none;
+      color: #0A1628;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(79, 251, 223, 0.4);
+    }
+
+    /* Info Box */
+    .info-box {
+      background: rgba(79, 251, 223, 0.05);
+      border-left: 3px solid #4FFBDF;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .warning-box {
+      background: rgba(255, 215, 0, 0.05);
+      border-left: 3px solid #FFD700;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    /* Tag Input System */
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.7rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(79, 251, 223, 0.2);
+      border-radius: 10px;
+      min-height: 50px;
+    }
+
+    .tag-item {
+      background: rgba(79, 251, 223, 0.2);
+      color: #4FFBDF;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(79, 251, 223, 0.4);
+    }
+
+    .tag-remove {
+      cursor: pointer;
+      font-weight: 700;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+
+    .tag-remove:hover {
+      opacity: 1;
+    }
+
+    .tag-input {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      flex: 1;
+      min-width: 100px;
+      padding: 0.4rem;
+    }
+
+    .tag-input:focus {
+      outline: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 220px;
+      }
+
+      .main-content {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid rgba(79, 251, 223, 0.2);
+        padding: 1rem;
+      }
+
+      .main-content {
+        margin-top: 0;
+        height: auto;
+      }
+
+      .header-bar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 1rem;
+      }
+
+      .header-actions {
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-left">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+      <div class="header-title">
+        <h1>OSINT Classic</h1>
+        <span>Profiling & Investigation Report</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="preview-btn" onclick="previewReport()">Preview Draft</button>
+      <button class="generate-btn" onclick="generateReport()">Generate Report →</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="progress-container">
+        <div class="progress-label">Progress</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text"><span id="progressText">1/7</span> sections completed</div>
+      </div>
+
+      <nav class="nav-section">
+        <div class="nav-item active" data-section="context" onclick="navigateToSection('context')">Context & Target</div>
+        <div class="nav-item" data-section="identity" onclick="navigateToSection('identity')">Identity Mapping</div>
+        <div class="nav-item" data-section="infrastructure" onclick="navigateToSection('infrastructure')">Infrastructure</div>
+        <div class="nav-item" data-section="correlations" onclick="navigateToSection('correlations')">Correlations</div>
+        <div class="nav-item" data-section="exploitation" onclick="navigateToSection('exploitation')">Exploitation Paths</div>
+        <div class="nav-item" data-section="risks" onclick="navigateToSection('risks')">Risk Assessment</div>
+        <div class="nav-item" data-section="recommendations" onclick="navigateToSection('recommendations')">Recommendations</div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Section 1: Context & Target -->
+      <section class="form-section active" id="context">
+        <div class="section-header">
+          <h2 class="section-title">🎯 Context & Target</h2>
+          <p class="section-subtitle">Define the investigation scope and initial target information</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Investigation Purpose</label>
+          <textarea data-section="context" data-field="investigation-purpose" class="form-textarea" placeholder="Why is this OSINT investigation being conducted? (e.g., due diligence, threat assessment, pre-employment screening)"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Target Identifier</label>
+          <input data-section="context" data-field="target-identifier" type="text" class="form-input" placeholder="Full name, username, email, phone number, or other primary identifier">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Investigation Start Date</label>
+            <input data-section="context" data-field="start-date" type="date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Investigation End Date</label>
+            <input data-section="context" data-field="end-date" type="date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Initial Intelligence</label>
+          <textarea data-section="context" data-field="initial-intelligence" class="form-textarea" placeholder="What information was known at the start? (baseline data, context, reason for investigation)"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Legal Framework</label>
+          <select data-section="context" data-field="legal-framework" class="form-select">
+            <option value="">Select legal context...</option>
+            <option value="corporate">Corporate Investigation</option>
+            <option value="law-enforcement">Law Enforcement</option>
+            <option value="private">Private Investigation</option>
+            <option value="journalistic">Journalistic Research</option>
+            <option value="academic">Academic Research</option>
+          </select>
+        </div>
+
+        <div class="form-navigation">
+          <div></div>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 2: Identity Mapping -->
+      <section class="form-section" id="identity">
+        <div class="section-header">
+          <h2 class="section-title">👤 Identity Mapping</h2>
+          <p class="section-subtitle">Comprehensive digital identity reconstruction</p>
+        </div>
+
+        <div class="info-box">
+          Map all digital identities, aliases, and personas discovered during investigation.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Primary Identity</label>
+          <textarea data-section="mapping" data-field="primary-identity" class="form-textarea" placeholder="Full legal name, known aliases, birth date, locations associated"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Usernames & Aliases</label>
+          <div class="tags-container" id="usernamesContainer" onclick="focusTagInput(this)">
+            <input data-section="mapping" data-field="username-aliases" type="text" class="tag-input" placeholder="Type username and press Enter" onkeydown="addTag(event, 'usernamesContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Addresses Discovered</label>
+          <div class="tags-container" id="emailsContainer" onclick="focusTagInput(this)">
+            <input data-section="mapping" data-field="email-addresses-discovered" type="text" class="tag-input" placeholder="Type email and press Enter" onkeydown="addTag(event, 'emailsContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone Numbers</label>
+          <div class="tags-container" id="phonesContainer" onclick="focusTagInput(this)">
+            <input data-section="mapping" data-field="phone-number" type="text" class="tag-input" placeholder="Type phone and press Enter" onkeydown="addTag(event, 'phonesContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Social Media Profiles</label>
+          <div id="socialProfilesList">
+            <div class="data-entry">
+              <div class="data-header">
+                <span class="data-number">Profile #1</span>
+                <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Platform</label>
+                <input data-section="mapping" data-field="platform" type="text" class="form-input" placeholder="e.g., LinkedIn, Twitter, Facebook">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Profile URL</label>
+                <input data-section="mapping" data-field="profile-url" type="text" class="form-input" placeholder="https://">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Notable Information</label>
+                <textarea data-section="mapping" data-field="notable-infos" class="form-textarea" placeholder="Key findings from this profile"></textarea>
+              </div>
+            </div>
+          </div>
+          <button class="add-data-btn" onclick="addSocialProfile()">+ Add Social Profile</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Professional Background</label>
+          <textarea data-section="mapping" data-field="professional-background" class="form-textarea" placeholder="Employment history, companies, positions, professional associations"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Education & Certifications</label>
+          <textarea data-section="mapping" data-field="education-certifications" class="form-textarea" placeholder="Schools, degrees, certifications, academic achievements"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 3: Digital Infrastructure -->
+      <section class="form-section" id="infrastructure">
+        <div class="section-header">
+          <h2 class="section-title">🌐 Digital Infrastructure</h2>
+          <p class="section-subtitle">Technical infrastructure and digital assets analysis</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Domains Owned/Registered</label>
+          <div class="tags-container" id="domainsContainer" onclick="focusTagInput(this)">
+            <input data-section="digital-infras" data-field="domain-owned" type="text" class="tag-input" placeholder="Type domain and press Enter" onkeydown="addTag(event, 'domainsContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">IP Addresses Associated</label>
+          <div class="tags-container" id="ipsContainer" onclick="focusTagInput(this)">
+            <input data-section="digital-infras" data-field="ip-addresses" type="text" class="tag-input" placeholder="Type IP and press Enter" onkeydown="addTag(event, 'ipsContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Websites & Online Properties</label>
+          <div id="websitesList">
+            <div class="data-entry">
+              <div class="data-header">
+                <span class="data-number">Website #1</span>
+                <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+              </div>
+              <div class="form-group">
+                <label class="form-label">URL</label>
+                <input data-section="digital-infras" data-field="url" type="text" class="form-input" placeholder="https://">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Purpose/Type</label>
+                <input data-section="digital-infras" data-field="purpose-type" type="text" class="form-input" placeholder="e.g., personal blog, portfolio, business site">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Technology Stack</label>
+                <input data-section="digital-infras" data-field="tech-stack" type="text" class="form-input" placeholder="CMS, frameworks, hosting provider">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Security Findings</label>
+                <textarea data-section="digital-infras" data-field="security-findings" class="form-textarea" placeholder="Exposed information, misconfigurations, vulnerabilities"></textarea>
+              </div>
+            </div>
+          </div>
+          <button class="add-data-btn" onclick="addWebsite()">+ Add Website</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Server & Hosting Information</label>
+          <textarea data-section="digital-infras" data-field="server-hosting-infos" class="form-textarea" placeholder="Hosting providers, server locations, CDN usage, SSL certificates"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Dark Web Presence <span class="form-label-optional">(if applicable)</span></label>
+          <textarea data-section="digital-infras" data-field="dark-web-presence" class="form-textarea" placeholder="Onion addresses, forums, marketplaces, cryptocurrency addresses"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Data Leaks & Breaches</label>
+          <textarea data-section="digital-infras" data-field="data-leaks" class="form-textarea" placeholder="Credentials found in breaches, leaked databases, compromised accounts"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 4: Correlations & Patterns -->
+      <section class="form-section" id="correlations">
+        <div class="section-header">
+          <h2 class="section-title">🔗 Correlations & Patterns</h2>
+          <p class="section-subtitle">Connections, relationships, and behavioral patterns</p>
+        </div>
+
+        <div class="info-box">
+          Identify patterns, connections between data points, and relationships with other entities.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Known Associates & Connections</label>
+          <div id="associatesList">
+            <div class="data-entry">
+              <div class="data-header">
+                <span class="data-number">Associate #1</span>
+                <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Name/Identifier</label>
+                <input data-section="correlations-patterns" data-field="name-identifier" type="text" class="form-input" placeholder="Name, username, or identifier">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Relationship Type</label>
+                <select data-section="correlations-patterns" data-field="relationship-type" class="form-select">
+                  <option value="">Select type...</option>
+                  <option value="family">Family Member</option>
+                  <option value="colleague">Colleague/Business</option>
+                  <option value="friend">Friend/Social</option>
+                  <option value="associate">Associate</option>
+                  <option value="unknown">Unknown Relationship</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Evidence of Connection</label>
+                <textarea data-section="correlations-patterns" data-field="evidence-connection" class="form-textarea" placeholder="How was this connection identified? (social media, public records, photos, etc.)"></textarea>
+              </div>
+            </div>
+          </div>
+          <button class="add-data-btn" onclick="addAssociate()">+ Add Associate</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Organizations & Affiliations</label>
+          <textarea data-section="correlations-patterns" data-field="organizations-affiliations" class="form-textarea" placeholder="Companies, clubs, groups, communities, professional organizations"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Geographic Patterns</label>
+          <textarea data-section="correlations-patterns" data-field="geographic-pattern" class="form-textarea" placeholder="Locations frequented, check-ins, travel patterns, current/previous residences"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Temporal Patterns</label>
+          <textarea data-section="correlations-patterns" data-field="temporal-pattern" class="form-textarea" placeholder="Activity patterns, posting times, work hours, habitual behaviors"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Behavioral Analysis</label>
+          <textarea data-section="correlations-patterns" data-field="behavioral-analysis" class="form-textarea" placeholder="Communication style, interests, hobbies, political views, ideological tendencies"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Cross-Platform Correlations</label>
+          <textarea data-section="correlations-patterns" data-field="cross-platform correlations" class="form-textarea" placeholder="How different accounts/platforms connect to confirm same identity (writing style, photos, metadata, timing)"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 5: Exploitation Paths -->
+      <section class="form-section" id="exploitation">
+        <div class="section-header">
+          <h2 class="section-title">⚠️ Exploitation Paths</h2>
+          <p class="section-subtitle">Potential attack vectors and vulnerabilities identified</p>
+        </div>
+
+        <div class="warning-box">
+          Document how discovered information could be leveraged in social engineering, physical security, or cyber attacks.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Social Engineering Vectors</label>
+          <div id="socialEngList">
+            <div class="data-entry">
+              <div class="data-header">
+                <span class="data-number">Vector #1</span>
+                <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Attack Type</label>
+                <select data-section="exploit-paths" data-field="attack-type" class="form-select">
+                  <option value="">Select type...</option>
+                  <option value="phishing">Phishing/Spear Phishing</option>
+                  <option value="pretexting">Pretexting</option>
+                  <option value="baiting">Baiting</option>
+                  <option value="impersonation">Impersonation</option>
+                  <option value="tailgating">Tailgating/Physical</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Exploitable Information</label>
+                <textarea data-section="exploit-paths" data-field="exploitable-infos" class="form-textarea" placeholder="What specific information enables this attack?"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Attack Scenario</label>
+                <textarea data-section="exploit-paths" data-field="attack-scenario" class="form-textarea" placeholder="Describe how this attack could be executed"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Likelihood</label>
+                <select data-section="exploit-paths" data-field="likelihood" class="form-select">
+                  <option value="">Select likelihood...</option>
+                  <option value="high">High - Easy to execute</option>
+                  <option value="medium">Medium - Requires preparation</option>
+                  <option value="low">Low - Difficult to execute</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button class="add-data-btn" onclick="addSocialEng()">+ Add Exploitation Vector</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Credential Compromise Risk</label>
+          <textarea data-section="exploit-paths" data-field="credential-compromise-risk" class="form-textarea" placeholder="Weak/reused passwords, password patterns, security questions answers found publicly"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Physical Security Risks</label>
+          <textarea data-section="exploit-paths" data-field="physical-security-risk" class="form-textarea" placeholder="Home address exposure, routine patterns, security system information, family member details"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Reputation & Influence Risks</label>
+          <textarea data-section="exploit-paths" data-field="reputation-influence-risks" class="form-textarea" placeholder="Compromising information, controversial statements, potential blackmail material"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Supply Chain & Third-Party Risks</label>
+          <textarea data-section="exploit-paths" data-field="supply-chain-third-part-risks" class="form-textarea" placeholder="Vulnerable contacts, weak links in professional network, compromised associates"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 6: Risk Assessment -->
+      <section class="form-section" id="risks">
+        <div class="section-header">
+          <h2 class="section-title">📊 Risk Assessment</h2>
+          <p class="section-subtitle">Overall risk evaluation and exposure analysis</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Overall Exposure Level</label>
+          <select data-section="risk-assessment" data-field="overall-exposure-level" class="form-select">
+            <option value="">Select level...</option>
+            <option value="critical">Critical - Severe exposure with immediate exploitation risk</option>
+            <option value="high">High - Significant exposure requiring urgent attention</option>
+            <option value="medium">Medium - Moderate exposure with manageable risks</option>
+            <option value="low">Low - Minimal exposure with limited risks</option>
+            <option value="minimal">Minimal - Very low digital footprint</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">OPSEC Score <span class="form-label-optional">(0-10)</span></label>
+          <input data-section="risk-assessment" data-field="opsec-score" type="number" class="form-input" placeholder="e.g., 7/10" min="0" max="10" step="0.1">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Key Vulnerabilities Summary</label>
+          <textarea data-section="risk-assessment" data-field="key-vulnerabilities-summary" class="form-textarea" placeholder="Top 3-5 most critical vulnerabilities discovered"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Privacy Posture Analysis</label>
+          <textarea data-section="risk-assessment" data-field="privacy-posture-analysis" class="form-textarea" placeholder="How well does the target protect their privacy? Privacy settings usage, data minimization practices"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Threat Actor Relevance</label>
+          <textarea data-section="risk-assessment" data-field="threat-actor-relevance" class="form-textarea" placeholder="What types of threat actors would find this information valuable? (nation-states, criminals, competitors, activists)"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Business/Personal Impact Assessment</label>
+          <textarea data-section="risk-assessment" data-field="impact-assessment" class="form-textarea" placeholder="Potential damage to business operations, personal safety, reputation, or financial standing"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Compliance & Legal Considerations</label>
+          <textarea data-section="risk-assessment" data-field="compliance-legal-consideration" class="form-textarea" placeholder="GDPR, data protection laws, industry regulations, legal exposure"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 7: Recommendations -->
+      <section class="form-section" id="recommendations">
+        <div class="section-header">
+          <h2 class="section-title">💡 Recommendations</h2>
+          <p class="section-subtitle">Actionable steps to improve security posture</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Immediate Actions (0-30 days)</label>
+          <textarea data-section="recommendations" data-field="immediate-actions" class="form-textarea" placeholder="Quick wins to reduce immediate exposure (delete accounts, change passwords, tighten privacy settings)"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Short-Term Improvements (1-3 months)</label>
+          <textarea data-section="recommendations" data-field="short-term-improvements" class="form-textarea" placeholder="Privacy cleanup, credential management, social media audit, online presence consolidation"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Long-Term Strategic Changes (3-12 months)</label>
+          <textarea data-section="recommendations" data-field="long-term-improvements" class="form-textarea" placeholder="OPSEC training, digital identity management strategy, monitoring solutions, reputation management"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Privacy Best Practices</label>
+          <textarea data-section="recommendations" data-field="privacy-best-practices" class="form-textarea" placeholder="General recommendations for maintaining privacy (VPN usage, encrypted communications, data minimization)"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Monitoring & Alerting</label>
+          <textarea data-section="recommendations" data-field="monitoring-alerts" class="form-textarea" placeholder="Tools and services for ongoing monitoring (Google Alerts, breach monitoring, dark web scanning)"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Incident Response Plan</label>
+          <textarea data-section="recommendations" data-field="incident-response-plan" class="form-textarea" placeholder="What to do if information is leveraged in an attack or if identity theft occurs"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Training & Awareness</label>
+          <textarea data-section="recommendations" data-field="training-awareness" class="form-textarea" placeholder="Security awareness training recommendations, phishing simulation, OPSEC education"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const sections = ['context', 'identity', 'infrastructure', 'correlations', 'exploitation', 'risks', 'recommendations'];
+    let currentSectionIndex = 0;
+    let socialProfileCounter = 1;
+    let websiteCounter = 1;
+    let associateCounter = 1;
+    let socialEngCounter = 1;
+
+    // Navigation between sections
+    function navigateToSection(sectionId) {
+      document.querySelectorAll('.form-section').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      document.getElementById(sectionId).classList.add('active');
+      
+      const navItem = document.querySelector(`[data-section="${sectionId}"]`);
+      if (navItem) {
+        navItem.classList.add('active');
+      }
+
+      currentSectionIndex = sections.indexOf(sectionId);
+      updateProgress();
+    }
+
+    function nextSection() {
+      if (currentSectionIndex < sections.length - 1) {
+        const currentNavItem = document.querySelector(`[data-section="${sections[currentSectionIndex]}"]`);
+        if (currentNavItem && !currentNavItem.classList.contains('completed')) {
+          currentNavItem.classList.add('completed');
+        }
+        
+        currentSectionIndex++;
+        navigateToSection(sections[currentSectionIndex]);
+      }
+    }
+
+    function prevSection() {
+      if (currentSectionIndex > 0) {
+        const currentNavItem = document.querySelector(`[data-section="${sections[currentSectionIndex]}"]`);
+        if (currentNavItem && currentNavItem.classList.contains('completed')) {
+          currentNavItem.classList.remove('completed');
+          currentNavItem.classList.remove('active');
+        }
+        
+        currentSectionIndex--;
+        navigateToSection(sections[currentSectionIndex]);
+      }
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      const completedCount = document.querySelectorAll('.nav-item.completed').length;
+      const totalSections = sections.length;
+      const percentage = (completedCount / totalSections) * 100;
+      
+      document.getElementById('progressBar').style.width = percentage + '%';
+      document.getElementById('progressText').textContent = completedCount + '/' + totalSections;
+    }
+
+    // Tag system
+    function addTag(event, containerId) {
+      if (event.key === 'Enter' && event.target.value.trim() !== '') {
+        event.preventDefault();
+        const container = document.getElementById(containerId);
+        const input = event.target;
+        const value = input.value.trim();
+        
+        const tag = document.createElement('div');
+        tag.className = 'tag-item';
+        tag.innerHTML = `
+          ${value}
+          <span class="tag-remove" onclick="removeTag(this)">×</span>
+        `;
+        
+        container.insertBefore(tag, input);
+        input.value = '';
+      }
+    }
+
+    function removeTag(element) {
+      element.parentElement.remove();
+    }
+
+    function focusTagInput(container) {
+      const input = container.querySelector('.tag-input');
+      if (input) input.focus();
+    }
+
+    // Social Profile Management
+    function addSocialProfile() {
+      socialProfileCounter++;
+      const list = document.getElementById('socialProfilesList');
+      
+      const html = `
+        <div class="data-entry">
+          <div class="data-header">
+            <span class="data-number">Profile #${socialProfileCounter}</span>
+            <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Platform</label>
+            <input data-section="mapping" data-field="platform" type="text" class="form-input" placeholder="e.g., LinkedIn, Twitter, Facebook">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Profile URL</label>
+            <input data-section="mapping" data-field="url" type="text" class="form-input" placeholder="https://">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notable Information</label>
+            <textarea data-section="mapping" data-field="notable-infos" class="form-textarea" placeholder="Key findings from this profile"></textarea>
+          </div>
+        </div>
+      `;
+      
+      list.insertAdjacentHTML('beforeend', html);
+    }
+
+    // Website Management
+    function addWebsite() {
+      websiteCounter++;
+      const list = document.getElementById('websitesList');
+      
+      const html = `
+        <div class="data-entry">
+          <div class="data-header">
+            <span class="data-number">Website #${websiteCounter}</span>
+            <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL</label>
+            <input data-section="digital-infras" data-field="url" type="text" class="form-input" placeholder="https://">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Purpose/Type</label>
+            <input data-section="digital-infras"" data-field="purpose-type" type="text" class="form-input" placeholder="e.g., personal blog, portfolio, business site">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Technology Stack</label>
+            <input data-section="digital-infras"" data-field="tech-stack" type="text" class="form-input" placeholder="CMS, frameworks, hosting provider">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Security Findings</label>
+            <textarea data-section="digital-infras"" data-field="security-findings" class="form-textarea" placeholder="Exposed information, misconfigurations, vulnerabilities"></textarea>
+          </div>
+        </div>
+      `;
+      
+      list.insertAdjacentHTML('beforeend', html);
+    }
+
+    // Associate Management
+    function addAssociate() {
+      associateCounter++;
+      const list = document.getElementById('associatesList');
+      
+      const html = `
+        <div class="data-entry">
+          <div class="data-header">
+            <span class="data-number">Associate #${associateCounter}</span>
+            <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Name/Identifier</label>
+            <input data-section="correlations-patterns" data-field="name-identifier" type="text" class="form-input" placeholder="Name, username, or identifier">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Relationship Type</label>
+            <select data-section="correlations-patterns" data-field="relationship-type" class="form-select">
+              <option value="">Select type...</option>
+              <option value="family">Family Member</option>
+              <option value="colleague">Colleague/Business</option>
+              <option value="friend">Friend/Social</option>
+              <option value="associate">Associate</option>
+              <option value="unknown">Unknown Relationship</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Evidence of Connection</label>
+            <textarea data-section="correlations-patterns" data-field="evidence-connections" class="form-textarea" placeholder="How was this connection identified?"></textarea>
+          </div>
+        </div>
+      `;
+      
+      list.insertAdjacentHTML('beforeend', html);
+    }
+
+    // Social Engineering Management
+    function addSocialEng() {
+      socialEngCounter++;
+      const list = document.getElementById('socialEngList');
+      
+      const html = `
+        <div class="data-entry">
+          <div class="data-header">
+            <span class="data-number">Vector #${socialEngCounter}</span>
+            <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Attack Type</label>
+            <select data-section="exploit-paths" data-field="attack-type" class="form-select">
+              <option value="">Select type...</option>
+              <option value="phishing">Phishing/Spear Phishing</option>
+              <option value="pretexting">Pretexting</option>
+              <option value="baiting">Baiting</option>
+              <option value="impersonation">Impersonation</option>
+              <option value="tailgating">Tailgating/Physical</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Exploitable Information</label>
+            <textarea data-section="exploit-paths" data-field="exploitation-infos" class="form-textarea" placeholder="What specific information enables this attack?"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Attack Scenario</label>
+            <textarea data-section="exploit-paths" data-field="attack-scenario" class="form-textarea" placeholder="Describe how this attack could be executed"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Likelihood</label>
+            <select data-section="exploit-paths" data-field="likelihood" class="form-select">
+              <option value="">Select likelihood...</option>
+              <option value="high">High - Easy to execute</option>
+              <option value="medium">Medium - Requires preparation</option>
+              <option value="low">Low - Difficult to execute</option>
+            </select>
+          </div>
+        </div>
+      `;
+      
+      list.insertAdjacentHTML('beforeend', html);
+    }
+
+    // Remove data entry
+    function removeData(btn) {
+      const entry = btn.closest('.data-entry');
+      const list = entry.parentElement;
+      entry.remove();
+      
+      // Renumber remaining entries
+      const entries = list.querySelectorAll('.data-entry');
+      entries.forEach((e, index) => {
+        e.querySelector('.data-number').textContent = e.querySelector('.data-number').textContent.replace(/\d+/, index + 1);
+      });
+      
+      // Update counter based on list id
+      if (list.id === 'socialProfilesList') socialProfileCounter = entries.length;
+      if (list.id === 'websitesList') websiteCounter = entries.length;
+      if (list.id === 'associatesList') associateCounter = entries.length;
+      if (list.id === 'socialEngList') socialEngCounter = entries.length;
+    }
+
+    // Header actions
+    function goBack() {
+      const url = '/reports-generator';
+      if (window.parent) {
+        const iframe = window.parent.document.getElementById('iframe-reports-generator');
+        if (iframe) {
+          iframe.src = url;
+        }
+      } else {
+        window.location.href = url;
+      }
+    }
+
+    function previewReport() {
+      alert('Preview functionality coming soon...');
+    }
+
+    function generateReport() {
+      if (confirm('Generate the final PDF report?\n\nMake sure all required information is filled in.')) {
+        alert('Sending data to backend for PDF generation...');
+      }
+    }
+
+    // Auto-save (placeholder)
+    let autoSaveTimer;
+    document.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(element => {
+      element.addEventListener('input', () => {
+        clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(() => {
+          console.log('Auto-saving draft...');
+        }, 2000);
+      });
+    });
+
+    function collectFormData() {
+      const formData = {
+        context: {},
+        mapping: {},
+        'digital-infras': {},
+        'correlations-patterns': {},
+        'exploit-paths': {},
+        'risk-assessment': {},
+        recommendations: {}
+      };
+
+      // 1. Collecter les champs simples (input, textarea, select)
+      document.querySelectorAll('[data-field]').forEach(element => {
+        const section = element.getAttribute('data-section');
+        const field = element.getAttribute('data-field');
+        let value = element.value.trim();
+        
+        if (section && field && value !== '') {
+          formData[section][field] = value;
+        }
+      });
+
+      // 2. Collecter les tags
+      const tagContainers = [
+        { id: 'usernamesContainer', section: 'mapping', field: 'usernames' },
+        { id: 'emailsContainer', section: 'mapping', field: 'emails' },
+        { id: 'phonesContainer', section: 'mapping', field: 'phones' },
+        { id: 'domainsContainer', section: 'digital-infras', field: 'domains' },
+        { id: 'ipsContainer', section: 'digital-infras', field: 'ip_addresses' }
+      ];
+
+      tagContainers.forEach(({ id, section, field }) => {
+        const container = document.getElementById(id);
+        if (container) {
+          const tags = Array.from(container.querySelectorAll('.tag-item'))
+            .map(tag => tag.textContent.replace('×', '').trim())
+            .filter(tag => tag !== '');
+          
+          if (tags.length > 0) {
+            formData[section][field] = tags;
+          }
+        }
+      });
+
+      // 3. Collecter les data-entry blocks
+      
+      // Social Profiles
+      const socialProfiles = Array.from(document.querySelectorAll('#socialProfilesList .data-entry'))
+        .map(entry => {
+          const inputs = entry.querySelectorAll('.form-input');
+          const textarea = entry.querySelector('.form-textarea');
+          return {
+            platform: inputs[0]?.value.trim() || '',
+            url: inputs[1]?.value.trim() || '',
+            notes: textarea?.value.trim() || ''
+          };
+        })
+        .filter(p => p.platform || p.url);
+      
+      if (socialProfiles.length > 0) {
+        formData.mapping.social_profiles = socialProfiles;
+      }
+
+      // Websites
+      const websites = Array.from(document.querySelectorAll('#websitesList .data-entry'))
+        .map(entry => {
+          const inputs = entry.querySelectorAll('.form-input');
+          const textarea = entry.querySelector('.form-textarea');
+          return {
+            url: inputs[0]?.value.trim() || '',
+            purpose: inputs[1]?.value.trim() || '',
+            tech_stack: inputs[2]?.value.trim() || '',
+            security_findings: textarea?.value.trim() || ''
+          };
+        })
+        .filter(w => w.url);
+      
+      if (websites.length > 0) {
+        formData['digital-infras'].websites = websites;
+      }
+
+      // Associates
+      const associates = Array.from(document.querySelectorAll('#associatesList .data-entry'))
+        .map(entry => {
+          const input = entry.querySelector('.form-input');
+          const select = entry.querySelector('.form-select');
+          const textarea = entry.querySelector('.form-textarea');
+          return {
+            name: input?.value.trim() || '',
+            relationship_type: select?.value || '',
+            evidence: textarea?.value.trim() || ''
+          };
+        })
+        .filter(a => a.name);
+      
+      if (associates.length > 0) {
+        formData['correlations-patterns'].associates = associates;
+      }
+
+      // Social Engineering Vectors
+      const vectors = Array.from(document.querySelectorAll('#socialEngList .data-entry'))
+        .map(entry => {
+          const selects = entry.querySelectorAll('.form-select');
+          const textareas = entry.querySelectorAll('.form-textarea');
+          return {
+            attack_type: selects[0]?.value || '',
+            exploitable_info: textareas[0]?.value.trim() || '',
+            attack_scenario: textareas[1]?.value.trim() || '',
+            likelihood: selects[1]?.value || ''
+          };
+        })
+        .filter(v => v.attack_type);
+      
+      if (vectors.length > 0) {
+        formData['exploit-paths'].social_engineering_vectors = vectors;
+      }
+
+      return formData;
+    }
+
+    async function generateReport() {
+      const formData = collectFormData();
+      console.log(formData);
+
+      if (confirm('Generate the final PDF report?\n\nMake sure all required information is filled in.')) {
+        fetch('/api/report/osint-classic', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        }).catch(error => {
+          console.error('Error:', error);
+        });
+        
+        alert('Report data sent to backend!');
+      }
+    }
+
+    // Initialize
+    updateProgress();
+    alert('This page is always in development');
+  </script>
+</body>
+</html>

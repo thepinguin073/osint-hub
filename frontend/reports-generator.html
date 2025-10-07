@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0D0C73;
+      color: #ffffff;
+      font-family: 'Fira Code', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+      background-size: 100% 100%, 100% 100%, 100% 100%;
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem 3rem 10rem;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #4FFBDF, #FFD700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .header p {
+      color: #aaa;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    /* Templates Grid */
+    .templates-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Template Card */
+    .template-card {
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(25px);
+      border: 2px solid rgba(79, 251, 223, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      min-height: 140px;
+    }
+
+    .template-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(79, 251, 223, 0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .template-card:hover::before {
+      opacity: 1;
+    }
+
+    .template-card:hover {
+      transform: translateY(-8px);
+      border-color: #4FFBDF;
+      box-shadow: 0 12px 40px rgba(79, 251, 223, 0.3);
+    }
+
+    .template-card.danger {
+      border-color: rgba(255, 107, 53, 0.3);
+    }
+
+    .template-card.danger:hover {
+      border-color: #FF6B35;
+      box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
+    }
+
+    /* Icon */
+    .template-icon {
+      font-size: 3.5rem;
+      text-align: center;
+      filter: drop-shadow(0 0 10px currentColor);
+      flex-shrink: 0;
+    }
+
+    /* Content Wrapper */
+    .template-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-grow: 1;
+    }
+
+    /* Title */
+    .template-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #4FFBDF;
+      margin: 0;
+    }
+
+    .template-card.danger .template-title {
+      color: #FF6B35;
+    }
+
+    /* Description */
+    .template-desc {
+      color: #aaa;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Tags */
+    .template-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.4rem 1rem;
+      border-radius: 16px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tag-threat {
+      background: rgba(199, 21, 133, 0.2);
+      color: #C71585;
+      border: 1px solid #C71585;
+    }
+
+    .tag-osint {
+      background: rgba(79, 251, 223, 0.2);
+      color: #4FFBDF;
+      border: 1px solid #4FFBDF;
+    }
+
+    .tag-offsec {
+      background: rgba(255, 107, 53, 0.2);
+      color: #FF6B35;
+      border: 1px solid #FF6B35;
+    }
+
+    .tag-profiling {
+      background: rgba(255, 215, 0, 0.2);
+      color: #FFD700;
+      border: 1px solid #FFD700;
+    }
+
+    /* Select Button */
+    .select-btn {
+      padding: 0.9rem 2rem;
+      background: linear-gradient(135deg, rgba(79, 251, 223, 0.2), rgba(0, 204, 153, 0.15));
+      border: 2px solid rgba(79, 251, 223, 0.5);
+      border-radius: 12px;
+      color: #4FFBDF;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .select-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(79, 251, 223, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+
+    .select-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .select-btn:hover {
+      background: linear-gradient(135deg, #4FFBDF, #00cc99);
+      color: #0A1628;
+      border-color: #4FFBDF;
+      box-shadow: 0 6px 25px rgba(79, 251, 223, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .select-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .template-card.threat {
+      border-color: rgba(199, 21, 133, 0.3);
+    }
+
+    .template-card.threat:hover {
+      border-color: #C71585;
+      box-shadow: 0 12px 40px rgba(199, 21, 133, 0.3);
+    }
+
+    .template-card.threat .template-title {
+      color: #C71585;
+    }
+
+    .template-card.threat .select-btn {
+      background: linear-gradient(135deg, rgba(199, 21, 133, 0.2), rgba(199, 21, 133, 0.15));
+      border-color: rgba(199, 21, 133, 0.5);
+      color: #C71585;
+    }
+
+    .template-card.threat .select-btn:hover {
+      background: linear-gradient(135deg, #C71585, #E91E8C);
+      color: #fff;
+      border-color: #C71585;
+      box-shadow: 0 6px 25px rgba(199, 21, 133, 0.4);
+    }
+
+    .template-card.danger .select-btn {
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.15));
+      border-color: rgba(255, 107, 53, 0.5);
+      color: #FF6B35;
+    }
+
+    .template-card.danger .select-btn:hover {
+      background: linear-gradient(135deg, #FF6B35, #ff8c42);
+      color: #fff;
+      border-color: #FF6B35;
+      box-shadow: 0 6px 25px rgba(255, 107, 53, 0.4);
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem 1rem;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .template-card {
+        grid-template-columns: auto 1fr;
+        gap: 1.5rem;
+      }
+
+      .select-btn {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+
+      .template-icon {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>REPORT GENERATOR</h1>
+      <p>Generate professional security reports</p>
+    </div>
+
+    <!-- Templates Grid -->
+    <div class="templates-grid">
+      <!-- Template 1: Digital Footprint -->
+      <div class="template-card threat" data-category="osint">
+        <div class="template-icon">🔍</div>
+        <div class="template-content">
+          <h3 class="template-title">Threat Intelligence Report</h3>
+          <p class="template-desc">Detailed threat actor profiling with campaign analysis, infrastructure mapping, indicators of compromise, and MITRE ATT&CK tactics correlation.</p>
+          <div class="template-tags">
+            <span class="tag tag-threat">Threat Int.</span>
+          </div>
+        </div>
+        <button class="select-btn" onclick="selectTemplate('threat-int')">
+          <span>Select →</span>
+        </button>
+      </div>
+
+      <!-- Template 2: OSINT Classic -->
+      <div class="template-card" data-category="osint profiling">
+        <div class="template-icon">👤</div>
+        <div class="template-content">
+          <h3 class="template-title">OSINT Classic</h3>
+          <p class="template-desc">In-depth profiling and investigation with identity mapping, infrastructure analysis, correlations, and exploitation paths.</p>
+          <div class="template-tags">
+            <span class="tag tag-osint">OSINT</span>
+            <span class="tag tag-profiling">Profiling</span>
+          </div>
+        </div>
+        <button class="select-btn" onclick="selectTemplate('osint-classic')">
+          <span>Select →</span>
+        </button>
+      </div>
+
+      <!-- Template 3: Pentest Report -->
+      <div class="template-card danger" data-category="offsec">
+        <div class="template-icon">🛡️</div>
+        <div class="template-content">
+          <h3 class="template-title">Pentest Report</h3>
+          <p class="template-desc">Simplified offensive security report with scope, methodology, CVSS-rated vulnerabilities, exploits used, and proof of concepts.</p>
+          <div class="template-tags">
+            <span class="tag tag-offsec">OffSec</span>
+          </div>
+        </div>
+        <button class="select-btn" onclick="selectTemplate('pentest-report')">
+          <span>Select →</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function selectTemplate(templateId) {
+      // URL relative du template à charger
+      const url = `/${templateId}`;
+
+      // Vérifie si on est dans un iframe parent
+      if (window.parent) {
+        const iframe = window.parent.document.getElementById('iframe-reports-generator');
+        if (iframe) {
+          iframe.src = url;
+        } else {
+          console.error("Iframe parent introuvable !");
+        }
+      } else {
+        // fallback : ouvre dans la même page
+        window.location.href = url;
+      }
+    }
+  </script>
+</body>
+</html>

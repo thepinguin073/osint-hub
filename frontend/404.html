@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erreur 404 - OSINT hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0D0C73;
+      color: #ffffff;
+      font-family: 'Fira Code', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+      background-attachment: fixed;
+    }
+
+    .error-code {
+      font-size: 8rem;
+      font-weight: 900;
+      color: #FFD700;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.7), 0 0 40px rgba(255, 215, 0, 0.4);
+      letter-spacing: 5px;
+    }
+
+    .error-message {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+      color: #e0e0e0;
+    }
+
+    .error-btn {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Fira Code', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #4FFBDF 0%, #00cc99 100%);
+      color: #0A1628;
+      box-shadow: 0 4px 20px rgba(79, 251, 223, 0.3);
+      border: 2px solid rgba(79, 251, 223, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .error-btn:hover {
+      background: linear-gradient(135deg, #5ffce5 0%, #00d9a6 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(79, 251, 223, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="error-code">404</div>
+  <div class="error-message">Page not found.<br>The requested path does not exist.</div>
+  <button class="error-btn" onclick="window.location.href='/'">
+    Return to home
+  </button>
+</body>
+</html>

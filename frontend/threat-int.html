@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Threat Intelligence Report - Form Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0D0C73;
+      color: #ffffff;
+      font-family: 'Fira Code', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .header-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(25px);
+      border-bottom: 2px solid rgba(199, 21, 133, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-left {
+      position: relative;
+      left: 17%;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(199, 21, 133, 0.3);
+      color: #C71585;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-btn:hover {
+      background: rgba(199, 21, 133, 0.1);
+      border-color: #C71585;
+      transform: translateX(-4px);
+    }
+
+    .header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .header-title h1 {
+      font-size: 1.3rem;
+      color: #C71585;
+      font-weight: 700;
+    }
+
+    .header-title span {
+      font-size: 0.75rem;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .preview-btn {
+      background: rgba(255, 215, 0, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.5);
+      color: #FFD700;
+      padding: 0.7rem 1.5rem;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .preview-btn:hover {
+      background: rgba(255, 215, 0, 0.2);
+      border-color: #FFD700;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .generate-btn {
+      background: linear-gradient(135deg, #C71585, #E91E8C);
+      border: none;
+      color: #fff;
+      padding: 0.7rem 2rem;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .generate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(199, 21, 133, 0.4);
+    }
+
+    .sidebar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 280px;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(25px);
+      border-right: 2px solid rgba(199, 21, 133, 0.2);
+      padding: 2rem 1rem;
+      margin-top: 70px;
+      overflow-y: auto;
+      height: calc(100vh - 70px);
+    }
+
+    .progress-container {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: rgba(199, 21, 133, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(199, 21, 133, 0.2);
+    }
+
+    .progress-label {
+      font-size: 0.75rem;
+      color: #aaa;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #C71585, #E91E8C);
+      width: 16.66%;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 10px rgba(199, 21, 133, 0.5);
+    }
+
+    .progress-text {
+      font-size: 0.8rem;
+      color: #C71585;
+      font-weight: 600;
+    }
+
+    .nav-section {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-item {
+      padding: 0.9rem 1.2rem;
+      margin-bottom: 0.3rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.85rem;
+      position: relative;
+    }
+
+    .nav-item::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item.completed::before {
+      content: '✓';
+      background: #C71585;
+      border-color: #C71585;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .nav-item.active {
+      background: rgba(199, 21, 133, 0.15);
+      border-left: 3px solid #C71585;
+      padding-left: calc(1.2rem - 3px);
+    }
+
+    .nav-item.active::before {
+      background: #C71585;
+      border-color: #C71585;
+      box-shadow: 0 0 15px rgba(199, 21, 133, 0.5);
+    }
+
+    .nav-item:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .main-content {
+      flex: 1;
+      margin-top: 70px;
+      padding: 3rem;
+      overflow-y: auto;
+      height: calc(100vh - 70px);
+    }
+
+    .form-section {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .form-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(199, 21, 133, 0.2);
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: #C71585;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.7rem;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .form-label-optional {
+      color: #666;
+      font-weight: 400;
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(199, 21, 133, 0.2);
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #C71585;
+      box-shadow: 0 0 20px rgba(199, 21, 133, 0.2);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: #666;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .data-entry {
+      background: rgba(26, 26, 26, 0.6);
+      border: 2px solid rgba(199, 21, 133, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .data-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .data-number {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #C71585;
+    }
+
+    .remove-data-btn {
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      color: #FF6B35;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .remove-data-btn:hover {
+      background: rgba(255, 107, 53, 0.2);
+      border-color: #FF6B35;
+    }
+
+    .add-data-btn {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(199, 21, 133, 0.1);
+      border: 2px dashed rgba(199, 21, 133, 0.4);
+      border-radius: 10px;
+      color: #C71585;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .add-data-btn:hover {
+      background: rgba(199, 21, 133, 0.15);
+      border-color: #C71585;
+      transform: translateY(-2px);
+    }
+
+    .form-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid rgba(199, 21, 133, 0.2);
+    }
+
+    .nav-btn {
+      padding: 0.9rem 2rem;
+      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .prev-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .prev-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, #C71585, #E91E8C);
+      border: none;
+      color: #fff;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(199, 21, 133, 0.4);
+    }
+
+    .info-box {
+      background: rgba(199, 21, 133, 0.05);
+      border-left: 3px solid #C71585;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .warning-box {
+      background: rgba(255, 215, 0, 0.05);
+      border-left: 3px solid #FFD700;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.7rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(199, 21, 133, 0.2);
+      border-radius: 10px;
+      min-height: 50px;
+    }
+
+    .tag-item {
+      background: rgba(199, 21, 133, 0.2);
+      color: #C71585;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(199, 21, 133, 0.4);
+    }
+
+    .tag-remove {
+      cursor: pointer;
+      font-weight: 700;
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+
+    .tag-remove:hover {
+      opacity: 1;
+    }
+
+    .tag-input {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      flex: 1;
+      min-width: 100px;
+      padding: 0.4rem;
+    }
+
+    .tag-input:focus {
+      outline: none;
+    }
+
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 220px;
+      }
+
+      .main-content {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid rgba(199, 21, 133, 0.2);
+        padding: 1rem;
+      }
+
+      .main-content {
+        margin-top: 0;
+        height: auto;
+      }
+
+      .header-bar {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 1rem;
+      }
+
+      .header-actions {
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-bar">
+    <div class="header-left">
+      <button class="back-btn" onclick="goBack()">← Back</button>
+      <div class="header-title">
+        <h1>Threat Intelligence Report</h1>
+        <span>Actor Profiling & Campaign Analysis</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="preview-btn" onclick="previewReport()">Preview Draft</button>
+      <button class="generate-btn" onclick="generateReport()">Generate Report →</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <aside class="sidebar">
+      <div class="progress-container">
+        <div class="progress-label">Progress</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text"><span id="progressText">1/6</span> sections completed</div>
+      </div>
+
+      <nav class="nav-section">
+        <div class="nav-item active" data-section="overview" onclick="navigateToSection('overview')">Executive Overview</div>
+        <div class="nav-item" data-section="actor" onclick="navigateToSection('actor')">Threat Actor Profile</div>
+        <div class="nav-item" data-section="campaign" onclick="navigateToSection('campaign')">Campaign Analysis</div>
+        <div class="nav-item" data-section="infrastructure" onclick="navigateToSection('infrastructure')">Infrastructure</div>
+        <div class="nav-item" data-section="iocs" onclick="navigateToSection('iocs')">IOCs & TTPs</div>
+        <div class="nav-item" data-section="recommendations" onclick="navigateToSection('recommendations')">Recommendations</div>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <!-- Section 1: Executive Overview -->
+      <section class="form-section active" id="overview">
+        <div class="section-header">
+          <h2 class="section-title">📋 Executive Overview</h2>
+          <p class="section-subtitle">High-level summary for decision makers</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Report Title</label>
+          <input type="text" class="form-input" placeholder="e.g., APT29 Campaign Analysis - Q4 2024">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Analysis Period Start</label>
+            <input type="date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Analysis Period End</label>
+            <input type="date" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Threat Level</label>
+          <select class="form-select">
+            <option value="">Select threat level...</option>
+            <option value="critical">Critical - Imminent threat requiring immediate action</option>
+            <option value="high">High - Active threat with significant risk</option>
+            <option value="medium">Medium - Potential threat requiring monitoring</option>
+            <option value="low">Low - Limited or historical threat</option>
+            <option value="informational">Informational - For awareness only</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confidence Assessment</label>
+          <select class="form-select">
+            <option value="">Select confidence level...</option>
+            <option value="high">High - Confirmed through multiple reliable sources</option>
+            <option value="medium">Medium - Likely based on available evidence</option>
+            <option value="low">Low - Possible but requires verification</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Executive Summary</label>
+          <textarea class="form-textarea" placeholder="2-3 paragraph high-level summary: Who is the threat actor? What are they doing? Why does it matter? What are the key recommendations?"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Key Findings (3-5 points)</label>
+          <textarea class="form-textarea" placeholder="Bullet-point format:&#10;• Finding 1&#10;• Finding 2&#10;• Finding 3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Affected Industries/Sectors</label>
+          <div class="tags-container" id="sectorsContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type sector and press Enter" onkeydown="addTag(event, 'sectorsContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Target Geographies</label>
+          <div class="tags-container" id="geoContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type country/region and press Enter" onkeydown="addTag(event, 'geoContainer')">
+          </div>
+        </div>
+
+        <div class="form-navigation">
+          <div></div>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 2: Threat Actor Profile -->
+      <section class="form-section" id="actor">
+        <div class="section-header">
+          <h2 class="section-title">🎭 Threat Actor Profile</h2>
+          <p class="section-subtitle">Detailed adversary characterization</p>
+        </div>
+
+        <div class="info-box">
+          Comprehensive profiling of the threat actor including attribution, motivations, and capabilities.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Actor Name/Identifier</label>
+          <input type="text" class="form-input" placeholder="e.g., APT29, Lazarus Group, FIN7">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Also Known As (Aliases)</label>
+          <div class="tags-container" id="aliasesContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type alias and press Enter" onkeydown="addTag(event, 'aliasesContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Attribution <span class="form-label-optional">(if known)</span></label>
+          <textarea class="form-textarea" placeholder="State-sponsored? Criminal organization? Nation-state affiliation? Evidence for attribution?"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">First Observed</label>
+          <input type="text" class="form-input" placeholder="e.g., 2018, Q2 2020">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Motivation</label>
+          <select class="form-select">
+            <option value="">Select primary motivation...</option>
+            <option value="espionage">Espionage - Intelligence gathering</option>
+            <option value="financial">Financial - Monetary gain</option>
+            <option value="disruption">Disruption - Service/infrastructure damage</option>
+            <option value="destruction">Destruction - Data/system destruction</option>
+            <option value="influence">Influence - Propaganda/disinformation</option>
+            <option value="hacktivism">Hacktivism - Ideological/political</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Sophistication Level</label>
+          <select class="form-select">
+            <option value="">Select sophistication...</option>
+            <option value="advanced">Advanced - APT-level capabilities, custom tools</option>
+            <option value="intermediate">Intermediate - Mix of custom and commodity tools</option>
+            <option value="basic">Basic - Primarily commodity tools and scripts</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Resource Level</label>
+          <select class="form-select">
+            <option value="">Select resource level...</option>
+            <option value="well-funded">Well-Funded - State-level or major criminal org</option>
+            <option value="moderate">Moderate - Organized crime or well-established group</option>
+            <option value="limited">Limited - Small team or individual</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Operational Tempo</label>
+          <textarea class="form-textarea" placeholder="How frequently does this actor conduct operations? Patterns in activity levels?"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Historical Campaigns</label>
+          <textarea class="form-textarea" placeholder="Notable previous operations, targets, and outcomes"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 3: Campaign Analysis -->
+      <section class="form-section" id="campaign">
+        <div class="section-header">
+          <h2 class="section-title">🎯 Campaign Analysis</h2>
+          <p class="section-subtitle">Detailed breakdown of the current campaign</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Campaign Name</label>
+          <input type="text" class="form-input" placeholder="e.g., Operation Ghost, SolarStorm Campaign">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Campaign Start Date</label>
+            <input type="date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Current Status</label>
+            <select class="form-select">
+              <option value="">Select status...</option>
+              <option value="active">Active - Ongoing operations</option>
+              <option value="dormant">Dormant - No recent activity</option>
+              <option value="concluded">Concluded - Campaign ended</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Campaign Objectives</label>
+          <textarea class="form-textarea" placeholder="What is the threat actor trying to achieve with this specific campaign?"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Target Profile</label>
+          <textarea class="form-textarea" placeholder="Who is being targeted? Organizations, sectors, individuals, specific companies?"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Initial Access Vector</label>
+          <select class="form-select">
+            <option value="">Select primary access method...</option>
+            <option value="phishing">Spear Phishing</option>
+            <option value="exploit">Vulnerability Exploitation</option>
+            <option value="supply-chain">Supply Chain Compromise</option>
+            <option value="credentials">Stolen Credentials</option>
+            <option value="watering-hole">Watering Hole</option>
+            <option value="physical">Physical Access</option>
+            <option value="insider">Insider Threat</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Attack Narrative</label>
+          <textarea class="form-textarea" placeholder="Chronological description of the attack lifecycle: initial access, lateral movement, data exfiltration, persistence mechanisms"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Malware/Tools Used</label>
+          <div id="malwareList">
+            <div class="data-entry">
+              <div class="data-header">
+                <span class="data-number">Malware #1</span>
+                <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-input" placeholder="e.g., Cobalt Strike, SolarWinds.Orion.Core.BusinessLayer">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Type</label>
+                <select class="form-select">
+                  <option value="">Select type...</option>
+                  <option value="backdoor">Backdoor</option>
+                  <option value="ransomware">Ransomware</option>
+                  <option value="trojan">Trojan</option>
+                  <option value="loader">Loader/Dropper</option>
+                  <option value="rat">RAT (Remote Access Tool)</option>
+                  <option value="infostealer">Information Stealer</option>
+                  <option value="wiper">Wiper</option>
+                  <option value="rootkit">Rootkit</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Purpose/Functionality</label>
+                <textarea class="form-textarea" placeholder="What does this tool do in the attack chain?"></textarea>
+              </div>
+            </div>
+          </div>
+          <button class="add-data-btn" onclick="addMalware()">+ Add Malware/Tool</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Exploitation Methods</label>
+          <textarea class="form-textarea" placeholder="CVEs exploited, zero-days used, social engineering techniques"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Data Targeted</label>
+          <textarea class="form-textarea" placeholder="What types of data or systems are being targeted? (credentials, IP, financial data, PII)"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Known Victims <span class="form-label-optional">(if publicly disclosed)</span></label>
+          <textarea class="form-textarea" placeholder="Organizations confirmed to be compromised (only if public information)"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 4: Infrastructure -->
+      <section class="form-section" id="infrastructure">
+        <div class="section-header">
+          <h2 class="section-title">🌐 Infrastructure Analysis</h2>
+          <p class="section-subtitle">Command and control, hosting, and network infrastructure</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Infrastructure Overview</label>
+          <textarea class="form-textarea" placeholder="High-level description of the actor's infrastructure setup, hosting patterns, operational security"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">C2 Servers</label>
+          <div id="c2List">
+            <div class="data-entry">
+              <div class="data-header">
+                <span class="data-number">C2 Server #1</span>
+                <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+              </div>
+              <div class="form-group">
+                <label class="form-label">IP Address/Domain</label>
+                <input type="text" class="form-input" placeholder="e.g., 192.0.2.1 or malicious-domain.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label">First Seen</label>
+                <input type="date" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Status</label>
+                <select class="form-select">
+                  <option value="">Select status...</option>
+                  <option value="active">Active</option>
+                  <option value="sinkholed">Sinkholed</option>
+                  <option value="taken-down">Taken Down</option>
+                  <option value="dormant">Dormant</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Hosting Details</label>
+                <textarea class="form-textarea" placeholder="ASN, hosting provider, geolocation"></textarea>
+              </div>
+            </div>
+          </div>
+          <button class="add-data-btn" onclick="addC2()">+ Add C2 Server</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Domains Used</label>
+          <div class="tags-container" id="domainsContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type domain and press Enter" onkeydown="addTag(event, 'domainsContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">IP Addresses Used</label>
+          <div class="tags-container" id="ipsContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type IP and press Enter" onkeydown="addTag(event, 'ipsContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Infrastructure Patterns</label>
+          <textarea class="form-textarea" placeholder="Typosquatting, domain generation algorithms, bulletproof hosting, VPN usage, TOR, compromised infrastructure"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">SSL/TLS Certificates</label>
+          <textarea class="form-textarea" placeholder="Certificate fingerprints, issuers, or patterns used by the actor"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Cryptocurrency Addresses <span class="form-label-optional">(if applicable)</span></label>
+          <div class="tags-container" id="cryptoContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type wallet address and press Enter" onkeydown="addTag(event, 'cryptoContainer')">
+          </div>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 5: IOCs & TTPs -->
+      <section class="form-section" id="iocs">
+        <div class="section-header">
+          <h2 class="section-title">🔍 Indicators of Compromise & TTPs</h2>
+          <p class="section-subtitle">Technical indicators and MITRE ATT&CK mapping</p>
+        </div>
+
+        <div class="info-box">
+          Provide actionable IOCs for detection and MITRE ATT&CK technique mapping for threat modeling.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">File Hashes (MD5/SHA1/SHA256)</label>
+          <div class="tags-container" id="hashesContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type hash and press Enter" onkeydown="addTag(event, 'hashesContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">File Names/Paths</label>
+          <div class="tags-container" id="filesContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type filename and press Enter" onkeydown="addTag(event, 'filesContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Registry Keys</label>
+          <div class="tags-container" id="registryContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type registry key and press Enter" onkeydown="addTag(event, 'registryContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mutex Names</label>
+          <div class="tags-container" id="mutexContainer" onclick="focusTagInput(this)">
+            <input type="text" class="tag-input" placeholder="Type mutex name and press Enter" onkeydown="addTag(event, 'mutexContainer')">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Network Signatures</label>
+          <textarea class="form-textarea" placeholder="User agents, HTTP headers, beaconing patterns, port usage"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">MITRE ATT&CK Techniques</label>
+          <div id="attackList">
+            <div class="data-entry">
+              <div class="data-header">
+                <span class="data-number">Technique #1</span>
+                <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Technique ID</label>
+                <input type="text" class="form-input" placeholder="e.g., T1566.001">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Technique Name</label>
+                <input type="text" class="form-input" placeholder="e.g., Spearphishing Attachment">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Tactic</label>
+                <select class="form-select">
+                  <option value="">Select tactic...</option>
+                  <option value="reconnaissance">Reconnaissance</option>
+                  <option value="resource-development">Resource Development</option>
+                  <option value="initial-access">Initial Access</option>
+                  <option value="execution">Execution</option>
+                  <option value="persistence">Persistence</option>
+                  <option value="privilege-escalation">Privilege Escalation</option>
+                  <option value="defense-evasion">Defense Evasion</option>
+                  <option value="credential-access">Credential Access</option>
+                  <option value="discovery">Discovery</option>
+                  <option value="lateral-movement">Lateral Movement</option>
+                  <option value="collection">Collection</option>
+                  <option value="c2">Command and Control</option>
+                  <option value="exfiltration">Exfiltration</option>
+                  <option value="impact">Impact</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-textarea" placeholder="How is this technique used in the campaign?"></textarea>
+              </div>
+            </div>
+          </div>
+          <button class="add-data-btn" onclick="addAttack()">+ Add MITRE Technique</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Detection Opportunities</label>
+          <textarea class="form-textarea" placeholder="How can defenders detect this activity? Log sources, SIEM rules, behavioral indicators"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Yara Rules <span class="form-label-optional">(if available)</span></label>
+          <textarea class="form-textarea" placeholder="Paste Yara rule or reference"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <button class="nav-btn next-btn" onclick="nextSection()">Next Section →</button>
+        </div>
+      </section>
+
+      <!-- Section 6: Recommendations -->
+      <section class="form-section" id="recommendations">
+        <div class="section-header">
+          <h2 class="section-title">💡 Defensive Recommendations</h2>
+          <p class="section-subtitle">Actionable steps to detect, prevent, and respond</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Immediate Actions (0-24 hours)</label>
+          <textarea class="form-textarea" placeholder="Critical steps to take immediately: IOC deployment, user notifications, system isolation"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Short-Term Actions (1-7 days)</label>
+          <textarea class="form-textarea" placeholder="Threat hunting, log analysis, security control tuning, vulnerability patching"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Long-Term Strategic Actions (1-3 months)</label>
+          <textarea class="form-textarea" placeholder="Architecture changes, security program improvements, training initiatives"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Detection Recommendations</label>
+          <textarea class="form-textarea" placeholder="SIEM rules, EDR configurations, network monitoring, specific log sources to enable"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Prevention Recommendations</label>
+          <textarea class="form-textarea" placeholder="Security controls to implement: EDR, email filtering, network segmentation, MFA, application whitelisting"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Incident Response Guidance</label>
+          <textarea class="form-textarea" placeholder="Steps to take if compromise is detected: containment, eradication, recovery procedures"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Threat Hunting Queries</label>
+          <textarea class="form-textarea" placeholder="Specific queries for threat hunting (KQL, SPL, SQL) to find indicators of this threat"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">User Awareness Training</label>
+          <textarea class="form-textarea" placeholder="Phishing awareness, social engineering defense, secure practices relevant to this threat"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Additional Resources</label>
+          <textarea class="form-textarea" placeholder="Links to vendor advisories, CISA alerts, industry reports, technical deep-dives"></textarea>
+        </div>
+
+        <div class="form-navigation">
+          <button class="nav-btn prev-btn" onclick="prevSection()">← Previous</button>
+          <div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const sections = ['overview', 'actor', 'campaign', 'infrastructure', 'iocs', 'recommendations'];
+    let currentSectionIndex = 0;
+    let malwareCounter = 1;
+    let c2Counter = 1;
+    let attackCounter = 1;
+
+    function navigateToSection(sectionId) {
+      document.querySelectorAll('.form-section').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      document.getElementById(sectionId).classList.add('active');
+      
+      const navItem = document.querySelector(`[data-section="${sectionId}"]`);
+      if (navItem) {
+        navItem.classList.add('active');
+      }
+
+      currentSectionIndex = sections.indexOf(sectionId);
+      updateProgress();
+    }
+
+    function nextSection() {
+      if (currentSectionIndex < sections.length - 1) {
+        const currentNavItem = document.querySelector(`[data-section="${sections[currentSectionIndex]}"]`);
+        if (currentNavItem && !currentNavItem.classList.contains('completed')) {
+          currentNavItem.classList.add('completed');
+        }
+        
+        currentSectionIndex++;
+        navigateToSection(sections[currentSectionIndex]);
+      }
+    }
+
+    function prevSection() {
+      if (currentSectionIndex > 0) {
+        const currentNavItem = document.querySelector(`[data-section="${sections[currentSectionIndex]}"]`);
+        if (currentNavItem && currentNavItem.classList.contains('completed')) {
+          currentNavItem.classList.remove('completed');
+          currentNavItem.classList.remove('active');
+        }
+        
+        currentSectionIndex--;
+        navigateToSection(sections[currentSectionIndex]);
+      }
+    }
+
+    function updateProgress() {
+      const completedCount = document.querySelectorAll('.nav-item.completed').length;
+      const totalSections = sections.length;
+      const percentage = (completedCount / totalSections) * 100;
+      
+      document.getElementById('progressBar').style.width = percentage + '%';
+      document.getElementById('progressText').textContent = completedCount + '/' + totalSections;
+    }
+
+    function addTag(event, containerId) {
+      if (event.key === 'Enter' && event.target.value.trim() !== '') {
+        event.preventDefault();
+        const container = document.getElementById(containerId);
+        const input = event.target;
+        const value = input.value.trim();
+        
+        const tag = document.createElement('div');
+        tag.className = 'tag-item';
+        tag.innerHTML = `
+          ${value}
+          <span class="tag-remove" onclick="removeTag(this)">×</span>
+        `;
+        
+        container.insertBefore(tag, input);
+        input.value = '';
+      }
+    }
+
+    function removeTag(element) {
+      element.parentElement.remove();
+    }
+
+    function focusTagInput(container) {
+      const input = container.querySelector('.tag-input');
+      if (input) input.focus();
+    }
+
+    function addMalware() {
+      malwareCounter++;
+      const list = document.getElementById('malwareList');
+      
+      const html = `
+        <div class="data-entry">
+          <div class="data-header">
+            <span class="data-number">Malware #${malwareCounter}</span>
+            <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" placeholder="e.g., Cobalt Strike, SolarWinds.Orion.Core.BusinessLayer">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select class="form-select">
+              <option value="">Select type...</option>
+              <option value="backdoor">Backdoor</option>
+              <option value="ransomware">Ransomware</option>
+              <option value="trojan">Trojan</option>
+              <option value="loader">Loader/Dropper</option>
+              <option value="rat">RAT (Remote Access Tool)</option>
+              <option value="infostealer">Information Stealer</option>
+              <option value="wiper">Wiper</option>
+              <option value="rootkit">Rootkit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Purpose/Functionality</label>
+            <textarea class="form-textarea" placeholder="What does this tool do in the attack chain?"></textarea>
+          </div>
+        </div>
+      `;
+      
+      list.insertAdjacentHTML('beforeend', html);
+    }
+
+    function addC2() {
+      c2Counter++;
+      const list = document.getElementById('c2List');
+      
+      const html = `
+        <div class="data-entry">
+          <div class="data-header">
+            <span class="data-number">C2 Server #${c2Counter}</span>
+            <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+          </div>
+          <div class="form-group">
+            <label class="form-label">IP Address/Domain</label>
+            <input type="text" class="form-input" placeholder="e.g., 192.0.2.1 or malicious-domain.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">First Seen</label>
+            <input type="date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-select">
+              <option value="">Select status...</option>
+              <option value="active">Active</option>
+              <option value="sinkholed">Sinkholed</option>
+              <option value="taken-down">Taken Down</option>
+              <option value="dormant">Dormant</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hosting Details</label>
+            <textarea class="form-textarea" placeholder="ASN, hosting provider, geolocation"></textarea>
+          </div>
+        </div>
+      `;
+      
+      list.insertAdjacentHTML('beforeend', html);
+    }
+
+    function addAttack() {
+      attackCounter++;
+      const list = document.getElementById('attackList');
+      
+      const html = `
+        <div class="data-entry">
+          <div class="data-header">
+            <span class="data-number">Technique #${attackCounter}</span>
+            <button class="remove-data-btn" onclick="removeData(this)">Remove</button>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Technique ID</label>
+            <input type="text" class="form-input" placeholder="e.g., T1566.001">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Technique Name</label>
+            <input type="text" class="form-input" placeholder="e.g., Spearphishing Attachment">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tactic</label>
+            <select class="form-select">
+              <option value="">Select tactic...</option>
+              <option value="reconnaissance">Reconnaissance</option>
+              <option value="resource-development">Resource Development</option>
+              <option value="initial-access">Initial Access</option>
+              <option value="execution">Execution</option>
+              <option value="persistence">Persistence</option>
+              <option value="privilege-escalation">Privilege Escalation</option>
+              <option value="defense-evasion">Defense Evasion</option>
+              <option value="credential-access">Credential Access</option>
+              <option value="discovery">Discovery</option>
+              <option value="lateral-movement">Lateral Movement</option>
+              <option value="collection">Collection</option>
+              <option value="c2">Command and Control</option>
+              <option value="exfiltration">Exfiltration</option>
+              <option value="impact">Impact</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-textarea" placeholder="How is this technique used in the campaign?"></textarea>
+          </div>
+        </div>
+      `;
+      
+      list.insertAdjacentHTML('beforeend', html);
+    }
+
+    function removeData(btn) {
+      const entry = btn.closest('.data-entry');
+      const list = entry.parentElement;
+      entry.remove();
+      
+      const entries = list.querySelectorAll('.data-entry');
+      entries.forEach((e, index) => {
+        e.querySelector('.data-number').textContent = e.querySelector('.data-number').textContent.replace(/\d+/, index + 1);
+      });
+      
+      if (list.id === 'malwareList') malwareCounter = entries.length;
+      if (list.id === 'c2List') c2Counter = entries.length;
+      if (list.id === 'attackList') attackCounter = entries.length;
+    }
+
+    function goBack() {
+      const url = '/reports-generator';
+      if (window.parent) {
+        const iframe = window.parent.document.getElementById('iframe-reports-generator');
+        if (iframe) {
+          iframe.src = url;
+        }
+      } else {
+        window.location.href = url;
+      }
+    }
+
+    function previewReport() {
+      alert('Preview functionality coming soon...');
+    }
+
+    function generateReport() {
+      if (confirm('Generate the final PDF report?\n\nMake sure all required information is filled in.')) {
+        alert('Sending data to backend for PDF generation...');
+      }
+    }
+
+    let autoSaveTimer;
+    document.querySelectorAll('.form-input, .form-textarea, .form-select').forEach(element => {
+      element.addEventListener('input', () => {
+        clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(() => {
+          console.log('Auto-saving draft...');
+        }, 2000);
+      });
+    });
+
+    updateProgress();
+    alert('This page is always in development');
+  </script>
+</body>
+</html>

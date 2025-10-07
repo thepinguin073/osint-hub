@@ -1,0 +1,220 @@
+📐 1. WIREFRAME & ARBORESCENCE
+Structure globale (3 écrans principaux)
+┌─────────────────────────────────────────────────────────┐
+│ [Navbar]  │  IFRAME - Report Generator                  │
+│           │                                              │
+│  OSINT    │  ┌────────────────────────────────────┐    │
+│  Offsec   │  │                                     │    │
+│  Reports◄─┼──┤    ÉCRAN 1: Template Selection     │    │
+│  OMF      │  │    ÉCRAN 2: Form Editor            │    │
+│  Analytics│  │    ÉCRAN 3: Generation Success     │    │
+│           │  └────────────────────────────────────┘    │
+└─────────────────────────────────────────────────────────┘
+     20%                      80%
+
+🔀 2. USER FLOW
+┌──────────────┐
+│  Template    │──┐
+│  Selection   │  │
+└──────────────┘  │
+                  ▼
+         ┌────────────────┐
+         │  Form Editor   │──────► Preview (nouvelle fenêtre)
+         │  (multi-step)  │             │
+         └────────────────┘             │
+                  │                     │
+                  ▼                     │
+         ┌────────────────┐             │
+         │   Generate     │◄────────────┘
+         │   (backend)    │
+         └────────────────┘
+                  │
+                  ▼
+         ┌────────────────┐
+         │   Success +    │
+         │  Download PDF  │
+         └────────────────┘
+
+🖼️ 3. ÉCRANS DÉTAILLÉS
+ÉCRAN 1 : Template Selection
+Objectif : Choisir rapidement le bon template avec un système de tags visuel
+Layout :
+
+┌─────────────────────────────────────────────────────────┐
+│                    REPORT GENERATOR                      │
+│            Generate professional security reports         │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  [Filters: All] [OSINT] [OffSec] [Profiling]           │
+│                                                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │   🔍 OSINT   │  │  🛡️ OffSec   │  │  👤 Profil   │  │
+│  │              │  │              │  │              │  │
+│  │ Digital      │  │ Pentest      │  │ OSINT        │  │
+│  │ Footprint    │  │ Report       │  │ Classic      │  │
+│  │              │  │              │  │              │  │
+│  │ [OSINT]      │  │ [OffSec]     │  │ [OSINT]      │  │
+│  │              │  │ [⚠️ Red]     │  │ [Profiling]  │  │
+│  │   Select →   │  │   Select →   │  │   Select →   │  │
+│  └──────────────┘  └──────────────┘  └──────────────┘  │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+
+
+Composants UI :
+
+Cards templates : Hover effect avec glow cyan (#4FFBDF)
+Tags : Pills colorés selon catégorie
+
+OSINT : #4FFBDF (cyan)
+OffSec : #FF6B35 (red-orange) + ⚠️
+Profiling : #FFD700 (gold)
+
+
+Filter bar : Toggle buttons horizontaux
+
+
+ÉCRAN 2 : Form Editor (Multi-step)
+Objectif : Remplir le formulaire de manière progressive et claire
+Layout :
+
+
+┌─────────────────────────────────────────────────────────┐
+│  ← Back to Templates    Digital Footprint Report        │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  Progress: ●●●○○  (3/5 sections completed)             │
+│                                                          │
+│  ┌─ SIDEBAR ─────┐  ┌─ FORM AREA ─────────────────┐   │
+│  │               │  │                              │   │
+│  │ ✓ Context     │  │  📋 Section 2: Mapping      │   │
+│  │ ● Mapping     │  │                              │   │
+│  │ ○ Risks       │  │  Social Networks Found      │   │
+│  │ ○ Recomm.     │  │  ┌─────────────────────┐   │   │
+│  │ ○ Summary     │  │  │ Facebook, LinkedIn  │   │   │
+│  │               │  │  └─────────────────────┘   │   │
+│  │               │  │                              │   │
+│  │               │  │  Data Leaks                 │   │
+│  │               │  │  ┌─────────────────────┐   │   │
+│  │               │  │  │ (textarea)          │   │   │
+│  │               │  │  └─────────────────────┘   │   │
+│  │               │  │                              │   │
+│  │               │  │  [Previous]    [Next] →     │   │
+│  └───────────────┘  └──────────────────────────────┘   │
+│                                                          │
+│  [Preview Draft]              [Generate Report] →       │
+└─────────────────────────────────────────────────────────┘
+
+
+Composants UI :
+
+Sidebar de navigation : Sections cliquables avec état (✓ complété, ● actif, ○ à faire)
+Progress bar : Indicateur visuel de complétion
+Form fields :
+
+Input text (single-line)
+Textarea (multi-line avec auto-resize)
+Tags input (pour listes)
+Dropdowns pour choix multiples
+
+
+Boutons d'action :
+
+Preview Draft : Ghost button (border only)
+Generate Report : Primary CTA (gradient cyan)
+
+
+
+
+ÉCRAN 3 : Generation Success
+Objectif : Confirmation + téléchargement immédiat
+Layout :
+
+┌─────────────────────────────────────────────────────────┐
+│                                                          │
+│                     ✅ SUCCESS                           │
+│                                                          │
+│              Your report has been generated!             │
+│                                                          │
+│  ┌────────────────────────────────────────────────┐    │
+│  │  📄 digital_footprint_2025-10-05.pdf           │    │
+│  │                                                 │    │
+│  │  Generated: 05/10/2025 14:32                   │    │
+│  │  Size: 2.4 MB                                  │    │
+│  │                                                 │    │
+│  │  [⬇ Download PDF]                              │    │
+│  └────────────────────────────────────────────────┘    │
+│                                                          │
+│  [Generate Another Report]    [Back to Home]            │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+
+🧩 4. COMPOSANTS UI DÉTAILLÉS
+Template Card
+
+
+- Dimensions: 300×400px
+- Background: rgba(26, 26, 26, 0.95) + backdrop-blur
+- Border: 2px gradient animé au hover
+- Icon: 48px, centré en haut
+- Titre: 1.2rem, bold
+- Description: 0.9rem, color #aaa
+- Tags: Pills en bas (8px padding, border-radius 12px)
+- Hover: translateY(-8px) + glow shadow
+
+Form Input
+
+- Height: 48px (input), auto (textarea)
+- Background: rgba(255, 255, 255, 0.05)
+- Border: 1px solid rgba(79, 251, 223, 0.2)
+- Focus: border-color #4FFBDF + glow
+- Placeholder: color #666
+- Font: 'Fira Code', 0.9rem
+
+Primary Button (Generate)
+
+- Background: linear-gradient(135deg, #4FFBDF, #00cc99)
+- Color: #0A1628
+- Padding: 1rem 2.5rem
+- Border-radius: 12px
+- Font-weight: 600
+- Hover: scale(1.05) + shadow augmentée
+- Active: scale(0.98)
+
+Progress Stepper
+
+- Circles: 24px diameter
+- Active: background #4FFBDF
+- Completed: background #4FFBDF + checkmark
+- Pending: background rgba(255,255,255,0.1)
+- Line: 2px solid, opacity 0.3
+
+Micro-interactions
+
+Checkmark animé quand section complétée
+Progress bar avec transition fluide
+Toast notification au succès de génération
+Loader avec animation cyberpunk pendant génération backend
+
+🎨 6. PALETTE COULEURS SPÉCIFIQUE
+
+/* Hérité de la navbar */
+--primary: #4FFBDF;      /* Cyan - actions principales */
+--accent: #FFD700;       /* Gold - highlights */
+--danger: #FF6B35;       /* Red - OffSec/warnings */
+--background: #0D0C73;   /* Dark blue */
+--surface: rgba(26, 26, 26, 0.95);
+
+/* Spécifique au Report Generator */
+--form-bg: rgba(255, 255, 255, 0.05);
+--border-subtle: rgba(79, 251, 223, 0.2);
+--text-primary: #ffffff;
+--text-secondary: #aaa;
+--success: #00cc99;
+
+📱 7. RESPONSIVE (bonus)
+Bien que tu ne l'aies pas demandé :
+
+Desktop (>1024px) : Layout décrit ci-dessus
+Tablet (768-1024px) : Sidebar passe en horizontal tabs
+Mobile (<768px) : Full-width, stepper vertical
