@@ -685,27 +685,27 @@
 
         <div class="form-group">
           <label class="form-label">Primary Identity</label>
-          <textarea data-section="mapping" data-field="primary-identity" class="form-textarea" placeholder="Full legal name, known aliases, birth date, locations associated"></textarea>
+          <textarea data-section="identity" data-field="primary-identity" class="form-textarea" placeholder="Full legal name, known aliases, birth date, locations associated"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Usernames & Aliases</label>
           <div class="tags-container" id="usernamesContainer" onclick="focusTagInput(this)">
-            <input data-section="mapping" data-field="username-aliases" type="text" class="tag-input" placeholder="Type username and press Enter" onkeydown="addTag(event, 'usernamesContainer')">
+            <input data-section="identity" data-field="username-aliases" type="text" class="tag-input" placeholder="Type username and press Enter" onkeydown="addTag(event, 'usernamesContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Email Addresses Discovered</label>
           <div class="tags-container" id="emailsContainer" onclick="focusTagInput(this)">
-            <input data-section="mapping" data-field="email-addresses-discovered" type="text" class="tag-input" placeholder="Type email and press Enter" onkeydown="addTag(event, 'emailsContainer')">
+            <input data-section="identity" data-field="email-addresses-discovered" type="text" class="tag-input" placeholder="Type email and press Enter" onkeydown="addTag(event, 'emailsContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Phone Numbers</label>
           <div class="tags-container" id="phonesContainer" onclick="focusTagInput(this)">
-            <input data-section="mapping" data-field="phone-number" type="text" class="tag-input" placeholder="Type phone and press Enter" onkeydown="addTag(event, 'phonesContainer')">
+            <input data-section="identity" data-field="phone-number" type="text" class="tag-input" placeholder="Type phone and press Enter" onkeydown="addTag(event, 'phonesContainer')">
           </div>
         </div>
 
@@ -719,15 +719,15 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Platform</label>
-                <input data-section="mapping" data-field="platform" type="text" class="form-input" placeholder="e.g., LinkedIn, Twitter, Facebook">
+                <input data-section="identity" data-field="platform" type="text" class="form-input" placeholder="e.g., LinkedIn, Twitter, Facebook">
               </div>
               <div class="form-group">
                 <label class="form-label">Profile URL</label>
-                <input data-section="mapping" data-field="profile-url" type="text" class="form-input" placeholder="https://">
+                <input data-section="identity" data-field="profile-url" type="text" class="form-input" placeholder="https://">
               </div>
               <div class="form-group">
                 <label class="form-label">Notable Information</label>
-                <textarea data-section="mapping" data-field="notable-infos" class="form-textarea" placeholder="Key findings from this profile"></textarea>
+                <textarea data-section="identity" data-field="notable-infos" class="form-textarea" placeholder="Key findings from this profile"></textarea>
               </div>
             </div>
           </div>
@@ -736,12 +736,12 @@
 
         <div class="form-group">
           <label class="form-label">Professional Background</label>
-          <textarea data-section="mapping" data-field="professional-background" class="form-textarea" placeholder="Employment history, companies, positions, professional associations"></textarea>
+          <textarea data-section="identity" data-field="professional-background" class="form-textarea" placeholder="Employment history, companies, positions, professional associations"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Education & Certifications</label>
-          <textarea data-section="mapping" data-field="education-certifications" class="form-textarea" placeholder="Schools, degrees, certifications, academic achievements"></textarea>
+          <textarea data-section="identity" data-field="education-certifications" class="form-textarea" placeholder="Schools, degrees, certifications, academic achievements"></textarea>
         </div>
 
         <div class="form-navigation">
@@ -760,14 +760,14 @@
         <div class="form-group">
           <label class="form-label">Domains Owned/Registered</label>
           <div class="tags-container" id="domainsContainer" onclick="focusTagInput(this)">
-            <input data-section="digital-infras" data-field="domain-owned" type="text" class="tag-input" placeholder="Type domain and press Enter" onkeydown="addTag(event, 'domainsContainer')">
+            <input data-section="infrastructure" data-field="domain-owned" type="text" class="tag-input" placeholder="Type domain and press Enter" onkeydown="addTag(event, 'domainsContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">IP Addresses Associated</label>
           <div class="tags-container" id="ipsContainer" onclick="focusTagInput(this)">
-            <input data-section="digital-infras" data-field="ip-addresses" type="text" class="tag-input" placeholder="Type IP and press Enter" onkeydown="addTag(event, 'ipsContainer')">
+            <input data-section="infrastructure" data-field="ip-addresses" type="text" class="tag-input" placeholder="Type IP and press Enter" onkeydown="addTag(event, 'ipsContainer')">
           </div>
         </div>
 
@@ -781,19 +781,19 @@
               </div>
               <div class="form-group">
                 <label class="form-label">URL</label>
-                <input data-section="digital-infras" data-field="url" type="text" class="form-input" placeholder="https://">
+                <input data-section="infrastructure" data-field="url" type="text" class="form-input" placeholder="https://">
               </div>
               <div class="form-group">
                 <label class="form-label">Purpose/Type</label>
-                <input data-section="digital-infras" data-field="purpose-type" type="text" class="form-input" placeholder="e.g., personal blog, portfolio, business site">
+                <input data-section="infrastructure" data-field="purpose-type" type="text" class="form-input" placeholder="e.g., personal blog, portfolio, business site">
               </div>
               <div class="form-group">
                 <label class="form-label">Technology Stack</label>
-                <input data-section="digital-infras" data-field="tech-stack" type="text" class="form-input" placeholder="CMS, frameworks, hosting provider">
+                <input data-section="infrastructure" data-field="tech-stack" type="text" class="form-input" placeholder="CMS, frameworks, hosting provider">
               </div>
               <div class="form-group">
                 <label class="form-label">Security Findings</label>
-                <textarea data-section="digital-infras" data-field="security-findings" class="form-textarea" placeholder="Exposed information, misconfigurations, vulnerabilities"></textarea>
+                <textarea data-section="infrastructure" data-field="security-findings" class="form-textarea" placeholder="Exposed information, misconfigurations, vulnerabilities"></textarea>
               </div>
             </div>
           </div>
@@ -802,17 +802,17 @@
 
         <div class="form-group">
           <label class="form-label">Server & Hosting Information</label>
-          <textarea data-section="digital-infras" data-field="server-hosting-infos" class="form-textarea" placeholder="Hosting providers, server locations, CDN usage, SSL certificates"></textarea>
+          <textarea data-section="infrastructure" data-field="server-hosting-infos" class="form-textarea" placeholder="Hosting providers, server locations, CDN usage, SSL certificates"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Dark Web Presence <span class="form-label-optional">(if applicable)</span></label>
-          <textarea data-section="digital-infras" data-field="dark-web-presence" class="form-textarea" placeholder="Onion addresses, forums, marketplaces, cryptocurrency addresses"></textarea>
+          <textarea data-section="infrastructure" data-field="dark-web-presence" class="form-textarea" placeholder="Onion addresses, forums, marketplaces, cryptocurrency addresses"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Data Leaks & Breaches</label>
-          <textarea data-section="digital-infras" data-field="data-leaks" class="form-textarea" placeholder="Credentials found in breaches, leaked databases, compromised accounts"></textarea>
+          <textarea data-section="infrastructure" data-field="data-leaks" class="form-textarea" placeholder="Credentials found in breaches, leaked databases, compromised accounts"></textarea>
         </div>
 
         <div class="form-navigation">
@@ -842,11 +842,11 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Name/Identifier</label>
-                <input data-section="correlations-patterns" data-field="name-identifier" type="text" class="form-input" placeholder="Name, username, or identifier">
+                <input data-section="" data-field="name-identifier" type="text" class="form-input" placeholder="Name, username, or identifier">
               </div>
               <div class="form-group">
                 <label class="form-label">Relationship Type</label>
-                <select data-section="correlations-patterns" data-field="relationship-type" class="form-select">
+                <select data-section="correlations" data-field="relationship-type" class="form-select">
                   <option value="">Select type...</option>
                   <option value="family">Family Member</option>
                   <option value="colleague">Colleague/Business</option>
@@ -857,7 +857,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Evidence of Connection</label>
-                <textarea data-section="correlations-patterns" data-field="evidence-connection" class="form-textarea" placeholder="How was this connection identified? (social media, public records, photos, etc.)"></textarea>
+                <textarea data-section="correlations" data-field="evidence-connection" class="form-textarea" placeholder="How was this connection identified? (social media, public records, photos, etc.)"></textarea>
               </div>
             </div>
           </div>
@@ -866,27 +866,27 @@
 
         <div class="form-group">
           <label class="form-label">Organizations & Affiliations</label>
-          <textarea data-section="correlations-patterns" data-field="organizations-affiliations" class="form-textarea" placeholder="Companies, clubs, groups, communities, professional organizations"></textarea>
+          <textarea data-section="correlations" data-field="organizations-affiliations" class="form-textarea" placeholder="Companies, clubs, groups, communities, professional organizations"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Geographic Patterns</label>
-          <textarea data-section="correlations-patterns" data-field="geographic-pattern" class="form-textarea" placeholder="Locations frequented, check-ins, travel patterns, current/previous residences"></textarea>
+          <textarea data-section="correlations" data-field="geographic-pattern" class="form-textarea" placeholder="Locations frequented, check-ins, travel patterns, current/previous residences"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Temporal Patterns</label>
-          <textarea data-section="correlations-patterns" data-field="temporal-pattern" class="form-textarea" placeholder="Activity patterns, posting times, work hours, habitual behaviors"></textarea>
+          <textarea data-section="correlations" data-field="temporal-pattern" class="form-textarea" placeholder="Activity patterns, posting times, work hours, habitual behaviors"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Behavioral Analysis</label>
-          <textarea data-section="correlations-patterns" data-field="behavioral-analysis" class="form-textarea" placeholder="Communication style, interests, hobbies, political views, ideological tendencies"></textarea>
+          <textarea data-section="correlations" data-field="behavioral-analysis" class="form-textarea" placeholder="Communication style, interests, hobbies, political views, ideological tendencies"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Cross-Platform Correlations</label>
-          <textarea data-section="correlations-patterns" data-field="cross-platform correlations" class="form-textarea" placeholder="How different accounts/platforms connect to confirm same identity (writing style, photos, metadata, timing)"></textarea>
+          <textarea data-section="correlations" data-field="cross-platform correlations" class="form-textarea" placeholder="How different accounts/platforms connect to confirm same identity (writing style, photos, metadata, timing)"></textarea>
         </div>
 
         <div class="form-navigation">
@@ -916,7 +916,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Attack Type</label>
-                <select data-section="exploit-paths" data-field="attack-type" class="form-select">
+                <select data-section="exploitation" data-field="attack-type" class="form-select">
                   <option value="">Select type...</option>
                   <option value="phishing">Phishing/Spear Phishing</option>
                   <option value="pretexting">Pretexting</option>
@@ -927,15 +927,15 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Exploitable Information</label>
-                <textarea data-section="exploit-paths" data-field="exploitable-infos" class="form-textarea" placeholder="What specific information enables this attack?"></textarea>
+                <textarea data-section="exploitation" data-field="exploitable-infos" class="form-textarea" placeholder="What specific information enables this attack?"></textarea>
               </div>
               <div class="form-group">
                 <label class="form-label">Attack Scenario</label>
-                <textarea data-section="exploit-paths" data-field="attack-scenario" class="form-textarea" placeholder="Describe how this attack could be executed"></textarea>
+                <textarea data-section="exploitation" data-field="attack-scenario" class="form-textarea" placeholder="Describe how this attack could be executed"></textarea>
               </div>
               <div class="form-group">
                 <label class="form-label">Likelihood</label>
-                <select data-section="exploit-paths" data-field="likelihood" class="form-select">
+                <select data-section="exploitation" data-field="likelihood" class="form-select">
                   <option value="">Select likelihood...</option>
                   <option value="high">High - Easy to execute</option>
                   <option value="medium">Medium - Requires preparation</option>
@@ -949,22 +949,22 @@
 
         <div class="form-group">
           <label class="form-label">Credential Compromise Risk</label>
-          <textarea data-section="exploit-paths" data-field="credential-compromise-risk" class="form-textarea" placeholder="Weak/reused passwords, password patterns, security questions answers found publicly"></textarea>
+          <textarea data-section="exploitation" data-field="credential-compromise-risk" class="form-textarea" placeholder="Weak/reused passwords, password patterns, security questions answers found publicly"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Physical Security Risks</label>
-          <textarea data-section="exploit-paths" data-field="physical-security-risk" class="form-textarea" placeholder="Home address exposure, routine patterns, security system information, family member details"></textarea>
+          <textarea data-section="exploitation" data-field="physical-security-risk" class="form-textarea" placeholder="Home address exposure, routine patterns, security system information, family member details"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Reputation & Influence Risks</label>
-          <textarea data-section="exploit-paths" data-field="reputation-influence-risks" class="form-textarea" placeholder="Compromising information, controversial statements, potential blackmail material"></textarea>
+          <textarea data-section="exploitation" data-field="reputation-influence-risks" class="form-textarea" placeholder="Compromising information, controversial statements, potential blackmail material"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Supply Chain & Third-Party Risks</label>
-          <textarea data-section="exploit-paths" data-field="supply-chain-third-part-risks" class="form-textarea" placeholder="Vulnerable contacts, weak links in professional network, compromised associates"></textarea>
+          <textarea data-section="exploitation" data-field="supply-chain-third-part-risks" class="form-textarea" placeholder="Vulnerable contacts, weak links in professional network, compromised associates"></textarea>
         </div>
 
         <div class="form-navigation">
@@ -982,7 +982,7 @@
 
         <div class="form-group">
           <label class="form-label">Overall Exposure Level</label>
-          <select data-section="risk-assessment" data-field="overall-exposure-level" class="form-select">
+          <select data-section="risks" data-field="overall-exposure-level" class="form-select">
             <option value="">Select level...</option>
             <option value="critical">Critical - Severe exposure with immediate exploitation risk</option>
             <option value="high">High - Significant exposure requiring urgent attention</option>
@@ -994,32 +994,32 @@
 
         <div class="form-group">
           <label class="form-label">OPSEC Score <span class="form-label-optional">(0-10)</span></label>
-          <input data-section="risk-assessment" data-field="opsec-score" type="number" class="form-input" placeholder="e.g., 7/10" min="0" max="10" step="0.1">
+          <input data-section="risks" data-field="opsec-score" type="number" class="form-input" placeholder="e.g., 7/10" min="0" max="10" step="0.1">
         </div>
 
         <div class="form-group">
           <label class="form-label">Key Vulnerabilities Summary</label>
-          <textarea data-section="risk-assessment" data-field="key-vulnerabilities-summary" class="form-textarea" placeholder="Top 3-5 most critical vulnerabilities discovered"></textarea>
+          <textarea data-section="risks" data-field="key-vulnerabilities-summary" class="form-textarea" placeholder="Top 3-5 most critical vulnerabilities discovered"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Privacy Posture Analysis</label>
-          <textarea data-section="risk-assessment" data-field="privacy-posture-analysis" class="form-textarea" placeholder="How well does the target protect their privacy? Privacy settings usage, data minimization practices"></textarea>
+          <textarea data-section="risks" data-field="privacy-posture-analysis" class="form-textarea" placeholder="How well does the target protect their privacy? Privacy settings usage, data minimization practices"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Threat Actor Relevance</label>
-          <textarea data-section="risk-assessment" data-field="threat-actor-relevance" class="form-textarea" placeholder="What types of threat actors would find this information valuable? (nation-states, criminals, competitors, activists)"></textarea>
+          <textarea data-section="risks" data-field="threat-actor-relevance" class="form-textarea" placeholder="What types of threat actors would find this information valuable? (nation-states, criminals, competitors, activists)"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Business/Personal Impact Assessment</label>
-          <textarea data-section="risk-assessment" data-field="impact-assessment" class="form-textarea" placeholder="Potential damage to business operations, personal safety, reputation, or financial standing"></textarea>
+          <textarea data-section="risks" data-field="impact-assessment" class="form-textarea" placeholder="Potential damage to business operations, personal safety, reputation, or financial standing"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Compliance & Legal Considerations</label>
-          <textarea data-section="risk-assessment" data-field="compliance-legal-consideration" class="form-textarea" placeholder="GDPR, data protection laws, industry regulations, legal exposure"></textarea>
+          <textarea data-section="risks" data-field="compliance-legal-consideration" class="form-textarea" placeholder="GDPR, data protection laws, industry regulations, legal exposure"></textarea>
         </div>
 
         <div class="form-navigation">
@@ -1184,15 +1184,15 @@
           </div>
           <div class="form-group">
             <label class="form-label">Platform</label>
-            <input data-section="mapping" data-field="platform" type="text" class="form-input" placeholder="e.g., LinkedIn, Twitter, Facebook">
+            <input data-section="identity" data-field="platform" type="text" class="form-input" placeholder="e.g., LinkedIn, Twitter, Facebook">
           </div>
           <div class="form-group">
             <label class="form-label">Profile URL</label>
-            <input data-section="mapping" data-field="url" type="text" class="form-input" placeholder="https://">
+            <input data-section="identity" data-field="url" type="text" class="form-input" placeholder="https://">
           </div>
           <div class="form-group">
             <label class="form-label">Notable Information</label>
-            <textarea data-section="mapping" data-field="notable-infos" class="form-textarea" placeholder="Key findings from this profile"></textarea>
+            <textarea data-section="identity" data-field="notable-infos" class="form-textarea" placeholder="Key findings from this profile"></textarea>
           </div>
         </div>
       `;
@@ -1213,19 +1213,19 @@
           </div>
           <div class="form-group">
             <label class="form-label">URL</label>
-            <input data-section="digital-infras" data-field="url" type="text" class="form-input" placeholder="https://">
+            <input data-section="infrastructure" data-field="url" type="text" class="form-input" placeholder="https://">
           </div>
           <div class="form-group">
             <label class="form-label">Purpose/Type</label>
-            <input data-section="digital-infras"" data-field="purpose-type" type="text" class="form-input" placeholder="e.g., personal blog, portfolio, business site">
+            <input data-section="infrastructure" data-field="purpose-type" type="text" class="form-input" placeholder="e.g., personal blog, portfolio, business site">
           </div>
           <div class="form-group">
             <label class="form-label">Technology Stack</label>
-            <input data-section="digital-infras"" data-field="tech-stack" type="text" class="form-input" placeholder="CMS, frameworks, hosting provider">
+            <input data-section="infrastructure" data-field="tech-stack" type="text" class="form-input" placeholder="CMS, frameworks, hosting provider">
           </div>
           <div class="form-group">
             <label class="form-label">Security Findings</label>
-            <textarea data-section="digital-infras"" data-field="security-findings" class="form-textarea" placeholder="Exposed information, misconfigurations, vulnerabilities"></textarea>
+            <textarea data-section="infrastructure" data-field="security-findings" class="form-textarea" placeholder="Exposed information, misconfigurations, vulnerabilities"></textarea>
           </div>
         </div>
       `;
@@ -1246,11 +1246,11 @@
           </div>
           <div class="form-group">
             <label class="form-label">Name/Identifier</label>
-            <input data-section="correlations-patterns" data-field="name-identifier" type="text" class="form-input" placeholder="Name, username, or identifier">
+            <input data-section="correlations" data-field="name-identifier" type="text" class="form-input" placeholder="Name, username, or identifier">
           </div>
           <div class="form-group">
             <label class="form-label">Relationship Type</label>
-            <select data-section="correlations-patterns" data-field="relationship-type" class="form-select">
+            <select data-section="correlations" data-field="relationship-type" class="form-select">
               <option value="">Select type...</option>
               <option value="family">Family Member</option>
               <option value="colleague">Colleague/Business</option>
@@ -1261,7 +1261,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Evidence of Connection</label>
-            <textarea data-section="correlations-patterns" data-field="evidence-connections" class="form-textarea" placeholder="How was this connection identified?"></textarea>
+            <textarea data-section="correlations" data-field="evidence-connections" class="form-textarea" placeholder="How was this connection identified?"></textarea>
           </div>
         </div>
       `;
@@ -1282,7 +1282,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Attack Type</label>
-            <select data-section="exploit-paths" data-field="attack-type" class="form-select">
+            <select data-section="exploitation" data-field="attack-type" class="form-select">
               <option value="">Select type...</option>
               <option value="phishing">Phishing/Spear Phishing</option>
               <option value="pretexting">Pretexting</option>
@@ -1293,15 +1293,15 @@
           </div>
           <div class="form-group">
             <label class="form-label">Exploitable Information</label>
-            <textarea data-section="exploit-paths" data-field="exploitation-infos" class="form-textarea" placeholder="What specific information enables this attack?"></textarea>
+            <textarea data-section="exploitation" data-field="exploitation-infos" class="form-textarea" placeholder="What specific information enables this attack?"></textarea>
           </div>
           <div class="form-group">
             <label class="form-label">Attack Scenario</label>
-            <textarea data-section="exploit-paths" data-field="attack-scenario" class="form-textarea" placeholder="Describe how this attack could be executed"></textarea>
+            <textarea data-section="exploitation" data-field="attack-scenario" class="form-textarea" placeholder="Describe how this attack could be executed"></textarea>
           </div>
           <div class="form-group">
             <label class="form-label">Likelihood</label>
-            <select data-section="exploit-paths" data-field="likelihood" class="form-select">
+            <select data-section="exploitation" data-field="likelihood" class="form-select">
               <option value="">Select likelihood...</option>
               <option value="high">High - Easy to execute</option>
               <option value="medium">Medium - Requires preparation</option>
@@ -1367,14 +1367,19 @@
       });
     });
 
+
+//===========================================================+
+//      Collect Data & Send to backend
+//===========================================================+
+
     function collectFormData() {
       const formData = {
         context: {},
-        mapping: {},
-        'digital-infras': {},
-        'correlations-patterns': {},
-        'exploit-paths': {},
-        'risk-assessment': {},
+        identity: {},
+        infrastructure: {},
+        correlations: {},
+        exploitation: {},
+        risks: {},
         recommendations: {}
       };
 
@@ -1391,11 +1396,11 @@
 
       // 2. Collecter les tags
       const tagContainers = [
-        { id: 'usernamesContainer', section: 'mapping', field: 'usernames' },
-        { id: 'emailsContainer', section: 'mapping', field: 'emails' },
-        { id: 'phonesContainer', section: 'mapping', field: 'phones' },
-        { id: 'domainsContainer', section: 'digital-infras', field: 'domains' },
-        { id: 'ipsContainer', section: 'digital-infras', field: 'ip_addresses' }
+        { id: 'usernamesContainer', section: 'identity', field: 'usernames' },
+        { id: 'emailsContainer', section: 'identity', field: 'emails' },
+        { id: 'phonesContainer', section: 'identity', field: 'phones' },
+        { id: 'domainsContainer', section: 'infrastructure', field: 'domains' },
+        { id: 'ipsContainer', section: 'infrastructure', field: 'ip_addresses' }
       ];
 
       tagContainers.forEach(({ id, section, field }) => {
@@ -1427,7 +1432,7 @@
         .filter(p => p.platform || p.url);
       
       if (socialProfiles.length > 0) {
-        formData.mapping.social_profiles = socialProfiles;
+        formData.identity.social_profiles = socialProfiles;
       }
 
       // Websites
@@ -1445,7 +1450,7 @@
         .filter(w => w.url);
       
       if (websites.length > 0) {
-        formData['digital-infras'].websites = websites;
+        formData.infrastructure.websites = websites;
       }
 
       // Associates
@@ -1463,7 +1468,7 @@
         .filter(a => a.name);
       
       if (associates.length > 0) {
-        formData['correlations-patterns'].associates = associates;
+        formData.correlations.associates = associates;
       }
 
       // Social Engineering Vectors
@@ -1481,7 +1486,7 @@
         .filter(v => v.attack_type);
       
       if (vectors.length > 0) {
-        formData['exploit-paths'].social_engineering_vectors = vectors;
+        formData.exploitation.social_engineering_vectors = vectors;
       }
 
       return formData;
@@ -1506,9 +1511,12 @@
       }
     }
 
-    // Initialize
+
+//===========================================================+
+//      INIT
+//===========================================================+
+    
     updateProgress();
-    alert('This page is always in development');
   </script>
 </body>
 </html>

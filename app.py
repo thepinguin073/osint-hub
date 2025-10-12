@@ -146,6 +146,24 @@ def generate_osint_classic():
         data = request.get_json(silent=True)
         return data
 
+@app.route('/api/report/pentest', methods=['POST'])
+def generate_pentest():
+    content_type = request.headers.get('Content-Type')
+    if content_type and content_type != 'application/json':
+        abort(400, "Error: Bad MIME Type")
+    else:
+        data = request.get_json(silent=True)
+        return data
+
+@app.route('/api/report/threat-intelligence', methods=['POST'])
+def generate_threat_int():
+    content_type = request.headers.get('Content-Type')
+    if content_type and content_type != 'application/json':
+        abort(400, "Error: Bad MIME Type")
+    else:
+        data = request.get_json(silent=True)
+        return data
+
 
 #===========================================================+
 #      RUN APP

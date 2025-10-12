@@ -608,6 +608,7 @@
     </aside>
 
     <main class="main-content">
+
       <!-- Section 1: Executive Overview -->
       <section class="form-section active" id="overview">
         <div class="section-header">
@@ -617,23 +618,23 @@
 
         <div class="form-group">
           <label class="form-label">Report Title</label>
-          <input type="text" class="form-input" placeholder="e.g., APT29 Campaign Analysis - Q4 2024">
+          <input data-section="overview" data-field="title" type="text" class="form-input" placeholder="e.g., APT29 Campaign Analysis - Q4 2024">
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Analysis Period Start</label>
-            <input type="date" class="form-input">
+            <input data-section="overview" data-field="start-analysis" type="date" class="form-input">
           </div>
           <div class="form-group">
             <label class="form-label">Analysis Period End</label>
-            <input type="date" class="form-input">
+            <input data-section="overview" data-field="end-analysis" type="date" class="form-input">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Threat Level</label>
-          <select class="form-select">
+          <select data-section="overview" data-field="threat-level" class="form-select">
             <option value="">Select threat level...</option>
             <option value="critical">Critical - Imminent threat requiring immediate action</option>
             <option value="high">High - Active threat with significant risk</option>
@@ -645,7 +646,7 @@
 
         <div class="form-group">
           <label class="form-label">Confidence Assessment</label>
-          <select class="form-select">
+          <select data-section="overview" data-field="confidence-level" class="form-select">
             <option value="">Select confidence level...</option>
             <option value="high">High - Confirmed through multiple reliable sources</option>
             <option value="medium">Medium - Likely based on available evidence</option>
@@ -655,25 +656,25 @@
 
         <div class="form-group">
           <label class="form-label">Executive Summary</label>
-          <textarea class="form-textarea" placeholder="2-3 paragraph high-level summary: Who is the threat actor? What are they doing? Why does it matter? What are the key recommendations?"></textarea>
+          <textarea data-section="overview" data-field="summary" class="form-textarea" placeholder="2-3 paragraph high-level summary: Who is the threat actor? What are they doing? Why does it matter? What are the key recommendations?"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Key Findings (3-5 points)</label>
-          <textarea class="form-textarea" placeholder="Bullet-point format:&#10;• Finding 1&#10;• Finding 2&#10;• Finding 3"></textarea>
+          <textarea data-section="overview" data-field="key-findings" class="form-textarea" placeholder="Bullet-point format:&#10;• Finding 1&#10;• Finding 2&#10;• Finding 3"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Affected Industries/Sectors</label>
           <div class="tags-container" id="sectorsContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type sector and press Enter" onkeydown="addTag(event, 'sectorsContainer')">
+            <input data-section="overview" data-field="industries-sectors" type="text" class="tag-input" placeholder="Type sector and press Enter" onkeydown="addTag(event, 'sectorsContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Target Geographies</label>
           <div class="tags-container" id="geoContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type country/region and press Enter" onkeydown="addTag(event, 'geoContainer')">
+            <input data-section="overview" data-field="geo-target" type="text" class="tag-input" placeholder="Type country/region and press Enter" onkeydown="addTag(event, 'geoContainer')">
           </div>
         </div>
 
@@ -696,29 +697,29 @@
 
         <div class="form-group">
           <label class="form-label">Actor Name/Identifier</label>
-          <input type="text" class="form-input" placeholder="e.g., APT29, Lazarus Group, FIN7">
+          <input data-section="actor" data-field="actor-name" type="text" class="form-input" placeholder="e.g., APT29, Lazarus Group, FIN7">
         </div>
 
         <div class="form-group">
           <label class="form-label">Also Known As (Aliases)</label>
           <div class="tags-container" id="aliasesContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type alias and press Enter" onkeydown="addTag(event, 'aliasesContainer')">
+            <input data-section="actor" data-field="aliases" type="text" class="tag-input" placeholder="Type alias and press Enter" onkeydown="addTag(event, 'aliasesContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Attribution <span class="form-label-optional">(if known)</span></label>
-          <textarea class="form-textarea" placeholder="State-sponsored? Criminal organization? Nation-state affiliation? Evidence for attribution?"></textarea>
+          <textarea data-section="actor" data-field="attribution" class="form-textarea" placeholder="State-sponsored? Criminal organization? Nation-state affiliation? Evidence for attribution?"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">First Observed</label>
-          <input type="text" class="form-input" placeholder="e.g., 2018, Q2 2020">
+          <input data-section="actor" data-field="first-observed" type="text" class="form-input" placeholder="e.g., 2018, Q2 2020">
         </div>
 
         <div class="form-group">
           <label class="form-label">Motivation</label>
-          <select class="form-select">
+          <select data-section="actor" data-field="motivation" class="form-select">
             <option value="">Select primary motivation...</option>
             <option value="espionage">Espionage - Intelligence gathering</option>
             <option value="financial">Financial - Monetary gain</option>
@@ -731,7 +732,7 @@
 
         <div class="form-group">
           <label class="form-label">Sophistication Level</label>
-          <select class="form-select">
+          <select data-section="actor" data-field="sophistication-level" class="form-select">
             <option value="">Select sophistication...</option>
             <option value="advanced">Advanced - APT-level capabilities, custom tools</option>
             <option value="intermediate">Intermediate - Mix of custom and commodity tools</option>
@@ -741,7 +742,7 @@
 
         <div class="form-group">
           <label class="form-label">Resource Level</label>
-          <select class="form-select">
+          <select data-section="actor" data-field="resource-level" class="form-select">
             <option value="">Select resource level...</option>
             <option value="well-funded">Well-Funded - State-level or major criminal org</option>
             <option value="moderate">Moderate - Organized crime or well-established group</option>
@@ -751,12 +752,12 @@
 
         <div class="form-group">
           <label class="form-label">Operational Tempo</label>
-          <textarea class="form-textarea" placeholder="How frequently does this actor conduct operations? Patterns in activity levels?"></textarea>
+          <textarea data-section="actor" data-field="operational-tempo" class="form-textarea" placeholder="How frequently does this actor conduct operations? Patterns in activity levels?"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Historical Campaigns</label>
-          <textarea class="form-textarea" placeholder="Notable previous operations, targets, and outcomes"></textarea>
+          <textarea data-section="actor" data-field="historical-campaign" class="form-textarea" placeholder="Notable previous operations, targets, and outcomes"></textarea>
         </div>
 
         <div class="form-navigation">
@@ -774,17 +775,17 @@
 
         <div class="form-group">
           <label class="form-label">Campaign Name</label>
-          <input type="text" class="form-input" placeholder="e.g., Operation Ghost, SolarStorm Campaign">
+          <input data-section="campaign" data-field="campaign-name" type="text" class="form-input" placeholder="e.g., Operation Ghost, SolarStorm Campaign">
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Campaign Start Date</label>
-            <input type="date" class="form-input">
+            <input data-section="campaign" data-field="start-date" type="date" class="form-input">
           </div>
           <div class="form-group">
             <label class="form-label">Current Status</label>
-            <select class="form-select">
+            <select data-section="campaign" data-field="end-date" class="form-select">
               <option value="">Select status...</option>
               <option value="active">Active - Ongoing operations</option>
               <option value="dormant">Dormant - No recent activity</option>
@@ -795,17 +796,17 @@
 
         <div class="form-group">
           <label class="form-label">Campaign Objectives</label>
-          <textarea class="form-textarea" placeholder="What is the threat actor trying to achieve with this specific campaign?"></textarea>
+          <textarea data-section="campaign" data-field="campaign-objectives" class="form-textarea" placeholder="What is the threat actor trying to achieve with this specific campaign?"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Target Profile</label>
-          <textarea class="form-textarea" placeholder="Who is being targeted? Organizations, sectors, individuals, specific companies?"></textarea>
+          <textarea data-section="campaign" data-field="target-profile" class="form-textarea" placeholder="Who is being targeted? Organizations, sectors, individuals, specific companies?"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Initial Access Vector</label>
-          <select class="form-select">
+          <select data-section="campaign" data-field="access-vector" class="form-select">
             <option value="">Select primary access method...</option>
             <option value="phishing">Spear Phishing</option>
             <option value="exploit">Vulnerability Exploitation</option>
@@ -820,7 +821,7 @@
 
         <div class="form-group">
           <label class="form-label">Attack Narrative</label>
-          <textarea class="form-textarea" placeholder="Chronological description of the attack lifecycle: initial access, lateral movement, data exfiltration, persistence mechanisms"></textarea>
+          <textarea data-section="campaign" data-field="narrative" class="form-textarea" placeholder="Chronological description of the attack lifecycle: initial access, lateral movement, data exfiltration, persistence mechanisms"></textarea>
         </div>
 
         <div class="form-group">
@@ -833,11 +834,11 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-input" placeholder="e.g., Cobalt Strike, SolarWinds.Orion.Core.BusinessLayer">
+                <input data-section="campaign" data-field="malware-name" type="text" class="form-input" placeholder="e.g., Cobalt Strike, SolarWinds.Orion.Core.BusinessLayer">
               </div>
               <div class="form-group">
                 <label class="form-label">Type</label>
-                <select class="form-select">
+                <select data-section="campaign" data-field="malware-type" class="form-select">
                   <option value="">Select type...</option>
                   <option value="backdoor">Backdoor</option>
                   <option value="ransomware">Ransomware</option>
@@ -851,7 +852,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Purpose/Functionality</label>
-                <textarea class="form-textarea" placeholder="What does this tool do in the attack chain?"></textarea>
+                <textarea data-section="campaign" data-field="malware-purpose" class="form-textarea" placeholder="What does this tool do in the attack chain?"></textarea>
               </div>
             </div>
           </div>
@@ -860,17 +861,17 @@
 
         <div class="form-group">
           <label class="form-label">Exploitation Methods</label>
-          <textarea class="form-textarea" placeholder="CVEs exploited, zero-days used, social engineering techniques"></textarea>
+          <textarea data-section="campaign" data-field="exploit-methods" class="form-textarea" placeholder="CVEs exploited, zero-days used, social engineering techniques"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Data Targeted</label>
-          <textarea class="form-textarea" placeholder="What types of data or systems are being targeted? (credentials, IP, financial data, PII)"></textarea>
+          <textarea data-section="campaign" data-field="data-target" class="form-textarea" placeholder="What types of data or systems are being targeted? (credentials, IP, financial data, PII)"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Known Victims <span class="form-label-optional">(if publicly disclosed)</span></label>
-          <textarea class="form-textarea" placeholder="Organizations confirmed to be compromised (only if public information)"></textarea>
+          <textarea data-section="campaign" data-field="known-victim" class="form-textarea" placeholder="Organizations confirmed to be compromised (only if public information)"></textarea>
         </div>
 
         <div class="form-navigation">
@@ -888,7 +889,7 @@
 
         <div class="form-group">
           <label class="form-label">Infrastructure Overview</label>
-          <textarea class="form-textarea" placeholder="High-level description of the actor's infrastructure setup, hosting patterns, operational security"></textarea>
+          <textarea data-section="infrastructure" data-field="overview" class="form-textarea" placeholder="High-level description of the actor's infrastructure setup, hosting patterns, operational security"></textarea>
         </div>
 
         <div class="form-group">
@@ -901,15 +902,15 @@
               </div>
               <div class="form-group">
                 <label class="form-label">IP Address/Domain</label>
-                <input type="text" class="form-input" placeholder="e.g., 192.0.2.1 or malicious-domain.com">
+                <input data-section="infrastructure" data-field="c2-ip" type="text" class="form-input" placeholder="e.g., 192.0.2.1 or malicious-domain.com">
               </div>
               <div class="form-group">
                 <label class="form-label">First Seen</label>
-                <input type="date" class="form-input">
+                <input data-section="infrastructure" data-field="first-seen" type="date" class="form-input">
               </div>
               <div class="form-group">
                 <label class="form-label">Status</label>
-                <select class="form-select">
+                <select data-section="infrastructure" data-field="status" class="form-select">
                   <option value="">Select status...</option>
                   <option value="active">Active</option>
                   <option value="sinkholed">Sinkholed</option>
@@ -919,7 +920,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Hosting Details</label>
-                <textarea class="form-textarea" placeholder="ASN, hosting provider, geolocation"></textarea>
+                <textarea data-section="infrastructure" data-field="hosting" class="form-textarea" placeholder="ASN, hosting provider, geolocation"></textarea>
               </div>
             </div>
           </div>
@@ -929,31 +930,31 @@
         <div class="form-group">
           <label class="form-label">Domains Used</label>
           <div class="tags-container" id="domainsContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type domain and press Enter" onkeydown="addTag(event, 'domainsContainer')">
+            <input data-section="infrastructure" data-field="domains" type="text" class="tag-input" placeholder="Type domain and press Enter" onkeydown="addTag(event, 'domainsContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">IP Addresses Used</label>
           <div class="tags-container" id="ipsContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type IP and press Enter" onkeydown="addTag(event, 'ipsContainer')">
+            <input data-section="infrastructure" data-field="ip-used" type="text" class="tag-input" placeholder="Type IP and press Enter" onkeydown="addTag(event, 'ipsContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Infrastructure Patterns</label>
-          <textarea class="form-textarea" placeholder="Typosquatting, domain generation algorithms, bulletproof hosting, VPN usage, TOR, compromised infrastructure"></textarea>
+          <textarea data-section="infrastructure" data-field="patterns" class="form-textarea" placeholder="Typosquatting, domain generation algorithms, bulletproof hosting, VPN usage, TOR, compromised infrastructure"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">SSL/TLS Certificates</label>
-          <textarea class="form-textarea" placeholder="Certificate fingerprints, issuers, or patterns used by the actor"></textarea>
+          <textarea data-section="infrastructure" data-field="ssl-tls" class="form-textarea" placeholder="Certificate fingerprints, issuers, or patterns used by the actor"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Cryptocurrency Addresses <span class="form-label-optional">(if applicable)</span></label>
           <div class="tags-container" id="cryptoContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type wallet address and press Enter" onkeydown="addTag(event, 'cryptoContainer')">
+            <input data-section="infrastructure" data-field="cryptocurrency-addresses" type="text" class="tag-input" placeholder="Type wallet address and press Enter" onkeydown="addTag(event, 'cryptoContainer')">
           </div>
         </div>
 
@@ -977,34 +978,34 @@
         <div class="form-group">
           <label class="form-label">File Hashes (MD5/SHA1/SHA256)</label>
           <div class="tags-container" id="hashesContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type hash and press Enter" onkeydown="addTag(event, 'hashesContainer')">
+            <input data-section="iocs" data-field="file-hash" type="text" class="tag-input" placeholder="Type hash and press Enter" onkeydown="addTag(event, 'hashesContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">File Names/Paths</label>
           <div class="tags-container" id="filesContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type filename and press Enter" onkeydown="addTag(event, 'filesContainer')">
+            <input data-section="iocs" data-field="file-name" type="text" class="tag-input" placeholder="Type filename and press Enter" onkeydown="addTag(event, 'filesContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Registry Keys</label>
           <div class="tags-container" id="registryContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type registry key and press Enter" onkeydown="addTag(event, 'registryContainer')">
+            <input data-section="iocs" data-field="registry-keys" type="text" class="tag-input" placeholder="Type registry key and press Enter" onkeydown="addTag(event, 'registryContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Mutex Names</label>
           <div class="tags-container" id="mutexContainer" onclick="focusTagInput(this)">
-            <input type="text" class="tag-input" placeholder="Type mutex name and press Enter" onkeydown="addTag(event, 'mutexContainer')">
+            <input data-section="iocs" data-field="mutex-names" type="text" class="tag-input" placeholder="Type mutex name and press Enter" onkeydown="addTag(event, 'mutexContainer')">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Network Signatures</label>
-          <textarea class="form-textarea" placeholder="User agents, HTTP headers, beaconing patterns, port usage"></textarea>
+          <textarea data-section="iocs" data-field="network-signature" class="form-textarea" placeholder="User agents, HTTP headers, beaconing patterns, port usage"></textarea>
         </div>
 
         <div class="form-group">
@@ -1017,15 +1018,15 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Technique ID</label>
-                <input type="text" class="form-input" placeholder="e.g., T1566.001">
+                <input data-section="iocs" data-field="technic-id" type="text" class="form-input" placeholder="e.g., T1566.001">
               </div>
               <div class="form-group">
                 <label class="form-label">Technique Name</label>
-                <input type="text" class="form-input" placeholder="e.g., Spearphishing Attachment">
+                <input data-section="iocs" data-field="technic-name" type="text" class="form-input" placeholder="e.g., Spearphishing Attachment">
               </div>
               <div class="form-group">
                 <label class="form-label">Tactic</label>
-                <select class="form-select">
+                <select data-section="iocs" data-field="tactic" class="form-select">
                   <option value="">Select tactic...</option>
                   <option value="reconnaissance">Reconnaissance</option>
                   <option value="resource-development">Resource Development</option>
@@ -1045,7 +1046,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label">Description</label>
-                <textarea class="form-textarea" placeholder="How is this technique used in the campaign?"></textarea>
+                <textarea data-section="iocs" data-field="description" class="form-textarea" placeholder="How is this technique used in the campaign?"></textarea>
               </div>
             </div>
           </div>
@@ -1054,12 +1055,12 @@
 
         <div class="form-group">
           <label class="form-label">Detection Opportunities</label>
-          <textarea class="form-textarea" placeholder="How can defenders detect this activity? Log sources, SIEM rules, behavioral indicators"></textarea>
+          <textarea data-section="iocs" data-field="detection-opportunities" class="form-textarea" placeholder="How can defenders detect this activity? Log sources, SIEM rules, behavioral indicators"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Yara Rules <span class="form-label-optional">(if available)</span></label>
-          <textarea class="form-textarea" placeholder="Paste Yara rule or reference"></textarea>
+          <textarea data-section="iocs" data-field="yara-rules" class="form-textarea" placeholder="Paste Yara rule or reference"></textarea>
         </div>
 
         <div class="form-navigation">
@@ -1077,47 +1078,47 @@
 
         <div class="form-group">
           <label class="form-label">Immediate Actions (0-24 hours)</label>
-          <textarea class="form-textarea" placeholder="Critical steps to take immediately: IOC deployment, user notifications, system isolation"></textarea>
+          <textarea data-section="recommendations" data-field="immediate-actions" class="form-textarea" placeholder="Critical steps to take immediately: IOC deployment, user notifications, system isolation"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Short-Term Actions (1-7 days)</label>
-          <textarea class="form-textarea" placeholder="Threat hunting, log analysis, security control tuning, vulnerability patching"></textarea>
+          <textarea data-section="recommendations" data-field="short-term-actions" class="form-textarea" placeholder="Threat hunting, log analysis, security control tuning, vulnerability patching"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Long-Term Strategic Actions (1-3 months)</label>
-          <textarea class="form-textarea" placeholder="Architecture changes, security program improvements, training initiatives"></textarea>
+          <textarea data-section="recommendations" data-field="long-term-actions" class="form-textarea" placeholder="Architecture changes, security program improvements, training initiatives"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Detection Recommendations</label>
-          <textarea class="form-textarea" placeholder="SIEM rules, EDR configurations, network monitoring, specific log sources to enable"></textarea>
+          <textarea data-section="recommendations" data-field="detection-recommendation" class="form-textarea" placeholder="SIEM rules, EDR configurations, network monitoring, specific log sources to enable"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Prevention Recommendations</label>
-          <textarea class="form-textarea" placeholder="Security controls to implement: EDR, email filtering, network segmentation, MFA, application whitelisting"></textarea>
+          <textarea data-section="recommendations" data-field="prevention-recommendation" class="form-textarea" placeholder="Security controls to implement: EDR, email filtering, network segmentation, MFA, application whitelisting"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Incident Response Guidance</label>
-          <textarea class="form-textarea" placeholder="Steps to take if compromise is detected: containment, eradication, recovery procedures"></textarea>
+          <textarea data-section="recommendations" data-field="incident-guidance" class="form-textarea" placeholder="Steps to take if compromise is detected: containment, eradication, recovery procedures"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Threat Hunting Queries</label>
-          <textarea class="form-textarea" placeholder="Specific queries for threat hunting (KQL, SPL, SQL) to find indicators of this threat"></textarea>
+          <textarea data-section="recommendations" data-field="threat-hunting-queries" class="form-textarea" placeholder="Specific queries for threat hunting (KQL, SPL, SQL) to find indicators of this threat"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">User Awareness Training</label>
-          <textarea class="form-textarea" placeholder="Phishing awareness, social engineering defense, secure practices relevant to this threat"></textarea>
+          <textarea data-section="recommendations" data-field="user-awareness-training" class="form-textarea" placeholder="Phishing awareness, social engineering defense, secure practices relevant to this threat"></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">Additional Resources</label>
-          <textarea class="form-textarea" placeholder="Links to vendor advisories, CISA alerts, industry reports, technical deep-dives"></textarea>
+          <textarea data-section="recommendations" data-field="additionnal-resources" class="form-textarea" placeholder="Links to vendor advisories, CISA alerts, industry reports, technical deep-dives"></textarea>
         </div>
 
         <div class="form-navigation">
@@ -1229,11 +1230,11 @@
           </div>
           <div class="form-group">
             <label class="form-label">Name</label>
-            <input type="text" class="form-input" placeholder="e.g., Cobalt Strike, SolarWinds.Orion.Core.BusinessLayer">
+            <input data-section="campaign" data-field="malware-name" type="text" class="form-input" placeholder="e.g., Cobalt Strike, SolarWinds.Orion.Core.BusinessLayer">
           </div>
           <div class="form-group">
             <label class="form-label">Type</label>
-            <select class="form-select">
+            <select data-section="campaign" data-field="malware-type" class="form-select">
               <option value="">Select type...</option>
               <option value="backdoor">Backdoor</option>
               <option value="ransomware">Ransomware</option>
@@ -1247,7 +1248,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Purpose/Functionality</label>
-            <textarea class="form-textarea" placeholder="What does this tool do in the attack chain?"></textarea>
+            <textarea data-section="campaign" data-field="malware-purpose" class="form-textarea" placeholder="What does this tool do in the attack chain?"></textarea>
           </div>
         </div>
       `;
@@ -1267,15 +1268,15 @@
           </div>
           <div class="form-group">
             <label class="form-label">IP Address/Domain</label>
-            <input type="text" class="form-input" placeholder="e.g., 192.0.2.1 or malicious-domain.com">
+            <input data-section="infrastructure" data-field="ip-addresses" type="text" class="form-input" placeholder="e.g., 192.0.2.1 or malicious-domain.com">
           </div>
           <div class="form-group">
             <label class="form-label">First Seen</label>
-            <input type="date" class="form-input">
+            <input data-section="infrastructure" data-field="first-seen" type="date" class="form-input">
           </div>
           <div class="form-group">
             <label class="form-label">Status</label>
-            <select class="form-select">
+            <select data-section="infrastructure" data-field="status" class="form-select">
               <option value="">Select status...</option>
               <option value="active">Active</option>
               <option value="sinkholed">Sinkholed</option>
@@ -1285,7 +1286,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Hosting Details</label>
-            <textarea class="form-textarea" placeholder="ASN, hosting provider, geolocation"></textarea>
+            <textarea data-section="infrastructure" data-field="hosting-details" class="form-textarea" placeholder="ASN, hosting provider, geolocation"></textarea>
           </div>
         </div>
       `;
@@ -1305,15 +1306,15 @@
           </div>
           <div class="form-group">
             <label class="form-label">Technique ID</label>
-            <input type="text" class="form-input" placeholder="e.g., T1566.001">
+            <input data-section="iocs" data-field="technic-id" type="text" class="form-input" placeholder="e.g., T1566.001">
           </div>
           <div class="form-group">
             <label class="form-label">Technique Name</label>
-            <input type="text" class="form-input" placeholder="e.g., Spearphishing Attachment">
+            <input data-section="iocs" data-field="technic-name" type="text" class="form-input" placeholder="e.g., Spearphishing Attachment">
           </div>
           <div class="form-group">
             <label class="form-label">Tactic</label>
-            <select class="form-select">
+            <select data-section="iocs" data-field="tactic" class="form-select">
               <option value="">Select tactic...</option>
               <option value="reconnaissance">Reconnaissance</option>
               <option value="resource-development">Resource Development</option>
@@ -1333,7 +1334,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Description</label>
-            <textarea class="form-textarea" placeholder="How is this technique used in the campaign?"></textarea>
+            <textarea data-section="iocs" data-field="description" class="form-textarea" placeholder="How is this technique used in the campaign?"></textarea>
           </div>
         </div>
       `;
@@ -1388,8 +1389,152 @@
       });
     });
 
+
+//===========================================================+
+//      Collect Data & Send to backend
+//===========================================================+
+
+    function collectFormData() {
+      const formData = {
+        overview: {},
+        actor: {},
+        campaign: {},
+        infrastructure: {},
+        iocs: {},
+        recommendations: {}
+      };
+
+      // 1. Collecter les champs simples (input, textarea, select)
+      document.querySelectorAll('[data-field]').forEach(element => {
+        const section = element.getAttribute('data-section');
+        const field = element.getAttribute('data-field');
+        let value = element.value.trim();
+        
+        if (section && field && value !== '') {
+          // Éviter de collecter les champs des listes dynamiques ici
+          const parentDataEntry = element.closest('.data-entry');
+          if (!parentDataEntry) {
+            formData[section][field] = value;
+          }
+        }
+      });
+
+      // 2. Collecter les tags
+      const tagContainers = [
+        { id: 'sectorsContainer', section: 'overview', field: 'affected_sectors' },
+        { id: 'geoContainer', section: 'overview', field: 'target_geographies' },
+        { id: 'aliasesContainer', section: 'actor', field: 'aliases' },
+        { id: 'domainsContainer', section: 'infrastructure', field: 'domains' },
+        { id: 'ipsContainer', section: 'infrastructure', field: 'ip_addresses' },
+        { id: 'cryptoContainer', section: 'infrastructure', field: 'crypto_addresses' },
+        { id: 'hashesContainer', section: 'iocs', field: 'file_hashes' },
+        { id: 'filesContainer', section: 'iocs', field: 'file_names' },
+        { id: 'registryContainer', section: 'iocs', field: 'registry_keys' },
+        { id: 'mutexContainer', section: 'iocs', field: 'mutex_names' }
+      ];
+
+      tagContainers.forEach(({ id, section, field }) => {
+        const container = document.getElementById(id);
+        if (container) {
+          const tags = Array.from(container.querySelectorAll('.tag-item'))
+            .map(tag => tag.textContent.replace('×', '').trim())
+            .filter(tag => tag !== '');
+          
+          if (tags.length > 0) {
+            formData[section][field] = tags;
+          }
+        }
+      });
+
+      // 3. Collecter les data-entry blocks
+
+      // Malware/Tools
+      const malwareList = Array.from(document.querySelectorAll('#malwareList .data-entry'))
+        .map(entry => {
+          const inputs = entry.querySelectorAll('.form-input');
+          const select = entry.querySelector('.form-select');
+          const textarea = entry.querySelector('.form-textarea');
+          return {
+            name: inputs[0]?.value.trim() || '',
+            type: select?.value || '',
+            purpose: textarea?.value.trim() || ''
+          };
+        })
+        .filter(m => m.name || m.type);
+      
+      if (malwareList.length > 0) {
+        formData.campaign.malware_tools = malwareList;
+      }
+
+      // C2 Servers
+      const c2List = Array.from(document.querySelectorAll('#c2List .data-entry'))
+        .map(entry => {
+          const inputs = entry.querySelectorAll('.form-input');
+          const select = entry.querySelector('.form-select');
+          const textarea = entry.querySelector('.form-textarea');
+          return {
+            ip_domain: inputs[0]?.value.trim() || '',
+            first_seen: inputs[1]?.value.trim() || '',
+            status: select?.value || '',
+            hosting_details: textarea?.value.trim() || ''
+          };
+        })
+        .filter(c => c.ip_domain);
+      
+      if (c2List.length > 0) {
+        formData.infrastructure.c2_servers = c2List;
+      }
+
+      // MITRE ATT&CK Techniques
+      const attackList = Array.from(document.querySelectorAll('#attackList .data-entry'))
+        .map(entry => {
+          const inputs = entry.querySelectorAll('.form-input');
+          const select = entry.querySelector('.form-select');
+          const textarea = entry.querySelector('.form-textarea');
+          return {
+            technique_id: inputs[0]?.value.trim() || '',
+            technique_name: inputs[1]?.value.trim() || '',
+            tactic: select?.value || '',
+            description: textarea?.value.trim() || ''
+          };
+        })
+        .filter(t => t.technique_id || t.technique_name);
+      
+      if (attackList.length > 0) {
+        formData.iocs.mitre_attack_techniques = attackList;
+      }
+
+      return formData;
+    }
+
+    async function generateReport() {
+      const formData = collectFormData();
+      console.log(formData);
+
+      if (confirm('Generate the final PDF report?\n\nMake sure all required information is filled in.')) {
+        try {
+          const response = await fetch('/api/report/threat-intelligence', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
+
+          if (response.ok) {
+            alert('Report data sent to backend successfully!');
+          } else {
+            alert('Error sending report data. Please try again.');
+            console.error('Server error:', response.status);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Network error. Please check your connection and try again.');
+        }
+      }
+    }
+
     updateProgress();
-    alert('This page is always in development');
   </script>
 </body>
 </html>
