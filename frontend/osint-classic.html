@@ -592,7 +592,7 @@
     </div>
     <div class="header-actions">
       <button class="preview-btn" onclick="previewReport()">Preview Draft</button>
-      <button class="generate-btn" onclick="generateReport()">Generate Report →</button>
+      <button class="generate-btn">Generate Report →</button>
     </div>
   </div>
 
@@ -1350,11 +1350,47 @@
       alert('Preview functionality coming soon...');
     }
 
-    function generateReport() {
-      if (confirm('Generate the final PDF report?\n\nMake sure all required information is filled in.')) {
-        alert('Sending data to backend for PDF generation...');
+    async function generateReport() {
+      const formData = collectFormData();
+      console.log(formData);
+      try {
+        const response = await fetch('/api/generate_report', {
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            "X-Report-Type": "threat-int",
+          },
+          body: JSON.stringify(formData)
+        });
+        if (response.ok) {
+          const markdown = await response.text();
+          const blob = new Blob([markdown], { type: 'text/markdown' });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'report.md';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+          alert('Report generated and downloaded successfully!');
+        } else {
+          alert('Error sending report data. Please try again.');
+          console.error('Server error:', response.status);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Network error. Please check your connection and try again.');
       }
     }
+
+    const generateBtn = Array.from(document.getElementsByClassName("generate-btn"))[0];
+    generateBtn.addEventListener('click', async (event) => {
+      event.preventDefault();
+      await generateReport();
+    });
 
     // Auto-save (placeholder)
     let autoSaveTimer;
@@ -1490,26 +1526,6 @@
       }
 
       return formData;
-    }
-
-    async function generateReport() {
-      const formData = collectFormData();
-      console.log(formData);
-
-      if (confirm('Generate the final PDF report?\n\nMake sure all required information is filled in.')) {
-        fetch('/api/generate_report', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            "X-Report-Type": "osint",
-          },
-          body: JSON.stringify(formData)
-        }).catch(error => {
-          console.error('Error:', error);
-        });
-        
-        alert('Report data sent to backend!');
-      }
     }
 
 

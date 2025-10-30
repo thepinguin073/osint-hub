@@ -1,0 +1,188 @@
+/* OSINT Report - Cyan/Turquoise Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
+
+@page {
+  size: A4;
+  margin: 2cm;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Fira Code', monospace;
+  font-size: 10pt;
+  line-height: 1.6;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+/* Headers */
+h1 {
+  color: #4FFBDF;
+  font-size: 24pt;
+  font-weight: 700;
+  margin: 1.5em 0 0.5em 0;
+  padding-bottom: 0.3em;
+  border-bottom: 3px solid #4FFBDF;
+  page-break-after: avoid;
+}
+
+h2 {
+  color: #4FFBDF;
+  font-size: 18pt;
+  font-weight: 700;
+  margin: 1.2em 0 0.5em 0;
+  padding-bottom: 0.2em;
+  border-bottom: 2px solid rgba(79, 251, 223, 0.5);
+  page-break-after: avoid;
+}
+
+h3 {
+  color: #4FFBDF;
+  font-size: 14pt;
+  font-weight: 600;
+  margin: 1em 0 0.4em 0;
+  page-break-after: avoid;
+}
+
+/* Paragraphs */
+p {
+  margin: 0.5em 0;
+  text-align: justify;
+}
+
+/* Horizontal rules */
+hr {
+  border: none;
+  border-top: 2px solid rgba(79, 251, 223, 0.3);
+  margin: 1.5em 0;
+}
+
+/* Strong text */
+strong {
+  color: #4FFBDF;
+  font-weight: 600;
+}
+
+/* Lists */
+ul, ol {
+  margin: 0.5em 0 0.5em 1.5em;
+}
+
+li {
+  margin: 0.3em 0;
+}
+
+/* Code blocks */
+code {
+  background: rgba(79, 251, 223, 0.1);
+  border: 1px solid rgba(79, 251, 223, 0.3);
+  border-radius: 4px;
+  padding: 0.1em 0.3em;
+  font-family: 'Fira Code', monospace;
+  font-size: 9pt;
+  color: #4FFBDF;
+}
+
+pre {
+  background: rgba(26, 26, 26, 0.8);
+  border: 2px solid rgba(79, 251, 223, 0.3);
+  border-radius: 8px;
+  padding: 1em;
+  margin: 1em 0;
+  overflow-x: auto;
+  page-break-inside: avoid;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #4FFBDF;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  page-break-inside: avoid;
+  background: rgba(26, 26, 26, 0.6);
+  border: 2px solid rgba(79, 251, 223, 0.3);
+}
+
+th {
+  background: rgba(79, 251, 223, 0.2);
+  color: #4FFBDF;
+  font-weight: 600;
+  padding: 0.5em;
+  text-align: left;
+  border: 1px solid rgba(79, 251, 223, 0.3);
+}
+
+td {
+  padding: 0.5em;
+  border: 1px solid rgba(79, 251, 223, 0.2);
+  color: #ffffff;
+}
+
+tr:nth-child(even) {
+  background: rgba(79, 251, 223, 0.05);
+}
+
+/* Blockquotes */
+blockquote {
+  background: rgba(79, 251, 223, 0.05);
+  border-left: 4px solid #4FFBDF;
+  padding: 1em;
+  margin: 1em 0;
+  font-style: italic;
+  page-break-inside: avoid;
+}
+
+/* Links */
+a {
+  color: #4FFBDF;
+  text-decoration: underline;
+}
+
+/* Info boxes for special sections */
+.document-info {
+  background: rgba(79, 251, 223, 0.1);
+  border: 2px solid #4FFBDF;
+  border-radius: 8px;
+  padding: 1em;
+  margin: 1em 0;
+  page-break-inside: avoid;
+}
+
+/* Page breaks */
+.page-break {
+  page-break-after: always;
+}
+
+/* Avoid breaks */
+h1, h2, h3, h4, h5, h6 {
+  page-break-after: avoid;
+}
+
+/* Footer for classification */
+@page {
+  @bottom-center {
+    content: "CONFIDENTIAL - OSINT Report";
+    color: #4FFBDF;
+    font-size: 9pt;
+    font-family: 'Fira Code', monospace;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    color: #4FFBDF;
+    font-size: 9pt;
+    font-family: 'Fira Code', monospace;
+  }
+}

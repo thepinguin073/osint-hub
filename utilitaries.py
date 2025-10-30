@@ -1,6 +1,8 @@
 #===========================================================+
 #      Additionnal function for backend
 #===========================================================+
+import markdown
+from weasyprint import HTML, CSS
 
 MODE = 'PROD' # DEBUG or PROD
 
@@ -41,3 +43,24 @@ def listing_keys(python_dict, level=0, mode=MODE, keys=None, subkeys=None):
 
 	except Exception as e:
 		return e
+
+
+def format_report(report_type, data_md):
+	html_text = markdown.markdown(data_md, extensions=['fenced_code', 'codehilite'])
+
+	html_doc = f"""
+	<html>
+		<head>
+			<meta charset="utf-8">
+		</head>
+		<body>
+			{html_text}
+		</body>
+	</html>
+	"""
+
+	css_path = f'./templates/{report_type}-report.css'
+	pdf_name = f"{report_type}-report.pdf"
+	pdf_bytes = HTML(string=html_doc).write_pdf(stylesheets=[CSS(filename=css_path)])
+
+	return pdf_name, pdf_bytes

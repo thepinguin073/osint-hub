@@ -2,11 +2,11 @@
 #      INIT
 #===========================================================+
 
-from flask import Flask, send_from_directory, request, abort, g, make_response
+from flask import Flask, send_from_directory, request, abort, g, Response
 from flask_cors import CORS
 import socket
 import bleach
-import utilitaries
+from utilitaries import listing_keys, format_report
 
 app = Flask(__name__, static_folder='frontend/static', template_folder='frontend')
 CORS(app, origins=["http://127.0.0.1:*", "http://localhost:*"], supports_credentials=True)
@@ -162,7 +162,7 @@ def generate_report():
             report_md = template_md[:]
             print("_" * 100)
 
-            keys, subkeys = utilitaries.listing_keys(data)
+            keys, subkeys = listing_keys(data)
 
             for key, value in keys:
                 placeholder = str(key).replace("-", "_").upper()
@@ -172,14 +172,23 @@ def generate_report():
                 placeholder = str(key).replace("-", "_").upper()
                 report_md = report_md.replace(f"[{placeholder}]", str(value))
 
-            response = make_response(report_md)
-            response.headers['Content-Type'] = 'text/markdown; charset=utf-8'
-            response.headers['Content-Disposition'] = 'attachment; filename=report.md'
-            
-            return response
+            pdf_name, pdf_bytes = format_report(report_type, report_md)
 
+            return Response(
+                pdf_bytes,
+                mimetype='application/pdf',
+                headers={"Content-Disposition": f"attachment; filename={pdf_name}"}
+            )
+
+
+    except FileNotFoundError as e:
+        print(f"[ERROR] File not found: {e}")
+        abort(404, f"Template file not found: {e}")
     except Exception as e:
-        print(e)
+        print(f"[ERROR] Unexpected error: {e}")
+        import traceback
+        traceback.print_exc()
+        abort(500, f"Internal server error: {str(e)}")
 
 
 #===========================================================+
