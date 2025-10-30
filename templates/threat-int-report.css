@@ -30,6 +30,11 @@ h1 {
   padding-bottom: 0.3em;
   border-bottom: 3px solid #C71585;
   page-break-after: avoid;
+  page-break-before: always;
+}
+
+body > h1:first-of-type {
+    page-break-before: avoid;
 }
 
 h2 {
