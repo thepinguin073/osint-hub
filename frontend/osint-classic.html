@@ -1497,10 +1497,11 @@
       console.log(formData);
 
       if (confirm('Generate the final PDF report?\n\nMake sure all required information is filled in.')) {
-        fetch('/api/report/osint-classic', {
+        fetch('/api/generate_report', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            "X-Report-Type": "osint",
           },
           body: JSON.stringify(formData)
         }).catch(error => {

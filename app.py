@@ -2,10 +2,11 @@
 #      INIT
 #===========================================================+
 
-from flask import Flask, send_from_directory, request, abort, g
+from flask import Flask, send_from_directory, request, abort, g, make_response
 from flask_cors import CORS
 import socket
 import bleach
+import utilitaries
 
 app = Flask(__name__, static_folder='frontend/static', template_folder='frontend')
 CORS(app, origins=["http://127.0.0.1:*", "http://localhost:*"], supports_credentials=True)
@@ -137,32 +138,48 @@ def favicon():
 #-----------------------POST Method-------------------------
 #===========================================================+
 
-@app.route('/api/report/osint-classic', methods=['POST'])
-def generate_osint_classic():
-    content_type = request.headers.get('Content-Type')
-    if content_type and content_type != 'application/json':
-        abort(400, "Error: Bad MIME Type")
-    else:
-        data = request.get_json(silent=True)
-        return data
+@app.route('/api/generate_report', methods=['POST'])
+def generate_report():
+    try:
+        templates = {
+            "osint" : "osint",
+            "pentest" : "pentest",
+            "threat-int" : "threat-int"
+        }
 
-@app.route('/api/report/pentest', methods=['POST'])
-def generate_pentest():
-    content_type = request.headers.get('Content-Type')
-    if content_type and content_type != 'application/json':
-        abort(400, "Error: Bad MIME Type")
-    else:
-        data = request.get_json(silent=True)
-        return data
+        report_type = request.headers.get('X-Report-Type')
+        content_type = request.headers.get('Content-Type')
 
-@app.route('/api/report/threat-intelligence', methods=['POST'])
-def generate_threat_int():
-    content_type = request.headers.get('Content-Type')
-    if content_type and content_type != 'application/json':
-        abort(400, "Error: Bad MIME Type")
-    else:
-        data = request.get_json(silent=True)
-        return data
+        if report_type not in templates:
+            abort(400, "Error: Bad report type")
+
+        if content_type and content_type != 'application/json':
+            abort(400, "Error: Bad MIME Type")
+        else:
+            data = request.get_json(silent=True)
+            with open(f"./templates/{templates[report_type]}.md", 'r') as f:
+                template_md = f.read()
+            report_md = template_md[:]
+            print("_" * 100)
+
+            keys, subkeys = utilitaries.listing_keys(data)
+
+            for key, value in keys:
+                placeholder = str(key).replace("-", "_").upper()
+                report_md = report_md.replace(f"[{placeholder}]", str(value))
+
+            for key, value in subkeys:
+                placeholder = str(key).replace("-", "_").upper()
+                report_md = report_md.replace(f"[{placeholder}]", str(value))
+
+            response = make_response(report_md)
+            response.headers['Content-Type'] = 'text/markdown; charset=utf-8'
+            response.headers['Content-Disposition'] = 'attachment; filename=report.md'
+            
+            return response
+
+    except Exception as e:
+        print(e)
 
 
 #===========================================================+
