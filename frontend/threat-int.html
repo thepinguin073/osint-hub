@@ -101,25 +101,6 @@
       gap: 1rem;
     }
 
-    .preview-btn {
-      background: rgba(255, 215, 0, 0.1);
-      border: 2px solid rgba(255, 215, 0, 0.5);
-      color: #FFD700;
-      padding: 0.7rem 1.5rem;
-      border-radius: 10px;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .preview-btn:hover {
-      background: rgba(255, 215, 0, 0.2);
-      border-color: #FFD700;
-      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-    }
-
     .generate-btn {
       background: linear-gradient(135deg, #C71585, #E91E8C);
       border: none;
@@ -582,7 +563,6 @@
       </div>
     </div>
     <div class="header-actions">
-      <button class="preview-btn" onclick="previewReport()">Preview Draft</button>
       <button class="generate-btn">Generate Report →</button>
     </div>
   </div>
@@ -1369,13 +1349,19 @@
       }
     }
 
-    function previewReport() {
-      alert('Preview functionality coming soon...');
-    }
-
     async function generateReport() {
       const formData = collectFormData();
       console.log(formData);
+      
+      // Afficher un loader
+      const generateBtn = document.querySelector('.generate-btn');
+      const originalText = generateBtn.textContent;
+      generateBtn.textContent = '⏳ Generating...';
+      generateBtn.disabled = true;
+      
+      // Type de rapport
+      const reportType = "threat-int";
+      
       try {
         const response = await fetch('/api/generate_report', {
           method: 'POST',
@@ -1383,29 +1369,52 @@
           credentials: 'same-origin',
           headers: {
             'Content-Type': 'application/json',
-            "X-Report-Type": "threat-int",
+            "X-Report-Type": reportType,
           },
           body: JSON.stringify(formData)
         });
+        
         if (response.ok) {
-          const markdown = await response.text();
-          const blob = new Blob([markdown], { type: 'text/markdown' });
-          const url = window.URL.createObjectURL(blob);
+          // Récupérer le PDF en tant que Blob
+          const pdfBlob = await response.blob();
+          
+          // Créer une URL temporaire
+          const pdfUrl = window.URL.createObjectURL(pdfBlob);
+          
+          // Générer le nom de fichier dynamique
+          const timestamp = new Date().toISOString().split('T')[0]; // Format: 2024-10-30
+          const reportTypeNames = {
+            'threat-int': 'threat-intelligence-report',
+            'osint': 'osint-report',
+            'pentest': 'penetration-test-report'
+          };
+          const fileName = `${reportTypeNames[reportType] || 'report'}-${timestamp}.pdf`;
+          
+          // Télécharger le fichier
           const a = document.createElement('a');
-          a.href = url;
-          a.download = 'report.md';
+          a.href = pdfUrl;
+          a.download = fileName;
           document.body.appendChild(a);
           a.click();
-          window.URL.revokeObjectURL(url);
+          
+          // Nettoyage
           document.body.removeChild(a);
-          alert('Report generated and downloaded successfully!');
+          window.URL.revokeObjectURL(pdfUrl);
+          
+          alert('✅ Report generated and downloaded successfully!');
+          
         } else {
-          alert('Error sending report data. Please try again.');
-          console.error('Server error:', response.status);
+          const errorText = await response.text();
+          alert('❌ Error generating report: ' + errorText);
+          console.error('Server error:', response.status, errorText);
         }
       } catch (error) {
         console.error('Error:', error);
-        alert('Network error. Please check your connection and try again.');
+        alert('❌ Network error. Please check your connection and try again.');
+      } finally {
+        // Restaurer le bouton
+        generateBtn.textContent = originalText;
+        generateBtn.disabled = false;
       }
     }
 
