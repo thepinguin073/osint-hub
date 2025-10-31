@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Ladder</title>
+    <style>
+		@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+	
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-gap: 1rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            padding: 2rem;
+            color: #e2e8f0;
+        }
+		
+		li {
+			margin-left: 3rem;
+			padding-bottom: 1rem; 
+		}
+		
+		b {
+			font-weight: 900;
+		}
+		
+		.tactic-link {
+			display: inline-block;
+			background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+			padding: 1.25rem;
+			border-radius: 0.5rem;
+			cursor: pointer;
+			transition: all 0.3s;
+			border: 1px solid #475569;
+			min-height: 70px;
+			position: absolute;
+			top: 25px;
+			right: 25px;
+			overflow: hidden;
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.tactic-link::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 3px;
+			background: #64b5f6;
+			transform: scaleX(0);
+			transform-origin: left;
+			transition: transform 0.3s;
+		}
+
+		.tactic-link:hover {
+			background: linear-gradient(135deg, #334155 0%, #475569 100%);
+			border-color: #64b5f6;
+			transform: translateY(-2px);
+			box-shadow: 0 8px 16px rgba(100, 181, 246, 0.15);
+		}
+
+		.tactic-link:hover::before {
+			transform: scaleX(1);
+		}
+
+		.tactic-link .tactic-name {
+			font-weight: 600;
+			color: #f1f5f9;
+			font-size: 0.95rem;
+		}
+		
+		.explanation {
+			grid-column: 1/1;
+			margin: 0 auto;
+			width: 100%;
+			border: 1px solid #475569;
+			border-radius: 0.5rem;
+			background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+			padding: 2rem;
+		}
+		
+		.explanation-flex {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: column;
+			font-family: 'Fira Code', monospace;
+		}
+		
+		.explanation-title {
+			text-decoration: underline 2px;
+			text-underline-offset: 10px;
+			margin-bottom: 1rem;
+		}
+		
+		.explanation-paragraph {
+			margin-bottom: 3rem;
+			line-height: 1.5;
+		}
+		
+        .container {
+			grid-column: 2/2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+
+        .ladder {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .level {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid #475569;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .level:hover {
+            border-color: var(--accent-color);
+            background: linear-gradient(135deg, #334155 0%, #475569 100%);
+        }
+
+        .level:hover::before {
+            transform: scaleX(1);
+        }
+
+        .level[data-level="1"] { --accent-color: #64748b; --accent-rgb: 100, 116, 139; }
+        .level[data-level="2"] { --accent-color: #78909c; --accent-rgb: 120, 144, 156; }
+        .level[data-level="3"] { --accent-color: #90caf9; --accent-rgb: 144, 202, 249; }
+        .level[data-level="4"] { --accent-color: #81c784; --accent-rgb: 129, 199, 132; }
+        .level[data-level="5"] { --accent-color: #4a90e2; --accent-rgb: 74, 144, 226; }
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .level-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .level-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .level-text h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 0.25rem;
+        }
+
+        .level-text p {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+
+        .level-value {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent-color);
+            white-space: nowrap;
+            margin-right: 1rem;
+        }
+
+        .chevron {
+            width: 20px;
+            height: 20px;
+            color: #94a3b8;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .level.expanded .chevron {
+            transform: rotate(180deg);
+        }
+
+        .level-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 0;
+        }
+
+        .level.expanded .level-details {
+            max-height: 500px;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #475569;
+        }
+
+        .detail-section {
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-content {
+            font-size: 0.875rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        .phase-pill {
+            display: inline-block;
+            background: rgba(var(--accent-rgb), 0.15);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.25rem 0.6rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.3px;
+            margin-right: 0.5rem;
+        }
+
+        /* SVG Icons */
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+	<div class="explanation">
+		<div class="explanation-flex">
+			<div>
+				<h1 class="explanation-title">Objectif et méthode</h1><br>
+				<p class="explanation-paragraph">
+				<b>L’Analysis Ladder</b> est un modèle structuré destiné à transformer des données brutes en intelligence actionnable de manière progressive, rigoureuse et vérifiable. Il fournit un <b>cadre opérationnel pour l’analyste</b> afin de guider l’ensemble du processus d’investigation ou d’OSINT, depuis la collecte initiale jusqu’à la production de recommandations concrètes.
+				</p>
+			</div>
+			<br>
+		
+			<div>
+				<h2 class="explanation-title">Principes clés</h2><br>
+				<ul>
+					<li>Chaque niveau représente un palier d’analyse, avec un objectif précis et des livrables correspondants.</li>
+					<li>L’information est filtrée, vérifiée et enrichie à chaque étape : plus on monte dans l’échelle, plus la valeur et la fiabilité de l’information augmentent.</li>
+					<li>L’approche garantit une traçabilité complète et une structure reproductible, minimisant les biais et pertes d’information.</li>
+				</ul>
+			</div>
+			<br>
+		</div>
+	</div>
+	
+    <div class="container">
+        <div class="header">
+            <h1>Analysis Ladder</h1>
+            <p>Transformez les données brutes en intelligence actionnable</p>
+        </div>
+		
+		<a href="./OMF.html" class="tactic-link">
+			<div class="tactic-name">Back to OMF</div>
+		</a>
+
+        <div class="ladder" id="ladder">
+            <!-- Levels will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        const levels = [
+            {
+                id: 1,
+                title: "Raw Data",
+                subtitle: "Données brutes non vérifiées",
+                value: "Faible",
+                phase: "OMF-CO",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="8" width="24" height="16" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="8" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="1"/><line x1="8" y1="16" x2="20" y2="16" stroke="currentColor" stroke-width="1"/><line x1="8" y1="20" x2="16" y2="20" stroke="currentColor" stroke-width="1"/></svg>`,
+                examples: "Screenshots de posts, vidéos brutes, profils sociaux, commentaires publics, URLs collectées, documents trouvés",
+                utilite: "Le premier niveau, Raw Data, correspond à toutes les informations initiales non vérifiées. L’analyste doit ici collecter toutes les sources disponibles, qu’il s’agisse de posts, vidéos, profils sociaux, commentaires publics, URLs ou documents. L’objectif n’est pas de tirer des conclusions mais de constituer une base exhaustive. Chaque source doit être documentée (origine, URL, horodatage) et conservée avec un hash pour garantir son intégrité. Ce niveau sert de fondation pour toutes les étapes suivantes.",
+				},
+            {
+                id: 2,
+                title: "Identifiers",
+                subtitle: "Points d'ancrage vérifiables",
+                value: "Faible à Moyenne",
+                phase: "OMF-CR",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M10 16h12c1.1 0 2 0.9 2 2v4c0 1.1-0.9 2-2 2h-12c-1.1 0-2-0.9-2-2v-4c0-1.1 0.9-2 2-2z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>`,
+                examples: "Emails confirmés, usernames uniques, adresses IP tracées, métadonnées EXIF géolocalisées, noms de domaine, numéros de téléphone validés",
+                utilite: "Au niveau Identifiers, l’analyste sélectionne des éléments vérifiables, comme des emails confirmés, usernames uniques, adresses IP tracées, métadonnées géolocalisées ou numéros de téléphone validés. Ces identifiants servent de points fixes pour explorer d’autres sources et construire un graphe de relations fiable. Chaque identifiant doit être confirmé par au moins deux sources indépendantes. À ce stade, l’analyste peut commencer à pivoter vers de nouvelles informations grâce à ces points d’ancrage.",
+				},
+            {
+                id: 3,
+                title: "Contextual Data",
+                subtitle: "Relations et environnement",
+                value: "Moyenne",
+                phase: "OMF-AN",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="16" cy="16" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="9.5" y1="11.5" x2="14.5" y2="15" stroke="currentColor" stroke-width="1"/><line x1="17.5" y1="15" x2="22.5" y2="11.5" stroke="currentColor" stroke-width="1"/></svg>`,
+                examples: "Réseaux de followers/following, groupes Telegram identifiés, localisation des contacts, historique d'interactions, communautés partagées",
+                utilite: "Le niveau Contextual Data permet de situer les identifiants dans leur environnement. L’analyste analyse les réseaux sociaux, groupes, historiques d’interactions et communautés pour identifier les clusters et relations significatives. L’usage de visualisations (graphes, cartes) facilite la compréhension de l’écosystème et la détection de changements par rapport à la baseline comportementale. Ce niveau permet de déterminer où concentrer l’analyse et quelles connexions explorer.",
+				},
+            {
+                id: 4,
+                title: "Patterns",
+                subtitle: "Comportements récurrents",
+                value: "Haute",
+                phase: "OMF-AN",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="6,20 10,12 14,16 18,8 26,18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="20" r="1.5" fill="currentColor"/><circle cx="10" cy="12" r="1.5" fill="currentColor"/><circle cx="14" cy="16" r="1.5" fill="currentColor"/><circle cx="18" cy="8" r="1.5" fill="currentColor"/><circle cx="26" cy="18" r="1.5" fill="currentColor"/></svg>`,
+                examples: "Publications à heures fixes, pics d'activité hebdomadaires, langage répétitif, ruptures de routine, coordinations observables entre comptes",
+                utilite: "Au niveau Patterns, l’analyste quantifie les comportements récurrents : publications à heures fixes, pics d’activité, ruptures de routine, langage répétitif ou coordinations entre comptes. L’objectif est de détecter les anomalies et formuler des hypothèses sur les intentions ou comportements futurs. Les patterns peuvent être liés à des identifiants ou au contexte pour construire une compréhension plus complète des cibles.",
+				},
+            {
+                id: 5,
+                title: "Insights",
+                subtitle: "Renseignements actionnables",
+                value: "Très Haute",
+                phase: "OMF-RE",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4l3.5 7h7.5l-6 4.5l2.5 7.5l-6-4.5l-6 4.5l2.5-7.5l-6-4.5h7.5z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>`,
+                examples: "Prédiction de mouvements futurs, identification de vulnérabilités exploitables, cartographie des influenceurs clés, évaluation de risques mesurables",
+                utilite: "Enfin, le niveau Insights transforme toutes les données analysées en recommandations concrètes. L’analyste formule des conclusions factuelles, quantifie le niveau de confiance, identifie des vulnérabilités exploitables, cartographie des influenceurs clés et évalue les risques mesurables. Ce niveau permet de préparer des livrables adaptés à l’audience et de fournir une intelligence opérationnelle directement utilisable pour la prise de décision.",
+				}
+        ];
+
+        const ladder = document.getElementById('ladder');
+
+        levels.forEach(level => {
+            const levelEl = document.createElement('div');
+            levelEl.className = 'level';
+            levelEl.setAttribute('data-level', level.id);
+
+            levelEl.innerHTML = `
+                <div class="level-header">
+                    <div class="level-left">
+                        <div class="level-icon">${level.icon}</div>
+                        <div class="level-text">
+                            <h3>${level.title}</h3>
+                            <p>${level.subtitle}</p>
+                        </div>
+                    </div>
+                    <div class="phase-pill">${level.phase}</div>
+                    <svg class="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="level-details">
+                    <div class="detail-section">
+						<div class="detail-label ">
+							Valeur
+						</div>
+						<div class="level-value">${level.value}</div><br>
+						
+                        <div class="detail-label">Exemples</div>
+                        <div class="detail-content">${level.examples}</div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-label">Explication</div>
+                        <div class="detail-content">${level.utilite}</div>
+                    </div>
+                </div>
+            `;
+
+            levelEl.addEventListener('click', function() {
+                this.classList.toggle('expanded');
+            });
+
+            ladder.appendChild(levelEl);
+        });
+    </script>
+</body>
+</html>

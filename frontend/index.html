@@ -625,6 +625,63 @@
         width: 100%;
       }
     }
+
+    #help-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: #2d2d2d;
+      color: #fff;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 215, 0, 0.6);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 9999;
+      transition: background-color 0.2s;
+    }
+
+    #help-btn:hover {
+      background-color: #444;
+    }
+
+    /* Tooltip */
+    #help-tooltip {
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
+      width: auto;
+      max-width: 500px;
+      background-color: #333;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 2px solid rgba(255, 215, 0, 0.6);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      font-size: 15px;
+      line-height: 1.8;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s;
+      z-index: 9998;
+    }
+
+    #help-btn:hover + #help-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
 <body>
@@ -783,6 +840,8 @@
     </button>
   </div>
 
+  <div id="help-btn">?</div>
+  <div id="help-tooltip">Loading ...</div>
 
   <script>
 //===========================================================+
@@ -794,14 +853,10 @@
         new OSINTHub();
     }
 
-
-    const mainContent = document.getElementById('content-container');
-
     let iframeAssets = "";
+    const contentCreated = ['osint-hub', 'offsec-hub', 'reports-generator', 'omf-tool'];
 
     async function loadPageContent(page) {
-
-      const contentCreated = ['osint-hub', 'offsec-hub', 'reports-generator'];
 
       const mainContent = document.getElementById('content-container');
       
@@ -839,7 +894,11 @@
 
 function getDefaultPage() {
     const lastPage = localStorage.getItem('lastPage');
-    return lastPage ? lastPage : null;
+    if (contentCreated.includes(lastPage)) {
+      return lastPage ? lastPage : null;
+    } else {
+      return "coming-soon"
+    }
 }
 
 
@@ -892,6 +951,55 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.classList.remove('show');
       toast.classList.add('hide');
     }
+
+//===========================================================+
+//      Help Tooltip 
+//===========================================================+
+
+function helpHandler(){
+  const helpTooltip = document.getElementById("help-tooltip");
+  const currentPage = getDefaultPage();
+
+  const pageHelp = {
+    "osint-hub": {
+      title: "The Observatory",
+      description: "Explore and find the right OSINT tools for your investigation.<br><br><br>Use search, categories, regions, sources, and toggles to quickly locate tools for usernames, domains, social media, geolocation, and more.<br>Reset filters at any time to start over."
+    },
+    "offsec-hub": {
+      title: "The Armory",
+      description: "Browse and find cybersecurity tools for testing, analysis, and learning.<br><br><br>Use the various filters to refine your search and quickly find tools for analysis, exploitation, post-exploitation, web security, and much more.<br>Reset the filters at any time to start fresh."
+    },
+    "reports-generator": {
+      title: "The Scriptorium",
+      description: "Choose a report template, fill in your data or notes, and quickly generate a professional PDF report.<br>Use it to create threat intelligence, OSINT investigations, or pentest reports with clear structure and ready-to-share format.<br>Select a template, complete the fields, and export your report easily."
+    },
+    "omf-tool": {
+      title: "The Arcarium",
+      description: "Use a structured approach based on the intelligence cycle to guide your investigations.<br>Move step by step through planning, data collection, correlation, and analysis to produce meaningful insights.<br>Explore each tactic to see techniques, examples, detection methods, and mitigation advice, ensuring your work follows a systematic intelligence-driven process."
+    },
+    "coming-soon": {
+      title: "Coming Soon",
+      description: "This page is under development and will be available in a future update."
+    }
+  };
+
+  try {
+    if (contentCreated.includes(currentPage)) {
+      helpTooltip.innerHTML = pageHelp[currentPage]["description"];
+    } else {
+      helpTooltip.innerHTML = pageHelp["coming-soon"]["description"];
+    }
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+const menuItems = Array.from(document.getElementsByClassName("menu-item"));
+menuItems.forEach((element) => {
+  document.addEventListener("click", () => {
+    helpHandler();
+  });
+});
 
   </script>
 

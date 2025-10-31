@@ -82,6 +82,10 @@ def osint():
 def offsec():
     return send_from_directory('frontend', 'offsec.html')
 
+@app.route('/omf-tool')
+def omf_tool():
+    return send_from_directory('frontend', 'omf-tool.html')
+
 
 #===========================================================+
 #      REPORT GENERATOR
