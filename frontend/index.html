@@ -848,7 +848,9 @@
 //      fetch partial page
 //===========================================================+
     //Initial Page
-    localStorage.setItem('lastPage', 'osint-hub');
+    if (!localStorage.getItem('lastPage')) {
+      localStorage.setItem('lastPage', 'osint-hub');
+    }
 
     function initOSINTHub() {
         new OSINTHub();
