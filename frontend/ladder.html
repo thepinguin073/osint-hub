@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Ladder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 2rem 2rem 2rem 330px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(79, 251, 223, 0.2);
+            position: relative;
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: #4FFBDF;
+            font-size: 1rem;
+            font-style: italic;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2) 0%, rgba(0, 212, 255, 0.15) 100%);
+            color: #4FFBDF;
+            border: 2px solid #4FFBDF;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(79, 251, 223, 0.2);
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3) 0%, rgba(0, 212, 255, 0.2) 100%);
+            border-color: #FFD700;
+            color: #FFD700;
+            transform: translateX(-4px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Explanation Section */
+        .explanation-container {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px) saturate(1.2);
+            -webkit-backdrop-filter: blur(25px) saturate(1.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 2px solid rgba(79, 251, 223, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            margin-bottom: 3rem;
+        }
+
+        .explanation-title {
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .explanation-subtitle {
+            font-size: 1.3rem;
+            color: #4FFBDF;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .explanation-paragraph {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .explanation-paragraph b {
+            color: #FFD700;
+            font-weight: 700;
+        }
+
+        .explanation-list {
+            list-style-position: inside;
+            margin-left: 1rem;
+        }
+
+        .explanation-list li {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            padding-left: 1rem;
+        }
+
+        /* Ladder Grid */
+        .ladder-grid {
+            display: flex;
+            flex-flow: column wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .ladder-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Level Card */
+        .level-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            backdrop-filter: blur(15px);
+            padding: 1.75rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(79, 251, 223, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .level-card:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border-color: var(--accent-color);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(79, 251, 223, 0.3);
+        }
+
+        .level-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .level-card[data-level="1"] { --accent-color: #64748b; --accent-rgb: 100, 116, 139; }
+        .level-card[data-level="2"] { --accent-color: #78909c; --accent-rgb: 120, 144, 156; }
+        .level-card[data-level="3"] { --accent-color: #90caf9; --accent-rgb: 144, 202, 249; }
+        .level-card[data-level="4"] { --accent-color: #81c784; --accent-rgb: 129, 199, 132; }
+        .level-card[data-level="5"] { --accent-color: #FFD700; --accent-rgb: 255, 215, 0; }
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .level-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .level-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 8px var(--accent-color));
+        }
+
+        .level-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .level-title-group {
+            flex: 1;
+        }
+
+        .level-title {
+            font-weight: 600;
+            color: #f1f5f9;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .level-subtitle {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+        }
+
+        .chevron {
+            width: 20px;
+            height: 20px;
+            color: #94a3b8;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .level-card.expanded .chevron {
+            transform: rotate(180deg);
+        }
+
+        .level-badges {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .phase-badge {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2), rgba(var(--accent-rgb), 0.1));
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.4rem 0.85rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .value-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #cbd5e1;
+            padding: 0.4rem 0.85rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .level-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            margin-top: 0;
+        }
+
+        .level-card.expanded .level-details {
+            max-height: 1000px;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(79, 251, 223, 0.2);
+        }
+
+        .detail-section {
+            margin-bottom: 1.25rem;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-content {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Analysis Ladder</h1>
+            <p class="subtitle">Transform raw data into actionable intelligence</p>
+        </header>
+
+        <a href="javascript:history.back()" class="back-button">
+            ← Back to The Arcarium
+        </a>
+
+        <!-- Explanation Section -->
+        <div class="explanation-container">
+            <h2 class="explanation-title">Objectif et méthode</h2>
+            <p class="explanation-paragraph">
+                <b>L'Analysis Ladder</b> est un modèle structuré destiné à transformer des données brutes en intelligence actionnable de manière progressive, rigoureuse et vérifiable. Il fournit un <b>cadre opérationnel pour l'analyste</b> afin de guider l'ensemble du processus d'investigation ou d'OSINT, depuis la collecte initiale jusqu'à la production de recommandations concrètes.
+            </p>
+
+            <h3 class="explanation-subtitle">Principes clés</h3>
+            <ul class="explanation-list">
+                <li>Chaque niveau représente un palier d'analyse, avec un objectif précis et des livrables correspondants.</li>
+                <li>L'information est filtrée, vérifiée et enrichie à chaque étape : plus on monte dans l'échelle, plus la valeur et la fiabilité de l'information augmentent.</li>
+                <li>L'approche garantit une traçabilité complète et une structure reproductible, minimisant les biais et pertes d'information.</li>
+            </ul>
+        </div>
+
+        <!-- Ladder Grid -->
+        <div class="ladder-grid" id="ladderGrid">
+            <!-- Cards will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        const levels = [
+            {
+                id: 1,
+                title: "Raw Data",
+                subtitle: "Données brutes non vérifiées",
+                value: "Faible",
+                phase: "OMF-CO",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="8" width="24" height="16" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="8" y1="12" x2="24" y2="12" stroke="currentColor" stroke-width="1"/><line x1="8" y1="16" x2="20" y2="16" stroke="currentColor" stroke-width="1"/><line x1="8" y1="20" x2="16" y2="20" stroke="currentColor" stroke-width="1"/></svg>`,
+                examples: "Screenshots de posts, vidéos brutes, profils sociaux, commentaires publics, URLs collectées, documents trouvés",
+                utilite: "Le premier niveau, Raw Data, correspond à toutes les informations initiales non vérifiées. L'analyste doit ici collecter toutes les sources disponibles, qu'il s'agisse de posts, vidéos, profils sociaux, commentaires publics, URLs ou documents. L'objectif n'est pas de tirer des conclusions mais de constituer une base exhaustive. Chaque source doit être documentée (origine, URL, horodatage) et conservée avec un hash pour garantir son intégrité. Ce niveau sert de fondation pour toutes les étapes suivantes.",
+            },
+            {
+                id: 2,
+                title: "Identifiers",
+                subtitle: "Points d'ancrage vérifiables",
+                value: "Faible à Moyenne",
+                phase: "OMF-CR",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="10" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M10 16h12c1.1 0 2 0.9 2 2v4c0 1.1-0.9 2-2 2h-12c-1.1 0-2-0.9-2-2v-4c0-1.1 0.9-2 2-2z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>`,
+                examples: "Emails confirmés, usernames uniques, adresses IP tracées, métadonnées EXIF géolocalisées, noms de domaine, numéros de téléphone validés",
+                utilite: "Au niveau Identifiers, l'analyste sélectionne des éléments vérifiables, comme des emails confirmés, usernames uniques, adresses IP tracées, métadonnées géolocalisées ou numéros de téléphone validés. Ces identifiants servent de points fixes pour explorer d'autres sources et construire un graphe de relations fiable. Chaque identifiant doit être confirmé par au moins deux sources indépendantes. À ce stade, l'analyste peut commencer à pivoter vers de nouvelles informations grâce à ces points d'ancrage.",
+            },
+            {
+                id: 3,
+                title: "Contextual Data",
+                subtitle: "Relations et environnement",
+                value: "Moyenne",
+                phase: "OMF-AN",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="16" cy="16" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="24" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5" fill="none"/><line x1="9.5" y1="11.5" x2="14.5" y2="15" stroke="currentColor" stroke-width="1"/><line x1="17.5" y1="15" x2="22.5" y2="11.5" stroke="currentColor" stroke-width="1"/></svg>`,
+                examples: "Réseaux de followers/following, groupes Telegram identifiés, localisation des contacts, historique d'interactions, communautés partagées",
+                utilite: "Le niveau Contextual Data permet de situer les identifiants dans leur environnement. L'analyste analyse les réseaux sociaux, groupes, historiques d'interactions et communautés pour identifier les clusters et relations significatives. L'usage de visualisations (graphes, cartes) facilite la compréhension de l'écosystème et la détection de changements par rapport à la baseline comportementale. Ce niveau permet de déterminer où concentrer l'analyse et quelles connexions explorer.",
+            },
+            {
+                id: 4,
+                title: "Patterns",
+                subtitle: "Comportements récurrents",
+                value: "Haute",
+                phase: "OMF-AN",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="6,20 10,12 14,16 18,8 26,18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="20" r="1.5" fill="currentColor"/><circle cx="10" cy="12" r="1.5" fill="currentColor"/><circle cx="14" cy="16" r="1.5" fill="currentColor"/><circle cx="18" cy="8" r="1.5" fill="currentColor"/><circle cx="26" cy="18" r="1.5" fill="currentColor"/></svg>`,
+                examples: "Publications à heures fixes, pics d'activité hebdomadaires, langage répétitif, ruptures de routine, coordinations observables entre comptes",
+                utilite: "Au niveau Patterns, l'analyste quantifie les comportements récurrents : publications à heures fixes, pics d'activité, ruptures de routine, langage répétitif ou coordinations entre comptes. L'objectif est de détecter les anomalies et formuler des hypothèses sur les intentions ou comportements futurs. Les patterns peuvent être liés à des identifiants ou au contexte pour construire une compréhension plus complète des cibles.",
+            },
+            {
+                id: 5,
+                title: "Insights",
+                subtitle: "Renseignements actionnables",
+                value: "Très Haute",
+                phase: "OMF-RE",
+                icon: `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4l3.5 7h7.5l-6 4.5l2.5 7.5l-6-4.5l-6 4.5l2.5-7.5l-6-4.5h7.5z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>`,
+                examples: "Prédiction de mouvements futurs, identification de vulnérabilités exploitables, cartographie des influenceurs clés, évaluation de risques mesurables",
+                utilite: "Enfin, le niveau Insights transforme toutes les données analysées en recommandations concrètes. L'analyste formule des conclusions factuelles, quantifie le niveau de confiance, identifie des vulnérabilités exploitables, cartographie des influenceurs clés et évalue les risques mesurables. Ce niveau permet de préparer des livrables adaptés à l'audience et de fournir une intelligence opérationnelle directement utilisable pour la prise de décision.",
+            }
+        ];
+
+        const ladderGrid = document.getElementById('ladderGrid');
+
+        levels.forEach(level => {
+            const card = document.createElement('div');
+            card.className = 'level-card';
+            card.setAttribute('data-level', level.id);
+
+            card.innerHTML = `
+                <div class="level-header">
+                    <div class="level-header-left">
+                        <div class="level-icon">${level.icon}</div>
+                        <div class="level-title-group">
+                            <div class="level-title">${level.title}</div>
+                            <div class="level-subtitle">${level.subtitle}</div>
+                        </div>
+                    </div>
+                    <svg class="chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="level-badges">
+                    <div class="phase-badge">${level.phase}</div>
+                    <div class="value-badge">${level.value}</div>
+                </div>
+                <div class="level-details">
+                    <div class="detail-section">
+                        <div class="detail-label">Exemples</div>
+                        <div class="detail-content">${level.examples}</div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-label">Explication</div>
+                        <div class="detail-content">${level.utilite}</div>
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener('click', function() {
+                this.classList.toggle('expanded');
+            });
+
+            ladderGrid.appendChild(card);
+        });
+    </script>
+</body>
+</html>

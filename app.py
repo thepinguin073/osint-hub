@@ -86,6 +86,9 @@ def offsec():
 def omf_tool():
     return send_from_directory('frontend', 'omf-tool.html')
 
+@app.route('/ladder')
+def ladder():
+    return send_from_directory('frontend', 'ladder.html')
 
 #===========================================================+
 #      REPORT GENERATOR
@@ -119,6 +122,10 @@ def get_tools():
 @app.route('/api/offsec-tools')
 def get_offsec_tools():
     return send_from_directory('api', 'offsec_tools.json', mimetype='application/json')
+
+@app.route('/api/omf-tools')
+def get_omf_tools():
+    return send_from_directory('api', 'omf-tools.json', mimetype='application/json')
 
 
 #===========================================================+

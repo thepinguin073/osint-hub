@@ -12,94 +12,72 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
             color: #e2e8f0;
-            padding: 2rem;
             min-height: 100vh;
+            overflow-x: hidden;
         }
-		
-		.tactic-link {
-			display: inline-block;
-			background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-			padding: 1.25rem;
-			border-radius: 0.5rem;
-			cursor: pointer;
-			transition: all 0.3s;
-			border: 1px solid #475569;
-			min-height: 70px;
-			position: absolute;
-			top: 25px;
-			right: 25px;
-			overflow: hidden;
-			text-decoration: none;
-			color: inherit;
-		}
 
-		.tactic-link::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			height: 3px;
-			background: #64b5f6;
-			transform: scaleX(0);
-			transform-origin: left;
-			transition: transform 0.3s;
-		}
+        svg {
+          width: 24px;
+          height: 24px;
+        }
 
-		.tactic-link:hover {
-			background: linear-gradient(135deg, #334155 0%, #475569 100%);
-			border-color: #64b5f6;
-			transform: translateY(-2px);
-			box-shadow: 0 8px 16px rgba(100, 181, 246, 0.15);
-		}
-
-		.tactic-link:hover::before {
-			transform: scaleX(1);
-		}
-
-		.tactic-link .tactic-name {
-			font-weight: 600;
-			color: #f1f5f9;
-			font-size: 0.95rem;
-		}
-		
         .container {
-			grid-column: 2/2;
-            max-width: 1400px;
+            padding: 2rem 2rem 2rem 330px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
         header {
             text-align: center;
             margin-bottom: 3rem;
             padding-bottom: 2rem;
-            border-bottom: 1px solid #475569;
+            border-bottom: 2px solid rgba(79, 251, 223, 0.2);
+            position: relative;
         }
 
         h1 {
-            color: #f1f5f9;
-            font-size: 2.5rem;
+            color: #FFD700;
+            font-size: 2.8rem;
             margin-bottom: 0.5rem;
             font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            letter-spacing: 1px;
         }
 
         .subtitle {
-            color: #94a3b8;
+            color: #4FFBDF;
             font-size: 1rem;
             font-style: italic;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
+        /* Breadcrumb */
         .nav-breadcrumb {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px) saturate(1.2);
+            -webkit-backdrop-filter: blur(25px) saturate(1.2);
             padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
+            border-radius: 12px;
             margin-bottom: 1.5rem;
             display: none;
-            border: 1px solid #475569;
+            border: 1px solid rgba(79, 251, 223, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .nav-breadcrumb.active {
@@ -111,29 +89,41 @@
             align-items: center;
             gap: 0.75rem;
             font-size: 0.9rem;
+            flex-wrap: wrap;
         }
 
         .breadcrumb a {
-            color: #64b5f6;
+            color: #4FFBDF;
             text-decoration: none;
             cursor: pointer;
-            transition: color 0.2s;
+            transition: all 0.2s;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
         }
 
         .breadcrumb a:hover {
-            color: #90caf9;
+            color: #FFD700;
+            background: rgba(79, 251, 223, 0.1);
         }
 
         .breadcrumb span {
             color: #64748b;
         }
 
+        .breadcrumb .current {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        /* Matrix Container */
         .matrix-container {
-            background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 0.75rem;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px) saturate(1.2);
+            -webkit-backdrop-filter: blur(25px) saturate(1.2);
+            border-radius: 16px;
             padding: 2rem;
-            border: 1px solid #475569;
+            border: 2px solid rgba(79, 251, 223, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             overflow-x: auto;
         }
 
@@ -141,29 +131,61 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 0.75rem;
+            min-width: 900px;
         }
 
+        /* Phase Headers */
         .phase-header {
-            background: linear-gradient(135deg, #334155 0%, #475569 100%);
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
             padding: 1.25rem;
             text-align: center;
-            font-weight: 600;
-            color: #e2e8f0;
-            border-radius: 0.5rem;
+            font-weight: 700;
+            color: #4FFBDF;
+            border-radius: 12px;
             font-size: 1rem;
-            min-width: 180px;
-            border: 1px solid #64748b;
-			cursor: default;
+            min-width: 200px;
+            border: 2px solid rgba(79, 251, 223, 0.4);
+            box-shadow: 0 4px 15px rgba(79, 251, 223, 0.2);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
         }
 
+        .phase-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4FFBDF, #00D4FF, #FFD700);
+        }
+
+        .phase-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .phase-icon {
+            width: 24px;
+            height: 24px;
+            color: #4FFBDF;
+            filter: drop-shadow(0 0 8px rgba(79, 251, 223, 0.6));
+        }
+
+        /* Tactic Cells */
         .tactic-cell {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            padding: 1.25rem;
-            border-radius: 0.5rem;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            backdrop-filter: blur(15px);
+            padding: 1.5rem;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid #475569;
-            min-height: 100px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(79, 251, 223, 0.2);
+            min-height: 120px;
             vertical-align: top;
             position: relative;
             overflow: hidden;
@@ -173,54 +195,59 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: #64b5f6;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s;
-        }
-
-        .tactic-cell:hover {
-            background: linear-gradient(135deg, #334155 0%, #475569 100%);
-            border-color: #64b5f6;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(100, 181, 246, 0.15);
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(79, 251, 223, 0.1) 50%,
+                transparent);
+            transition: left 0.5s ease;
         }
 
         .tactic-cell:hover::before {
-            transform: scaleX(1);
+            left: 100%;
         }
 
-        .tactic-icon {
-            width: 32px;
-            height: 32px;
-            margin-bottom: 0.75rem;
-            color: #64b5f6;
-            opacity: 0.6;
+        .tactic-cell:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border-color: rgba(79, 251, 223, 0.6);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(79, 251, 223, 0.3);
         }
 
         .tactic-name {
             font-weight: 600;
             color: #f1f5f9;
             margin-bottom: 0.5rem;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .tactic-id {
             font-size: 0.8rem;
-            color: #94a3b8;
+            color: #4FFBDF;
             font-family: 'Courier New', monospace;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
         }
 
         .technique-count {
-            font-size: 0.8rem;
-            color: #64b5f6;
-            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: #00D4FF;
             font-weight: 500;
+            padding: 0.4rem 0.75rem;
+            background: rgba(0, 212, 255, 0.15);
+            border-radius: 6px;
+            display: inline-block;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            z-index: 1;
         }
 
+        /* Technique List View */
         .technique-list-view {
             display: none;
         }
@@ -229,20 +256,69 @@
             display: block;
         }
 
+        .back-button {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2) 0%, rgba(0, 212, 255, 0.15) 100%);
+            color: #4FFBDF;
+            border: 2px solid #4FFBDF;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 1.5rem;
+            font-family: 'Fira Code', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(79, 251, 223, 0.2);
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3) 0%, rgba(0, 212, 255, 0.2) 100%);
+            border-color: #FFD700;
+            color: #FFD700;
+            transform: translateX(-4px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .detail-container {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px) saturate(1.2);
+            -webkit-backdrop-filter: blur(25px) saturate(1.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 2px solid rgba(79, 251, 223, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .tactic-title {
+            color: #FFD700;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(79, 251, 223, 0.2);
+        }
+
+        /* Technique Grid */
         .technique-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.25rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
         .technique-card {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            padding: 1.5rem;
-            border-radius: 0.5rem;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            backdrop-filter: blur(15px);
+            padding: 1.75rem;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid #475569;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(79, 251, 223, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -254,17 +330,17 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: #81c784;
+            background: linear-gradient(90deg, #4FFBDF, #00D4FF);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s;
         }
 
         .technique-card:hover {
-            background: linear-gradient(135deg, #334155 0%, #475569 100%);
-            border-color: #81c784;
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(129, 199, 132, 0.15);
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border-color: rgba(79, 251, 223, 0.6);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(79, 251, 223, 0.3);
         }
 
         .technique-card:hover::before {
@@ -275,64 +351,128 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 0.75rem;
-            gap: 0.75rem;
+            margin-bottom: 1rem;
+            gap: 1rem;
         }
 
         .technique-title {
             font-weight: 600;
             color: #f1f5f9;
-            font-size: 1rem;
+            font-size: 1.1rem;
             flex: 1;
+            line-height: 1.4;
         }
 
         .technique-id-badge {
-            background: rgba(100, 181, 246, 0.15);
-            padding: 0.4rem 0.75rem;
-            border-radius: 0.25rem;
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2), rgba(0, 212, 255, 0.15));
+            padding: 0.4rem 0.85rem;
+            border-radius: 8px;
             font-size: 0.75rem;
-            color: #64b5f6;
+            color: #4FFBDF;
             font-family: 'Courier New', monospace;
             white-space: nowrap;
-            border: 1px solid #64b5f6;
-            font-weight: 500;
+            border: 1px solid #4FFBDF;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(79, 251, 223, 0.2);
         }
 
         .technique-description {
             color: #cbd5e1;
-            font-size: 0.875rem;
-            line-height: 1.5;
-            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 1rem;
         }
 
-        .difficulty-badge {
-            display: inline-block;
-            padding: 0.4rem 0.75rem;
-            border-radius: 0.25rem;
+        .technique-badges {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Ladder Level Badges */
+        .ladder-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 8px;
             font-size: 0.75rem;
-            margin-top: 0.75rem;
             font-weight: 600;
             border: 1px solid;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
         }
 
-        .difficulty-facile {
-            background: rgba(129, 199, 132, 0.2);
+        .ladder-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .ladder-raw-data {
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.2), rgba(100, 116, 139, 0.1));
+            color: #94a3b8;
+            border-color: #64748b;
+        }
+
+        .ladder-identifiers {
+            background: linear-gradient(135deg, rgba(120, 144, 156, 0.2), rgba(120, 144, 156, 0.1));
+            color: #90a4ae;
+            border-color: #78909c;
+        }
+
+        .ladder-contextual {
+            background: linear-gradient(135deg, rgba(144, 202, 249, 0.2), rgba(144, 202, 249, 0.1));
+            color: #90caf9;
+            border-color: #64b5f6;
+        }
+
+        .ladder-patterns {
+            background: linear-gradient(135deg, rgba(129, 199, 132, 0.2), rgba(129, 199, 132, 0.1));
             color: #81c784;
-            border-color: #81c784;
+            border-color: #66bb6a;
         }
 
-        .difficulty-moyen {
-            background: rgba(255, 167, 38, 0.2);
+        .ladder-insights {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            color: #FFD700;
+            border-color: #FFD700;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+        }
+
+        /* Difficulty Badges */
+        .difficulty-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .difficulty-easy {
+            background: linear-gradient(135deg, rgba(129, 199, 132, 0.2), rgba(129, 199, 132, 0.1));
+            color: #81c784;
+            border-color: #66bb6a;
+        }
+
+        .difficulty-medium {
+            background: linear-gradient(135deg, rgba(255, 167, 38, 0.2), rgba(255, 167, 38, 0.1));
             color: #ffa726;
-            border-color: #ffa726;
+            border-color: #ff9800;
         }
 
-        .difficulty-difficile {
-            background: rgba(244, 67, 54, 0.2);
+        .difficulty-hard {
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.2), rgba(244, 67, 54, 0.1));
             color: #f44336;
-            border-color: #f44336;
+            border-color: #e53935;
         }
 
+        /* Technique Detail View */
         .technique-detail-view {
             display: none;
         }
@@ -341,88 +481,79 @@
             display: block;
         }
 
-        .detail-container {
-            background: rgba(30, 41, 59, 0.4);
-            border-radius: 0.75rem;
-            padding: 2rem;
-            border: 1px solid #475569;
-            backdrop-filter: blur(10px);
-        }
-
         .detail-header {
-            border-bottom: 1px solid #475569;
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(79, 251, 223, 0.2);
+            padding-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .detail-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 1rem;
-            color: #64b5f6;
+            width: 56px;
+            height: 56px;
+            margin-bottom: 1.5rem;
+            color: #4FFBDF;
+            filter: drop-shadow(0 0 12px rgba(79, 251, 223, 0.6));
         }
 
         .detail-title {
-            font-size: 2rem;
-            color: #f1f5f9;
-            margin-bottom: 0.75rem;
+            font-size: 2.5rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
             font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
         .detail-meta {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
             flex-wrap: wrap;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .meta-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .meta-label {
             color: #94a3b8;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .meta-value {
-            color: #e2e8f0;
-            font-family: 'Courier New', monospace;
-        }
-
+        /* Detail Sections */
         .detail-section {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .section-header {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .section-icon {
-            width: 24px;
-            height: 24px;
-            color: #64b5f6;
+            width: 28px;
+            height: 28px;
+            color: #4FFBDF;
             flex-shrink: 0;
         }
 
         .section-title {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: #f1f5f9;
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
             font-weight: 600;
         }
 
         .section-content {
             color: #cbd5e1;
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            padding-left: 2.75rem;
         }
 
         .section-content ul {
@@ -431,97 +562,244 @@
         }
 
         .section-content li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
+        /* Sub-Techniques */
         .sub-techniques {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 0.75rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+            padding-left: 2.75rem;
         }
 
         .sub-technique-item {
-            background: rgba(100, 181, 246, 0.1);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            border-left: 3px solid #64b5f6;
-            border: 1px solid #475569;
-            border-left: 3px solid #64b5f6;
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.1), rgba(0, 212, 255, 0.05));
+            padding: 1.25rem;
+            border-radius: 10px;
+            border: 1px solid rgba(79, 251, 223, 0.3);
+            border-left: 4px solid #4FFBDF;
+            transition: all 0.3s;
+        }
+
+        .sub-technique-item:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.15), rgba(0, 212, 255, 0.1));
+            border-color: #4FFBDF;
+            transform: translateX(4px);
+            box-shadow: 0 4px 15px rgba(79, 251, 223, 0.2);
         }
 
         .sub-technique-name {
             font-weight: 600;
             color: #f1f5f9;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
         }
 
         .sub-technique-description {
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             color: #cbd5e1;
-            line-height: 1.4;
-            margin-bottom: 0.5rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
         }
 
         .sub-technique-examples {
             font-size: 0.8rem;
             color: #94a3b8;
             font-family: 'Courier New', monospace;
-            line-height: 1.3;
+            line-height: 1.4;
+            padding: 0.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            margin-top: 0.5rem;
         }
 
         .sub-technique-id {
             font-size: 0.8rem;
-            color: #64b5f6;
+            color: #4FFBDF;
             font-family: 'Courier New', monospace;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
+            font-weight: 600;
         }
 
-        .back-button {
-            background: linear-gradient(135deg, #334155 0%, #475569 100%);
-            color: #64b5f6;
-            border: 1px solid #64b5f6;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
+        /* Special Link Cell - Minimal Glass */
+        .special-container-cell {
+            padding: 0;
+            margin: 0;
+            vertical-align: top;
+        }
+
+        .special-link-cell {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            backdrop-filter: blur(15px);
+            padding: 1.5rem;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(79, 251, 223, 0.2);
+            min-height: 120px;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
-        .back-button:hover {
-            background: linear-gradient(135deg, #475569 0%, #64748b 100%);
-            border-color: #90caf9;
-            color: #90caf9;
+        .special-link-cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(79, 251, 223, 0.1) 50%,
+                transparent);
+            transition: left 0.5s ease;
         }
 
+        .special-link-cell:hover::before {
+            left: 100%;
+        }
+
+        .special-link-cell:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border-color: rgba(79, 251, 223, 0.6);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(79, 251, 223, 0.3);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .matrix-table {
-                display: block;
-            }
-            
-            .technique-grid {
-                grid-template-columns: 1fr;
+            .container {
+                padding: 1rem;
             }
 
             h1 {
-                font-size: 1.75rem;
+                font-size: 2rem;
+            }
+
+            .technique-grid {
+                grid-template-columns: 1fr;
             }
 
             .detail-container {
                 padding: 1.5rem;
             }
+
+            .detail-title {
+                font-size: 1.75rem;
+            }
+
+            .sub-techniques {
+                grid-template-columns: 1fr;
+                padding-left: 0;
+            }
+
+            .section-content {
+                padding-left: 0;
+            }
+
+            .matrix-table {
+                min-width: 600px;
+            }
         }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+        }
+
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.5;
+        }
+
+        .empty-state-title {
+            font-size: 1.5rem;
+            color: #cbd5e1;
+            margin-bottom: 0.75rem;
+        }
+
+        .empty-state-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10500;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading.fade-out {
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        .loading-content {
+            text-align: center;
+        }
+
+        .loading-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInPulse 2s ease-in-out;
+            color: #FFD700;
+            filter: drop-shadow(0 0 8px #FFD700);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #333333;
+            border-top: 3px solid #00D4FF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInPulse {
+            0% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+            }
+
     </style>
 </head>
 <body>
+
+    <div class="loading">
+      <div class="loading-content">
+        <div class="loading-logo"></div>
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+
     <div class="container">
         <header>
-			<a href="./Ladder.html" class="tactic-link">
-				<div class="tactic-name">Analysis Ladder</div>
-			</a>
             <h1>The Arcarium</h1>
         </header>
 
@@ -551,940 +829,70 @@
     </div>
 
     <script>
-        const omfData = {
-			"name": "OSINT Methodology Framework",
-			"version": "1.1",
-			"phases": [
-				{
-					"id": "OMF-PL",
-					"name": "Planification",
-					"tactics": [
-						{
-							"id": "OMF-PL-01",
-							"name": "Définition du périmètre",
-							"techniques": [
-								{
-									"id": "OMF-PL-01.001",
-									"name": "Définition opérationnelle du périmètre",
-									"description": "Définir clairement les limites de l’investigation pour concentrer les efforts, orienter le choix des techniques et éviter toute dispersion inutile.",
-									"difficulty": "Facile",
-									"examples": "Identifier la période exacte à couvrir (dates/horaires), la zone géographique précise (ville, région, pays), les sujets ciblés (personnes, infrastructures, événements) et les types de données à explorer (réseaux sociaux, bases publiques, imagerie, métadonnées). Documenter le scope dans un brief initial et valider avec l’équipe avant de commencer la collecte.",
-									"detection": "N/A - phase interne de planification",
-									"mitigations": "Réviser régulièrement le périmètre si de nouvelles informations apparaissent ; formaliser les exclusions pour éviter la dérive du projet ; consigner toutes les décisions de scope pour traçabilité."
-								},
-								{
-									"id": "OMF-PL-01.002",
-									"name": "Identification et priorisation des couches de données",
-									"description": "Déterminer les sources et couches de données les plus pertinentes pour l’investigation, afin d’optimiser le temps et les efforts et d’orienter la collecte vers les preuves les plus probables.",
-									"difficulty": "Facile",
-									"examples": "Évaluer la surface web pour les informations publiques et vérifiables, les réseaux sociaux pour profils et interactions personnelles, le deep web pour bases de données spécialisées, et le dark web pour activités cachées ou forums spécialisés ; prioriser les couches selon la probabilité d’obtenir des preuves pertinentes et la facilité d’accès ; documenter la stratégie de collecte par couche avant l’exécution.",
-									"detection": "N/A - phase interne de planification",
-									"mitigations": "Réévaluer régulièrement la pertinence des couches si de nouvelles informations apparaissent ; formaliser l’ordre et la méthode de collecte pour éviter les oublis ou les redondances ; consigner toutes les décisions pour traçabilité."
-								},
-								{
-									"id": "OMF-PL-01.003",
-									"name": "Identification des contraintes légales et éthiques",
-									"description": "Lister et formaliser toutes les contraintes légales, éthiques, de confidentialité et opérationnelles avant de lancer la collecte, afin de garantir la conformité et de prévenir les risques.",
-									"difficulty": "Moyen",
-									"examples": "Vérifier les obligations RGPD et lois locales sur la collecte de données ; documenter les limites éthiques internes (respect de la vie privée, interdiction de harcèlement) ; identifier les restrictions techniques (accès réseau, outils autorisés) et budgétaires ; noter les contraintes de temps et de ressources disponibles.",
-									"detection": "N/A - phase interne de planification",
-									"mitigations": "Maintenir une liste à jour des contraintes pour chaque mission ; valider les limitations avec les responsables légaux ou éthiques ; s’assurer que tous les membres de l’équipe respectent ces règles ; prévoir des alternatives si certaines contraintes bloquent la collecte."
-								},
-								{
-								  "id": "OMF-PL-01.004",
-								  "name": "Utilisation de sources documentaires pour établir une baseline",
-								  "description": "En cas d’absence de données de référence sur une cible ou un sujet, exploiter les ouvrages, biographies, rapports ou publications externes disponibles afin de dégager un cadre comportemental, contextuel ou chronologique cohérent.",
-								  "difficulty": "Facile",
-								  "examples": "Identifier et consulter des livres, rapports institutionnels, publications scientifiques ou autobiographies traitant du sujet ou de la personne ciblée ; extraire les éléments factuels clés (dates, lieux, relations, terminologie propre) ; structurer ces éléments dans une chronologie ou une table de comportements de référence ; croiser avec d’autres sources OSINT (articles, archives, réseaux sociaux) pour confirmer la cohérence du cadre établi.",
-								  "detection": "N/A – la consultation d’ouvrages physiques ou numériques n’implique généralement aucune détection active, sauf si les recherches sont effectuées sur des bases restreintes nécessitant authentification.",
-								  "mitigations": "Vérifier la crédibilité et la provenance de l’ouvrage, noter la date de publication pour contextualiser les informations et croiser systématiquement les faits tirés du livre avec des sources indépendantes. Documenter la référence complète incluant titre, auteur, ISBN, page et date de consultation. Ne jamais baser une hypothèse uniquement sur une source narrative sans corroboration factuelle."
-								}
-							]
-						},
-						{
-							"id": "OMF-PL-02",
-							"name": "Méthodologie reproductible",
-							"techniques": [
-								{
-									"id": "OMF-PL-02.001",
-									"name": "Mise en place d’une méthode structurée",
-									"description": "Définir un processus clair et reproductible pour transformer les données collectées en conclusions fiables et vérifiables, en assurant la cohérence et la traçabilité à chaque étape.",
-									"difficulty": "Moyen",
-									"examples": "Documenter chaque étape : collecte, corrélation, analyse et synthèse ; créer des checklists standardisées pour différents types d’investigation ; formaliser les méthodes de vérification des sources et de validation des informations ; consigner les décisions et les hypothèses dans un journal de bord pour assurer traçabilité et reproductibilité.",
-									"detection": "N/A - phase interne de planification et méthodologie",
-									"mitigations": "Mettre à jour régulièrement les procédures en fonction des retours d’expérience ; assurer que tous les membres de l’équipe suivent le même protocole ; vérifier l’intégrité et la cohérence des données à chaque étape."
-								},
-								{
-									"id": "OMF-PL-02.002",
-									"name": "Traçabilité et documentation des actions",
-									"description": "Mettre en place un processus clair pour enregistrer toutes les étapes de l’investigation, garantissant la vérifiabilité, la cohérence et la défendabilité des résultats, que ce soit en contexte judiciaire ou opérationnel.",
-									"difficulty": "Moyen",
-									"examples": "Journaliser toutes les actions réalisées (collecte, vérification, analyse) avec horodatage précis ; conserver les métadonnées originales des fichiers ; documenter chaque transformation de données ; maintenir un registre de la chaîne de conservation des preuves (hash, signatures, exports certifiés).",
-									"detection": "N/A - phase interne de planification et documentation",
-									"mitigations": "Standardiser la méthode de journalisation et de documentation pour tous les membres de l’équipe ; vérifier régulièrement l’intégrité des données et des logs ; archiver de manière sécurisée pour éviter toute perte ou altération."
-								},
-								{
-									"id": "OMF-PL-02.003",
-									"name": "Organisation et gestion du flux de travail",
-									"description": "Mettre en place une structuration claire des sources, références et données de travail pour assurer la cohérence, la traçabilité et la reproductibilité de l’investigation.",
-									"difficulty": "Facile",
-									"examples": "Organiser les bookmarks par thématiques et priorités ; structurer les répertoires de travail avec noms de fichiers et dossiers standardisés ; utiliser des templates et checklists pour chaque type d’investigation ; centraliser les notes, captures et sources dans un outil unique (Notion, Obsidian, Zotero, ou gestionnaire OSINT).",
-									"detection": "N/A - phase interne de planification et organisation",
-									"mitigations": "S’assurer que tous les membres de l’équipe respectent la même structure ; maintenir un suivi des mises à jour et modifications ; automatiser la sauvegarde régulière des répertoires et bases de données."
-								}
-							]
-						},
-						{
-							"id": "OMF-PL-03",
-							"name": "Sélection d'outils",
-							"techniques": [
-								{
-									"id": "OMF-PL-03.001",
-									"name": "Sélection d’outils adaptés à la mission",
-									"description": "Évaluer et choisir les outils en fonction de leur adéquation aux objectifs spécifiques de l’investigation, afin d’optimiser l’efficacité et la pertinence des résultats.",
-									"difficulty": "Moyen",
-									"examples": "Vérifier la compatibilité technique avec le type de données à analyser ; évaluer la facilité d’utilisation et la rapidité de mise en œuvre ; prendre en compte le support communautaire, les mises à jour et la documentation disponible ; tester la précision et la fiabilité des outils sur des cas pilotes avant usage réel.",
-									"detection": "N/A - phase interne de planification",
-									"mitigations": "Documenter les choix d’outils et leur justification ; maintenir une liste des outils testés et validés ; réévaluer régulièrement les outils utilisés pour s’adapter aux évolutions techniques ou légales."
-								},
-								{
-									"id": "OMF-PL-03.002",
-									"name": "Évaluation de la rétention et accessibilité des données",
-									"description": "Analyser les politiques de rétention et les conditions d’accès des outils et services en ligne afin de garantir la disponibilité des preuves historisées et la continuité de l’investigation.",
-									"difficulty": "Moyen",
-									"examples": "Vérifier la durée de conservation des logs et métadonnées ; identifier les suppressions automatiques de contenu ou les limitations d’accès aux archives ; documenter les délais et conditions pour accéder aux données historiques ; anticiper la récupération proactive des informations avant leur expiration.",
-									"detection": "N/A - phase interne de planification",
-									"mitigations": "Maintenir un suivi des politiques de rétention pour chaque outil utilisé ; automatiser la collecte des données critiques avant expiration ; centraliser et sécuriser les archives pour assurer l’intégrité et la disponibilité."
-								},
-								{
-									"id": "OMF-PL-03.003",
-									"name": "Évaluation de la disponibilité et accessibilité des outils",
-									"description": "Analyser le coût, l’accessibilité et les restrictions d’usage des outils sélectionnés afin de garantir leur disponibilité pour l’investigation et d’anticiper les alternatives si nécessaire.",
-									"difficulty": "Facile",
-									"examples": "Vérifier les coûts de licence et abonnements ; identifier les restrictions géographiques ou les limitations d’accès ; tester les contraintes techniques (compatibilité OS, bande passante, API) ; recenser les alternatives gratuites ou open-source pour pallier d’éventuelles indisponibilités.",
-									"detection": "N/A - phase interne de planification",
-									"mitigations": "Documenter les outils testés et leurs contraintes ; prévoir un plan B avec alternatives viables ; centraliser les informations sur accessibilité et coût pour chaque outil utilisé."
-								}
-							]
-						},
-						{
-							"id": "OMF-PL-04",
-							"name": "Sécurité opérationnelle",
-							"techniques": [
-								{
-									"id": "OMF-PL-04.001",
-									"name": "Définition du profil d’exposition",
-									"description": "Identifier et cartographier les éléments personnels, techniques ou comportementaux susceptibles de révéler l’identité, la localisation ou les intentions de l’enquêteur avant toute activité en ligne.",
-									"difficulty": "Moyen",
-									"examples": "Lister les adresses IP, métadonnées, empreintes de navigateur ou profils sociaux associés à l’enquêteur ; analyser les risques de corrélation entre comptes professionnels et personnels ; vérifier les leaks passés liés aux adresses e-mail, pseudos ou domaines utilisés.",
-									"detection": "N/A - phase préventive interne",
-									"mitigations": "Utiliser des identités opérationnelles séparées ; compartimenter les environnements de travail (VM, VPN, sandbox) ; minimiser les métadonnées et empreintes techniques avant tout engagement.",
-									"subTechniques": [
-										{
-										  "id": "OMF-PL-04.001.A",
-										  "name": "Adaptation linguistique",
-										  "description": "Modifier volontairement son style de communication (argot, expressions locales, registre grossier, variations de ton) pour limiter les traces et réduire la corrélation linguistique avec l’analyste ou la source.",
-										  "examples": "Utiliser un vocabulaire et des tournures de phrases correspondant à la culture ou au groupe cible ; introduire de légères variations de syntaxe ou d’orthographe pour éviter l’identification ; pratiquer des échanges simulés avec différents registres pour s’assurer de la cohérence apparente du style."
-										},
-										{
-										  "id": "OMF-PL-04.001.B",
-										  "name": "Préparation de réponses et cover stories",
-										  "description": "Se préparer systématiquement à fournir des réponses cohérentes, crédibles et vérifiables lors d’entretiens directs afin de réduire le risque d’impasse, d’incohérence ou d’exfiltration d’informations sensibles.",
-										  "examples": "Élaborer un jeu de réponses prédéfinies (FAQ/cheat-sheet) couvrant les questions probables ; créer plusieurs cover stories plausibles et documenter les détails (dates, lieux, rôles) pour assurer cohérence ; répéter et mettre en scène les réponses pour fluidité et naturel ; prévoir des techniques de contournement (redirection, réponse partielle, promesse de suivi) pour éviter de répondre à une question sensible ; préparer preuves factices ou références publiques permettant de valider une histoire si nécessaire ; consigner toutes les versions utilisées et l’issue des entretiens pour traçabilité."
-										}
-									]
-								},
-								{
-									"id": "OMF-PL-04.002",
-									"name": "Segmentation des identités opérationnelles",
-									"description": "Concevoir et maintenir plusieurs identités numériques cloisonnées, adaptées à différents contextes d’investigation, pour limiter les corrélations et préserver l’anonymat opérationnel.",
-									"difficulty": "Difficile",
-									"examples": "Créer des personas distincts avec adresses e-mail, navigateurs et environnements isolés ; gérer un inventaire chiffré des identités ; éviter tout recoupement d’usage (cookies, terminaux, fuseaux horaires, patterns linguistiques).",
-									"detection": "N/A - bonne pratique OPSEC",
-									"mitigations": "Utiliser des environnements virtuels ou physiques séparés ; maintenir un contrôle strict des logs et connexions ; auditer régulièrement la cohérence et l’étanchéité entre identités."
-								},
-								{
-									"id": "OMF-PL-04.003",
-									"name": "Gestion des traces numériques et des artefacts",
-									"description": "Identifier, réduire et contrôler toutes les traces laissées durant l’enquête, qu’elles soient locales (système, cache, logs) ou distantes (serveurs, plateformes, requêtes réseau).",
-									"difficulty": "Moyen",
-									"examples": "Purger les journaux locaux et historiques de navigation ; utiliser des sessions éphémères ; désactiver la télémétrie et les sauvegardes cloud ; vérifier l’absence de métadonnées personnelles dans les fichiers partagés ; Utiliser un clavier local correspondant à la zone d’investigation pour éviter les erreurs typographiques révélatrices de l’origine.",
-									"detection": "N/A - phase préventive et post-opératoire",
-									"mitigations": "Utiliser des outils d’effacement sécurisé et de sandboxing ; recourir à des systèmes en live boot ou amnésiques (ex. Tails, Whonix) ; centraliser la documentation sur les risques de persistance de traces."
-								},
-								{
-									"id": "OMF-PL-04.004",
-									"name": "Plan de communication sécurisé",
-									"description": "Établir un protocole de communication interne et externe garantissant la confidentialité, l’intégrité et la non-corrélation des échanges liés à l’enquête.",
-									"difficulty": "Moyen",
-									"examples": "Utiliser des canaux chiffrés de bout en bout ; éviter les messageries liées à des comptes personnels ; définir des pseudonymes distincts pour chaque canal ; proscrire les transferts directs de fichiers non chiffrés.",
-									"detection": "N/A - phase préventive",
-									"mitigations": "Employer PGP ou messageries sécurisées (Signal, Session) ; renouveler régulièrement les clés et canaux de communication ; documenter les procédures de sécurité interne."
-								},
-								{
-									"id": "OMF-PL-04.005",
-									"name": "Vérification des dépendances techniques",
-									"description": "Auditer les outils, extensions, scripts et dépendances utilisés pour s’assurer qu’ils ne compromettent pas l’anonymat ou la confidentialité de l’environnement opérationnel.",
-									"difficulty": "Moyen",
-									"examples": "Analyser le trafic sortant d’extensions de navigateur ; vérifier les connexions externes d’outils open-source ; auditer le code ou les binaires utilisés dans des environnements isolés.",
-									"detection": "Analyse de flux et de logs réseau",
-									"mitigations": "Utiliser uniquement des outils vérifiés et audités ; maintenir les versions à jour ; surveiller en continu les connexions et signatures réseau anormales."
-								}
-							]
-						},			
-						{
-						  "id": "OMF-PL-05",
-						  "name": "Automatisation",
-						  "techniques": [
-							{
-							  "id": "OMF-PL-05.001",
-							  "name": "Apprentissage et maîtrise de Python",
-							  "description": "Acquérir une compétence en Python pour développer ses propres outils d'automatisation OSINT, auditer le code source d'outils existants et assurer la reproductibilité des résultats.",
-							  "difficulty": "Facile",
-							  "examples": "Suivre un parcours d'apprentissage sur Mimo (mimo.org), Codedex (codedex.io) ou Exercism (exercism.org) ; développer des scripts simples de scraping ou de requêtes API ; analyser et modifier le code source d'outils OSINT existants ; automatiser des tâches répétitives de collecte de données.",
-							  "detection": "N/A - compétence interne",
-							  "mitigations": "Privilégier les ressources pratiques et guidées ; pratiquer sur des environnements isolés ou de test ; commencer par des projets simples avant des automatisations complexes ; documenter le code développé pour faciliter les audits futurs."
-							},
-							{
-							  "id": "OMF-PL-05.002",
-							  "name": "Audit et vérification des outils",
-							  "description": "Examiner le code source et le comportement des outils avant utilisation pour s'assurer qu'ils ne compromettent pas l'OPSEC, ne révèlent pas l'enquêteur et restent conformes aux objectifs de l'enquête.",
-							  "difficulty": "Difficile",
-							  "examples": "Analyser le code source d'un outil pour identifier les connexions externes ou les données collectées ; vérifier les binaires ou scripts pour détecter les appels réseau vers la cible ou des tiers ; exécuter l'outil dans un environnement isolé (VM, sandbox) pour monitorer son trafic réseau ; documenter les comportements constatés et les risques potentiels ; développer ses propres outils pour by-passer les contraintes imposées par les outils existants et maintenir le contrôle total.",
-							  "detection": "Analyse de flux réseau, inspection du code source, monitoring des processus",
-							  "mitigations": "N'utiliser que des outils audités ou développés en interne ; vérifier régulièrement les mises à jour et modifications ; maintenir un inventaire des outils approuvés ; tester en environnement isolé avant déploiement en opération ; utiliser des techniques de monitoring (Wireshark, strace, ltrace) pour valider le comportement réel."
-							},
-							{
-							  "id": "OMF-PL-05.003",
-							  "name": "Reproductibilité manuelle des résultats",
-							  "description": "Valider manuellement les informations obtenues par automatisation pour éliminer les faux positifs, combler les lacunes et assurer la fiabilité des preuves, particulièrement en contexte judiciaire.",
-							  "difficulty": "Moyen",
-							  "examples": "Reprendre manuellement les étapes clés du script de recherche pour confirmer les résultats ; vérifier les données extraites en consultant les sources originales ; comparer les résultats d'outils différents pour identifier les divergences ; documenter le processus manuel et les écarts constatés ; valider la cohérence des informations avant leur utilisation en rapport ou présentation.",
-							  "detection": "N/A - pratique de validation interne",
-							  "mitigations": "Toujours prévoir du temps pour la vérification manuelle ; documenter précisément le processus de validation ; archiver les preuves brutes et les étapes de vérification ; en contexte judiciaire, maintenir une traçabilité complète des sources et méthodes ; former l'équipe à cette discipline de rigueur."
-							},
-							{
-							  "id": "OMF-PL-05.004",
-							  "name": "Considérations légales et éthiques",
-							  "description": "Évaluer les risques légaux et éthiques liés à l'automatisation de la collecte de données, en distinguant ce qui est légalement accessible de ce qui peut être techniquement extrait, et définir les limites défendables.",
-							  "difficulty": "Moyen",
-							  "examples": "Comprendre que l'automatisation accélère potentiellement la violation de réglementations (RGPD, ToS, lois de scraping) comparé aux recherches manuelles ; reconnaître que 'open source' ne signifie pas 'légalement accessible' (ex. : données de dark web, combos lists) ; documenter chaque décision méthodologique et ses justifications ; distinguer entre données publiques, accessibles et légales ; en cas d'ambiguïté légale, escalader auprès d'un avocat avant d'automatiser ou d'utiliser l'outil.",
-							  "detection": "Audit interne, consultation légale, analyse des risques",
-							  "mitigations": "Établir une politique d'utilisation des outils adaptée au contexte légal (enquête privée, contexte judiciaire, veille sécurité) ; documenter les processus de décision et les justifications légales ; former l'équipe aux risques et responsabilités ; maintenir une traçabilité des questions légales posées et des réponses obtenues ; créer un processus d'escalade formalisé vers les conseillers juridiques."
-							}
-						  ]
-						}						
-					]
-				},
-				{
-					"id": "OMF-CO",
-					"name": "Collecte",
-					"tactics": [
-						{
-							"id": "OMF-CO-01",
-							"name": "Compte rendu de témoin",
-							"techniques": [
-								{
-									"id": "OMF-CO-01.001",
-									"name": "Identification et collecte d’informations auprès de témoins",
-									"description": "Repérer toutes les personnes susceptibles de détenir des informations pertinentes et structurer les entretiens pour recueillir des données fiables, vérifiables et triangulables.",
-									"difficulty": "Moyen",
-									"examples": "Identifier les témoins directs et indirects ; préparer des entretiens structurés avec questions ouvertes pour obtenir des détails et questions fermées pour valider des faits ; consigner les réponses mot à mot (verbatim) ; noter le contexte, l’heure et les circonstances de chaque entretien pour garantir traçabilité et fiabilité.",
-									"detection": "N/A - interaction humaine",
-									"mitigations": "S’assurer que les témoins comprennent l’usage des informations ; vérifier les incohérences par recoupement avec plusieurs sources ; conserver les enregistrements et notes dans un format sécurisé pour traçabilité."
-								},
-								{
-									"id": "OMF-CO-01.002",
-									"name": "Analyse comportementale et cognitive",
-									"description": "Évaluer la crédibilité et la fiabilité des informations en observant les signes verbaux, non verbaux et cognitifs, afin de détecter omissions, contradictions ou tentatives de manipulation.",
-									"difficulty": "Difficile",
-									"examples": "Observer les variations tonales, changements de rythme de parole, hésitations et répétitions ; analyser le langage corporel et les micro-expressions faciales ; noter les incohérences entre les propos et les gestes ; documenter systématiquement les observations pour triangulation avec d’autres sources.",
-									"detection": "N/A - interaction humaine",
-									"mitigations": "Former l’analyste aux principes de l’analyse comportementale ; croiser les observations avec d’autres données pour valider la crédibilité ; conserver un enregistrement structuré des observations pour traçabilité.",
-									"subTechniques": [
-										{
-											"id": "OMF-CO-01.002.A",
-											"name": "Analyse des patterns linguistiques",
-											"description": "Examiner les structures, répétitions, choix de mots et formulations pour identifier des incohérences ou indices de dissimulation.",
-											"examples": "Identifier les contradictions internes, les phrases elliptiques ou vagues, les changements soudains de style ou de vocabulaire, et les mots ou expressions répétitifs inhabituels."
-										},
-										{
-											"id": "OMF-CO-01.002.B",
-											"name": "Détection de manipulation temporelle",
-											"description": "Identifier des retards, accélérations ou décalages dans le récit qui peuvent signaler une rétention ou une modification de l’information.",
-											"examples": "Noter les pauses inhabituelles, la variation du rythme de narration, les omissions ou reconstitutions incohérentes dans l’ordre chronologique des événements."
-										}
-									]
-								},
-								{
-									"id": "OMF-CO-01.003",
-									"name": "Évaluation opérationnelle du niveau de détail",
-									"description": "Analyser la richesse et la cohérence des détails fournis par un témoin pour détecter omissions, imprécisions ou surcompensations qui peuvent influencer la fiabilité de l’information.",
-									"difficulty": "Moyen",
-									"examples": "Découper le récit en segments chronologiques et comparer le niveau de détail entre chaque partie ; repérer les passages avec peu ou trop de détails inhabituels ; noter les contradictions ou incohérences entre différents témoins ; utiliser des checklists pour vérifier si les éléments clés sont présents ou manquants.",
-									"detection": "N/A - interaction humaine",
-									"mitigations": "Croiser systématiquement les informations avec d’autres sources ; consigner les observations et écarts dans un journal structuré ; entraîner les analystes à repérer les signes de surcompensation ou d’omission."
-								},
-								{
-									"id": "OMF-CO-01.004",
-									"name": "Identification et collecte de témoins et preuves complémentaires",
-									"description": "Rechercher activement des témoins supplémentaires et des éléments de preuve additionnels afin de renforcer la robustesse et la fiabilité des conclusions.",
-									"difficulty": "Moyen",
-									"examples": "Identifier des témoins indirects ou secondaires liés aux événements ; rechercher documents, photos, vidéos ou enregistrements corroborants ; localiser preuves matérielles (objets, traces, lieux) permettant de confirmer ou compléter les témoignages existants ; consigner chaque interaction et preuve dans un registre structuré.",
-									"detection": "N/A - phase de collecte",
-									"mitigations": "Croiser systématiquement les nouvelles sources avec celles déjà identifiées ; documenter l’origine, le contexte et la fiabilité de chaque nouveau témoin ou preuve ; sécuriser et centraliser les données pour traçabilité."
-								}
-							]
-						},
-						{
-							"id": "OMF-CO-02",
-							"name": "Collecte géospatiale et imagerie",
-							"techniques": [
-								{
-									"id": "OMF-CO-02.001",
-									"name": "Examen visuel systématique",
-									"description": "Analyser méthodiquement le contenu visuel d'une image pour identifier tous les éléments pertinents, en se concentrant sur les détails uniques plutôt que l'ensemble.",
-									"difficulty": "Moyen",
-									"examples": "Identification d'éléments architecturaux, panneaux de signalisation, végétation, conditions météorologiques, objets au premier plan et arrière-plan.",
-									"detection": "N/A - analyse locale",
-									"mitigations": "Floutage de détails identifiants, suppression d'arrière-plans, édition préventive"
-								},
-								{
-									"id": "OMF-CO-02.002",
-									"name": "Extraction d'éléments uniques",
-									"description": "Identifier et documenter jusqu'à une vingtaine d'éléments uniques par image qui peuvent servir de points d'ancrage pour l'investigation.",
-									"difficulty": "Difficile",
-									"examples": "Position du soleil par rapport au photographe et dans le ciel, orientation des antennes satellitaires (généralement vers l'équateur), ombres, reflets, plaques d'immatriculation, logos, numéros, architecture distinctive.",
-									"detection": "N/A",
-									"mitigations": "Suppression ou anonymisation des éléments identifiants avant publication"
-								},
-								{
-									"id": "OMF-CO-02.003",
-									"name": "Recherche d'images inversée",
-									"description": "Utiliser la méthode de recherche inversée d'images pour relier des photos à des comptes, lieux et moments spécifiques.",
-									"difficulty": "Moyen",
-									"examples": "Recherche inversée sur Google Images, TinEye, Yandex, Bing Visual Search. Extraction d'images de profils sur plateformes sociales pour recherche croisée.",
-									"detection": "Faible - requêtes normales de recherche",
-									"mitigations": "Suppression d'images publiques, watermarking visible ou invisible, modification de l'image avant publication"
-								},
-								{
-									"id": "OMF-CO-02.004",
-									"name": "Analyse vidéo par découpage",
-									"description": "Découper des vidéos en frames individuels pour analyse image par image et extraction de détails fugitifs non visibles à vitesse normale.",
-									"difficulty": "Moyen",
-									"examples": "Extraction de frames à intervalles réguliers ou à moments clés, analyse d'arrière-plans, identification d'objets ou personnes, lecture de plaques d'immatriculation, logos, numéros de rue.",
-									"detection": "N/A - analyse locale",
-									"mitigations": "Floutage dynamique des éléments sensibles, réduction de la résolution vidéo"
-								},
-								{
-									"id": "OMF-CO-02.005",
-									"name": "Modification et amélioration d'images",
-									"description": "Retoucher ou modifier les images pour améliorer la visibilité de certains détails obscurcis ou peu visibles.",
-									"difficulty": "Moyen",
-									"examples": "Ajustement de luminosité et contraste, accentuation de zones spécifiques, dé-pixellisation, amélioration de la netteté, reconstruction d'éléments flous.",
-									"detection": "N/A",
-									"mitigations": "Dégradation intentionnelle de la qualité d'image, compression agressive"
-								},
-								{
-									"id": "OMF-CO-02.006",
-									"name": "Analyse de métadonnées EXIF",
-									"description": "Examiner les métadonnées EXIF des images pour extraire informations de géolocalisation, dates, équipement utilisé, tout en restant conscient de leur falsifiabilité.",
-									"difficulty": "Facile",
-									"examples": "Extraction de coordonnées GPS, horodatage de capture, modèle d'appareil photo, paramètres de prise de vue, logiciels d'édition utilisés.",
-									"detection": "N/A",
-									"mitigations": "Suppression systématique des métadonnées EXIF avant publication, désactivation du géotagging sur les appareils"
-								},
-								{
-									"id": "OMF-CO-02.007",
-									"name": "Géolocalisation par indices visuels",
-									"description": "Identifier le lieu de prise de vue en analysant les éléments visuels caractéristiques présents dans l'image, particulièrement difficile pour les photos d'intérieur.",
-									"difficulty": "Difficile",
-									"examples": "Identification de pays/région via style architectural, plaques d'immatriculation, modèles de véhicules régionaux, type de route, signalisation, végétation, conditions climatiques.",
-									"detection": "N/A",
-									"mitigations": "Prise de photos génériques sans éléments géographiquement distinctifs, cadrage limitant le contexte"
-								},
-								{
-									"id": "OMF-CO-02.008",
-									"name": "Identification de véhicules",
-									"description": "Analyser les véhicules présents dans les images pour déterminer le modèle, l'année, la région de commercialisation et potentiellement le propriétaire via la plaque.",
-									"difficulty": "Moyen",
-									"examples": "Identification du modèle et année via caractéristiques visuelles, vérification de la disponibilité régionale du modèle, analyse du format et style de plaque d'immatriculation, recherche dans bases de données de véhicules.",
-									"detection": "Faible pour analyse visuelle, moyenne à élevée pour requêtes sur bases de données",
-									"mitigations": "Floutage ou masquage des plaques d'immatriculation, stationnement hors champ visuel"
-								},
-								{
-									"id": "OMF-CO-02.009",
-									"name": "Corrélation images-indices temporels",
-									"description": "Croiser les informations visuelles des images avec des indices temporels pour confirmer ou affiner la datation et le contexte.",
-									"difficulty": "Moyen",
-									"examples": "Corrélation position solaire avec heure et latitude, comparaison conditions météo avec archives, vérification événements publics visibles, analyse de la végétation selon la saison.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-CO-02.010",
-									"name": "Identification du photographe",
-									"description": "Rechercher qui a pris la photo et dans quel contexte pour évaluer l'authenticité et comprendre l'intention derrière la publication.",
-									"difficulty": "Difficile",
-									"examples": "Analyse des métadonnées d'origine, recherche de l'historique de publication, identification via watermarks, analyse de style photographique, recherche d'images similaires du même auteur.",
-									"detection": "Variable selon les méthodes",
-									"mitigations": "Anonymisation de l'auteur, suppression de signatures ou watermarks identifiants"
-								},
-								{
-									"id": "OMF-CO-02.011",
-									"name": "Validation multi-outils",
-									"description": "Utiliser plusieurs outils différents sur une même image pour affirmer ou infirmer sa vraisemblance et détecter d'éventuelles manipulations.",
-									"difficulty": "Moyen",
-									"examples": "Combinaison de recherche inversée sur multiples moteurs, analyse EXIF avec plusieurs outils, détection de manipulation via ELA, JPEG analysis, vérification de cohérence des ombres et perspectives.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-CO-02.012",
-									"name": "Analyse contextuelle de publication",
-									"description": "Déterminer qui a publié quelle image, pourquoi et dans quel contexte pour prévenir la désinformation et évaluer la fiabilité.",
-									"difficulty": "Moyen",
-									"examples": "Identification de la première occurrence de publication, analyse de la chaîne de partage, vérification du contexte narratif, détection de manipulations contextuelles (légendes trompeuses).",
-									"detection": "Faible",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-CO-02.013",
-									"name": "Analyse biogéographique d'une image",
-									"description": "Identifier la faune ou la flore visibles sur une image afin de déduire la région géographique probable où la photo a été prise.",
-									"difficulty": "Difficile",
-									"examples": "Reconnaissance d'espèces endémiques (plantes, animaux, insectes), corrélation avec leur aire de répartition connue, élimination des zones incompatibles, appui sur des bases de données comme iNaturalist ou GBIF.",
-									"detection": "Moyenne",
-									"mitigations": "Flouter ou cadrer les éléments naturels distinctifs avant publication, éviter les prises de vue révélant une biodiversité trop localisée."
-								},
-								{
-									"id": "OMF-CO-02.014",
-									"name": "Géospatial clustering et corrélation spatiale",
-									"description": "Regrouper et analyser des points géographiques (EXIF, géotags, positions dérivées) pour identifier des zones d’activité, des trajets récurrents ou des sites stratégiques afin de localiser une source ou une prise de vue.",
-									"difficulty": "Difficile",
-									"examples": "Rassembler les coordonnées GPS issues d’images ou de publications, puis les normaliser pour corriger les écarts de format ou de fuseau horaire ; appliquer des algorithmes de regroupement (DBSCAN, OPTICS) pour faire émerger des zones denses d’activité ; croiser ces résultats avec des cartes OSM, des bases cadastrales ou des images satellites ; repérer des trajets ou habitudes à partir des dates et heures de publication ; affiner la localisation en analysant les éléments visibles dans l’environnement (relief, horizon, bâtiments distinctifs).",
-									"detection": "Moyenne - l’analyse repose sur des données publiques, mais des volumes de requêtes élevés ou l’usage d’APIs spécialisées peuvent être détectés.",
-									"mitigations": "Supprimer ou modifier les métadonnées GPS avant diffusion, varier les lieux et horaires de capture, éviter les éléments topographiques reconnaissables, publier des contenus non géolocalisés ou altérés, et limiter la diffusion publique d’images précises."
-								}
-							]
-						},
-						{
-							"id": "OMF-CO-03",
-							"name": "Recherche de sources en ligne",
-							"techniques": [
-								{
-									"id": "OMF-CO-03.001",
-									"name": "Identification des plateformes pertinentes",
-									"description": "Cartographier les sources et plateformes susceptibles de contenir des informations pertinentes pour l'investigation.",
-									"difficulty": "Facile",
-									"examples": "Réseaux sociaux (Facebook, Instagram, TikTok, LinkedIn, Telegram, WhatsApp), bases publiques, archives web, services de localisation (Waze), services de livraison.",
-									"detection": "Faible - recherche passive",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-CO-03.002",
-									"name": "Exploitation des bases de fuites",
-									"description": "Rechercher dans les bases de données de fuites (breaches) pour identifier des informations exposées.",
-									"difficulty": "Moyen",
-									"examples": "Consultation de bases de données publiques de breaches, recherche d'emails, numéros de téléphone, identifiants compromis.",
-									"detection": "Faible - consultation de données déjà publiques",
-									"mitigations": "Hygiène des mots de passe, authentification multi-facteurs, surveillance des fuites"
-								},
-								{
-									"id": "OMF-CO-03.003",
-									"name": "Recherche avancée via moteurs et Google Dorks",
-									"description": "Exploiter les moteurs de recherche généraux et spécialisés (Google, Bing, DuckDuckGo, Shodan, etc.) en combinant opérateurs avancés et Google Dorks pour extraire des informations publiques ciblées liées à une personne, un objet ou une infrastructure.",
-									"difficulty": "Facile",
-									"examples": "Requêtes booléennes et opérateurs (site:, inurl:, filetype:, intitle:), Google Dorks (ex: \"filetype:pdf site:example.com \"confidentiel\"), utilisation de moteurs spécialisés (Shodan pour services exposés, Censys), recherche de documents publics, scan de métadonnées indexées par les moteurs.",
-									"detection": "Faible - activité visible seulement si requêtes/thèmes déclenchent alertes spécifiques (ex: scraping intensif, accès massif via API).",
-									"mitigations": "Minimiser l'exposition des contenus (restreindre indexation, revue des documents publiés, suppression/archivage), appliquer contrôle d'accès sur fichiers sensibles, nettoyer métadonnées, surveiller la surface d'exposition publique."
-								},
-								{
-									"id": "OMF-CO-03.004",
-									"name": "Recherche localisée par langue et alphabet",
-									"description": "Adapter les requêtes et les sources au langage et à l'alphabet de la cible (ex. russe/cyrillique) pour découvrir des traces que les recherches en langue latine n'exposeraient pas.",
-									"difficulty": "Moyen",
-									"examples": "Formuler des requêtes en cyrillique et en translittération ; utiliser moteurs et réseaux locaux (Yandex, VK, Odnoklassniki) ; rechercher pseudonymes locaux, variantes orthographiques, diminutifs et erreurs de translitération ; appliquer opérateurs locaux et filtrer par région/langue.",
-									"detection": "Faible - recherches linguistiques sont discrètes mais l'usage intensif ou automatisé peut déclencher des systèmes anti-scraping ou alertes IP.",
-									"mitigations": "Limiter les informations publiques en langues locales (paramètres de confidentialité), standardiser et nettoyer nommages publics (éviter pseudonymes identifiants), supprimer ou restreindre profils sur plateformes locales, surveiller apparitions multilingues via alertes, éduquer les utilisateurs sur risques liés aux translitérations et aux contenus partagés dans des langues moins familières."
-								},
-								{
-								  "id": "OMF-CO-03.005",
-								  "name": "Recherche avancée par hashtags",
-								  "description": "Exploiter les hashtags et mots-clés dans les moteurs de recherche de réseaux sociaux pour identifier du contenu pertinent ou suspect, notamment en détectant les détournements de hashtags populaires à des fins de propagande.",
-								  "difficulty": "Facile",
-								  "examples": "Requêtes types : #motclé, \"expression exacte\", mot1 OR mot2, from:utilisateur. Démarrer la surveillance sur hashtags génériques (sport, tendances) susceptibles d’être détournés.",
-								  "detection": "Les plateformes peuvent détecter une activité anormale via le volume ou la fréquence des requêtes, ou repérer l’usage automatisé d’API non authentifiées. Les acteurs surveillés peuvent aussi remarquer des consultations répétées de leurs publications.",
-								  "mitigations": "Limiter le taux de requêtes pour rester sous les seuils de détection ; privilégier l’usage d’API officielles avec clés dédiées en lecture seule ; segmenter les recherches par plages horaires et mots-clés ; utiliser des comptes isolés ou des proxys pour compartimenter l’activité et éviter toute corrélation entre investigations."
-								},
-								{
-								  "id": "OMF-CO-03.006",
-								  "name": "Monitoring en temps réel de flux",
-								  "description": "Mettre en place un moniteur temps réel pour capturer et analyser immédiatement les publications contenant certains termes, hashtags ou expressions, afin de détecter rapidement événements, détournements de hashtags ou émergence de narratifs.",
-								  "difficulty": "Moyen",
-								  "examples": "Définir une liste restreinte de termes et expressions prioritaires ; ouvrir des colonnes dédiées dans un outil de monitoring (ex. : TweetDeck, X-Monitor, Hootsuite) ou établir un stream via l'API publique/pro privée ; filtrer par langue, géolocalisation approximative, comptes influents ; créer des règles d'alerte (volume / mots-clés combinés) ; pousser chaque item capturé vers un endpoint d'archivage (webhook → stockage horodaté + hash) pour traçabilité.",
-								  "detection": "La création de connexions longues (streams) ou des requêtes fréquentes vers les APIs peut être détectée par la plateforme (quota, pattern d'usage) ; des connexions répétées depuis une même IP ou des accès massifs à des profils spécifiques peuvent aussi déclencher des alertes ou des blocages.",
-								  "mitigations": "Préparer la liste de termes (prioriser) pour limiter le volume. Utiliser des clés API en lecture seule et respecter les quotas officiels. Fractionner et répartir les streams (par thème/langue) pour réduire la charge par connexion. Throttler les requêtes et implémenter backoff automatique en cas d'erreur 429. Pousser les captures vers un stockage immuable (WARC/JSON) avec horodatage et checksum pour preuve. Isoler l'infrastructure de monitoring (VM dédiées, VPN/proxy rotatif) et séparer comptes opérationnels des comptes personnels. Documenter règles de collecte et conserver un journal des alertes et actions pour audit."
-								}
-							]
-						},
-						{
-							"id": "OMF-CO-04",
-							"name": "Capture des résultats",
-							"techniques": [
-								{
-									"id": "OMF-CO-04.001",
-									"name": "Capture forensique de contenu en ligne",
-									"description": "Réaliser des captures en respectant la chaîne de conservation numérique, assurant l’authenticité et la vérifiabilité des éléments collectés.",
-									"difficulty": "Facile",
-									"examples": "Utilisation d’outils de capture forensique (Hunchly, WebPreserver, Browsertrix), génération automatique de hash, enregistrement des en-têtes HTTP, archivage des pages via WARC ou ArchiveBox.",
-									"detection": "Faible - la capture passive ne génère aucun signal réseau anormal.",
-									"mitigations": "Conserver une copie brute horodatée et signée de chaque élément collecté, documenter le processus pour garantir la traçabilité."
-								},
-								{
-									"id": "OMF-CO-04.002",
-									"name": "Documentation et traçabilité de la chaîne de conservation",
-									"description": "Mettre en place un protocole rigoureux pour enregistrer chaque étape de la conservation des données et preuves, afin d'assurer leur intégrité, vérifiabilité et reproductibilité.",
-									"difficulty": "Moyen",
-									"examples": "Tenir un journal d'acquisition précisant date, heure, méthode et opérateur ; enregistrer les métadonnées originales des fichiers (hash, taille, source) ; créer des copies immuables avec checksums pour chaque transfert ; documenter toute manipulation, extraction ou modification effectuée ; conserver ces informations dans un registre centralisé et sécurisé.",
-									"detection": "N/A - phase de conservation et documentation",
-									"mitigations": "Standardiser la procédure de journalisation et de stockage pour toute l’équipe ; vérifier régulièrement l’intégrité des fichiers via checksums ; archiver les données et journaux dans un environnement sécurisé et sauvegardé."
-								},
-								{
-									"id": "OMF-CO-04.003",
-									"name": "Conservation systématique des métadonnées",
-									"description": "Assurer la collecte et la préservation de toutes les métadonnées associées aux artefacts numériques afin de maintenir leur intégrité, traçabilité et valeur probante.",
-									"difficulty": "Facile",
-									"examples": "Extraire et conserver les EXIF d’images et vidéos ; enregistrer les timestamps et auteurs de publications ; sauvegarder les métadonnées de fichiers (taille, type, hash) ; capturer les logs d’accès et interactions ; documenter toutes les informations de géolocalisation et coordonnées associées.",
-									"detection": "N/A - phase de collecte",
-									"mitigations": "Standardiser l’extraction et le stockage des métadonnées ; centraliser les métadonnées dans un registre sécurisé ; vérifier l’intégrité des métadonnées à l’aide de checksums ou d’outils spécialisés."
-								}
-							]
-						}
-					]
-				},
-				{
-					"id": "OMF-CR",
-					"name": "Corrélation",
-					"tactics": [
-						{
-							"id": "OMF-CR-01",
-							"name": "Latches et Pivots",
-							"techniques": [
-								{
-									"id": "OMF-CR-01.001",
-									"name": "Identification et exploitation des points d'ancrage",
-									"description": "Repérer et valider des points d’ancrage fiables (latches) pour établir une base solide à partir de laquelle étendre l’investigation vers d’autres artefacts liés.",
-									"difficulty": "Moyen",
-									"examples": "Vérifier un numéro de téléphone ou une adresse email via plusieurs sources ; authentifier une image ou un document ; confirmer l’existence d’identifiants uniques (ID utilisateur, compte, device) ; utiliser ces points vérifiés pour rechercher des connexions, historiques ou interactions associées.",
-									"detection": "Faible - corrélation interne",
-									"mitigations": "Limiter l’exposition des identifiants validés ; documenter chaque point d’ancrage et sa source ; compartimenter les informations pour éviter les fuites ou compromissions."
-								},
-								{
-									"id": "OMF-CR-01.002",
-									"name": "Exploitation méthodique des pivots entre sources",
-									"description": "Utiliser des éléments vérifiés comme points de pivot pour naviguer méthodiquement d’une source à une autre et relier les informations de manière fiable.",
-									"difficulty": "Moyen",
-									"examples": "Passer d’une adresse email validée à des profils sociaux associés ; relier une photo à ses coordonnées GPS ou métadonnées pour géolocalisation ; utiliser un numéro de téléphone confirmé pour retrouver l’historique d’utilisation ou d’interactions ; documenter chaque pivot pour traçabilité et recoupement.",
-									"detection": "Variable selon les sources et la visibilité des liens",
-									"mitigations": "Attribuer des identifiants uniques pour chaque service ou source ; documenter chaque pivot utilisé et son point de départ ; limiter les opérations à ce qui est nécessaire pour réduire l’exposition des données."
-								},
-								{
-									"id": "OMF-CR-01.003",
-									"name": "Traçabilité et documentation des pivots",
-									"description": "Enregistrer systématiquement chaque pivot utilisé pour relier les sources afin de conserver la chaîne d’investigation et permettre une revue indépendante et vérifiable.",
-									"difficulty": "Facile",
-									"examples": "Créer un graphe de relations montrant les connexions entre sources ; tenir un journal détaillé des transitions entre chaque point vérifié ; noter la logique et le raisonnement derrière chaque pivot ; inclure les dates, contextes et preuves associées pour chaque connexion.",
-									"detection": "N/A - phase de documentation",
-									"mitigations": "Standardiser le format de documentation des pivots ; centraliser les journaux et graphiques pour un accès sécurisé ; vérifier régulièrement la cohérence et complétude de la documentation."
-								}
-							]
-						},
-						{
-							"id": "OMF-CR-02",
-							"name": "Baseline et comparaison",
-							"techniques": [
-								{
-									"id": "OMF-CR-02.001",
-									"name": "Établissement et exploitation de points de référence",
-									"description": "Définir et documenter des points de référence mesurables pour comparer les comportements ou données observés et identifier anomalies, écarts ou variations significatives.",
-									"difficulty": "Moyen",
-									"examples": "Collecter des données sur les habitudes normales de publication ou de communication ; observer les horaires et fréquences d’activités ; analyser les patterns linguistiques habituels ; cartographier les relations sociales typiques ; utiliser ces références pour détecter des comportements, contenus ou connexions atypiques.",
-									"detection": "N/A - phase d’analyse comparative",
-									"mitigations": "Mettre à jour régulièrement les références pour rester représentatif ; documenter toutes les sources et méthodes utilisées pour définir les points de référence ; croiser avec d’autres données pour valider les anomalies détectées."
-								},
-								{
-									"id": "OMF-CR-02.002",
-									"name": "Analyse comparative opérationnelle",
-									"description": "Comparer systématiquement des jeux de données à l'aide de métriques et indicateurs techniques afin de mettre en évidence similarités, différences ou anomalies significatives.",
-									"difficulty": "Moyen",
-									"examples": "Comparer les styles d’écriture ou lexiques utilisés dans différents textes ; analyser fréquences et horaires d’activité pour détecter des écarts ; examiner les métadonnées techniques des fichiers ou images ; détecter des patterns de connexion ou comportements récurrents ; documenter les écarts et similarités pour validation ou recoupement.",
-									"detection": "N/A - phase d’analyse comparative",
-									"mitigations": "Standardiser les métriques et indicateurs utilisés ; documenter les méthodes de comparaison pour reproductibilité ; croiser avec des références historiques ou comportementales pour confirmer les écarts détectés."
-								},
-								{
-									"id": "OMF-CR-02.003",
-									"name": "Exploitation du principe de Locard",
-									"description": "Identifier et analyser les micro-traces laissées par les acteurs sur les artefacts numériques afin de créer des connexions fiables entre différents éléments de preuve.",
-									"difficulty": "Difficile",
-									"examples": "Repérer des empreintes techniques uniques (hash, configurations spécifiques) ; identifier des patterns de comportement distinctifs (horaires, habitudes de publication) ; extraire des signatures digitales ou métadonnées persistantes ; suivre des traces de navigation ou interactions numériques pour relier des artefacts.",
-									"detection": "N/A - phase d’analyse détaillée",
-									"mitigations": "Documenter systématiquement chaque micro-trace et son contexte ; valider les liens établis via plusieurs sources ; sécuriser les artefacts et traces pour éviter altération ou perte."
-								}
-							]
-						},
-						{
-							"id": "OMF-CR-03",
-							"name": "Recoupement des données",
-							"techniques": [
-								{
-									"id": "OMF-CR-03.001",
-									"name": "Triangulation opérationnelle des sources",
-									"description": "Croiser systématiquement des informations provenant de sources indépendantes afin de confirmer leur fiabilité et détecter les incohérences.",
-									"difficulty": "Moyen",
-									"examples": "Comparer les métadonnées d’un fichier avec les captures d’écran et logs réseau ; vérifier la cohérence d’un témoignage avec d’autres témoins ou documents ; recouper des informations publiées sur différents réseaux sociaux ou sites web ; documenter chaque correspondance ou divergence pour audit et validation.",
-									"detection": "N/A - phase de vérification et recoupement",
-									"mitigations": "Standardiser la méthodologie de triangulation ; consigner toutes les sources et méthodes utilisées ; croiser les résultats avec des références fiables pour renforcer la confiance dans les conclusions."
-								},
-								{
-									"id": "OMF-CR-03.002",
-									"name": "Détection et exploitation des contradictions",
-									"description": "Identifier et documenter systématiquement les incohérences entre sources afin de mettre en évidence des points nécessitant vérification et de guider l’investigation.",
-									"difficulty": "Moyen",
-									"examples": "Repérer des discordances temporelles entre publications ou événements ; comparer les récits de témoins pour identifier divergences ; analyser les métadonnées contradictoires des fichiers ou images ; documenter chaque contradiction et son contexte pour prioriser les vérifications.",
-									"detection": "N/A - phase d’analyse critique",
-									"mitigations": "Structurer la documentation des contradictions pour audit et traçabilité ; recouper chaque incohérence avec d’autres sources fiables ; utiliser les contradictions comme indicateurs pour orienter les prochaines étapes de l’investigation."
-								},
-								{
-									"id": "OMF-CR-03.003",
-									"name": "Collecte et exploitation de données auxiliaires",
-									"description": "Identifier, collecter et analyser des données connexes susceptibles de confirmer, renforcer ou invalider un fait établi, afin de solidifier la conclusion de l’investigation.",
-									"difficulty": "Moyen",
-									"examples": "Recueillir des logs techniques pour vérifier des événements ; obtenir des données de géolocalisation supplémentaires pour valider un lieu ou un déplacement ; consulter des archives historiques ou bases de données publiques ; extraire et analyser les métadonnées de fichiers ou images pour corroborer un fait ; documenter la provenance et l’intégrité de chaque donnée auxiliaire.",
-									"detection": "Variable selon la visibilité et la sensibilité des sources",
-									"mitigations": "Vérifier systématiquement la fiabilité et la provenance de chaque donnée auxiliaire ; conserver des copies immuables et horodatées ; croiser avec d’autres sources pour renforcer la validité."
-								}
-							]
-						}
-					]
-				},
-				{
-					"id": "OMF-AN",
-					"name": "Analyse",
-					"tactics": [
-						{
-							"id": "OMF-AN-01",
-							"name": "Chronologie",
-							"techniques": [
-								{
-									"id": "OMF-AN-01.001",
-									"name": "Établissement d'un point fixe",
-									"description": "Définir un point de référence temporel vérifiable (horodatage, événement corroboré) comme base de la chronologie.",
-									"difficulty": "Moyen",
-									"examples": "Timestamp UTC d'une publication, horodatage d'un événement public, métadonnée de création de fichier vérifiée.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-AN-01.002",
-									"name": "Extension de la timeline",
-									"description": "Élargir la période temporelle pour capturer le contexte complet, incluant précurseurs et conséquences.",
-									"difficulty": "Moyen",
-									"examples": "Extension avant/après l'incident pour identifier patterns préparatoires ou conséquences à long terme.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-AN-01.003",
-									"name": "Séparation faits/informations",
-									"description": "Créer un tableau des faits vérifiés et un tableau d'informations à vérifier, en déplaçant les éléments au fur et à mesure.",
-									"difficulty": "Facile",
-									"examples": "Tableau avec colonnes: élément, statut (vérifié/non vérifié), sources, niveau de confiance.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-AN-01.004",
-									"name": "Analyse des lacunes temporelles",
-									"description": "Identifier les trous dans la timeline et formuler des hypothèses sur les événements manquants.",
-									"difficulty": "Difficile",
-									"examples": "Périodes sans activité digitale, gaps dans les logs, absences de témoignages pour certaines plages horaires.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-AN-01.005",
-									"name": "Détection de manipulation temporelle",
-									"description": "Identifier les tentatives de manipulation d'horodatages ou d'imprécisions temporelles délibérées.",
-									"difficulty": "Difficile",
-									"examples": "Incohérences dans les timestamps, modifications de métadonnées EXIF, décalages temporels suspects.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								}
-							]
-						},
-						{
-							"id": "OMF-AN-02",
-							"name": "Examen forensique",
-							"techniques": [
-								{
-									"id": "OMF-AN-02.001",
-									"name": "Documentation factuelle et objective",
-									"description": "Consigner uniquement les informations vérifiables et observables, sans inférer de liens ou tirer de conclusions avant vérification, afin d’assurer la fiabilité des analyses futures.",
-									"difficulty": "Moyen",
-									"examples": "Noter précisément dates, heures, sources, URL et métadonnées ; capturer screenshots et logs intacts ; éviter les suppositions sur les intentions ou motivations des acteurs ; signaler clairement les zones d’incertitude et les éléments non confirmés.",
-									"detection": "N/A",
-									"mitigations": "Établir un protocole de documentation standardisé ; former les analystes à distinguer faits et hypothèses ; utiliser des outils d’archivage automatique pour conserver les preuves brutes."
-								},
-								{
-									"id": "OMF-AN-02.002",
-									"name": "Appui des allégations",
-									"description": "Relier systématiquement chaque affirmation à des preuves vérifiables et mesurables afin de garantir la fiabilité et l’objectivité des conclusions.",
-									"difficulty": "Difficile",
-									"examples": "Documenter chaque allégation avec sources précises, captures d’écran, logs ou données brutes ; quantifier le niveau de certitude pour chaque affirmation ; utiliser des méthodes statistiques ou analytiques pour valider les liens ; maintenir une traçabilité claire entre preuves et conclusions dans le rapport.",
-									"detection": "N/A",
-									"mitigations": "Établir un protocole standardisé pour documenter les preuves et les liens avec les allégations ; vérifier l’intégrité des données utilisées ; distinguer clairement faits, hypothèses et interprétations."
-								},
-								{
-								  "id": "OMF-AN-02.003",
-								  "name": "Identification et comblement des lacunes",
-								  "description": "Repérer systématiquement les informations manquantes dans les preuves ou les données collectées, puis définir et prioriser les actions nécessaires pour compléter l'analyse et renforcer la robustesse des conclusions.",
-								  "difficulty": "Moyen",
-								  "examples": "Lister les informations absentes ou incohérentes dans les jeux de données ; identifier les sources supplémentaires (archives, témoins, métadonnées) pour combler ces lacunes ; planifier les recherches complémentaires selon leur impact sur l’investigation ; vérifier que chaque nouvel élément collecté corrige une lacune identifiée.",
-								  "detection": "N/A - phase d'analyse interne",
-								  "mitigations": "Documenter toutes les lacunes identifiées et les actions entreprises pour les combler ; conserver la traçabilité de chaque ajout de preuve ; vérifier l’impact des informations récupérées sur les conclusions précédentes afin d’assurer fiabilité et cohérence."
-								},
-								{
-								  "id": "OMF-AN-02.004",
-								  "name": "Analyse granulaire des artefacts",
-								  "description": "Identifier et exploiter systématiquement les informations discrètes ou partielles contenues dans les métadonnées, fragments d’artefacts ou micro-indicateurs afin de révéler des preuves cachées ou des incohérences.",
-								  "difficulty": "Difficile",
-								  "examples": "Analyser pixel par pixel les images pour détecter retouches, filigranes ou éléments révélateurs ; examiner les headers HTTP pour identifier l’origine et les configurations serveur ; parser les métadonnées de fichiers (EXIF, timestamps, géolocalisation, versions d’édition) ; corréler les fragments de logs, fichiers partiels ou extraits de bases de données pour reconstruire des séquences d’événements.",
-								  "detection": "N/A - analyse interne des artefacts",
-								  "mitigations": "Documenter chaque micro-détail analysé avec sa source et son contexte ; croiser systématiquement avec d’autres artefacts pour confirmer ou infirmer les observations ; conserver les données originales et horodatées pour garantir traçabilité et reproductibilité."
-								},
-								{
-									"id": "OMF-AN-02.005",
-									"name": "Application de méthodes quantitatives et scientifiques",
-									"description": "Exploiter des approches statistiques, mathématiques et de data science pour objectiver les observations, valider les hypothèses et mesurer la fiabilité des conclusions.",
-									"difficulty": "Difficile",
-									"examples": "Analyse des tendances et patterns dans les datasets collectés ; calculs de corrélation et de probabilité pour confirmer ou infirmer des hypothèses ; tests statistiques sur échantillons pour évaluer la représentativité ; utilisation d’outils de data science (Python, Pandas, R, Jupyter) pour automatiser et documenter les calculs.",
-									"detection": "N/A",
-									"mitigations": "Standardiser les méthodes de calcul et d’analyse ; documenter les sources et les paramètres utilisés ; vérifier l’intégrité et la qualité des données avant application."
-								},
-								{
-								  "id": "OMF-AN-02.006",
-								  "name": "Analyse par perspective ciblée",
-								  "description": "Se placer dans la perspective de la cible pour anticiper ses actions : comprendre ses motivations, doctrines et logiques internes afin de prédire comportements, interactions et mouvements futurs.",
-								  "difficulty": "Moyen",
-								  "examples": "Analyser les discours des leaders et les documents idéologiques pour dégager les priorités du groupe ; suivre les variantes de langage, memes et symboles partagés entre dirigeants et membres pour identifier la propagation des idées ; construire des scénarios plausibles (what‑if) basés sur motivations identifiées ; utiliser l’analyse réseau pour repérer comment les directives se diffusent des leaders vers les pions ; croiser ces éléments avec indicateurs opérationnels (changements de rhétorique, hausse des mentions, achats logistiques) pour anticiper une escalade ou un déplacement.",
-								  "detection": "N/A - méthode d’analyse interne.",
-								  "mitigations": "Encadrer systématiquement l’exercice par une déclaration d’hypothèses et de limites méthodologiques afin de distinguer clairement les suppositions des faits. Veiller à ne pas confondre adhésion d’opinion et intention d’action : toujours rechercher des indicateurs comportementaux concrets pour valider une hypothèse. Documenter les sources et la chaîne de raisonnement, croiser les conclusions avec données empiriques et analyses indépendantes, et rester attentif aux biais (projection, confirmation). Respecter les contraintes légales et éthiques lors de l’exploration de contenus et éviter toute stigmatisation non justifiée."
-								}
-							]
-						},
-						{
-							"id": "OMF-AN-03",
-							"name": "Analyse des déclarations",
-							"techniques": [
-								{
-									"id": "OMF-AN-03.001",
-									"name": "Désagrégation systématique",
-									"description": "Décomposer chaque déclaration en éléments vérifiables individuellement par des sources externes.",
-									"difficulty": "Moyen",
-									"examples": "Extraction des affirmations factuelles, séparation des opinions et faits, identification des éléments vérifiables.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-AN-03.002",
-									"name": "Analyse des patterns de langage",
-									"description": "Identifier les formulations vagues, les détails excessifs ou les patterns linguistiques suspects dans les déclarations.",
-									"difficulty": "Difficile",
-									"examples": "Répétition de formules, usage de qualificateurs excessifs, changements de registre linguistique, incohérences stylistiques.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-AN-03.003",
-									"name": "Corroboration croisée",
-									"description": "Identifier quelles informations sont corroborées par plusieurs sources et lesquelles restent isolées.",
-									"difficulty": "Moyen",
-									"examples": "Matrice de corroboration, identification des points de convergence et divergence, évaluation de la fiabilité relative.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								}
-							]
-						},
-						{
-							"id": "OMF-AN-04",
-							"name": "Visualisation",
-							"techniques": [
-								{
-									"id": "OMF-AN-04.001",
-									"name": "Cartographie relationnelle",
-									"description": "Transformer les relations complexes entre entités en représentations visuelles pour identifier patterns et anomalies.",
-									"difficulty": "Moyen",
-									"examples": "Graphes de relations sociales, diagrammes de flux d'information, cartes de connexions entre comptes.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-AN-04.002",
-									"name": "Visualisation géospatiale",
-									"description": "Représenter les données avec une dimension géographique pour déceler des corrélations spatiales.",
-									"difficulty": "Moyen",
-									"examples": "Cartes de localisation, heatmaps d'activité, trajectoires de déplacement, zones d'intérêt.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-AN-04.003",
-									"name": "Visualisation temporelle",
-									"description": "Créer des timelines visuelles montrant la séquence et la simultanéité d'événements.",
-									"difficulty": "Facile",
-									"examples": "Timelines interactives, diagrammes de Gantt, chronologies multi-sources, visualisations de patterns temporels.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-AN-04.004",
-									"name": "Identification de clusters",
-									"description": "Utiliser la visualisation pour repérer des groupements d'entités ou d'activités liées.",
-									"difficulty": "Moyen",
-									"examples": "Clusters de comptes connectés, groupes d'activité coordonnée, réseaux de communication identifiables.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								}
-							]
-						}
-					]
-				},
-				{
-					"id": "OMF-RE",
-					"name": "Reporting",
-					"tactics": [
-						{
-							"id": "OMF-RE-01",
-							"name": "Documentation",
-							"techniques": [
-								{
-									"id": "OMF-RE-01.001",
-									"name": "Chaîne de traçabilité",
-									"description": "Documenter méticuleusement chaque source, horodatage et méthode pour garantir l'intégrité et la reproductibilité de l'investigation.",
-									"difficulty": "Moyen",
-									"examples": "Screenshots horodatés avec métadonnées, URLs complètes, logs d'actions, hash de fichiers, journal d'audit détaillé.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-RE-01.002",
-									"name": "Conservation des preuves",
-									"description": "Assurer la préservation intègre et sécurisée de toutes les preuves collectées selon des standards légaux.",
-									"difficulty": "Moyen",
-									"examples": "Copies immuables, checksums cryptographiques, stockage sécurisé, contrôle d'accès, procédures de retention.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-RE-01.003",
-									"name": "Documentation méthodologique",
-									"description": "Consigner toutes les étapes méthodologiques pour permettre la révision et la reproduction de l'enquête.",
-									"difficulty": "Moyen",
-									"examples": "Description des techniques utilisées, justification des choix, limitations identifiées, alternatives considérées.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								}
-							]
-						},
-						{
-							"id": "OMF-RE-02",
-							"name": "Rédaction de conclusions",
-							"techniques": [
-								{
-									"id": "OMF-RE-02.001",
-									"name": "Conclusions factuelles",
-									"description": "Produire des conclusions concises, factuelles et strictement limitées aux éléments prouvés par les données.",
-									"difficulty": "Moyen",
-									"examples": "Énoncés clairs et mesurables, évitement de spéculation, indication du niveau de certitude, limitation aux faits établis.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-RE-02.002",
-									"name": "Documentation des limites",
-									"description": "Identifier et communiquer clairement les limites de l'investigation et les zones d'incertitude.",
-									"difficulty": "Facile",
-									"examples": "Lacunes dans les données, hypothèses non vérifiées, sources inaccessibles, contraintes méthodologiques.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-RE-02.003",
-									"name": "Quantification de la confiance",
-									"description": "Attribuer des niveaux de confiance mesurables à chaque conclusion basés sur la qualité et quantité des preuves.",
-									"difficulty": "Difficile",
-									"examples": "Échelles de certitude (haute/moyenne/faible), pourcentages de confiance, évaluation de la robustesse des preuves.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								}
-							]
-						},
-						{
-							"id": "OMF-RE-03",
-							"name": "Présentation visuelle",
-							"techniques": [
-								{
-									"id": "OMF-RE-03.001",
-									"name": "Graphes de relations",
-									"description": "Créer des visualisations graphiques montrant les connexions entre entités, comptes et informations.",
-									"difficulty": "Moyen",
-									"examples": "Diagrammes de réseau, arbres hiérarchiques, graphes orientés, représentations de flux d'information.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-RE-03.002",
-									"name": "Timelines intégrées",
-									"description": "Produire des chronologies visuelles intégrant multiples sources et types d'événements.",
-									"difficulty": "Moyen",
-									"examples": "Timelines multi-couches, synchronisation d'événements, visualisation de séquences causales.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-RE-03.003",
-									"name": "Cartographie géographique",
-									"description": "Utiliser des cartes pour représenter la dimension spatiale des découvertes.",
-									"difficulty": "Moyen",
-									"examples": "Cartes de localisations, trajets, zones d'activité, heatmaps géographiques.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-RE-03.004",
-									"name": "Communication adaptée à l'audience",
-									"description": "Adapter le niveau de détail technique et la présentation selon l'audience cible (technique, juridique, exécutive).",
-									"difficulty": "Moyen",
-									"examples": "Résumés exécutifs, annexes techniques détaillées, visualisations simplifiées, documentation complète pour experts.",
-									"detection": "N/A",
-									"mitigations": "N/A"
-								},
-								{
-									"id": "OMF-RE-03.005",
-									"name": "Prévention du doxxing",
-									"description": "Éviter toute divulgation d'informations personnelles ou sensibles lors de la production ou de la diffusion d'un rapport OSINT.",
-									"difficulty": "Facile",
-									"examples": "Rapport interne confidentiel ou rapport public anonymisé.",
-									"detection": "Vérifier si des données personnelles identifiables apparaissent dans le rapport avant diffusion.",
-									"mitigations": "Pour éviter le doxxing, il y a deux solutions : \n1. Rendre le rapport OSINT strictement confidentiel (accessible uniquement aux personnes autorisées).\n2. Anonymiser toutes les données personnelles si le rapport doit être publié ou partagé en ligne."
-								}
-							]
-						}
-					]
-				}
-			]
-		};
+
+        function showLoader() {
+            const loader = document.querySelector('.loading');
+            if (loader) {
+                loader.style.display = 'flex';
+            }
+        }
+
+        function hideLoader() {
+            const loader = document.querySelector('.loading');
+            if (loader) {
+                loader.classList.add('fade-out');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        let omfData;
+
+        async function getOmfData() {
+            try{
+                const response = await fetch('/api/omf-tools');
+                if (!response.ok) {
+                    throw new Error(response.status)
+                } else {
+                    return await response.text();
+                }
+            } catch(e) {
+                console.error(e)
+            }
+        }
+
+        window.addEventListener('load', async () => {
+            try {
+                showLoader();
+                textData = await getOmfData();
+                omfData = JSON.parse(textData);
+                generateMatrix();
+                setTimeout(() => {
+                    hideLoader();
+                }, 800);
+            } catch (e) {
+                console.error(e);
+            }
+        });
+
+        function selectTemplate(templateId) {
+          // URL relative du template à charger
+          const url = `/${templateId}`;
+
+          // Vérifie si on est dans un iframe parent
+          if (window.parent) {
+            const iframe = window.parent.document.getElementById('iframe-omf-tool');
+            if (iframe) {
+              iframe.src = url;
+            } else {
+              console.error("Iframe parent introuvable !");
+            }
+          } else {
+            // fallback : ouvre dans la même page
+            window.location.href = url;
+          }
+        }
 
         let currentTactic = null;
         let currentTechnique = null;
@@ -1616,6 +1024,28 @@
                 });
                 table.appendChild(row);
             }
+
+            const targetRow = table.rows[1]; 
+            const targetCell = targetRow.cells[3];
+
+            if (targetCell) {
+                targetCell.className = 'special-container-cell';
+                targetCell.innerHTML = `
+                    <div class="special-link-cell">
+                        <div class="tactic-name">Analysis Ladder</div>
+                        <div class="tactic-id">OMF-AN-LADDER</div>
+                        <div class="technique-count">External Framework</div>
+                    </div>
+                `;
+
+                const specialLink = targetCell.querySelector('.special-link-cell');
+                specialLink.onclick = (e) => {
+                    e.stopPropagation();
+                    selectTemplate('ladder');
+                };
+                        
+            }
+
         }
 
         function showTechniques(phase, tactic) {
@@ -1761,7 +1191,7 @@
         }
 
         // Initialize
-        generateMatrix();
+        
     </script>
 </body>
 </html>
