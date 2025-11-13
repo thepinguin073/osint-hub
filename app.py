@@ -84,7 +84,7 @@ def offsec():
 
 @app.route('/omf-tool')
 def omf_tool():
-    return send_from_directory('frontend', 'omf-tool.html')
+    return send_from_directory('frontend', 'OMF.html')
 
 @app.route('/ladder')
 def ladder():

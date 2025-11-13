@@ -4,7 +4,7 @@
 			"phases": [
 				{
 					"id": "OMF-PL",
-					"name": "Planification",
+					"name": "Planning",
 					"tactics": [
 						{
 							"id": "OMF-PL-01",
@@ -225,7 +225,7 @@
 				},
 				{
 					"id": "OMF-CO",
-					"name": "Collecte",
+					"name": "Collection",
 					"tactics": [
 						{
 							"id": "OMF-CO-01",
@@ -512,7 +512,7 @@
 				},
 				{
 					"id": "OMF-CR",
-					"name": "Corrélation",
+					"name": "Correlation",
 					"tactics": [
 						{
 							"id": "OMF-CR-01",
@@ -617,7 +617,7 @@
 				},
 				{
 					"id": "OMF-AN",
-					"name": "Analyse",
+					"name": "Analysis",
 					"tactics": [
 						{
 							"id": "OMF-AN-01",

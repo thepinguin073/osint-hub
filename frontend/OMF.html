@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Arcarium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 3rem 2rem 2rem 330px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(79, 251, 223, 0.2);
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: #4FFBDF;
+            font-size: 1rem;
+            font-style: italic;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px) saturate(1.2);
+            -webkit-backdrop-filter: blur(25px) saturate(1.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border: 2px solid rgba(79, 251, 223, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .intro-text {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .intro-text a {
+            color: #4FFBDF;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(79, 251, 223, 0.3);
+            transition: all 0.3s;
+        }
+
+        .intro-text a:hover {
+            color: #FFD700;
+            border-bottom-color: #FFD700;
+        }
+
+        /* Key Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            backdrop-filter: blur(15px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(79, 251, 223, 0.2);
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-item:hover {
+            border-color: rgba(79, 251, 223, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(79, 251, 223, 0.2);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 0.75rem;
+            color: #4FFBDF;
+            filter: drop-shadow(0 0 8px rgba(79, 251, 223, 0.4));
+        }
+
+        .feature-title {
+            color: #4FFBDF;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Tiles Section */
+        .tiles-section {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #f1f5f9;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .tiles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tile Card */
+        .tile-card {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px) saturate(1.2);
+            -webkit-backdrop-filter: blur(25px) saturate(1.2);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .tile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .tile-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Methodology Tile - Golden/Amber theme */
+        .tile-methodology {
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .tile-methodology::before {
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+        }
+
+        .tile-methodology:hover {
+            border-color: rgba(255, 215, 0, 0.7);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(255, 215, 0, 0.3);
+        }
+
+        .tile-methodology .tile-icon-wrapper {
+            color: #FFD700;
+        }
+
+        .tile-methodology .tile-title {
+            color: #FFD700;
+        }
+
+        /* Matrix Tile - Cyan/Turquoise theme */
+        .tile-matrix {
+            border-color: rgba(79, 251, 223, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .tile-matrix::before {
+            background: radial-gradient(circle at center, rgba(79, 251, 223, 0.15) 0%, transparent 70%);
+        }
+
+        .tile-matrix:hover {
+            border-color: rgba(79, 251, 223, 0.7);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-matrix .tile-icon-wrapper {
+            color: #4FFBDF;
+        }
+
+        .tile-matrix .tile-title {
+            color: #4FFBDF;
+        }
+
+        /* Tile Content */
+        .tile-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s;
+        }
+
+        .tile-card:hover .tile-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .tile-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 20px currentColor;
+        }
+
+        .tile-description {
+            color: #cbd5e1;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tile-badge {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+
+        .tile-methodology .tile-badge {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            color: #FFD700;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+        }
+
+        .tile-matrix .tile-badge {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2), rgba(79, 251, 223, 0.1));
+            color: #4FFBDF;
+            border: 1px solid rgba(79, 251, 223, 0.4);
+        }
+
+        .tile-card:hover .tile-badge {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px currentColor;
+        }
+
+        /* Arrow Animation */
+        .tile-arrow {
+            margin-left: 0.5rem;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .tile-card:hover .tile-arrow {
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .intro-section {
+                padding: 1.5rem;
+            }
+
+            .intro-text {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tile-card {
+                padding: 2rem 1.5rem;
+                min-height: 280px;
+            }
+
+            .tile-icon-wrapper {
+                width: 64px;
+                height: 64px;
+            }
+
+            .tile-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Definitions -->
+    <svg style="display: none;">
+        <defs>
+            <!-- Target/Bullseye Icon -->
+            <symbol id="icon-target" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </symbol>
+
+            <!-- Microscope/Flask Icon -->
+            <symbol id="icon-flask" viewBox="0 0 24 24">
+                <path d="M9 3h6M12 3v9m0 0l-3.5 6.5A2 2 0 0 0 10.2 22h3.6a2 2 0 0 0 1.7-3.5L12 12z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <line x1="7.5" y1="18" x2="16.5" y2="18" stroke="currentColor" stroke-width="1.5"/>
+            </symbol>
+
+            <!-- Users/Network Icon -->
+            <symbol id="icon-users" viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </symbol>
+
+            <!-- Shield/Checkmark Icon -->
+            <symbol id="icon-shield-check" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+                <polyline points="9,12 11,14 15,10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </symbol>
+
+            <!-- Book Icon -->
+            <symbol id="icon-book" viewBox="0 0 24 24">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <line x1="8" y1="7" x2="16" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="8" y1="11" x2="16" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </symbol>
+
+            <!-- Beaker/Laboratory Icon -->
+            <symbol id="icon-beaker" viewBox="0 0 24 24">
+                <path d="M8 3h8M12 3v7m0 0l-4 7a3 3 0 0 0 2.598 4.5h2.804A3 3 0 0 0 16 17l-4-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <line x1="7" y1="17" x2="17" y2="17" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M9 13h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </symbol>
+        </defs>
+    </svg>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>The Arcarium</h1>
+            <div class="subtitle">Where Knowledge Becomes Power</div>
+        </header>
+
+        <!-- Intro Section -->
+        <div class="intro-section">
+            <p class="intro-text">
+                Welcome to <strong>The Arcarium</strong>, your gateway to mastering Open Source Intelligence. 
+                Built on the <a href="https://github.com/thepinguin073/OMF" target="_blank">OSINT Methodology Framework (OMF)</a>, 
+                we transform scattered intelligence practices into a structured, reproducible science. 
+                Whether you're investigating threats, profiling actors, or seeking truth in the digital chaos, 
+                OMF provides the battle-tested roadmap you need.
+            </p>
+
+            <!-- Key Features -->
+            <div class="features-grid">
+                <div class="feature-item">
+                    <svg class="feature-icon"><use href="#icon-target"></use></svg>
+                    <div class="feature-title">Structured Approach</div>
+                    <div class="feature-desc">Follow proven intelligence cycles from planning to reporting</div>
+                </div>
+                <div class="feature-item">
+                    <svg class="feature-icon"><use href="#icon-flask"></use></svg>
+                    <div class="feature-title">Scientific Rigor</div>
+                    <div class="feature-desc">Built on falsifiability and reproducibility principles</div>
+                </div>
+                <div class="feature-item">
+                    <svg class="feature-icon"><use href="#icon-users"></use></svg>
+                    <div class="feature-title">Collaborative Framework</div>
+                    <div class="feature-desc">Open-source knowledge base evolving with the community</div>
+                </div>
+                <div class="feature-item">
+                    <svg class="feature-icon"><use href="#icon-shield-check"></use></svg>
+                    <div class="feature-title">Battle-Tested</div>
+                    <div class="feature-desc">Techniques validated by professionals across industries</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tiles Section -->
+        <div class="tiles-section">
+            <h2 class="section-title">Choose Your Path</h2>
+            <div class="tiles-grid">
+                <!-- Methodology Tile -->
+                <div class="tile-card tile-methodology" onclick="selectTemplate('methodology')">
+                    <svg class="tile-icon-wrapper"><use href="#icon-book"></use></svg>
+                    <h3 class="tile-title">The Grimoire</h3>
+                    <p class="tile-description">
+                        Master the foundational principles and theory behind OSINT excellence. 
+                        Explore the intelligence cycle, cognitive biases, and analytical frameworks.
+                    </p>
+                    <div class="tile-badge">
+                        Learn the Theory <span class="tile-arrow">→</span>
+                    </div>
+                </div>
+
+                <!-- Matrix Tile -->
+                <div class="tile-card tile-matrix" onclick="selectTemplate('matrix')">
+                    <svg class="tile-icon-wrapper"><use href="#icon-beaker"></use></svg>
+                    <h3 class="tile-title">The Laboratory</h3>
+                    <p class="tile-description">
+                        Dive into the interactive matrix of tactics and techniques. 
+                        Discover practical methods, detection strategies, and real-world applications.
+                    </p>
+                    <div class="tile-badge">
+                        Explore the Matrix <span class="tile-arrow">→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectTemplate(templateId) {
+            const url = `/${templateId}`;
+            
+            if (window.parent) {
+                const iframe = window.parent.document.getElementById('iframe-omf-tool');
+                if (iframe) {
+                    iframe.src = url;
+                } else {
+                    console.error("Parent iframe not found!");
+                }
+            } else {
+                window.location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>
