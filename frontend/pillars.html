@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Five Pillars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 3rem 2rem 2rem 330px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            color: #FFD700;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.15) 100%);
+            border-color: #FFD700;
+            transform: translateX(-4px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Tiles Container */
+        .tiles-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Tile Card */
+        .tile-card {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px) saturate(1.2);
+            -webkit-backdrop-filter: blur(25px) saturate(1.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+            min-height: 140px;
+        }
+
+        @media (max-width: 768px) {
+            .tile-card {
+                grid-template-columns: auto 1fr;
+                gap: 1.5rem;
+                padding: 1.75rem;
+            }
+        }
+
+        .tile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .tile-card:hover::before {
+            opacity: 1;
+        }
+
+        .tile-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 12px 40px;
+        }
+
+        /* Alternating colors */
+        .tile-card:nth-child(odd) {
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .tile-card:nth-child(odd)::before {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+        }
+
+        .tile-card:nth-child(odd):hover {
+            border-color: rgba(255, 215, 0, 0.7);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .tile-card:nth-child(odd) .tile-icon {
+            color: #FFD700;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+        }
+
+        .tile-card:nth-child(odd):hover .tile-icon {
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+        }
+
+        .tile-card:nth-child(odd) .tile-title {
+            color: #FFD700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .tile-card:nth-child(odd) .tile-badge {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            color: #FFD700;
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .tile-card:nth-child(odd):hover .tile-badge {
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+
+        .tile-card:nth-child(even) {
+            border-color: rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-card:nth-child(even)::before {
+            background: linear-gradient(90deg, rgba(79, 251, 223, 0.1) 0%, transparent 100%);
+        }
+
+        .tile-card:nth-child(even):hover {
+            border-color: rgba(79, 251, 223, 0.7);
+            box-shadow: 0 12px 40px rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-card:nth-child(even) .tile-icon {
+            color: #4FFBDF;
+            filter: drop-shadow(0 0 10px rgba(79, 251, 223, 0.4));
+        }
+
+        .tile-card:nth-child(even):hover .tile-icon {
+            filter: drop-shadow(0 0 15px rgba(79, 251, 223, 0.6));
+        }
+
+        .tile-card:nth-child(even) .tile-title {
+            color: #4FFBDF;
+            text-shadow: 0 0 15px rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-card:nth-child(even) .tile-badge {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2), rgba(79, 251, 223, 0.1));
+            color: #4FFBDF;
+            border-color: rgba(79, 251, 223, 0.4);
+        }
+
+        .tile-card:nth-child(even):hover .tile-badge {
+            box-shadow: 0 4px 12px rgba(79, 251, 223, 0.4);
+        }
+
+        /* Tile Icon */
+        .tile-icon {
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+            transition: all 0.4s;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .tile-icon {
+                width: 56px;
+                height: 56px;
+            }
+        }
+
+        .tile-card:hover .tile-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        /* Tile Content */
+        .tile-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tile-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .tile-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        .tile-description {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tile-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .tile-badge {
+                grid-column: 1 / -1;
+                justify-content: center;
+            }
+        }
+
+        .tile-card:hover .tile-badge {
+            transform: translateY(-2px);
+        }
+
+        /* Arrow Animation */
+        .tile-arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .tile-card:hover .tile-arrow {
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Definitions -->
+        <svg style="display: none;">
+            <defs>
+                <!-- Falsifiability (Popper) -->
+                <symbol id="icon-checklist" viewBox="0 0 64 64">
+                    <defs><style>.cls-1{fill:#FFD700;}</style></defs><path class="cls-1" d="M24.64,52.06a5.55,5.55,0,0,1-3.94-1.63L6.43,36.16a5.57,5.57,0,0,1,0-7.87,5.58,5.58,0,0,1,7.88,0L24.64,38.62l1.85-1.85a2,2,0,1,1,2.83,2.83l-3.26,3.26a2,2,0,0,1-2.83,0L11.48,31.11a1.57,1.57,0,0,0-2.22,2.22L23.53,47.6a1.59,1.59,0,0,0,2.22,0l29-29a1.57,1.57,0,0,0-2.22-2.21L36.63,32.29a2,2,0,0,1-2.83-2.83L49.69,13.57a5.57,5.57,0,0,1,7.88,7.87l-29,29A5.54,5.54,0,0,1,24.64,52.06Z"></path>
+                </symbol>
+
+                <!-- Reproducibility (Bacon) -->
+                <symbol id="icon-gears" viewBox="0 0 64 64">
+                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#4FFBDF">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1395 12.0002C14.1395 13.1048 13.2664 14.0002 12.1895 14.0002C11.1125 14.0002 10.2395 13.1048 10.2395 12.0002C10.2395 10.8957 11.1125 10.0002 12.1895 10.0002C13.2664 10.0002 14.1395 10.8957 14.1395 12.0002Z" stroke="#4FFBDF;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.57381 18.1003L5.12169 12.8133C4.79277 12.2907 4.79277 11.6189 5.12169 11.0963L7.55821 5.89229C7.93118 5.32445 8.55898 4.98876 9.22644 5.00029H12.1895H15.1525C15.8199 4.98876 16.4477 5.32445 16.8207 5.89229L19.2524 11.0923C19.5813 11.6149 19.5813 12.2867 19.2524 12.8093L16.8051 18.1003C16.4324 18.674 15.8002 19.0133 15.1281 19.0003H9.24984C8.5781 19.013 7.94636 18.6737 7.57381 18.1003Z" stroke="#4FFBDF;" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g></svg>
+                </symbol>
+
+                <!-- Evidentiary Traceability (Locard) -->
+                <symbol id="icon-fingerprint" viewBox="0 0 64 64">
+                    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M13.1427 20.9999C10.8077 19.5438 9.25254 16.9522 9.25254 13.9968C9.25254 12.4783 10.4833 11.2476 12.0008 11.2476C13.5184 11.2476 14.7491 12.4783 14.7491 13.9968C14.7491 15.5153 15.9798 16.746 17.4974 16.746C19.0149 16.746 20.2457 15.5153 20.2457 13.9968C20.2457 9.44139 16.5544 5.74922 12.0017 5.74922C7.44907 5.74922 3.75781 9.44139 3.75781 13.9968C3.75781 15.0122 3.87145 16.001 4.08038 16.954M8.49027 20.2989C7.23938 18.5138 6.50351 16.3419 6.50351 13.9968C6.50351 10.9599 8.96405 8.49844 11.9992 8.49844C15.0343 8.49844 17.4948 10.9599 17.4948 13.9968M17.7927 19.4806C17.6937 19.4861 17.5966 19.4953 17.4967 19.4953C14.4616 19.4953 12.0011 17.0338 12.0011 13.9969M19.6734 6.47682C17.7993 4.34802 15.0593 3 12.0004 3C8.94141 3 6.20138 4.34802 4.32734 6.47682" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </symbol>
+
+                <!-- Epistemic Uncertainties (ICD 203) -->
+                <symbol id="icon-question" viewBox="0 0 64 64">
+                    <svg fill="#4FFBDF" width="64px" height="64px" viewBox="-5.5 0 19 19" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg" stroke="#4FFBDF"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M7.987 5.653a4.536 4.536 0 0 1-.149 1.213 4.276 4.276 0 0 1-.389.958 5.186 5.186 0 0 1-.533.773c-.195.233-.386.454-.568.658l-.024.026c-.17.18-.328.353-.468.516a3.596 3.596 0 0 0-.4.567 2.832 2.832 0 0 0-.274.677 3.374 3.374 0 0 0-.099.858v.05a1.03 1.03 0 0 1-2.058 0v-.05a5.427 5.427 0 0 1 .167-1.385 4.92 4.92 0 0 1 .474-1.17 5.714 5.714 0 0 1 .63-.89c.158-.184.335-.38.525-.579.166-.187.34-.39.52-.603a3.108 3.108 0 0 0 .319-.464 2.236 2.236 0 0 0 .196-.495 2.466 2.466 0 0 0 .073-.66 1.891 1.891 0 0 0-.147-.762 1.944 1.944 0 0 0-.416-.633 1.917 1.917 0 0 0-.62-.418 1.758 1.758 0 0 0-.723-.144 1.823 1.823 0 0 0-.746.146 1.961 1.961 0 0 0-1.06 1.062 1.833 1.833 0 0 0-.146.747v.028a1.03 1.03 0 1 1-2.058 0v-.028a3.882 3.882 0 0 1 .314-1.56 4.017 4.017 0 0 1 2.135-2.139 3.866 3.866 0 0 1 1.561-.314 3.792 3.792 0 0 1 1.543.314A3.975 3.975 0 0 1 7.678 4.09a3.933 3.933 0 0 1 .31 1.563zm-2.738 9.81a1.337 1.337 0 0 1 0 1.033 1.338 1.338 0 0 1-.71.71l-.005.003a1.278 1.278 0 0 1-.505.103 1.338 1.338 0 0 1-1.244-.816 1.313 1.313 0 0 1 .284-1.451 1.396 1.396 0 0 1 .434-.283 1.346 1.346 0 0 1 .526-.105 1.284 1.284 0 0 1 .505.103l.005.003a1.404 1.404 0 0 1 .425.281 1.28 1.28 0 0 1 .285.418z"></path></g></svg>
+                </symbol>
+
+                <!-- Proportionality -->
+                <symbol id="icon-slider" viewBox="0 0 64 64">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Slider_03"> <path id="Vector" d="M10 18H21M3 18H6M6 18V20M6 18V16M20 12H21M3 12H16M16 12V14M16 12V10M14 6H21M3 6H10M10 6V8M10 6V4" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+                </symbol>
+            </defs>
+        </svg>
+
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            ← Back to Grimoire
+        </button>
+
+        <!-- Header -->
+        <header>
+            <h1>The Five Pillars</h1>
+            <p class="subtitle">
+                These five pillars define the objective of a structured OSINT methodology. Each explains why rigorous practice is essential: to guarantee reproducibility, highlight uncertainties, counter cognitive biases, preserve ethical standards, and ensure operational relevance. Understanding them transforms routine inquiries into actionable and reliable intelligence, demonstrating that methodology is not bureaucracy, but the structural foundation of rigorous analysis.
+            </p>
+        </header>
+
+        <!-- Tiles Container -->
+        <div class="tiles-container">
+            <!-- Falsifiability -->
+            <div class="tile-card" onclick="selectTemplate('falsifiability')">
+                <svg class="tile-icon"><use href="#icon-checklist"></use></svg>
+                <div class="tile-content">
+                    <h3 class="tile-title">The falsifiability</h3>
+                    <p class="tile-description">
+                        Established by Karl Popper, learn to structure your conclusions so that they can be tested and refuted, and never again rely on intuition alone.
+                    </p>
+                </div>
+                <div class="tile-badge">
+                    Understand <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Reproducibility -->
+            <div class="tile-card" onclick="selectTemplate('reproducibility')">
+                <svg class="tile-icon"><use href="#icon-gears"></use></svg>
+                <div class="tile-content">
+                    <h3 class="tile-title">The reproducibility</h3>
+                    <p class="tile-description">
+                        Based on the scientific foundations of Francis Bacon, construct analyses that anyone can reproduce, guaranteeing rigor and reliability at every stage.
+                    </p>
+                </div>
+                <div class="tile-badge">
+                    Grasp <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Evidentiary Traceability -->
+            <div class="tile-card" onclick="selectTemplate('evidentiary-traceability')">
+                <svg class="tile-icon"><use href="#icon-fingerprint"></use></svg>
+                <div class="tile-content">
+                    <h3 class="tile-title">The evidentiary traceability</h3>
+                    <p class="tile-description">
+                        As formulated by Edmond Locard, discover how each piece of data and each decision leaves a trace that makes your investigations sound and auditable.
+                    </p>
+                </div>
+                <div class="tile-badge">
+                    Decipher <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Epistemic Uncertainties -->
+            <div class="tile-card" onclick="selectTemplate('epistemic-uncertainties')">
+                <svg class="tile-icon"><use href="#icon-question"></use></svg>
+                <div class="tile-content">
+                    <h3 class="tile-title">The clarification of epistemic uncertainties</h3>
+                    <p class="tile-description">
+                        Inspired by the estimative probabilities of the American intelligence community, learn to make visible the gray areas and the degree of confidence of your conclusions.
+                    </p>
+                </div>
+                <div class="tile-badge">
+                    Clarify <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Proportionality -->
+            <div class="tile-card" onclick="selectTemplate('proportionality')">
+                <svg class="tile-icon"><use href="#icon-slider"></use></svg>
+                <div class="tile-content">
+                    <h3 class="tile-title">The proportionality</h3>
+                    <p class="tile-description">
+                        In accordance with the classic principle of proportionality in law and in matters of investigation, learn to adapt your investigative methods to the stakes, in order to remain effective while respecting ethics and legality.
+                    </p>
+                </div>
+                <div class="tile-badge">
+                    discover <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function selectTemplate(templateId) {
+            const url = `/${templateId}`;
+            
+            if (window.parent) {
+                const iframe = window.parent.document.getElementById('iframe-omf-tool');
+                if (iframe) {
+                    iframe.src = url;
+                } else {
+                    console.error("Parent iframe not found!");
+                }
+            } else {
+                window.location.href = url;
+            }
+        }
+
+        function goBack() {
+            selectTemplate('methodology');
+        }
+    </script>
+</body>
+</html>

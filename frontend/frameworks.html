@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Four Frameworks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 3rem 2rem 2rem 330px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            color: #FFD700;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.15) 100%);
+            border-color: #FFD700;
+            transform: translateX(-4px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Tiles Container */
+        .tiles-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* Tile Card */
+        .tile-card {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px) saturate(1.2);
+            -webkit-backdrop-filter: blur(25px) saturate(1.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+            min-height: 140px;
+        }
+
+        @media (max-width: 768px) {
+            .tile-card {
+                grid-template-columns: auto 1fr;
+                gap: 1.5rem;
+                padding: 1.75rem;
+            }
+        }
+
+        .tile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .tile-card:hover::before {
+            opacity: 1;
+        }
+
+        .tile-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 12px 40px;
+        }
+
+        /* Alternating colors */
+        .tile-card:nth-child(odd) {
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .tile-card:nth-child(odd)::before {
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+        }
+
+        .tile-card:nth-child(odd):hover {
+            border-color: rgba(255, 215, 0, 0.7);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .tile-card:nth-child(odd) .tile-icon {
+            color: #FFD700;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+        }
+
+        .tile-card:nth-child(odd):hover .tile-icon {
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+        }
+
+        .tile-card:nth-child(odd) .tile-title {
+            color: #FFD700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .tile-card:nth-child(odd) .tile-badge {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            color: #FFD700;
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .tile-card:nth-child(odd):hover .tile-badge {
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+
+        .tile-card:nth-child(even) {
+            border-color: rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-card:nth-child(even)::before {
+            background: linear-gradient(90deg, rgba(79, 251, 223, 0.1) 0%, transparent 100%);
+        }
+
+        .tile-card:nth-child(even):hover {
+            border-color: rgba(79, 251, 223, 0.7);
+            box-shadow: 0 12px 40px rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-card:nth-child(even) .tile-icon {
+            color: #4FFBDF;
+            filter: drop-shadow(0 0 10px rgba(79, 251, 223, 0.4));
+        }
+
+        .tile-card:nth-child(even):hover .tile-icon {
+            filter: drop-shadow(0 0 15px rgba(79, 251, 223, 0.6));
+        }
+
+        .tile-card:nth-child(even) .tile-title {
+            color: #4FFBDF;
+            text-shadow: 0 0 15px rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-card:nth-child(even) .tile-badge {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2), rgba(79, 251, 223, 0.1));
+            color: #4FFBDF;
+            border-color: rgba(79, 251, 223, 0.4);
+        }
+
+        .tile-card:nth-child(even):hover .tile-badge {
+            box-shadow: 0 4px 12px rgba(79, 251, 223, 0.4);
+        }
+
+        /* Tile Icon */
+        .tile-icon {
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+            transition: all 0.4s;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .tile-icon {
+                width: 56px;
+                height: 56px;
+            }
+        }
+
+        .tile-card:hover .tile-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        /* Tile Content */
+        .tile-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tile-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .tile-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        .tile-description {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tile-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .tile-badge {
+                grid-column: 1 / -1;
+                justify-content: center;
+            }
+        }
+
+        .tile-card:hover .tile-badge {
+            transform: translateY(-2px);
+        }
+
+        /* Arrow Animation */
+        .tile-arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .tile-card:hover .tile-arrow {
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Definitions -->
+    <svg style="display: none;">
+        <defs>
+            <!-- Intelligence Cycle Icon -->
+            <symbol id="icon-intel-cycle" viewBox="0 0 24 24">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            </symbol>
+
+            <!-- Ladder Icon -->
+            <symbol id="icon-ladder" viewBox="0 0 24 24">
+                <line x1="8" y1="2" x2="8" y2="22" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="16" y1="2" x2="16" y2="22" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="6" x2="16" y2="6" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="10" x2="16" y2="10" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="14" x2="16" y2="14" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="8" y1="18" x2="16" y2="18" stroke="currentColor" stroke-width="1.5"/>
+            </symbol>
+
+            <!-- ACH (Matrix/Grid) Icon -->
+            <symbol id="icon-ach" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="14" y="3" width="7" height="7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="3" y="14" width="7" height="7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="14" y="14" width="7" height="7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="5" y1="6" x2="8" y2="8" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="16" y1="6" x2="19" y2="8" stroke="currentColor" stroke-width="1.5"/>
+            </symbol>
+
+            <!-- Starbursting (Star with rays) Icon -->
+            <symbol id="icon-starburst" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="12" y1="2" x2="12" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="12" y1="17" x2="12" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="2" y1="12" x2="7" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="17" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="4.93" y1="4.93" x2="8.46" y2="8.46" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="15.54" y1="15.54" x2="19.07" y2="19.07" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="4.93" y1="19.07" x2="8.46" y2="15.54" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="15.54" y1="8.46" x2="19.07" y2="4.93" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </symbol>
+        </defs>
+    </svg>
+
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            ← Back to Grimoire
+        </button>
+
+        <!-- Header -->
+        <header>
+            <h1>The Four Frameworks</h1>
+            <p class="subtitle">
+                These four frameworks form the central backbone of the methodology. By assimilating them, you gain a clear overview: each step becomes understandable in its logic, allowing you to navigate rigorously and coherently through the entire process.
+            </p>
+        </header>
+
+        <!-- Tiles Container -->
+        <div class="tiles-container">
+            <!-- Intelligence Cycle -->
+            <div class="tile-card" onclick="selectTemplate('intelligence-cycle')">
+                <svg class="tile-icon"><use href="#icon-intel-cycle"></use></svg>
+                <div class="tile-content">
+                    <h3 class="tile-title">Intelligence Cycle</h3>
+                    <p class="tile-description">
+                        The five-phase iterative process that structures all intelligence operations: Planning, Collection, 
+                        Correlation, Analysis, and Reporting with continuous feedback loops.
+                    </p>
+                </div>
+                <div class="tile-badge">
+                    Explore <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Analysis Ladder -->
+            <div class="tile-card" onclick="selectTemplate('analysis-ladder')">
+                <svg class="tile-icon"><use href="#icon-ladder"></use></svg>
+                <div class="tile-content">
+                    <h3 class="tile-title">Analysis Ladder</h3>
+                    <p class="tile-description">
+                        A progressive five-level framework climbing from Raw Data to Actionable Insights, ensuring each 
+                        analytical step is properly grounded before advancing to higher abstraction.
+                    </p>
+                </div>
+                <div class="tile-badge">
+                    Climb <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- ACH (Analysis of Competing Hypotheses) -->
+            <div class="tile-card" onclick="selectTemplate('ach')">
+                <svg class="tile-icon"><use href="#icon-ach"></use></svg>
+                <div class="tile-content">
+                    <h3 class="tile-title">ACH (Analysis of Competing Hypotheses)</h3>
+                    <p class="tile-description">
+                        A structured matrix method developed by Richards Heuer for the CIA to systematically evaluate 
+                        evidence against multiple hypotheses, neutralizing confirmation bias.
+                    </p>
+                </div>
+                <div class="tile-badge">
+                    Analyze <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Starbursting -->
+            <div class="tile-card" onclick="selectTemplate('starbursting')">
+                <svg class="tile-icon"><use href="#icon-starburst"></use></svg>
+                <div class="tile-content">
+                    <h3 class="tile-title">Starbursting</h3>
+                    <p class="tile-description">
+                        A question-generation technique using the 5W1H framework (Who, What, Where, When, Why, How) 
+                        to ensure comprehensive investigation scoping and prevent framing bias.
+                    </p>
+                </div>
+                <div class="tile-badge">
+                    Question <span class="tile-arrow">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectTemplate(templateId) {
+            const url = `/${templateId}`;
+            
+            if (window.parent) {
+                const iframe = window.parent.document.getElementById('iframe-omf-tool');
+                if (iframe) {
+                    iframe.src = url;
+                } else {
+                    console.error("Parent iframe not found!");
+                }
+            } else {
+                window.location.href = url;
+            }
+        }
+
+        function goBack() {
+            selectTemplate('methodology');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grimoire - Methodology</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 3rem 2rem 2rem 330px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            color: #FFD700;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.15) 100%);
+            border-color: #FFD700;
+            transform: translateX(-4px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Tiles Grid */
+        .tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .tiles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tile Card */
+        .tile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px) saturate(1.2);
+            -webkit-backdrop-filter: blur(25px) saturate(1.2);
+            border-radius: 16px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            min-height: 220px;
+        }
+
+        .tile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .tile-card:hover::before {
+            opacity: 1;
+        }
+
+        .tile-card:hover {
+            border-color: rgba(255, 215, 0, 0.7);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Featured Tile (larger) */
+        .tile-featured {
+            grid-column: span 2;
+            grid-row: 1;
+            min-height: 400px;
+            padding: 3rem;
+        }
+
+        @media (max-width: 1200px) {
+            .tile-featured {
+                grid-column: span 2;
+                grid-row: span 1;
+                min-height: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tile-featured {
+                grid-column: span 1;
+                grid-row: span 1;
+                min-height: 280px;
+                padding: 2rem;
+            }
+        }
+
+        /* Tile Icon */
+        .tile-icon {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 1.25rem;
+            color: #FFD700;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+            transition: all 0.4s;
+            flex-shrink: 0;
+        }
+
+        .tile-featured .tile-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .tile-featured .tile-icon {
+                width: 64px;
+                height: 64px;
+            }
+        }
+
+        .tile-card:hover .tile-icon {
+            transform: scale(1.15) rotate(5deg);
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+        }
+
+        /* Tile Content */
+        .tile-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tile-featured .tile-title {
+            font-size: 2rem;
+            margin-bottom: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .tile-featured .tile-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .tile-description {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tile-featured .tile-description {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        .tile-badge {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            color: #FFD700;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            margin-top: 1rem;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tile-card:hover .tile-badge {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.15));
+        }
+
+        /* Arrow Animation */
+        .tile-arrow {
+            margin-left: 0.5rem;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .tile-card:hover .tile-arrow {
+            transform: translateX(4px);
+        }
+
+        /* Accent colors for variety */
+        .tile-card.accent-cyan {
+            border-color: rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-card.accent-cyan:hover {
+            border-color: rgba(79, 251, 223, 0.7);
+            box-shadow: 0 12px 40px rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-card.accent-cyan::before {
+            background: radial-gradient(circle at center, rgba(79, 251, 223, 0.1) 0%, transparent 70%);
+        }
+
+        .tile-card.accent-cyan .tile-icon {
+            color: #4FFBDF;
+            filter: drop-shadow(0 0 10px rgba(79, 251, 223, 0.4));
+        }
+
+        .tile-card.accent-cyan:hover .tile-icon {
+            filter: drop-shadow(0 0 15px rgba(79, 251, 223, 0.6));
+        }
+
+        .tile-card.accent-cyan .tile-title {
+            color: #4FFBDF;
+            text-shadow: 0 0 15px rgba(79, 251, 223, 0.3);
+        }
+
+        .tile-card.accent-cyan .tile-badge {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2), rgba(79, 251, 223, 0.1));
+            color: #4FFBDF;
+            border-color: rgba(79, 251, 223, 0.4);
+        }
+
+        .tile-card.accent-cyan:hover .tile-badge {
+            box-shadow: 0 4px 12px rgba(79, 251, 223, 0.4);
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3), rgba(79, 251, 223, 0.15));
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Definitions -->
+    <svg style="display: none;">
+        <defs>
+            <!-- Cycle/Refresh Icon -->
+            <symbol id="icon-cycle" viewBox="0 0 24 24">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </symbol>
+
+            <!-- Columns/Pillars Icon -->
+            <symbol id="icon-pillars" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="4" height="18" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="10" y="3" width="4" height="18" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="17" y="3" width="4" height="18" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="2" y1="21" x2="22" y2="21" stroke="currentColor" stroke-width="1.5"/>
+            </symbol>
+
+            <!-- Stairs/Levels Icon -->
+            <symbol id="icon-levels" viewBox="0 0 24 24">
+                <path d="M3 21h7v-5h4v-5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <path d="M3 21v-5h4M10 16v-5h4M17 11V6h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </symbol>
+
+            <!-- Brain/Filter Icon -->
+            <symbol id="icon-brain" viewBox="0 0 24 24">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M12 9v6M9 12h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </symbol>
+
+            <!-- Shield/Magnifier Icon -->
+            <symbol id="icon-shield-search" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+                <circle cx="11" cy="11" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="m13 13 2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </symbol>
+        </defs>
+    </svg>
+
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            ← Back to Arcarium
+        </button>
+
+        <!-- Header -->
+        <header>
+            <h1>The Grimoire</h1>
+            <p class="subtitle">
+                Master the theoretical foundations of OSINT excellence. Each chapter reveals the principles, 
+                frameworks, and cognitive tools that transform raw investigation into rigorous intelligence.
+            </p>
+        </header>
+
+        <!-- Tiles Grid -->
+        <div class="tiles-grid">
+            <!-- Featured: Four Frameworks -->
+            <div class="tile-card tile-featured" onclick="selectTemplate('frameworks')">
+                <svg class="tile-icon"><use href="#icon-cycle"></use></svg>
+                <h3 class="tile-title">The Four Frameworks</h3>
+                <p class="tile-description">
+                    Master the core methodologies that structure every investigation: the Intelligence Cycle 
+                    for systematic planning, the Analysis Ladder for progressive reasoning, ACH for hypothesis 
+                    testing, and Starbursting for comprehensive scoping.
+                </p>
+                <div class="tile-badge">
+                    Explore Frameworks <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Five Pillars -->
+            <div class="tile-card accent-cyan" onclick="selectTemplate('pillars')">
+                <svg class="tile-icon"><use href="#icon-pillars"></use></svg>
+                <h3 class="tile-title">The Five Pillars</h3>
+                <p class="tile-description">
+                    Discover the epistemological foundations: falsifiability, reproducibility, traceability, 
+                    epistemic uncertainty, and proportionality.
+                </p>
+                <div class="tile-badge">
+                    Learn Pillars <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Proportionality Levels -->
+            <div class="tile-card" onclick="selectTemplate('proportionality')">
+                <svg class="tile-icon"><use href="#icon-levels"></use></svg>
+                <h3 class="tile-title">Proportionality Levels</h3>
+                <p class="tile-description">
+                    Understand the three investigation tiers: Quick, Standard Professional, and Full Rigor 
+                    approaches tailored to context.
+                </p>
+                <div class="tile-badge">
+                    View Levels <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Debiasing Techniques -->
+            <div class="tile-card accent-cyan" onclick="selectTemplate('debiasing')">
+                <svg class="tile-icon"><use href="#icon-brain"></use></svg>
+                <h3 class="tile-title">Debiasing Techniques</h3>
+                <p class="tile-description">
+                    Combat cognitive biases with ACH, Devil's Advocate, Pre-mortem Analysis, and Heuer's 
+                    principles for clearer thinking.
+                </p>
+                <div class="tile-badge">
+                    Combat Bias <span class="tile-arrow">→</span>
+                </div>
+            </div>
+
+            <!-- Fighting Disinformation -->
+            <div class="tile-card" onclick="selectTemplate('disinformation')">
+                <svg class="tile-icon"><use href="#icon-shield-search"></use></svg>
+                <h3 class="tile-title">Fighting Disinformation</h3>
+                <p class="tile-description">
+                    Deploy PRISMA standards and applied skepticism principles to detect and neutralize 
+                    manipulation campaigns.
+                </p>
+                <div class="tile-badge">
+                    Detect Truth <span class="tile-arrow">→</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectTemplate(templateId) {
+            const url = `/${templateId}`;
+            
+            if (window.parent) {
+                const iframe = window.parent.document.getElementById('iframe-omf-tool');
+                if (iframe) {
+                    iframe.src = url;
+                } else {
+                    console.error("Parent iframe not found!");
+                }
+            } else {
+                window.location.href = url;
+            }
+        }
+
+        function goBack() {
+            selectTemplate('omf-tool');
+        }
+    </script>
+</body>
+</html>

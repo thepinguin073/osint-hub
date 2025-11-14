@@ -82,13 +82,27 @@ def osint():
 def offsec():
     return send_from_directory('frontend', 'offsec.html')
 
+
+#===========================================================+
+#      OMF
+#===========================================================+
+
 @app.route('/omf-tool')
 def omf_tool():
     return send_from_directory('frontend', 'OMF.html')
 
-@app.route('/ladder')
-def ladder():
-    return send_from_directory('frontend', 'ladder.html')
+@app.route('/methodology')
+def methodology():
+    return send_from_directory('frontend', 'methodology.html')
+
+@app.route('/frameworks')
+def frameworks():
+    return send_from_directory('frontend', 'frameworks.html')
+
+@app.route('/pillars')
+def pillars():
+    return send_from_directory('frontend', 'pillars.html')
+
 
 #===========================================================+
 #      REPORT GENERATOR
