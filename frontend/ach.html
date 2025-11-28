@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACH - OMF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 3rem 2rem 2rem 330px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .principle-text {
+            color: #FFD700;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            color: #FFD700;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.15) 100%);
+            border-color: #FFD700;
+            transform: translateX(-4px);
+        }
+
+        /* Why Section */
+        .why-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .why-title {
+            color: #FFD700;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .why-content {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .why-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .why-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .why-content strong {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(79, 251, 223, 0.3);
+        }
+
+        .comparison-title {
+            color: #4FFBDF;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid;
+        }
+
+        .card-wrong {
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
+        .card-right {
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .icon-wrong {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.15));
+            color: #ef4444;
+        }
+
+        .icon-right {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.15));
+            color: #22c55e;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .title-wrong {
+            color: #ef4444;
+        }
+
+        .title-right {
+            color: #22c55e;
+        }
+
+        .card-content {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .card-list {
+            margin-top: 0.75rem;
+            padding-left: 1.5rem;
+        }
+
+        .card-list li {
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+
+        /* Matrix Example */
+        .matrix-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(79, 251, 223, 0.3);
+            overflow-x: auto;
+        }
+
+        .matrix-title {
+            color: #4FFBDF;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .matrix-description {
+            color: #cbd5e1;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            color: #4FFBDF;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid rgba(79, 251, 223, 0.3);
+        }
+
+        td {
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            font-size: 0.9rem;
+        }
+
+        td.label-cell {
+            text-align: left;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .cell-c {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .cell-i {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .cell-na {
+            background: rgba(148, 163, 184, 0.1);
+            color: #94a3b8;
+        }
+
+        .cell-total {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2), rgba(79, 251, 223, 0.1));
+            color: #4FFBDF;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .cell-best {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.15));
+            border: 2px solid rgba(34, 197, 94, 0.6);
+        }
+
+        /* Steps Section */
+        .steps-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(79, 251, 223, 0.3);
+        }
+
+        .steps-title {
+            color: #4FFBDF;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .step-item {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            border: 1px solid rgba(79, 251, 223, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3), rgba(79, 251, 223, 0.15));
+            color: #4FFBDF;
+            border: 2px solid rgba(79, 251, 223, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            color: #4FFBDF;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .step-content {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .legend-text {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        /* Learn More */
+        .learn-more {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2) 0%, rgba(79, 251, 223, 0.1) 100%);
+            color: #4FFBDF;
+            border: 2px solid rgba(79, 251, 223, 0.4);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .github-link:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3) 0%, rgba(79, 251, 223, 0.15) 100%);
+            border-color: #4FFBDF;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 251, 223, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            ← Back to frameworks
+        </button>
+
+        <!-- Header -->
+        <header>
+            <h1>ACH</h1>
+            <p class="subtitle">
+                Analysis of Competing Hypotheses. Don't seek to confirm your favorite theory,
+                actively try to disprove it. Test ALL hypotheses simultaneously and eliminate 
+                the weakest ones. Developed by the CIA to combat confirmation bias.
+            </p>
+            <div class="principle-box">
+                <div class="principle-text">
+                    "The analyst must not seek to confirm the hypothesis, but to actively refute it."
+                </div>
+            </div>
+        </header>
+
+        <!-- Why Section -->
+        <div class="why-section">
+            <div class="why-title">🎯 Why ACH?</div>
+            <div class="why-content">
+                <p>
+                    <strong>The Problem:</strong> Your brain naturally seeks evidence that confirms 
+                    what you already believe (confirmation bias). You unconsciously ignore contradictory 
+                    evidence and over-weight supporting evidence. This leads to overconfident, fragile conclusions.
+                </p>
+                <p>
+                    <strong>The Solution:</strong> ACH flips the script. Instead of proving ONE hypothesis 
+                    right, you generate MULTIPLE competing hypotheses and test each piece of evidence against 
+                    ALL of them. Then you eliminate hypotheses with too many inconsistencies. The last one 
+                    standing isn't "proven true", it's just the least refutable.
+                </p>
+                <p>
+                    <strong>The Result:</strong> Transparent, auditable analysis. Decision-makers see exactly 
+                    which hypotheses you considered, why you rejected them, and how confident you should be 
+                    in your conclusion. No more black-box reasoning.
+                </p>
+            </div>
+        </div>
+
+        <!-- Comparison: Wrong vs Right -->
+        <div class="comparison-section">
+            <div class="comparison-title">❌ Wrong Way vs ✅ Right Way</div>
+            <div class="comparison-grid">
+                <div class="comparison-card card-wrong">
+                    <div class="card-header">
+                        <div class="card-icon icon-wrong">✗</div>
+                        <div class="card-title title-wrong">Biased Approach</div>
+                    </div>
+                    <div class="card-content">
+                        <strong>Hypothesis:</strong> "This Twitter account is a Russian bot"
+                        <ul class="card-list">
+                            <li>Look for Russian language → Found!</li>
+                            <li>Look for automated patterns → Found!</li>
+                            <li>Conclusion: "Definitely Russian bot" (80% confident)</li>
+                        </ul>
+                        <strong style="color: #ef4444;">Problem:</strong> Never tested alternative explanations. 
+                        Ignored contradictory evidence. Overconfident result.
+                    </div>
+                </div>
+
+                <div class="comparison-card card-right">
+                    <div class="card-header">
+                        <div class="card-icon icon-right">✓</div>
+                        <div class="card-title title-right">ACH Approach</div>
+                    </div>
+                    <div class="card-content">
+                        <strong>Hypotheses:</strong> Test ALL possibilities simultaneously
+                        <ul class="card-list">
+                            <li>H1: Russian state bot</li>
+                            <li>H2: Chinese bot</li>
+                            <li>H3: Legitimate automation tool</li>
+                            <li>H4: Human using scheduling software</li>
+                        </ul>
+                        Compare each evidence against ALL four. Eliminate based on inconsistencies. 
+                        Calibrated confidence based on evidence quality.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Matrix Example -->
+        <div class="matrix-section">
+            <div class="matrix-title">📊 The ACH Matrix</div>
+            <div class="matrix-description">
+                Each piece of evidence is tested against every hypothesis. Mark as Consistent (C), 
+                Inconsistent (I), or Not Applicable (N/A). The hypothesis with the fewest 
+                inconsistencies is the strongest candidate.
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Evidence</th>
+                        <th>H1: Russian</th>
+                        <th>H2: Chinese</th>
+                        <th>H3: Legit Tool</th>
+                        <th>H4: Human</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="label-cell">Language: 80% English, 15% Russian</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-i">I</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-c">C</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Timezone: UTC+3 (Moscow)</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-i">I</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-i">I</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Posts: 200/day (automated)</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-i">I</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Content: Pro-Kremlin narratives</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-i">I</td>
+                        <td class="cell-i">I</td>
+                        <td class="cell-i">I</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Technical sophistication: Moderate</td>
+                        <td class="cell-i">I</td>
+                        <td class="cell-i">I</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-c">C</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell">Profile picture: Stock photo</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-c">C</td>
+                        <td class="cell-i">I</td>
+                        <td class="cell-i">I</td>
+                    </tr>
+                    <tr style="border-top: 2px solid rgba(79, 251, 223, 0.6);">
+                        <td class="label-cell"><strong>Total Inconsistencies</strong></td>
+                        <td class="cell-total cell-best">1</td>
+                        <td class="cell-total">4</td>
+                        <td class="cell-total">2</td>
+                        <td class="cell-total">3</td>
+                    </tr>
+                    <tr>
+                        <td class="label-cell"><strong>Conclusion</strong></td>
+                        <td style="color: #22c55e; font-weight: 600;">✓ Most likely</td>
+                        <td style="color: #ef4444;">✗ Eliminated</td>
+                        <td style="color: #fb923c;">⚠ Possible</td>
+                        <td style="color: #ef4444;">✗ Unlikely</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box" style="background: rgba(34, 197, 94, 0.2);"></div>
+                    <span class="legend-text">C = Consistent (supports hypothesis)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: rgba(239, 68, 68, 0.2);"></div>
+                    <span class="legend-text">I = Inconsistent (contradicts hypothesis)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: rgba(148, 163, 184, 0.1);"></div>
+                    <span class="legend-text">N/A = Not Applicable</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 Key Steps -->
+        <div class="steps-section">
+            <div class="steps-title">🔄 4 Core Steps</div>
+
+            <div class="step-item">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Generate ALL Hypotheses</div>
+                </div>
+                <div class="step-content">
+                    Don't just pick your favorite. Brainstorm 3-7 mutually exclusive possibilities. 
+                    Include "unlikely but not impossible" options. Use Starbursting or spectrum thinking 
+                    (e.g., innocent → manipulated → coordinated → state-sponsored).
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">List ALL Evidence</div>
+                </div>
+                <div class="step-content">
+                    Collect every piece of evidence—factual observations, metadata, behavioral patterns, 
+                    absences. Rate each for reliability (source quality) and diagnosticity (how much it 
+                    helps distinguish hypotheses). Include evidence that contradicts your initial hunch.
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Build the Matrix</div>
+                </div>
+                <div class="step-content">
+                    Create a grid: Evidence (rows) × Hypotheses (columns). For each cell, mark C 
+                    (consistent), I (inconsistent), or N/A. Count inconsistencies per hypothesis. 
+                    The one with the fewest "I"s is your strongest candidate—not "proven," just 
+                    least refuted.
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Test Sensitivity</div>
+                </div>
+                <div class="step-content">
+                    Identify "linchpins"—critical evidence that, if removed or wrong, would change your 
+                    conclusion. If 1-2 pieces of evidence drive your entire result, your confidence should 
+                    be LOW. Robust conclusions depend on multiple independent sources.
+                </div>
+            </div>
+        </div>
+
+        <!-- Learn More -->
+        <div class="learn-more">
+            <a href="https://github.com/thepinguin073/OMF/blob/main/docs/frameworks/ach.md" 
+               target="_blank" 
+               class="github-link">
+                <span>📖</span>
+                <span>Read Full Documentation on GitHub</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            const url = '/frameworks';
+            
+            if (window.parent) {
+                const iframe = window.parent.document.getElementById('iframe-omf-tool');
+                if (iframe) {
+                    iframe.src = url;
+                } else {
+                    console.error("Parent iframe not found!");
+                }
+            } else {
+                window.location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Ladder - OMF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 3rem 2rem 2rem 330px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .principle-text {
+            color: #FFD700;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            color: #FFD700;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.15) 100%);
+            border-color: #FFD700;
+            transform: translateX(-4px);
+        }
+
+        /* Why Section */
+        .why-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .why-title {
+            color: #FFD700;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .why-content {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .why-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .why-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .why-content strong {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        /* Visual Ladder */
+        .visual-ladder {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(79, 251, 223, 0.3);
+        }
+
+        .ladder-title {
+            color: #4FFBDF;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .ladder-steps {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Connector line */
+        .ladder-steps::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                rgba(239, 68, 68, 0.6),
+                rgba(251, 146, 60, 0.6),
+                rgba(234, 179, 8, 0.6),
+                rgba(59, 130, 246, 0.6),
+                rgba(34, 197, 94, 0.6)
+            );
+            transform: translateX(-1px);
+        }
+
+        .ladder-step {
+            position: relative;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .ladder-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            border: 3px solid;
+        }
+
+        .step-content {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 2px solid;
+            transition: all 0.3s;
+        }
+
+        .step-content:hover {
+            transform: translateX(8px);
+        }
+
+        .step-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        /* Level 5 - Red (Top) */
+        .step-5 .step-number {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.15));
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.6);
+        }
+
+        .step-5 .step-content {
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
+        .step-5 .step-content:hover {
+            border-color: rgba(239, 68, 68, 0.7);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+        }
+
+        .step-5 .step-label {
+            color: #ef4444;
+        }
+
+        /* Level 4 - Orange */
+        .step-4 .step-number {
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.3), rgba(251, 146, 60, 0.15));
+            color: #fb923c;
+            border-color: rgba(251, 146, 60, 0.6);
+        }
+
+        .step-4 .step-content {
+            border-color: rgba(251, 146, 60, 0.4);
+        }
+
+        .step-4 .step-content:hover {
+            border-color: rgba(251, 146, 60, 0.7);
+            box-shadow: 0 8px 24px rgba(251, 146, 60, 0.3);
+        }
+
+        .step-4 .step-label {
+            color: #fb923c;
+        }
+
+        /* Level 3 - Yellow */
+        .step-3 .step-number {
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.3), rgba(234, 179, 8, 0.15));
+            color: #eab308;
+            border-color: rgba(234, 179, 8, 0.6);
+        }
+
+        .step-3 .step-content {
+            border-color: rgba(234, 179, 8, 0.4);
+        }
+
+        .step-3 .step-content:hover {
+            border-color: rgba(234, 179, 8, 0.7);
+            box-shadow: 0 8px 24px rgba(234, 179, 8, 0.3);
+        }
+
+        .step-3 .step-label {
+            color: #eab308;
+        }
+
+        /* Level 2 - Blue */
+        .step-2 .step-number {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.15));
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+
+        .step-2 .step-content {
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .step-2 .step-content:hover {
+            border-color: rgba(59, 130, 246, 0.7);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+        }
+
+        .step-2 .step-label {
+            color: #3b82f6;
+        }
+
+        /* Level 1 - Green (Bottom) */
+        .step-1 .step-number {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.15));
+            color: #22c55e;
+            border-color: rgba(34, 197, 94, 0.6);
+        }
+
+        .step-1 .step-content {
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        .step-1 .step-content:hover {
+            border-color: rgba(34, 197, 94, 0.7);
+            box-shadow: 0 8px 24px rgba(34, 197, 94, 0.3);
+        }
+
+        .step-1 .step-label {
+            color: #22c55e;
+        }
+
+        /* Rules Section */
+        .rules-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .rules-title {
+            color: #ef4444;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .rule-item {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .rule-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .rule-icon {
+            color: #ef4444;
+            font-size: 1.2rem;
+            margin-right: 0.75rem;
+        }
+
+        .rule-text {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .rule-text strong {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        /* Example Section */
+        .example-section {
+            margin: 3rem 0;
+        }
+
+        .section-header {
+            color: #f1f5f9;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .example-card {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid rgba(79, 251, 223, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .example-level {
+            color: #4FFBDF;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .level-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .example-content {
+            color: #cbd5e1;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .example-list {
+            margin-top: 0.75rem;
+            padding-left: 1.5rem;
+        }
+
+        .example-list li {
+            margin-bottom: 0.5rem;
+            color: #94a3b8;
+        }
+
+        /* Learn More */
+        .learn-more {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2) 0%, rgba(79, 251, 223, 0.1) 100%);
+            color: #4FFBDF;
+            border: 2px solid rgba(79, 251, 223, 0.4);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .github-link:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3) 0%, rgba(79, 251, 223, 0.15) 100%);
+            border-color: #4FFBDF;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 251, 223, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .ladder-steps::before {
+                left: 30px;
+            }
+
+            .ladder-step {
+                flex-direction: row;
+            }
+
+            .step-number {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            ← Back to frameworks
+        </button>
+
+        <!-- Header -->
+        <header>
+            <h1>Analysis Ladder</h1>
+            <p class="subtitle">
+                Transform raw data into actionable intelligence through structured progression. 
+                Each step filters noise, validates information, and builds understanding until 
+                you reach genuine insights.
+            </p>
+            <div class="principle-box">
+                <div class="principle-text">
+                    "You cannot reach level N+1 without solidly establishing level N"
+                </div>
+            </div>
+        </header>
+
+        <!-- Why Section -->
+        <div class="why-section">
+            <div class="why-title">🎯 Why the Analysis Ladder?</div>
+            <div class="why-content">
+                <p>
+                    <strong>The Problem:</strong> Most analysts jump directly from raw data to conclusions, 
+                    skipping critical validation steps. This creates unreliable intelligence full of 
+                    cognitive biases and unverified assumptions.
+                </p>
+                <p>
+                    <strong>The Solution:</strong> The Analysis Ladder forces systematic progression. 
+                    You climb one step at a time: collect data, validate identifiers, understand context, 
+                    detect patterns, then synthesize insights. Each level filters out noise and adds value.
+                </p>
+                <p>
+                    <strong>The Result:</strong> By the time you reach the top, you've eliminated 99% of the noise. 
+                    What remains is pure, actionable intelligence with calibrated confidence levels. 
+                    No guesswork—just rigorous methodology.
+                </p>
+            </div>
+        </div>
+
+        <!-- Visual Ladder -->
+        <div class="visual-ladder">
+            <div class="ladder-title">🪜 The 5 Levels</div>
+            <div class="ladder-steps">
+                <!-- Level 5 -->
+                <div class="ladder-step step-5">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-label">Insights</div>
+                        <div class="step-description">
+                            Actionable intelligence with calibrated confidence. Predictions, recommendations, 
+                            and decisions backed by the full analytical chain.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 4 -->
+                <div class="ladder-step step-4">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-label">Patterns</div>
+                        <div class="step-description">
+                            Recurring behaviors and anomalies. Temporal trends, linguistic signatures, 
+                            coordination indicators, and statistical regularities.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 3 -->
+                <div class="ladder-step step-3">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-label">Contextual Data</div>
+                        <div class="step-description">
+                            Relationships and environment. Social graphs, geographic context, 
+                            temporal baseline, and community mapping.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 2 -->
+                <div class="ladder-step step-2">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-label">Identifiers</div>
+                        <div class="step-description">
+                            Verified anchor points. Emails, usernames, IPs, phone numbers—each 
+                            confirmed by 2+ independent sources.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level 1 -->
+                <div class="ladder-step step-1">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-label">Raw Data</div>
+                        <div class="step-description">
+                            Unverified collection. Screenshots, profiles, posts, documents—everything 
+                            gathered before validation begins.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Critical Rules -->
+        <div class="rules-section">
+            <div class="rules-title">⚠️ Critical Rules</div>
+            
+            <div class="rule-item">
+                <span class="rule-icon">🚫</span>
+                <span class="rule-text">
+                    <strong>Never skip levels.</strong> Each step validates the one below. Jumping from raw data 
+                    to insights produces unreliable conclusions. Document any forced jumps as risks.
+                </span>
+            </div>
+
+            <div class="rule-item">
+                <span class="rule-icon">✅</span>
+                <span class="rule-text">
+                    <strong>Validate everything at Level 2.</strong> An identifier needs confirmation from 2+ 
+                    independent sources. One source = speculation. Two sources = verified anchor point.
+                </span>
+            </div>
+
+            <div class="rule-item">
+                <span class="rule-icon">📊</span>
+                <span class="rule-text">
+                    <strong>Quantify patterns at Level 4.</strong> "Often" isn't good enough. Use actual numbers: 
+                    frequency, standard deviation, sample size (n≥10 minimum).
+                </span>
+            </div>
+
+            <div class="rule-item">
+                <span class="rule-icon">🎯</span>
+                <span class="rule-text">
+                    <strong>Calibrate confidence at Level 5.</strong> Every conclusion needs a confidence level 
+                    (Low/Medium/High/Very High) with explicit justification. Never claim certainty.
+                </span>
+            </div>
+
+            <div class="rule-item">
+                <span class="rule-icon">📝</span>
+                <span class="rule-text">
+                    <strong>Document limitations always.</strong> What don't you know? What assumptions did you make? 
+                    What could prove you wrong? Honest uncertainty beats false confidence.
+                </span>
+            </div>
+        </div>
+
+        <!-- Example Section -->
+        <div class="example-section">
+            <div class="section-header">💡 Quick Example: Analyzing a Suspicious Account</div>
+
+            <div class="example-card">
+                <div class="example-level">
+                    <span class="level-badge" style="background: rgba(34, 197, 94, 0.3); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.5);">Level 1</span>
+                    <span>Raw Data Collection</span>
+                </div>
+                <div class="example-content">
+                    Collected profile screenshot, last 50 tweets, follower list (first 100), 
+                    profile images, external links shared. Total: 156 raw items.
+                    <div class="example-list">
+                        <li>No conclusions yet—just gathering everything visible</li>
+                        <li>Documented: timestamps, hashes, URLs</li>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <div class="example-level">
+                    <span class="level-badge" style="background: rgba(59, 130, 246, 0.3); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.5);">Level 2</span>
+                    <span>Identifier Validation</span>
+                </div>
+                <div class="example-content">
+                    Found email in bio, confirmed on GitHub and breach database. 
+                    Username matches Reddit account. Timezone UTC+3 confirmed via metadata.
+                    <div class="example-list">
+                        <li>Email: verified (3 sources) ✓</li>
+                        <li>Username: verified (2 sources) ✓</li>
+                        <li>Location hint: verified (metadata consistent) ✓</li>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <div class="example-level">
+                    <span class="level-badge" style="background: rgba(234, 179, 8, 0.3); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.5);">Level 3</span>
+                    <span>Context Mapping</span>
+                </div>
+                <div class="example-content">
+                    Mapped social graph: primarily follows crypto accounts (68%). Active in 
+                    #Bitcoin and #DeFi communities. Posts mostly 9am-6pm UTC+3 (likely work hours).
+                    <div class="example-list">
+                        <li>Community: Crypto/blockchain focused</li>
+                        <li>Baseline: 3-5 posts/day, weekdays only</li>
+                        <li>Network: 12 mutual connections with known traders</li>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <div class="example-level">
+                    <span class="level-badge" style="background: rgba(251, 146, 60, 0.3); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.5);">Level 4</span>
+                    <span>Pattern Detection</span>
+                </div>
+                <div class="example-content">
+                    Detected: Posts concentrated 10am-12pm and 2pm-4pm (lunch break pattern). 
+                    Uses specific phrases repeatedly. Reacts to market movements within 30 minutes.
+                    <div class="example-list">
+                        <li>Temporal pattern: 85% posts in work hours (n=120 tweets)</li>
+                        <li>Reactivity: Fast response to news (avg: 18 minutes)</li>
+                        <li>ANOMALY: Sudden 20 tweets at 3am (likely event-driven)</li>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-card">
+                <div class="example-level">
+                    <span class="level-badge" style="background: rgba(239, 68, 68, 0.3); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.5);">Level 5</span>
+                    <span>Actionable Insight</span>
+                </div>
+                <div class="example-content">
+                    <strong>Conclusion:</strong> Professional crypto trader based in Eastern Europe, 
+                    active during market hours. Legitimate account with moderate OPSEC.
+                    <div class="example-list">
+                        <li><strong>Confidence:</strong> High (78%) - multiple sources confirm</li>
+                        <li><strong>Prediction:</strong> Will post 10am-4pm UTC+3 weekdays (80% probability)</li>
+                        <li><strong>Limitation:</strong> Real identity not confirmed, location approximate</li>
+                        <li><strong>Recommendation:</strong> Monitor during market volatility for insights</li>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learn More -->
+        <div class="learn-more">
+            <a href="https://github.com/thepinguin073/OMF/blob/main/docs/frameworks/analysis-ladder.md" 
+               target="_blank" 
+               class="github-link">
+                <span>📖</span>
+                <span>Read Full Documentation on GitHub</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            const url = '/frameworks';
+            
+            if (window.parent) {
+                const iframe = window.parent.document.getElementById('iframe-omf-tool');
+                if (iframe) {
+                    iframe.src = url;
+                } else {
+                    console.error("Parent iframe not found!");
+                }
+            } else {
+                window.location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>

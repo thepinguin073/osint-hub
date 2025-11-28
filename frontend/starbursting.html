@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starbursting - OMF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 3rem 2rem 2rem 330px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .principle-text {
+            color: #FFD700;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            color: #FFD700;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.15) 100%);
+            border-color: #FFD700;
+            transform: translateX(-4px);
+        }
+
+        /* Why Section */
+        .why-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .why-title {
+            color: #FFD700;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .why-content {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .why-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .why-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .why-content strong {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        /* Star Diagram */
+        .star-diagram {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(79, 251, 223, 0.3);
+        }
+
+        .star-title {
+            color: #4FFBDF;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .star-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            aspect-ratio: 1;
+        }
+
+        .star-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3), rgba(79, 251, 223, 0.15));
+            border: 2px solid rgba(79, 251, 223, 0.6);
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            color: #4FFBDF;
+            font-size: 0.9rem;
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(79, 251, 223, 0.4);
+        }
+
+        .star-point {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 2px solid;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .star-point:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px currentColor;
+        }
+
+        .star-point-label {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .star-point-sublabel {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* Position points in a circle */
+        .point-who {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.15));
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.6);
+        }
+
+        .point-what {
+            top: 20%;
+            right: 0;
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.3), rgba(251, 146, 60, 0.15));
+            color: #fb923c;
+            border-color: rgba(251, 146, 60, 0.6);
+        }
+
+        .point-where {
+            bottom: 20%;
+            right: 0;
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.3), rgba(234, 179, 8, 0.15));
+            color: #eab308;
+            border-color: rgba(234, 179, 8, 0.6);
+        }
+
+        .point-when {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.15));
+            color: #22c55e;
+            border-color: rgba(34, 197, 94, 0.6);
+        }
+
+        .point-why {
+            bottom: 20%;
+            left: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.15));
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+
+        .point-how {
+            top: 20%;
+            left: 0;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(168, 85, 247, 0.15));
+            color: #a855f7;
+            border-color: rgba(168, 85, 247, 0.6);
+        }
+
+        .point-who:hover, .point-when:hover {
+            transform: translateX(-50%);
+        }
+
+        /* Questions Grid */
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .question-card {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 2px solid;
+            transition: all 0.3s;
+        }
+
+        .question-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .question-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .question-examples {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .question-examples li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .question-examples li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: inherit;
+        }
+
+        /* Card variants */
+        .card-who {
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+        .card-who:hover {
+            border-color: rgba(239, 68, 68, 0.7);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+        }
+        .card-who .question-icon {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.15));
+            color: #ef4444;
+        }
+        .card-who .question-title {
+            color: #ef4444;
+        }
+
+        .card-what {
+            border-color: rgba(251, 146, 60, 0.4);
+        }
+        .card-what:hover {
+            border-color: rgba(251, 146, 60, 0.7);
+            box-shadow: 0 8px 24px rgba(251, 146, 60, 0.3);
+        }
+        .card-what .question-icon {
+            background: linear-gradient(135deg, rgba(251, 146, 60, 0.3), rgba(251, 146, 60, 0.15));
+            color: #fb923c;
+        }
+        .card-what .question-title {
+            color: #fb923c;
+        }
+
+        .card-where {
+            border-color: rgba(234, 179, 8, 0.4);
+        }
+        .card-where:hover {
+            border-color: rgba(234, 179, 8, 0.7);
+            box-shadow: 0 8px 24px rgba(234, 179, 8, 0.3);
+        }
+        .card-where .question-icon {
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.3), rgba(234, 179, 8, 0.15));
+            color: #eab308;
+        }
+        .card-where .question-title {
+            color: #eab308;
+        }
+
+        .card-when {
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+        .card-when:hover {
+            border-color: rgba(34, 197, 94, 0.7);
+            box-shadow: 0 8px 24px rgba(34, 197, 94, 0.3);
+        }
+        .card-when .question-icon {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.15));
+            color: #22c55e;
+        }
+        .card-when .question-title {
+            color: #22c55e;
+        }
+
+        .card-why {
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        .card-why:hover {
+            border-color: rgba(59, 130, 246, 0.7);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+        }
+        .card-why .question-icon {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.15));
+            color: #3b82f6;
+        }
+        .card-why .question-title {
+            color: #3b82f6;
+        }
+
+        .card-how {
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+        .card-how:hover {
+            border-color: rgba(168, 85, 247, 0.7);
+            box-shadow: 0 8px 24px rgba(168, 85, 247, 0.3);
+        }
+        .card-how .question-icon {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(168, 85, 247, 0.15));
+            color: #a855f7;
+        }
+        .card-how .question-title {
+            color: #a855f7;
+        }
+
+        /* Workflow Section */
+        .workflow-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(79, 251, 223, 0.3);
+        }
+
+        .workflow-title {
+            color: #4FFBDF;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .workflow-steps {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .workflow-step {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            border: 1px solid rgba(79, 251, 223, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .workflow-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3), rgba(79, 251, 223, 0.15));
+            color: #4FFBDF;
+            border: 2px solid rgba(79, 251, 223, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            color: #4FFBDF;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .step-content {
+            color: #cbd5e1;
+            line-height: 1.6;
+            padding-left: 3rem;
+        }
+
+        /* Learn More */
+        .learn-more {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2) 0%, rgba(79, 251, 223, 0.1) 100%);
+            color: #4FFBDF;
+            border: 2px solid rgba(79, 251, 223, 0.4);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .github-link:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3) 0%, rgba(79, 251, 223, 0.15) 100%);
+            border-color: #4FFBDF;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 251, 223, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .star-container {
+                width: 300px;
+                height: 300px;
+            }
+
+            .star-center {
+                width: 80px;
+                height: 80px;
+                font-size: 0.75rem;
+            }
+
+            .star-point {
+                width: 70px;
+                height: 70px;
+                font-size: 0.8rem;
+            }
+
+            .questions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            ← Back to frameworks
+        </button>
+
+        <!-- Header -->
+        <header>
+            <h1>Starbursting</h1>
+            <p class="subtitle">
+                Generate questions first, find answers later. This planning technique prevents 
+                blind spots and framing bias by forcing you to explore all angles before 
+                you start investigating.
+            </p>
+            <div class="principle-box">
+                <div class="principle-text">
+                    "Better to ask the right questions than chase the wrong answers"
+                </div>
+            </div>
+        </header>
+
+        <!-- Why Section -->
+        <div class="why-section">
+            <div class="why-title">⚡ Why Starbursting?</div>
+            <div class="why-content">
+                <p>
+                    <strong>The Problem:</strong> Most investigators jump straight into data collection, 
+                    then realize halfway through they're missing critical information because they never 
+                    asked the right questions. This creates blind spots and wasted time.
+                </p>
+                <p>
+                    <strong>The Solution:</strong> Starbursting inverts the process. You generate ALL 
+                    questions upfront using 6 categories (Who, What, Where, When, Why, How). Only after 
+                    exhausting questions do you start collecting data. This prevents framing bias—the 
+                    #1 cause of analytical failure.
+                </p>
+                <p>
+                    <strong>The Result:</strong> A complete investigation roadmap before you touch any data. 
+                    You know exactly what you're looking for, where to look, and how to validate findings. 
+                    No surprises, no blind spots.
+                </p>
+            </div>
+        </div>
+
+        <!-- Star Diagram -->
+        <div class="star-diagram">
+            <div class="star-title">⭐ The Six-Point Star</div>
+            <div class="star-container">
+                <div class="star-center">YOUR<br>SUBJECT</div>
+                <div class="star-point point-who">
+                    <div class="star-point-label">WHO?</div>
+                    <div class="star-point-sublabel">Actors</div>
+                </div>
+                <div class="star-point point-what">
+                    <div class="star-point-label">WHAT?</div>
+                    <div class="star-point-sublabel">Nature</div>
+                </div>
+                <div class="star-point point-where">
+                    <div class="star-point-label">WHERE?</div>
+                    <div class="star-point-sublabel">Location</div>
+                </div>
+                <div class="star-point point-when">
+                    <div class="star-point-label">WHEN?</div>
+                    <div class="star-point-sublabel">Timeline</div>
+                </div>
+                <div class="star-point point-why">
+                    <div class="star-point-label">WHY?</div>
+                    <div class="star-point-sublabel">Motives</div>
+                </div>
+                <div class="star-point point-how">
+                    <div class="star-point-label">HOW?</div>
+                    <div class="star-point-sublabel">Methods</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions Grid -->
+        <div class="questions-grid">
+            <!-- WHO -->
+            <div class="question-card card-who">
+                <div class="question-header">
+                    <div class="question-icon">?</div>
+                    <div class="question-title">WHO?</div>
+                </div>
+                <ul class="question-examples">
+                    <li>Who is the primary target?</li>
+                    <li>Who are associated actors?</li>
+                    <li>Who created this content?</li>
+                    <li>Who benefits from this information?</li>
+                    <li>Who might have relevant data?</li>
+                    <li>Who validates/contradicts findings?</li>
+                </ul>
+            </div>
+
+            <!-- WHAT -->
+            <div class="question-card card-what">
+                <div class="question-header">
+                    <div class="question-icon">?</div>
+                    <div class="question-title">WHAT?</div>
+                </div>
+                <ul class="question-examples">
+                    <li>What exactly are we investigating?</li>
+                    <li>What data is public vs private?</li>
+                    <li>What evidence validates conclusions?</li>
+                    <li>What metadata is exploitable?</li>
+                    <li>What biases might affect analysis?</li>
+                    <li>What hypotheses should we test?</li>
+                </ul>
+            </div>
+
+            <!-- WHERE -->
+            <div class="question-card card-where">
+                <div class="question-header">
+                    <div class="question-icon">?</div>
+                    <div class="question-title">WHERE?</div>
+                </div>
+                <ul class="question-examples">
+                    <li>Where to search first? (platforms)</li>
+                    <li>Where is data hosted? (jurisdiction)</li>
+                    <li>Where is the target active online?</li>
+                    <li>Where are archives stored?</li>
+                    <li>Where can we cross-reference data?</li>
+                    <li>Where are likely blind spots?</li>
+                </ul>
+            </div>
+
+            <!-- WHEN -->
+            <div class="question-card card-when">
+                <div class="question-header">
+                    <div class="question-icon">?</div>
+                    <div class="question-title">WHEN?</div>
+                </div>
+                <ul class="question-examples">
+                    <li>When is the deadline?</li>
+                    <li>When did events occur?</li>
+                    <li>When were accounts created?</li>
+                    <li>When was content published/modified?</li>
+                    <li>When to verify fast-changing data?</li>
+                    <li>When to perform cross-validation?</li>
+                </ul>
+            </div>
+
+            <!-- WHY -->
+            <div class="question-card card-why">
+                <div class="question-header">
+                    <div class="question-icon">?</div>
+                    <div class="question-title">WHY?</div>
+                </div>
+                <ul class="question-examples">
+                    <li>Why is this investigation necessary?</li>
+                    <li>Why these specific objectives?</li>
+                    <li>Why does the target behave this way?</li>
+                    <li>Why is information hidden/public?</li>
+                    <li>Why trust/distrust these sources?</li>
+                    <li>Why this rigor level required?</li>
+                </ul>
+            </div>
+
+            <!-- HOW -->
+            <div class="question-card card-how">
+                <div class="question-header">
+                    <div class="question-icon">?</div>
+                    <div class="question-title">HOW?</div>
+                </div>
+                <ul class="question-examples">
+                    <li>How to collect data? (techniques)</li>
+                    <li>How to ensure legal compliance?</li>
+                    <li>How to preserve OPSEC?</li>
+                    <li>How to validate authenticity?</li>
+                    <li>How to document chain of custody?</li>
+                    <li>How to structure final report?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Workflow -->
+        <div class="workflow-section">
+            <div class="workflow-title">🔄 4-Step Workflow</div>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Draw the Star (2 min)</div>
+                    </div>
+                    <div class="step-content">
+                        Use whiteboard, mind map tool, or plain text. Put your subject in the center 
+                        (one clear sentence), add six branches for Who/What/Where/When/Why/How.
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Generate Questions (15-30 min)</div>
+                    </div>
+                    <div class="step-content">
+                        <strong>Critical:</strong> Do NOT answer questions as they come up. Just generate. 
+                        Aim for at least 3 questions per branch. The best questions often appear only 
+                        after you've exhausted obvious ones.
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Prioritize & Organize (10 min)</div>
+                    </div>
+                    <div class="step-content">
+                        Mark questions as Critical (🔴), Important (🟠), Desirable (🟢), or Optional (⚪). 
+                        Identify dependencies (which answers unlock others). Map to OSINT phases 
+                        (Planning/Collection/Correlation/Analysis/Reporting).
+                    </div>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Create Action Plan (15 min)</div>
+                    </div>
+                    <div class="step-content">
+                        For each priority question: Can you answer immediately? Needs quick research? 
+                        Requires deep investigation? Might be unanswerable (document why and impact)?
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learn More -->
+        <div class="learn-more">
+            <a href="https://github.com/thepinguin073/OMF/blob/main/docs/frameworks/starbursting.md" 
+               target="_blank" 
+               class="github-link">
+                <span>📖</span>
+                <span>Read Full Documentation on GitHub</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            const url = '/frameworks';
+            
+            if (window.parent) {
+                const iframe = window.parent.document.getElementById('iframe-omf-tool');
+                if (iframe) {
+                    iframe.src = url;
+                } else {
+                    console.error("Parent iframe not found!");
+                }
+            } else {
+                window.location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>

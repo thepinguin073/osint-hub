@@ -2,12 +2,13 @@
 #      INIT
 #===========================================================+
 
-from flask import Flask, send_from_directory, request, abort, g, Response
+from flask import Flask, send_from_directory, request, abort, g, Response, jsonify
 from flask_cors import CORS
 import socket
 import bleach
-from utilitaries import listing_keys, format_report
+from utilitaries import listing_keys, format_report, import_model, ai_answer
 
+llm, doc_manager = import_model()
 app = Flask(__name__, static_folder='frontend/static', template_folder='frontend')
 CORS(app, origins=["http://127.0.0.1:*", "http://localhost:*"], supports_credentials=True)
 
@@ -103,6 +104,22 @@ def frameworks():
 def pillars():
     return send_from_directory('frontend', 'pillars.html')
 
+@app.route('/proportionality')
+def proportionality():
+    return send_from_directory('frontend', 'proportionality.html')
+
+@app.route('/analysis-ladder')
+def analysis_ladder():
+    return send_from_directory('frontend', 'analysis-ladder.html')
+
+@app.route('/starbursting')
+def starbursting():
+    return send_from_directory('frontend', 'starbursting.html')
+
+@app.route('/ach')
+def ach():
+    return send_from_directory('frontend', 'ach.html')
+
 
 #===========================================================+
 #      REPORT GENERATOR
@@ -163,6 +180,33 @@ def favicon():
 #-----------------------POST Method-------------------------
 #===========================================================+
 
+# AI Manager
+@app.route("/ask", methods=["POST"])
+def ask():
+    try:
+        data = request.get_json(silent=True)
+        if not data:
+            return jsonify({"answer": "No data received."}), 400
+            
+        prompt = data.get("message", "")
+        if not prompt:
+            return jsonify({"answer": "Empty message received."}), 400
+            
+        if llm is None or doc_manager is None:
+            return jsonify({
+                "answer": "The AI model is not available. Please check that the model file is present in the 'models/' folder."
+            }), 503
+            
+        answer = ai_answer(llm, doc_manager, prompt)
+        return jsonify({"answer": answer})
+            
+    except Exception as e:
+        print(f"[ERROR] /ask endpoint: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({"answer": "Internal error, please try again."}), 500
+
+
 @app.route('/api/generate_report', methods=['POST'])
 def generate_report():
     try:
@@ -221,4 +265,4 @@ def generate_report():
 #===========================================================+
 
 if __name__ == "__main__":
-    app.run(port=port, debug=True)
+    app.run(port=port, debug=False)

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proportionality Levels - OMF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0D0C73;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0D0C73 0%, #1a1a2e 50%, #16213e 100%);
+            background-attachment: fixed;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 3rem 2rem 2rem 330px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        h1 {
+            color: #FFD700;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .principle-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .principle-text {
+            color: #FFD700;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* Back Button */
+        .back-button {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            color: #FFD700;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.15) 100%);
+            border-color: #FFD700;
+            transform: translateX(-4px);
+        }
+
+        /* Decision Tree */
+        .decision-tree {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(79, 251, 223, 0.3);
+        }
+
+        .decision-title {
+            color: #4FFBDF;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .decision-step {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+            border: 1px solid rgba(79, 251, 223, 0.2);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .decision-step:hover {
+            border-color: rgba(79, 251, 223, 0.5);
+            transform: translateX(4px);
+        }
+
+        .step-question {
+            color: #4FFBDF;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-result {
+            color: #FFD700;
+            font-size: 0.95rem;
+            padding-left: 1rem;
+        }
+
+        .step-arrow {
+            color: #94a3b8;
+            margin: 0.5rem 0;
+            text-align: center;
+        }
+
+        /* Level Cards */
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .level-card {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .level-card:hover::before {
+            opacity: 1;
+        }
+
+        .level-card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Quick Level - Green */
+        .level-quick {
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        .level-quick::before {
+            background: radial-gradient(circle at center, rgba(34, 197, 94, 0.15) 0%, transparent 70%);
+        }
+
+        .level-quick:hover {
+            border-color: rgba(34, 197, 94, 0.7);
+            box-shadow: 0 12px 40px rgba(34, 197, 94, 0.3);
+        }
+
+        .level-quick .level-badge {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.15));
+            color: #22c55e;
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+
+        /* Standard Level - Blue */
+        .level-standard {
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .level-standard::before {
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+        }
+
+        .level-standard:hover {
+            border-color: rgba(59, 130, 246, 0.7);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .level-standard .level-badge {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.15));
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        /* Full Rigor Level - Red */
+        .level-rigor {
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
+        .level-rigor::before {
+            background: radial-gradient(circle at center, rgba(239, 68, 68, 0.15) 0%, transparent 70%);
+        }
+
+        .level-rigor:hover {
+            border-color: rgba(239, 68, 68, 0.7);
+            box-shadow: 0 12px 40px rgba(239, 68, 68, 0.3);
+        }
+
+        .level-rigor .level-badge {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.15));
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .level-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .level-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid;
+        }
+
+        .level-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .level-stat:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .level-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .level-examples {
+            margin-top: 1rem;
+        }
+
+        .example-item {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            padding-left: 1.5rem;
+            position: relative;
+            margin-top: 0.5rem;
+        }
+
+        .example-item::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: inherit;
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            margin: 3rem 0;
+        }
+
+        .section-header {
+            color: #f1f5f9;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-table {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(79, 251, 223, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.8) 100%);
+        }
+
+        th {
+            padding: 1.25rem;
+            text-align: left;
+            color: #4FFBDF;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 2px solid rgba(79, 251, 223, 0.3);
+        }
+
+        td {
+            padding: 1rem 1.25rem;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: rgba(79, 251, 223, 0.05);
+        }
+
+        /* Learn More */
+        .learn-more {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.2) 0%, rgba(79, 251, 223, 0.1) 100%);
+            color: #4FFBDF;
+            border: 2px solid rgba(79, 251, 223, 0.4);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .github-link:hover {
+            background: linear-gradient(135deg, rgba(79, 251, 223, 0.3) 0%, rgba(79, 251, 223, 0.15) 100%);
+            border-color: #4FFBDF;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 251, 223, 0.3);
+        }
+
+        /* Why Section */
+        .why-section {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(25px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .why-title {
+            color: #FFD700;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .why-content {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .why-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .why-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .why-content strong {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .levels-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            ← Back to Grimoire
+        </button>
+
+        <!-- Header -->
+        <header>
+            <h1>Proportionality Levels</h1>
+            <p class="subtitle">
+                Not all investigations require the same rigor. Match your methodology to the stakes, 
+                deadlines, and consequences of your work. Smart investigators know when to go deep 
+                and when to move fast.
+            </p>
+            <div class="principle-box">
+                <div class="principle-text">
+                    "Rigor is not an end in itself, but a means to serve investigative objectives."
+                </div>
+            </div>
+        </header>
+
+        <!-- Why Section -->
+        <div class="why-section">
+            <div class="why-title">⚡ Why Proportionality Matters</div>
+            <div class="why-content">
+                <p>
+                    <strong>The Problem:</strong> Most OSINT practitioners either apply maximum rigor to everything 
+                    (wasting time and resources) or cut corners everywhere (producing unreliable intelligence). 
+                    Both approaches fail.
+                </p>
+                <p>
+                    <strong>The Solution:</strong> Match your methodology to the actual stakes. A 20-minute fact-check 
+                    doesn't need forensic documentation. A court case absolutely does. Think of it like medicine: 
+                    you don't hospitalize someone for a headache, but you don't treat a heart attack with aspirin.
+                </p>
+                <p>
+                    <strong>The Pareto Principle:</strong> 80% of your investigations can be handled with Quick methods. 
+                    15% need Standard rigor. Only 5% require Full Rigor. Save your energy for what truly matters.
+                </p>
+            </div>
+        </div>
+
+        <!-- Decision Tree -->
+        <div class="decision-tree">
+            <div class="decision-title">🎯 Quick Decision Guide</div>
+            
+            <div class="decision-step">
+                <div class="step-question">Legal use (court) OR national security?</div>
+                <div class="step-result">YES → <strong>Full Rigor</strong> (mandatory)</div>
+            </div>
+            <div class="step-arrow">↓ NO</div>
+            
+            <div class="decision-step">
+                <div class="step-question">Major publication OR high financial stakes (>$500K)?</div>
+                <div class="step-result">YES → <strong>Full Rigor</strong> (strongly recommended)</div>
+            </div>
+            <div class="step-arrow">↓ NO</div>
+            
+            <div class="decision-step">
+                <div class="step-question">Professional report OR management decision?</div>
+                <div class="step-result">YES → <strong>Standard Professional</strong></div>
+            </div>
+            <div class="step-arrow">↓ NO</div>
+            
+            <div class="decision-step">
+                <div class="step-question">Time available < 1 hour OR simple fact-check?</div>
+                <div class="step-result">YES → <strong>Quick Investigation</strong></div>
+            </div>
+        </div>
+
+        <!-- Level Cards -->
+        <div class="levels-grid">
+            <!-- Quick Investigation -->
+            <div class="level-card level-quick">
+                <div class="level-header">
+                    <div class="level-title">Quick Investigation</div>
+                    <div class="level-badge">80% of cases</div>
+                </div>
+                
+                <div class="level-stat">
+                    <span class="stat-label">Duration</span>
+                    <span class="stat-value">5-30 minutes</span>
+                </div>
+                <div class="level-stat">
+                    <span class="stat-label">Documentation</span>
+                    <span class="stat-value">Minimal notes</span>
+                </div>
+                <div class="level-stat">
+                    <span class="stat-label">Tools</span>
+                    <span class="stat-value">Free & fast</span>
+                </div>
+                <div class="level-stat">
+                    <span class="stat-label">Validation</span>
+                    <span class="stat-value">Self-check</span>
+                </div>
+                
+                <div class="level-description">
+                    Simple fact-checking and initial reconnaissance. Perfect for verifying basic claims, 
+                    checking account existence, or doing preliminary scoping before deeper work.
+                    
+                    <div class="level-examples">
+                        <div class="example-item">Is this Twitter account verified?</div>
+                        <div class="example-item">Has this photo circulated before?</div>
+                        <div class="example-item">When was this domain registered?</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standard Professional -->
+            <div class="level-card level-standard">
+                <div class="level-header">
+                    <div class="level-title">Standard Professional</div>
+                    <div class="level-badge">15% of cases</div>
+                </div>
+                
+                <div class="level-stat">
+                    <span class="stat-label">Duration</span>
+                    <span class="stat-value">4-40 hours (1-5 days)</span>
+                </div>
+                <div class="level-stat">
+                    <span class="stat-label">Documentation</span>
+                    <span class="stat-value">5-15 page report</span>
+                </div>
+                <div class="level-stat">
+                    <span class="stat-label">Tools</span>
+                    <span class="stat-value">Mixed free/paid</span>
+                </div>
+                <div class="level-stat">
+                    <span class="stat-label">Validation</span>
+                    <span class="stat-value">Team lead review</span>
+                </div>
+                
+                <div class="level-description">
+                    Professional investigations with structured reporting. Used for business due diligence, 
+                    journalism, client deliverables, and management decisions. Includes ACH analysis.
+                    
+                    <div class="level-examples">
+                        <div class="example-item">Complete profile of suspicious actor</div>
+                        <div class="example-item">Network mapping investigation</div>
+                        <div class="example-item">Attribution of disinformation campaign</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Rigor -->
+            <div class="level-card level-rigor">
+                <div class="level-header">
+                    <div class="level-title">Full Rigor</div>
+                    <div class="level-badge">5% of cases</div>
+                </div>
+                
+                <div class="level-stat">
+                    <span class="stat-label">Duration</span>
+                    <span class="stat-value">40-200 hours (1-4 weeks)</span>
+                </div>
+                <div class="level-stat">
+                    <span class="stat-label">Documentation</span>
+                    <span class="stat-value">20-50+ pages + annexes</span>
+                </div>
+                <div class="level-stat">
+                    <span class="stat-label">Tools</span>
+                    <span class="stat-value">Professional suite</span>
+                </div>
+                <div class="level-stat">
+                    <span class="stat-label">Validation</span>
+                    <span class="stat-value">2+ peer reviewers</span>
+                </div>
+                
+                <div class="level-description">
+                    Maximum rigor for critical stakes. Complete forensic chain of custody, cryptographic 
+                    hashing, exhaustive ACH analysis, and legal compliance. Used for court evidence.
+                    
+                    <div class="level-examples">
+                        <div class="example-item">State-sponsored cyberattack attribution</div>
+                        <div class="example-item">War crimes geolocation evidence</div>
+                        <div class="example-item">Major financial fraud investigation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-section">
+            <div class="section-header">⚖️ At a Glance Comparison</div>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criteria</th>
+                            <th>Quick</th>
+                            <th>Standard</th>
+                            <th>Full Rigor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Stakes if wrong</strong></td>
+                            <td>Low (reputation)</td>
+                            <td>Medium (financial/professional)</td>
+                            <td>High (legal/life/security)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Intended use</strong></td>
+                            <td>Internal/Personal</td>
+                            <td>Client/Management</td>
+                            <td>Court/Government</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Budget</strong></td>
+                            <td>Free ($0)</td>
+                            <td>$100-1000</td>
+                            <td>$1000-10000+</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Team size</strong></td>
+                            <td>1 analyst solo</td>
+                            <td>1-2 analysts</td>
+                            <td>3-5 team + reviewers</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Audit trail</strong></td>
+                            <td>Not required</td>
+                            <td>Internal audit</td>
+                            <td>External/legal audit</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reproducible?</strong></td>
+                            <td>Not critical</td>
+                            <td>Desirable</td>
+                            <td>Mandatory</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Learn More -->
+        <div class="learn-more">
+            <a href="https://github.com/thepinguin073/OMF/blob/main/docs/legal-ethical/proportionality.md" 
+               target="_blank" 
+               class="github-link">
+                <span>📖</span>
+                <span>Read Full Documentation on GitHub</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            const url = '/methodology';
+            
+            if (window.parent) {
+                const iframe = window.parent.document.getElementById('iframe-omf-tool');
+                if (iframe) {
+                    iframe.src = url;
+                } else {
+                    console.error("Parent iframe not found!");
+                }
+            } else {
+                window.location.href = url;
+            }
+        }
+    </script>
+</body>
+</html>

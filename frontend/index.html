@@ -626,62 +626,329 @@
       }
     }
 
-    #help-btn {
+    /* Chatbot Button */
+    #chatbot-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      width: 40px;
-      height: 40px;
-      background-color: #2d2d2d;
-      color: #fff;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #4FFBDF 0%, #00cc99 100%);
+      color: #0A1628;
       border-radius: 50%;
-      border: 2px solid rgba(255, 215, 0, 0.6);
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(79, 251, 223, 0.6);
+      box-shadow: 0 4px 20px rgba(79, 251, 223, 0.4), 0 0 40px rgba(79, 251, 223, 0.2);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-weight: bold;
-      font-size: 18px;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       z-index: 9999;
-      transition: background-color 0.2s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    #help-btn:hover {
-      background-color: #444;
+    #chatbot-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(79, 251, 223, 0.6), 0 0 60px rgba(79, 251, 223, 0.3);
     }
 
-    /* Tooltip */
-    #help-tooltip {
-      display: flex;
-      flex-flow: column wrap;
-      justify-content: center;
-      align-items: center;
+    #chatbot-btn svg {
+      width: 35px;
+      height: 35px;
+    }
+
+    /* Chatbot Tooltip */
+    #chatbot-tooltip {
       position: fixed;
-      bottom: 70px;
+      bottom: 90px;
       right: 20px;
-      width: auto;
-      max-width: 500px;
-      background-color: #333;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(20px);
       color: #fff;
-      padding: 10px 15px;
-      border-radius: 8px;
-      border: 2px solid rgba(255, 215, 0, 0.6);
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      font-size: 15px;
-      line-height: 1.8;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 2px solid rgba(79, 251, 223, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(79, 251, 223, 0.2);
+      font-size: 14px;
+      white-space: nowrap;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.2s;
+      transition: all 0.3s ease;
       z-index: 9998;
     }
 
-    #help-btn:hover + #help-tooltip {
+    #chatbot-btn:hover + #chatbot-tooltip {
       opacity: 1;
       visibility: visible;
+      transform: translateY(-5px);
     }
+
+    /* Chatbot Window */
+    .chatbot-window {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 400px;
+      height: 600px;
+      background: rgba(26, 26, 26, 0.98);
+      backdrop-filter: blur(30px) saturate(1.3);
+      border-radius: 20px;
+      border: 2px solid rgba(79, 251, 223, 0.4);
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.6), 0 0 60px rgba(79, 251, 223, 0.2);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.95);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10000;
+    }
+
+    .chatbot-window.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Chatbot Header */
+    .chatbot-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(79, 251, 223, 0.2);
+      background: linear-gradient(135deg, rgba(79, 251, 223, 0.1) 0%, transparent 100%);
+    }
+
+    .chatbot-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #4FFBDF;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .chatbot-header-left svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .beta {
+      border-radius: 6px;
+      height: 25px;
+      background: linear-gradient(45deg, #FF6B35, #ff8c42);
+      box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+      color: #FFFFFF;
+      font-family: 'Fira Code', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 5px 3px 5px 3px;
+    }
+
+    .chatbot-close-btn {
+      background: transparent;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-close-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .chatbot-close-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Chatbot Messages */
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scrollbar-width: thin;
+      scrollbar-color: #4FFBDF rgba(255, 255, 255, 0.1);
+    }
+
+    .chatbot-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chatbot-messages::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+    }
+
+    .chatbot-messages::-webkit-scrollbar-thumb {
+      background: #4FFBDF;
+      border-radius: 10px;
+    }
+
+    .chatbot-message {
+      display: flex;
+      gap: 12px;
+      animation: messageSlideIn 0.3s ease;
+    }
+
+    @keyframes messageSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .bot-message .message-avatar {
+      background: linear-gradient(135deg, #4FFBDF 0%, #00cc99 100%);
+    }
+
+    .user-message {
+      flex-direction: row-reverse;
+    }
+
+    .user-message .message-avatar {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    }
+
+    .message-content {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 12px 16px;
+      border-radius: 16px;
+      max-width: 70%;
+      line-height: 1.5;
+      font-size: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .user-message .message-content {
+      background: linear-gradient(135deg, rgba(79, 251, 223, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+      border-color: rgba(79, 251, 223, 0.3);
+    }
+
+    /* Chatbot Input */
+    .chatbot-input-container {
+      display: flex;
+      gap: 10px;
+      padding: 20px;
+      border-top: 1px solid rgba(79, 251, 223, 0.2);
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+    }
+
+    .chatbot-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #fff;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-input:focus {
+      border-color: rgba(79, 251, 223, 0.5);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 20px rgba(79, 251, 223, 0.2);
+    }
+
+    .chatbot-send-btn {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #4FFBDF 0%, #00cc99 100%);
+      border: none;
+      border-radius: 12px;
+      color: #0A1628;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(79, 251, 223, 0.4);
+    }
+
+    .chatbot-send-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .typing-dots {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 12px 16px !important;
+    }
+
+    .typing-dots span {
+      width: 8px;
+      height: 8px;
+      background: #4FFBDF;
+      border-radius: 50%;
+      animation: typingBounce 1.4s infinite ease-in-out;
+    }
+
+    .typing-dots span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .typing-dots span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-dots span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typingBounce {
+      0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.7;
+      }
+      30% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .chatbot-window {
+        width: calc(100vw - 40px);
+        height: calc(100vh - 140px);
+        right: 20px;
+        bottom: 100px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -840,8 +1107,50 @@
     </button>
   </div>
 
-  <div id="help-btn">?</div>
-  <div id="help-tooltip">Loading ...</div>
+  <!-- Chatbot Button -->
+  <div id="chatbot-btn">
+    <svg width="120px" height="120px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048"></g><g id="SVGRepo_iconCarrier"> <path d="M12 2L10.6985 7.20599C10.4445 8.22185 10.3176 8.72978 10.0531 9.14309C9.81915 9.50868 9.50868 9.81915 9.14309 10.0531C8.72978 10.3176 8.22185 10.4445 7.20599 10.6985L2 12L7.20599 13.3015C8.22185 13.5555 8.72978 13.6824 9.14309 13.9469C9.50868 14.1808 9.81915 14.4913 10.0531 14.8569C10.3176 15.2702 10.4445 15.7782 10.6985 16.794L12 22L13.3015 16.794C13.5555 15.7782 13.6824 15.2702 13.9469 14.8569C14.1808 14.4913 14.4913 14.1808 14.8569 13.9469C15.2702 13.6824 15.7782 13.5555 16.794 13.3015L22 12L16.794 10.6985C15.7782 10.4445 15.2702 10.3176 14.8569 10.0531C14.4913 9.81915 14.1808 9.50868 13.9469 9.14309C13.6824 8.72978 13.5555 8.22185 13.3015 7.20599L12 2Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+  </div>
+
+  <!-- Chatbot Tooltip on Hover -->
+  <div id="chatbot-tooltip">
+    Ask the Watcher for help. 
+  </div>
+
+  <!-- Chatbot Window -->
+  <div id="chatbot-window" class="chatbot-window">
+    <div class="chatbot-header">
+      <div class="chatbot-header-left">
+        <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048"></g><g id="SVGRepo_iconCarrier"> <path d="M12 2L10.6985 7.20599C10.4445 8.22185 10.3176 8.72978 10.0531 9.14309C9.81915 9.50868 9.50868 9.81915 9.14309 10.0531C8.72978 10.3176 8.22185 10.4445 7.20599 10.6985L2 12L7.20599 13.3015C8.22185 13.5555 8.72978 13.6824 9.14309 13.9469C9.50868 14.1808 9.81915 14.4913 10.0531 14.8569C10.3176 15.2702 10.4445 15.7782 10.6985 16.794L12 22L13.3015 16.794C13.5555 15.7782 13.6824 15.2702 13.9469 14.8569C14.1808 14.4913 14.4913 14.1808 14.8569 13.9469C15.2702 13.6824 15.7782 13.5555 16.794 13.3015L22 12L16.794 10.6985C15.7782 10.4445 15.2702 10.3176 14.8569 10.0531C14.4913 9.81915 14.1808 9.50868 13.9469 9.14309C13.6824 8.72978 13.5555 8.22185 13.3015 7.20599L12 2Z" stroke="#4FFBDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+        <span>The Watcher</span>
+        <span class="beta">Bêta</span>
+      </div>
+      <button id="chatbot-close" class="chatbot-close-btn">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="chatbot-message bot-message">
+        <div class="message-avatar">
+          <svg height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill:#05232E;" d="M137.622,168.301L19.56,286.363c-26.08,26.081-26.08,68.364,0,94.445l65.273-65.273 c12.419,0.687,24.933-0.941,36.866-4.855c16.206-16.206,57.5-50.598,79.019-68.339 C182.168,220.753,151.988,182.667,137.622,168.301z"></path> <path style="fill:#05232E;" d="M492.44,286.363L374.381,168.303c-4.493-40.194-7.771-69.505-7.771-69.505 C360.384,43.215,313.242,0,255.999,0c0,0-24.116,110.934-62.701,283.084c58.621,102.4,93.496,164.73,120.209,211.478 c8.756,6.02,17.066,11.873,25.971,17.438h20.927c24.952-25.998,40.29-61.293,40.29-100.174c0-5.497-0.317-10.92-0.915-16.258 c0.004,0-4.132-37.011-9.483-84.891c11.933,3.917,24.449,5.543,36.868,4.856l65.273,65.273 C518.52,354.728,518.52,312.444,492.44,286.363z"></path> </g> <path style="fill:#325763;" d="M202.203,495.304c17.405-81.917,53.747-330.389,53.747-330.389L255.999,0 c-57.243,0-104.385,43.215-110.601,98.798c-0.002,0-3.281,29.309-7.777,69.503c-4.758,42.544-10.879,97.28-15.922,142.378 c-5.354,47.879-9.492,84.89-9.492,84.89c-0.587,5.337-0.904,10.76-0.904,16.257c0,38.881,15.338,74.175,40.29,100.174h20.927 C181.426,507.177,193.445,501.324,202.203,495.304z"></path> <path style="fill:#FAE8AC;" d="M177.503,205.261l9.643-89.489l-30.742,285.265c-0.027,0.246-0.055,0.49-0.079,0.737l-0.026,0.239 c-0.309,3.228-0.474,6.5-0.474,9.813c0,28.594,11.982,54.39,31.197,72.642c5.373-3.693,11.877-5.859,18.889-5.859 c17.972,0,32.622,14.2,33.356,31.992c5.442,0.915,11.029,1.399,16.731,1.399l61.96-350.609 C278.631,173.264,221.495,192.557,177.503,205.261z"></path> <path style="fill:#FDF3D3;" d="M306.086,478.609c7.012,0,13.517,2.166,18.888,5.859c19.217-18.252,31.199-44.048,31.199-72.642 c0-3.312-0.165-6.585-0.48-9.814c0.004,0-0.021-0.239-0.021-0.239c-0.024-0.246-0.053-0.491-0.079-0.737L334.496,205.26 c-26.183-3.799-45.476-6.025-78.496-10.477V512c5.702,0,11.29-0.484,16.731-1.399C273.464,492.809,288.114,478.609,306.086,478.609z "></path> <path style="fill:#F6D76F;" d="M334.496,205.261l-9.651-89.555l-68.845,49.174l-35.247,30.645l35.247,38.214 C285.872,233.739,313.242,223.035,334.496,205.261z"></path> <path style="fill:#FBB071;" d="M177.503,205.261c21.254,17.774,48.623,28.478,78.496,28.478v-68.86l-0.051,0.036l-68.802-49.143 L177.503,205.261z"></path> <path style="fill:#05232E;" d="M205.913,478.609c-7.012,0-13.517,2.166-18.889,5.859c-8.756,6.019-14.502,16.102-14.502,27.532 h66.783c0-0.469-0.017-0.934-0.036-1.399C238.535,492.809,223.885,478.609,205.913,478.609z"></path> <path style="fill:#325763;" d="M324.975,484.468c-5.372-3.693-11.876-5.859-18.888-5.859c-17.972,0-32.622,14.2-33.356,31.992 c-0.019,0.465-0.036,0.931-0.036,1.399h66.783C339.478,500.57,333.732,490.487,324.975,484.468z"></path> </g></svg>
+        </div>
+        <div class="message-content">
+          Hello! I'm the Watcher, your OSINT virtual teammate.<br>Do you need help ?
+        </div>
+      </div>
+    </div>
+    <div class="chatbot-input-container">
+      <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Ask your question...">
+      <button id="chatbot-send" class="chatbot-send-btn">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
 
   <script>
 //===========================================================+
@@ -956,54 +1265,162 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 //===========================================================+
-//      Help Tooltip 
+//      Chatbot handler 
 //===========================================================+
 
-function helpHandler(){
-  const helpTooltip = document.getElementById("help-tooltip");
-  const currentPage = getDefaultPage();
+    const svgs = {
+      bot: `
+        <svg height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill:#05232E;" d="M137.622,168.301L19.56,286.363c-26.08,26.081-26.08,68.364,0,94.445l65.273-65.273 c12.419,0.687,24.933-0.941,36.866-4.855c16.206-16.206,57.5-50.598,79.019-68.339 C182.168,220.753,151.988,182.667,137.622,168.301z"></path> <path style="fill:#05232E;" d="M492.44,286.363L374.381,168.303c-4.493-40.194-7.771-69.505-7.771-69.505 C360.384,43.215,313.242,0,255.999,0c0,0-24.116,110.934-62.701,283.084c58.621,102.4,93.496,164.73,120.209,211.478 c8.756,6.02,17.066,11.873,25.971,17.438h20.927c24.952-25.998,40.29-61.293,40.29-100.174c0-5.497-0.317-10.92-0.915-16.258 c0.004,0-4.132-37.011-9.483-84.891c11.933,3.917,24.449,5.543,36.868,4.856l65.273,65.273 C518.52,354.728,518.52,312.444,492.44,286.363z"></path> </g> <path style="fill:#325763;" d="M202.203,495.304c17.405-81.917,53.747-330.389,53.747-330.389L255.999,0 c-57.243,0-104.385,43.215-110.601,98.798c-0.002,0-3.281,29.309-7.777,69.503c-4.758,42.544-10.879,97.28-15.922,142.378 c-5.354,47.879-9.492,84.89-9.492,84.89c-0.587,5.337-0.904,10.76-0.904,16.257c0,38.881,15.338,74.175,40.29,100.174h20.927 C181.426,507.177,193.445,501.324,202.203,495.304z"></path> <path style="fill:#FAE8AC;" d="M177.503,205.261l9.643-89.489l-30.742,285.265c-0.027,0.246-0.055,0.49-0.079,0.737l-0.026,0.239 c-0.309,3.228-0.474,6.5-0.474,9.813c0,28.594,11.982,54.39,31.197,72.642c5.373-3.693,11.877-5.859,18.889-5.859 c17.972,0,32.622,14.2,33.356,31.992c5.442,0.915,11.029,1.399,16.731,1.399l61.96-350.609 C278.631,173.264,221.495,192.557,177.503,205.261z"></path> <path style="fill:#FDF3D3;" d="M306.086,478.609c7.012,0,13.517,2.166,18.888,5.859c19.217-18.252,31.199-44.048,31.199-72.642 c0-3.312-0.165-6.585-0.48-9.814c0.004,0-0.021-0.239-0.021-0.239c-0.024-0.246-0.053-0.491-0.079-0.737L334.496,205.26 c-26.183-3.799-45.476-6.025-78.496-10.477V512c5.702,0,11.29-0.484,16.731-1.399C273.464,492.809,288.114,478.609,306.086,478.609z "></path> <path style="fill:#F6D76F;" d="M334.496,205.261l-9.651-89.555l-68.845,49.174l-35.247,30.645l35.247,38.214 C285.872,233.739,313.242,223.035,334.496,205.261z"></path> <path style="fill:#FBB071;" d="M177.503,205.261c21.254,17.774,48.623,28.478,78.496,28.478v-68.86l-0.051,0.036l-68.802-49.143 L177.503,205.261z"></path> <path style="fill:#05232E;" d="M205.913,478.609c-7.012,0-13.517,2.166-18.889,5.859c-8.756,6.019-14.502,16.102-14.502,27.532 h66.783c0-0.469-0.017-0.934-0.036-1.399C238.535,492.809,223.885,478.609,205.913,478.609z"></path> <path style="fill:#325763;" d="M324.975,484.468c-5.372-3.693-11.876-5.859-18.888-5.859c-17.972,0-32.622,14.2-33.356,31.992 c-0.019,0.465-0.036,0.931-0.036,1.399h66.783C339.478,500.57,333.732,490.487,324.975,484.468z"></path> </g></svg>
+        `,
+      user: `
+        <svg width="24px" height="24px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z" fill="#000000"></path> <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z" fill="#000000"></path> </g></svg>
+        `
+     };
 
-  const pageHelp = {
-    "osint-hub": {
-      title: "The Observatory",
-      description: "Explore and find the right OSINT tools for your investigation.<br><br><br>Use search, categories, regions, sources, and toggles to quickly locate tools for usernames, domains, social media, geolocation, and more.<br>Reset filters at any time to start over."
-    },
-    "offsec-hub": {
-      title: "The Armory",
-      description: "Browse and find cybersecurity tools for testing, analysis, and learning.<br><br><br>Use the various filters to refine your search and quickly find tools for analysis, exploitation, post-exploitation, web security, and much more.<br>Reset the filters at any time to start fresh."
-    },
-    "reports-generator": {
-      title: "The Scriptorium",
-      description: "Choose a report template, fill in your data or notes, and quickly generate a professional PDF report.<br>Use it to create threat intelligence, OSINT investigations, or pentest reports with clear structure and ready-to-share format.<br>Select a template, complete the fields, and export your report easily."
-    },
-    "omf-tool": {
-      title: "The Arcarium",
-      description: "Use a structured approach based on the intelligence cycle to guide your investigations.<br>Move step by step through planning, data collection, correlation, and analysis to produce meaningful insights.<br>Explore each tactic to see techniques, examples, detection methods, and mitigation advice, ensuring your work follows a systematic intelligence-driven process."
-    },
-    "coming-soon": {
-      title: "Coming Soon",
-      description: "This page is under development and will be available in a future update."
+    // Chatbot Logic
+    const chatbotBtn = document.getElementById('chatbot-btn');
+    const chatbotWindow = document.getElementById('chatbot-window');
+    const chatbotTooltip = document.getElementById("chatbot-tooltip");
+    const chatbotClose = document.getElementById('chatbot-close');
+    const chatbotInput = document.getElementById('chatbot-input');
+    const chatbotSend = document.getElementById('chatbot-send');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+
+    // Toggle chatbot window
+    chatbotBtn.addEventListener("mouseenter", () => {
+      if (!chatbotWindow.classList.contains("open")) {
+        chatbotTooltip.style.opacity = "1";
+        chatbotTooltip.style.visibility = "visible";
+        chatbotTooltip.style.transform = "translateY(-5px)";
+      }
+    });
+
+    chatbotBtn.addEventListener("mouseleave", () => {
+      chatbotTooltip.style.opacity = "0";
+      chatbotTooltip.style.visibility = "hidden";
+      chatbotTooltip.style.transform = "translateY(0)";
+    });
+
+    chatbotBtn.addEventListener("click", () => {
+      chatbotWindow.classList.toggle("open");
+
+      // Si la fenêtre est ouverte → cacher tooltip
+      if (chatbotWindow.classList.contains("open")) {
+        chatbotTooltip.style.opacity = "0";
+        chatbotTooltip.style.visibility = "hidden";
+        chatbotTooltip.style.transform = "translateY(0)";
+      }
+    });
+
+    chatbotClose.addEventListener('click', () => {
+      chatbotWindow.classList.remove('open');
+    });
+
+    function showTypingIndicator() {
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'chatbot-message bot-message typing-indicator';
+      typingDiv.id = 'typing-indicator';
+      
+      const avatar = document.createElement('div');
+      avatar.className = 'message-avatar';
+      avatar.innerHTML = svgs.bot;
+      
+      const content = document.createElement('div');
+      content.className = 'message-content typing-dots';
+      content.innerHTML = '<span></span><span></span><span></span>';
+      
+      typingDiv.appendChild(avatar);
+      typingDiv.appendChild(content);
+      chatbotMessages.appendChild(typingDiv);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
-  };
 
-  try {
-    if (contentCreated.includes(currentPage)) {
-      helpTooltip.innerHTML = pageHelp[currentPage]["description"];
-    } else {
-      helpTooltip.innerHTML = pageHelp["coming-soon"]["description"];
+    function hideTypingIndicator() {
+      const indicator = document.getElementById('typing-indicator');
+      if (indicator) {
+        indicator.remove();
+      }
     }
-  } catch(e) {
-    console.error(e);
-  }
-}
 
-const menuItems = Array.from(document.getElementsByClassName("menu-item"));
-menuItems.forEach((element) => {
-  document.addEventListener("click", () => {
-    helpHandler();
-  });
-});
 
+    // Send message
+    async function sendMessage() {
+      const message = chatbotInput.value.trim();
+      if (!message) return;
+      
+      // Add user message
+      addMessage(message, 'user');
+      chatbotInput.value = '';
+
+      showTypingIndicator();
+      
+      // Appel API
+      try {
+        const response = await fetch(`${window.location.origin}/ask`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message: message })
+        });
+        
+        const data = await response.json();
+        hideTypingIndicator();
+        addMessage(data.answer || "Sorry, I didn't understand.", 'bot');
+      } catch (error) {
+        console.error('API Error:', error);
+        setTimeout(() => {
+          const fallbackResponse = getBotResponse(message);
+          addMessage(fallbackResponse, 'bot');
+        }, 800);
+      }
+    }
+    
+
+    function addMessage(text, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chatbot-message ${sender}-message`;
+      
+      const avatar = document.createElement('div');
+      avatar.className = 'message-avatar';
+      avatar.innerHTML = sender === 'bot' ? svgs.bot : svgs.user;
+      
+      const content = document.createElement('div');
+      content.className = 'message-content';
+      content.textContent = text;
+      
+      messageDiv.appendChild(avatar);
+      messageDiv.appendChild(content);
+      chatbotMessages.appendChild(messageDiv);
+      
+      // Scroll to bottom
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function getBotResponse(message) {
+      const currentPage = getDefaultPage();
+      const lowerMessage = message.toLowerCase();
+      
+      // Réponses contextuelles basées sur la page
+      if (lowerMessage.includes('outil') || lowerMessage.includes('tool')) {
+        if (currentPage === 'osint-hub') {
+          return "In the Observatory, use the filters to find OSINT tools by category, region, or source. Looking for something specific?";
+        } else if (currentPage === 'offsec-hub') {
+          return "In the Armory, you will find cybersecurity tools categorized by phase (reconnaissance, exploitation, etc.). What type of tool are you looking for?";
+        }
+      }
+      
+      if (lowerMessage.includes('comment') || lowerMessage.includes('aide') || lowerMessage.includes('help')) {
+        return "I can help you navigate OSINT-Hub. Ask me questions about the tools, reports, or how to use the different sections!";
+      }
+      
+      return "Interesting! I'm still learning. Could you rephrase your question?";
+    }
+
+    chatbotSend.addEventListener('click', sendMessage);
+    chatbotInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
   </script>
 
 </body>

@@ -10,7 +10,7 @@ This README is also available in [🇫🇷 French](./README_fr.md)
 
 OSINT-Hub provides a centralized interface for security professionals, researchers, and enthusiasts to discover and access tools across multiple domains. The platform organizes resources by categories including reconnaissance, social engineering, web application testing, forensics, and more, with a focus on Western European resources while maintaining global coverage.
 
-![Screenshot of OSINT-Hub](newscreenshot.png "Screenshot")
+![Screenshot of OSINT-Hub](Screenshot.png "Screenshot")
 
 ---
 
@@ -32,6 +32,7 @@ Check the navigation sidebar to see which sections are live, under development, 
 
 ### Core Functionality
 - **Multi-hub platform architecture**: Currently featuring OSINT and Offensive Security sections, with additional specialized hubs in active development
+- **🤖 AI-Powered OSINT Chatbot (BETA)**: Specialized chatbot for OSINT queries and guidance - performance depends on your system specifications
 - **Modern navigation menu**: Elegant sidebar clearly indicating tool status (Live, Dev, Soon) for current and upcoming features
 - **Dynamic iframe-based page loading**: Smooth transitions between sections
 - **Legal warning system**: Prominent disclaimer toast for responsible usage
@@ -63,6 +64,7 @@ Check the navigation sidebar to see which sections are live, under development, 
 - **CORS-enabled**: Proper cross-origin configuration
 - **JSON API**: Structured tool data in `api/tools.json`
 - **Static asset management**: Organized file structure with dedicated static folder
+- **Local AI Model**: Phi-3 mini model for offline OSINT assistance
 
 ---
 
@@ -71,6 +73,8 @@ Check the navigation sidebar to see which sections are live, under development, 
 ### Prerequisites
 - Python 3.7 or higher
 - pip (Python package manager)
+- wget (for AI model download)
+- Minimum 4GB RAM recommended for AI chatbot functionality
 
 ### Quick Start
 
@@ -80,32 +84,27 @@ Check the navigation sidebar to see which sections are live, under development, 
    cd osint-hub
    ```
 
-2. **Install dependencies**:
+2. **Run the automated installer**:
    ```bash
-   pip install -r requirements.txt
+   python installer.py
    ```
    
-   Required packages:
-   - Flask
-   - flask-cors
+   The installer will automatically:
+   - Create a virtual environment
+   - Install all required dependencies (Flask, flask-cors, llama-cpp-python, etc.)
+   - Download the AI model (~2.4GB) for the OSINT chatbot
+   - Set up the complete environment
 
-   Note: If you encounter dependency conflicts or installation issues, it's recommended to use a virtual environment:
-
+3. **Activate the virtual environment**:
    ```bash
-
-   # Create virtual environment
-      python -m venv venv
-      
-      # Activate it
-      source venv/bin/activate   # On Linux/Mac
-      venv\Scripts\activate      # On Windows
-      
-      # Then install dependencies
-      pip install -r requirements.txt
-
+   # Linux/macOS
+   source ./venv/bin/activate
+   
+   # Windows
+   venv\Scripts\activate.bat
    ```
 
-3. **Run the application**:
+4. **Run the application**:
    ```bash
    python app.py
    ```
@@ -115,35 +114,16 @@ Check the navigation sidebar to see which sections are live, under development, 
    * Running on http://127.0.0.1:XXXX
    ```
 
-4. **Access the platform**:
+5. **Access the platform**:
    - Open your browser
    - Navigate to the URL displayed in the terminal
    - Accept the legal warning to proceed
+   - Explore OSINT tools, Offensive Security resources, and try the AI chatbot (BETA)
 
----
-
-## Project Structure
-
-```
-osint-hub/
-├── app.py                 # Flask application server
-├── requirements.txt       # Python dependencies
-├── api/
-│   └── tools.json        # Tool database
-├── frontend/
-│   ├── index.html        # Main navigation page
-│   ├── osint.html        # OSINT tools section
-│   ├── offsec.html       # Offensive security section
-│   ├── soon.html         # Coming soon placeholder
-│   └── static/
-│       ├── favicon.ico
-│       ├── osint-hub.css
-│       ├── osint-hub.js
-│       └── background.jpg
-├── screenshot.png
-├── LICENSE
-└── README.md
-```
+### Notes
+- **AI Chatbot Performance**: The chatbot performance depends on your system specifications. For optimal experience, a modern multi-core processor and at least 8GB RAM is recommended.
+- **First Launch**: The first time you use the chatbot, it may take a moment to load the AI model into memory.
+- **Internet Connection**: Required for initial installation and tool database updates.
 
 ---
 
@@ -198,41 +178,25 @@ The creators and contributors assume **no liability** for misuse of this platfor
 
 ---
 
-## Changelog
-
-### [v0.2.0 - 2025-01-XX]
-- Complete UI/UX overhaul with modern design system
-- Added Offensive Security hub with 100+ tools
-- Implemented Flask backend for improved routing
-- Created navigation menu with iframe-based loading
-- Added legal warning system
-- Enhanced filtering with danger levels and multi-criteria support
-- Mobile responsive improvements
-- Particle animation effects
-- Glassmorphism and neon design elements
-
-### [v0.1.0 - 2025-01-06]
-- Initial release with OSINT tools collection
-- Basic filtering system
-- Frontend-only implementation
-- Category organization
-
----
-
 ## Roadmap
 
 ### In Active Development
 
 The platform is continuously expanding beyond its current OSINT and Offensive Security hubs. Upcoming tools and features include:
 
+#### Active Development
+- **🗺️ OMF Tool**: OSINT Methodology Framework integration for guided research processes and best practice workflows ([GitHub](https://github.com/thepinguin073/OMF))
+- **🤖 AI Chatbot Improvements**: Enhanced performance optimization and expanded knowledge base
+
 #### Coming Soon
 - **📄 Reports Generator**: Automated OSINT investigation report creation with customizable templates and export formats
-- **🗺️ OMF Tool**: OSINT Methodology Framework integration for guided research processes and best practice workflows
 - **📊 Analytics Dashboard**: Usage statistics and tool popularity metrics
+- **🔗 API Integration**: Direct tool integrations for streamlined workflows and automation
 
-#### Under Development
+#### Under Consideration
 - **Enhanced Offsec Hub**: Additional exploit frameworks, post-exploitation tools, and automation scripts
-- **API Integration**: Direct tool integrations for streamlined workflows and automation
+- **Collaborative Features**: Multi-user investigation workspaces
+- **Cloud Sync**: Optional cloud backup for investigation data
 
 The navigation menu displays the current status of each section, making it easy to track which tools are live, in development, or planned for future releases. Check back regularly for updates!
 
@@ -254,6 +218,8 @@ Contributions are welcome! To contribute:
 - Fix bugs or improve documentation
 - Add new categories or features
 - Suggest new hubs or sections
+- Improve AI chatbot responses and training
+- Contribute to OMF development
 
 ---
 
@@ -265,6 +231,8 @@ This project builds upon the work of countless OSINT practitioners, security res
 - Security researchers advancing offensive security techniques ethically
 - Open-source contributors whose tools are featured here
 - Projects like Kali Linux, OWASP, and MITRE ATT&CK for framework inspiration
+- Microsoft for the Phi-3 model
+- The llama.cpp project for efficient local LLM inference
 
 ---
 
@@ -277,6 +245,8 @@ This project is licensed under the Apache 2.0 License. See [LICENSE](LICENSE) fi
 ## Support & Contact
 
 - **Issues**: Report bugs via [GitHub Issues](https://github.com/ThePinguin073/osint-hub/issues)
+- **OSINT-Hub**: [https://github.com/thepinguin073/osint-hub](https://github.com/thepinguin073/osint-hub)
+- **OMF Project**: [https://github.com/thepinguin073/OMF](https://github.com/thepinguin073/OMF)
 - **Creator**: ThePinguin073
 - **Related Project**: [Cryptex](https://cryptexhq.github.io/)
 
