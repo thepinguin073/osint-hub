@@ -37,6 +37,14 @@
           "free": true
         },
         {
+          "name": "Consensus OSINT",
+          "url": "https://github.com/OSINT-Experts-Society/Consensus-OSINT",
+          "source": "github",
+          "country": "international",
+          "flagged": false,
+          "free": true
+        },
+        {
           "name": "Sherlock",
           "url": "https://github.com/sherlock-project/sherlock",
           "source": "github",
